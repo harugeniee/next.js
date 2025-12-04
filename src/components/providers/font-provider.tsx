@@ -174,7 +174,7 @@ export function FontProvider({
     if (currentFontData) {
       // Apply font family via CSS variable
       root.style.setProperty("--font-family", currentFontData.fontFamily);
-      
+
       // Also apply directly to body element to ensure it takes effect
       if (body) {
         body.style.fontFamily = currentFontData.fontFamily;

@@ -51,7 +51,8 @@ export default function SettingsPage() {
     },
   ];
 
-  const currentLanguage = languages.find((lang) => lang.value === locale) || languages[0];
+  const currentLanguage =
+    languages.find((lang) => lang.value === locale) || languages[0];
 
   // Prevent hydration mismatch
   if (!isMounted) {
@@ -118,8 +119,10 @@ export default function SettingsPage() {
                         <Globe className="h-4 w-4 text-muted-foreground" />
                         <SelectValue
                           placeholder={
-                            t("appearance.languageSelectPlaceholder", "settings") ||
-                            "Select language"
+                            t(
+                              "appearance.languageSelectPlaceholder",
+                              "settings",
+                            ) || "Select language"
                           }
                         />
                       </div>
@@ -166,7 +169,9 @@ export default function SettingsPage() {
                 <div className="flex-shrink-0 w-full sm:w-auto sm:min-w-[200px]">
                   <Select
                     value={fontFamily}
-                    onValueChange={(value) => setFontFamily(value as typeof fontFamily)}
+                    onValueChange={(value) =>
+                      setFontFamily(value as typeof fontFamily)
+                    }
                   >
                     <SelectTrigger className="w-full sm:w-auto">
                       <div className="flex items-center gap-2">
@@ -191,11 +196,15 @@ export default function SettingsPage() {
                           <SelectItem key={font.value} value={font.value}>
                             <div className="flex items-center gap-2">
                               <span style={{ fontFamily: font.fontFamily }}>
-                                {t(`font.${font.value}`, "common") || font.label}
+                                {t(`font.${font.value}`, "common") ||
+                                  font.label}
                               </span>
                               {isDefault && (
                                 <span className="ml-2 text-xs text-muted-foreground">
-                                  ({t("appearance.default", "settings") || "default"})
+                                  (
+                                  {t("appearance.default", "settings") ||
+                                    "default"}
+                                  )
                                 </span>
                               )}
                             </div>
@@ -225,8 +234,7 @@ export default function SettingsPage() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div className="flex-1">
                   <h4 className="text-sm font-medium text-foreground mb-1">
-                    {t("appearance.colorScheme", "settings") ||
-                      "Color Scheme"}
+                    {t("appearance.colorScheme", "settings") || "Color Scheme"}
                   </h4>
                   <p className="text-xs sm:text-sm text-muted-foreground">
                     {t("appearance.colorSchemeDescription", "settings") ||
@@ -245,8 +253,10 @@ export default function SettingsPage() {
                         <Palette className="h-4 w-4 text-muted-foreground" />
                         <SelectValue
                           placeholder={
-                            t("appearance.colorSchemePlaceholder", "settings") ||
-                            "Select color scheme"
+                            t(
+                              "appearance.colorSchemePlaceholder",
+                              "settings",
+                            ) || "Select color scheme"
                           }
                         />
                       </div>
@@ -358,4 +368,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-
