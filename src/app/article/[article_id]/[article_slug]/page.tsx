@@ -7,8 +7,9 @@ import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { ScheduledCountdownDialog } from "@/components/features/article/scheduled-countdown-dialog";
-import { AuthorCard } from "@/components/features/navigation";
+import { AuthorCard, BreadcrumbNav } from "@/components/features/navigation";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { useBreadcrumb } from "@/hooks/ui";
 import { Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { ContentRenderer } from "@/components/ui/utilities/content-renderer";
@@ -43,6 +44,12 @@ export default function ArticleViewPage() {
 
   // For now, we'll assume user hasn't liked (this should be fetched separately)
   const isLiked = false; // TODO: Implement user reaction status check
+
+  // Breadcrumb items
+  const breadcrumbItems = useBreadcrumb(undefined, {
+    article_id: articleId,
+    article_title: article?.title,
+  });
 
   // Initialize reactions when article is loaded
   useEffect(() => {
@@ -141,17 +148,9 @@ export default function ArticleViewPage() {
           )}
           {!error && article && !isScheduledArticle && (
             <article className="max-w-4xl mx-auto">
-              {/* Back Button - Mobile optimized */}
+              {/* Breadcrumb Navigation */}
               <div className="mb-4 sm:mb-6">
-                <Link href="/">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2 w-full sm:w-auto justify-center sm:justify-start"
-                  >
-                    ← {t("backToHome", "article")}
-                  </Button>
-                </Link>
+                <BreadcrumbNav items={breadcrumbItems} />
               </div>
 
               {/* Cover Image Hero Section - Clean and modern */}

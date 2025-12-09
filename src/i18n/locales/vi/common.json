@@ -826,6 +826,18 @@
   "nav": {
     "brand": "MangaSBS",
     "home": "Trang chủ",
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "organizations": "Tổ chức",
+      "series": "Series",
+      "segments": "Chương",
+      "articles": "Bài viết",
+      "users": "Người dùng",
+      "settings": "Cài đặt",
+      "register": "Đăng ký",
+      "uploadSegment": "Tải lên chương",
+      "segment": "Chương"
+    },
     "write": "Viết",
     "profile": "Hồ sơ",
     "settings": "Cài đặt",
@@ -833,7 +845,8 @@
     "loggingOut": "Đang đăng xuất...",
     "language": "Ngôn ngữ",
     "theme": "Giao diện",
-    "account": "Tài khoản"
+    "account": "Tài khoản",
+    "menu": "Menu"
   },
   "theme": {
     "light": "Sáng",
@@ -870,6 +883,8 @@
     "raleway": "Raleway",
     "source-sans-pro": "Source Sans Pro",
     "comic-neue": "Comic Neue",
+    "pixelify-sans": "Pixelify Sans",
+    "comic-relief": "Comic Relief",
     "system": "Hệ thống"
   },
   "notFound": {
@@ -885,12 +900,6 @@
     "goHomepage": "Đi đến trang chủ",
     "goHomepageDesc": "Bắt đầu lại từ trang chủ của chúng tôi",
     "popularLinks": "Trang phổ biến:"
-  },
-  "nav": {
-    "menu": "Menu",
-    "language": "Ngôn ngữ",
-    "theme": "Giao diện",
-    "account": "Tài khoản"
   },
   "rateLimit": {
     "title": "Quá nhiều yêu cầu",

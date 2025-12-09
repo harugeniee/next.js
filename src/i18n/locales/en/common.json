@@ -826,6 +826,18 @@
   "nav": {
     "brand": "MangaSBS",
     "home": "Home",
+    "breadcrumb": {
+      "home": "Home",
+      "organizations": "Organizations",
+      "series": "Series",
+      "segments": "Segments",
+      "articles": "Articles",
+      "users": "Users",
+      "settings": "Settings",
+      "register": "Register",
+      "uploadSegment": "Upload Segment",
+      "segment": "Segment"
+    },
     "write": "Write",
     "profile": "Profile",
     "settings": "Settings",
@@ -833,7 +845,8 @@
     "loggingOut": "Logging out...",
     "language": "Language",
     "theme": "Theme",
-    "account": "Account"
+    "account": "Account",
+    "menu": "Menu"
   },
   "theme": {
     "light": "Light",
@@ -870,6 +883,8 @@
     "raleway": "Raleway",
     "source-sans-pro": "Source Sans Pro",
     "comic-neue": "Comic Neue",
+    "pixelify-sans": "Pixelify Sans",
+    "comic-relief": "Comic Relief",
     "system": "System"
   },
   "notFound": {
@@ -885,12 +900,6 @@
     "goHomepage": "Go to homepage",
     "goHomepageDesc": "Start fresh from our homepage",
     "popularLinks": "Popular pages:"
-  },
-  "nav": {
-    "menu": "Menu",
-    "language": "Language",
-    "theme": "Theme",
-    "account": "Account"
   },
   "rateLimit": {
     "title": "Too Many Requests",

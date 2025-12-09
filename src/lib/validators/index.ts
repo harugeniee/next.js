@@ -6,3 +6,6 @@
 
 // Export authentication validators (includes all auth-related schemas and types)
 export * from "./auth";
+
+// Export organization validators
+export * from "./organizations";

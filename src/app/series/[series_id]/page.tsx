@@ -19,6 +19,7 @@ import { AnimatedSection, Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { Badge } from "@/components/ui/core/badge";
 import { useSeries, useSeriesFull } from "@/hooks/series";
+import { usePageMetadata } from "@/hooks/ui";
 import { currentUserAtom } from "@/lib/auth";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import { cn } from "@/lib/utils";
@@ -53,6 +54,18 @@ export default function SeriesDetailPage() {
   // Only enable chapters loading after series data is fully loaded
   const shouldLoadChapters =
     isSeriesFetched && !isLoading && !error && !!series;
+
+  // Update page metadata
+  usePageMetadata({
+    title: series?.title,
+    description: series?.description
+      ? series.description.substring(0, 160)
+      : undefined,
+    image: series?.coverUrl,
+    url: typeof window !== "undefined" ? window.location.href : undefined,
+    keywords: series?.tags,
+    type: "website",
+  });
 
   // Show 404 if series not found
   if (!isLoading && !error && !series) {
@@ -181,15 +194,15 @@ export default function SeriesDetailPage() {
 
               {/* Main Content Container */}
               <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-6 lg:py-8">
-                <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+                <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8">
                   {/* Left Column - Cover Image and Metadata */}
-                  <aside className="w-full lg:w-64 xl:w-80 flex-shrink-0">
+                  <aside className="w-full md:w-56 lg:w-64 xl:w-80 flex-shrink-0">
                     {/* Cover Image - Overlapping banner on mobile, sidebar on desktop */}
                     <div
                       className={cn(
-                        "relative w-full max-w-[200px] mx-auto sm:max-w-none sm:w-full aspect-[2/3] rounded-lg sm:rounded-xl overflow-hidden shadow-lg mb-3 sm:mb-4 md:mb-6",
+                        "relative w-full max-w-[200px] mx-auto md:max-w-none md:w-full aspect-[2/3] rounded-lg sm:rounded-xl overflow-hidden shadow-lg mb-3 sm:mb-4 md:mb-6",
                         series.bannerUrl &&
-                          "-mt-16 sm:-mt-20 md:-mt-24 lg:mt-0",
+                          "-mt-16 sm:-mt-20 md:-mt-24 md:mt-0",
                       )}
                     >
                       <Image
@@ -197,7 +210,7 @@ export default function SeriesDetailPage() {
                         alt={series.title}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 640px) 200px, (max-width: 1024px) 100vw, 256px"
+                        sizes="(max-width: 640px) 200px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 320px"
                         priority
                       />
                     </div>

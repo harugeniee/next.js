@@ -194,44 +194,90 @@ export function ImageUpload({
         />
 
         {previewUrl ? (
-          <div className="relative">
-            <Image
-              src={previewUrl}
-              alt="Preview"
-              width={400}
-              height={200}
-              className="max-h-48 w-full object-cover rounded-md"
-              unoptimized
-            />
-            <div className="absolute top-2 right-2 flex gap-2">
-              {enableCrop && (
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="sm"
-                  onClick={(e) => {
-                    // Prevent parent container click from firing on mobile
-                    // which could blur or reopen input instead of dialog
-                    e.stopPropagation();
-                    if (value) {
-                      setError(null); // Clear any errors
-                      setTempFile(value);
-                      setIsEditorOpen(true);
-                    }
-                  }}
-                >
-                  {t("form.coverImageEdit", "write")}
-                </Button>
-              )}
-              <Button
-                type="button"
-                variant="destructive"
-                size="sm"
-                onClick={handleRemove}
-              >
-                {t("form.coverImageRemove", "write")}
-              </Button>
-            </div>
+          <div className="relative flex items-center justify-center">
+            {/* Avatar-style preview for square images (aspectRatio = 1) */}
+            {aspectRatio === 1 ? (
+              <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto">
+                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-border shadow-lg bg-muted">
+                  <Image
+                    src={previewUrl}
+                    alt="Logo preview"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
+                    unoptimized
+                  />
+                </div>
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
+                  {enableCrop && (
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      className="shadow-md"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (value) {
+                          setError(null);
+                          setTempFile(value);
+                          setIsEditorOpen(true);
+                        }
+                      }}
+                    >
+                      {t("form.coverImageEdit", "write") || "Edit"}
+                    </Button>
+                  )}
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="shadow-md"
+                    onClick={handleRemove}
+                  >
+                    {t("form.coverImageRemove", "write") || "Remove"}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              // Default rectangular preview for other aspect ratios
+              <div className="relative w-full">
+                <Image
+                  src={previewUrl}
+                  alt="Preview"
+                  width={400}
+                  height={200}
+                  className="max-h-48 w-full object-cover rounded-md"
+                  unoptimized
+                />
+                <div className="absolute top-2 right-2 flex gap-2">
+                  {enableCrop && (
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (value) {
+                          setError(null);
+                          setTempFile(value);
+                          setIsEditorOpen(true);
+                        }
+                      }}
+                    >
+                      {t("form.coverImageEdit", "write")}
+                    </Button>
+                  )}
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={handleRemove}
+                  >
+                    {t("form.coverImageRemove", "write")}
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="space-y-2">

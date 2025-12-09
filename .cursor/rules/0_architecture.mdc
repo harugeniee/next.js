@@ -35,6 +35,8 @@ src/
 │   ├── media/ (media handling)
 │   ├── reactions/ (reaction hooks)
 │   └── ui/ (UI hooks)
+│       ├── use-page-metadata.ts (page metadata & SEO)
+│       └── useBreadcrumb.ts (breadcrumb navigation)
 ├── i18n/ (internationalization)
 ├── lib/ (utilities, API, stores)
 │   ├── api/ (API wrappers)
@@ -45,6 +47,7 @@ src/
 │   ├── rate-limit/ (rate limiting)
 │   ├── types/ (TypeScript types)
 │   ├── utils/ (utility functions)
+│   │   └── breadcrumb.ts (breadcrumb generation utilities)
 │   └── validators/ (Zod schemas)
 └── __tests__/ (Jest + RTL tests)
 ```

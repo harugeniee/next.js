@@ -3,6 +3,7 @@ import auth from "./en/auth.json";
 import common from "./en/common.json";
 import demo from "./en/demo.json";
 import home from "./en/home.json";
+import organizations from "./en/organizations.json";
 import series from "./en/series.json";
 import profile from "./en/profile.json";
 import settings from "./en/settings.json";
@@ -22,6 +23,7 @@ const enMessages = {
   demo,
   series,
   settings,
+  organizations,
 };
 
 export default enMessages;

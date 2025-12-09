@@ -20,6 +20,7 @@ export const ROUTE_CONFIG: RouteConfig = {
   protected: [
     "/write", // Article writing
     "/user", // User management
+    "/organizations", // Organization management (create, edit, etc.)
     // Add more protected routes here:
     // "/admin",         // Admin panel
     // "/dashboard",     // User dashboard

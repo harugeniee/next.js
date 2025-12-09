@@ -3,6 +3,7 @@ export * from "./bookmark-folder.interface";
 export * from "./bookmark.interface";
 export * from "./comment.interface";
 export * from "./media.interface";
+export * from "./organization.interface";
 export * from "./series.interface";
 export * from "./reaction.interface";
 export * from "./tag.interface";

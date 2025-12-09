@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  ArrowLeft,
-  BookOpen,
-  ChevronDown,
-  ChevronUp,
-  Upload,
-  X,
-} from "lucide-react";
+import { BookOpen, ChevronDown, ChevronUp, Upload, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -16,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { ProtectedRoute } from "@/components/features/auth";
+import { BreadcrumbNav } from "@/components/features/navigation";
 import { UploadProgressSheet } from "@/components/features/series/upload-progress-sheet";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
@@ -30,6 +24,7 @@ import {
 } from "@/components/ui";
 import { Input, Label } from "@/components/ui/core";
 import { Badge } from "@/components/ui/core/badge";
+import { DateTimePicker } from "@/components/ui/core/date-time-picker";
 import {
   Select,
   SelectContent,
@@ -38,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateSegment, useSeriesFull } from "@/hooks/series";
+import { useBreadcrumb } from "@/hooks/ui";
 import type { UploadedMedia } from "@/lib/api/media";
 import {
   DEFAULT_LANGUAGE_CODE,
@@ -71,6 +67,12 @@ export default function UploadSegmentPage() {
     ? transformBackendSeries(backendSeries)
     : undefined;
 
+  // Breadcrumb items
+  const breadcrumbItems = useBreadcrumb(undefined, {
+    series_id: seriesId,
+    series_title: seriesDisplay?.title,
+  });
+
   // Form state
   const [type, setType] = useState<"trailer" | "episode" | "chapter">(
     "chapter",
@@ -92,8 +94,10 @@ export default function UploadSegmentPage() {
   const [languageCode, setLanguageCode] = useState<string>(
     DEFAULT_LANGUAGE_CODE,
   );
-  const [publishedAt, setPublishedAt] = useState<string>("");
-  const [originalReleaseDate, setOriginalReleaseDate] = useState<string>("");
+  const [publishedAt, setPublishedAt] = useState<Date | null>(null);
+  const [originalReleaseDate, setOriginalReleaseDate] = useState<Date | null>(
+    null,
+  );
   const [durationSec, setDurationSec] = useState<string>("");
   const [pageCount, setPageCount] = useState<string>("");
   const [startPage, setStartPage] = useState<string>("");
@@ -304,10 +308,8 @@ export default function UploadSegmentPage() {
         status: status || undefined,
         accessType: accessType || undefined,
         languageCode: languageCode || undefined,
-        publishedAt: publishedAt ? new Date(publishedAt) : undefined,
-        originalReleaseDate: originalReleaseDate
-          ? new Date(originalReleaseDate)
-          : undefined,
+        publishedAt: publishedAt || undefined,
+        originalReleaseDate: originalReleaseDate || undefined,
         durationSec:
           durationSec && Number(durationSec) > 0
             ? Number(durationSec)
@@ -391,15 +393,9 @@ export default function UploadSegmentPage() {
           <Skeletonize loading={isLoadingSeries}>
             {backendSeries && (
               <>
-                {/* Back Link */}
+                {/* Breadcrumb Navigation */}
                 <div className="mb-4 sm:mb-6">
-                  <Link
-                    href={`/series/${seriesId}`}
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    {t("segments.title", "series")}
-                  </Link>
+                  <BreadcrumbNav items={breadcrumbItems} />
                 </div>
 
                 {/* Series Info Card */}
@@ -1155,40 +1151,33 @@ export default function UploadSegmentPage() {
 
                         {/* Dates */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div>
-                            <Label
-                              htmlFor="publishedAt"
-                              className="text-sm font-medium"
-                            >
-                              {t("segments.form.publishedAt", "series")}
-                            </Label>
-                            <Input
-                              id="publishedAt"
-                              type="datetime-local"
-                              value={publishedAt}
-                              onChange={(e) => setPublishedAt(e.target.value)}
-                              disabled={isFormDisabled}
-                              className="mt-1.5"
-                            />
-                          </div>
-                          <div>
-                            <Label
-                              htmlFor="originalReleaseDate"
-                              className="text-sm font-medium"
-                            >
-                              {t("segments.form.originalReleaseDate", "series")}
-                            </Label>
-                            <Input
-                              id="originalReleaseDate"
-                              type="datetime-local"
-                              value={originalReleaseDate}
-                              onChange={(e) =>
-                                setOriginalReleaseDate(e.target.value)
-                              }
-                              disabled={isFormDisabled}
-                              className="mt-1.5"
-                            />
-                          </div>
+                          <DateTimePicker
+                            label={t("segments.form.publishedAt", "series")}
+                            value={publishedAt}
+                            onChange={setPublishedAt}
+                            placeholder={
+                              t(
+                                "segments.form.publishedAtPlaceholder",
+                                "series",
+                              ) || "Select publish date and time"
+                            }
+                            disabled={isFormDisabled}
+                          />
+                          <DateTimePicker
+                            label={t(
+                              "segments.form.originalReleaseDate",
+                              "series",
+                            )}
+                            value={originalReleaseDate}
+                            onChange={setOriginalReleaseDate}
+                            placeholder={
+                              t(
+                                "segments.form.originalReleaseDatePlaceholder",
+                                "series",
+                              ) || "Select original release date and time"
+                            }
+                            disabled={isFormDisabled}
+                          />
                         </div>
 
                         {/* NSFW Toggle */}

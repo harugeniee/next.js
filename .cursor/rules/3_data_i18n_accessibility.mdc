@@ -40,3 +40,36 @@ fetch(url, { next: { revalidate: 60, tags: ['posts'] } })
 - `VisuallyHidden` for non-visual labels
 - **Focus management** in dialogs and modals
 - **Screen reader** friendly components
+
+## Page Metadata & SEO
+- **usePageMetadata Hook** (`@/hooks/ui/use-page-metadata`): Update page title, meta tags, Open Graph, Twitter Cards, canonical URL
+- Use for all client component pages to improve SEO and social sharing
+- Automatically formats title as: `"{title} | MangaSBS"`
+- Updates: `document.title`, meta description, OG tags, Twitter Card, canonical link
+- **Example:**
+```tsx
+usePageMetadata({
+  title: "Series Title",
+  description: "Series description",
+  image: "https://example.com/cover.jpg",
+  url: "https://example.com/series/123",
+  keywords: ["manga", "series"],
+  type: "article"
+});
+```
+
+## Breadcrumb Navigation
+- **useBreadcrumb Hook** (`@/hooks/ui/useBreadcrumb`): Automatic breadcrumb generation with i18n support
+- **BreadcrumbNav Component** (`@/components/features/navigation/breadcrumb-nav`): Renders breadcrumb navigation
+- Supports dynamic params (titles, usernames, IDs) and translation keys
+- Translation keys use `nav.breadcrumb.*` in `common.json` namespace
+- **Auto-detection:** Automatically matches known routes (organizations, series, segments, articles, user)
+- **Custom breadcrumbs:** Pass items array directly to `useBreadcrumb([...])`
+- **Example:**
+```tsx
+const breadcrumbItems = useBreadcrumb(undefined, {
+  series_id: seriesId,
+  series_title: series?.title,
+});
+<BreadcrumbNav items={breadcrumbItems} />
+```

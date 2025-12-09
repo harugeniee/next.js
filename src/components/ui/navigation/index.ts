@@ -9,3 +9,12 @@ export {
   LanguageSwitcher,
 } from "./language-switcher";
 export { UserDropdown } from "./user-dropdown";
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
+} from "./breadcrumb";

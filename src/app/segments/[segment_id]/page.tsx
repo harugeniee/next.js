@@ -38,6 +38,8 @@ import {
 } from "@/components/ui/layout/dropdown-menu";
 import { useCurrentUser } from "@/hooks/auth";
 import { useSegment, useSeries, useSeriesFull } from "@/hooks/series";
+import { BreadcrumbNav } from "@/components/features/navigation";
+import { useBreadcrumb } from "@/hooks/ui";
 import { currentUserAtom } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { useAtom } from "jotai";
@@ -178,6 +180,22 @@ export default function SegmentDetailPage() {
     });
   };
 
+  // Get segment number for breadcrumb
+  const getSegmentNumberForBreadcrumb = () => {
+    if (!segment) return undefined;
+    if (segment.subNumber) {
+      return `${segment.number}.${segment.subNumber}`;
+    }
+    return segment.number.toString();
+  };
+
+  // Breadcrumb items
+  const breadcrumbItems = useBreadcrumb(undefined, {
+    series_id: seriesId,
+    series_title: seriesDisplay?.title,
+    segment_number: getSegmentNumberForBreadcrumb(),
+  });
+
   // Format duration helper
   const formatDuration = (seconds: number | undefined) => {
     if (!seconds) return "N/A";
@@ -276,17 +294,13 @@ export default function SegmentDetailPage() {
 
           {!segmentError && segment && (
             <>
+              {/* Breadcrumb Navigation */}
+              <div className="mb-4 sm:mb-6">
+                <BreadcrumbNav items={breadcrumbItems} />
+              </div>
+
               {/* Header */}
               <div className="mb-4 sm:mb-6">
-                {seriesId && (
-                  <Link
-                    href={`/series/${seriesId}`}
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-3 sm:mb-4 transition-colors"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    {seriesDisplay?.title || "Series"}
-                  </Link>
-                )}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                   <div>
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">

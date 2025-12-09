@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, ClockIcon } from "lucide-react";
 import * as React from "react";
 
 import { Calendar } from "@/components/ui/core";
@@ -109,7 +109,7 @@ export function DateTimePicker({
         <Label className="text-sm font-medium text-foreground">{label}</Label>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         {/* Date Picker */}
         <div className="flex-1">
           <Popover open={open} onOpenChange={setOpen}>
@@ -144,15 +144,19 @@ export function DateTimePicker({
         </div>
 
         {/* Time Picker */}
-        <div className="w-32">
-          <Input
-            type="time"
-            value={timeValue}
-            onChange={(e) => handleTimeChange(e.target.value)}
-            disabled={disabled}
-            className="bg-background"
-            step="60" // 1 minute steps
-          />
+        <div className="w-full sm:w-36">
+          <div className="relative">
+            <ClockIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+            <Input
+              type="time"
+              value={timeValue}
+              onChange={(e) => handleTimeChange(e.target.value)}
+              disabled={disabled}
+              className="bg-background pl-9"
+              step="60" // 1 minute steps
+              placeholder="HH:mm"
+            />
+          </div>
         </div>
       </div>
     </div>

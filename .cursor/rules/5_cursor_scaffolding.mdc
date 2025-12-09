@@ -26,6 +26,53 @@ See `8_mcp_tools.mdc` for detailed MCP usage guidelines.
 6. `src/i18n/locales/{en,vi}/<slug>.json`
 7. `src/__tests__/<slug>.spec.tsx`
 
+**Page Metadata & SEO (MANDATORY for all pages):**
+- Use `usePageMetadata` hook from `@/hooks/ui/use-page-metadata` for client components
+- Updates: `document.title`, meta tags, Open Graph, Twitter Cards, canonical URL
+- **Example:**
+```tsx
+import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
+
+export default function MyPage() {
+  usePageMetadata({
+    title: t("pageTitle", "namespace"),
+    description: t("pageDescription", "namespace"),
+    image: data?.coverImage,
+    url: `https://example.com${pathname}`,
+    keywords: ["keyword1", "keyword2"],
+    type: "article", // or "website"
+  });
+  // ...
+}
+```
+
+**Breadcrumb Navigation (RECOMMENDED for nested routes):**
+- Use `useBreadcrumb` hook from `@/hooks/ui/useBreadcrumb` for automatic breadcrumb generation
+- Use `BreadcrumbNav` component from `@/components/features/navigation/breadcrumb-nav`
+- Supports i18n translation keys and dynamic params (titles, usernames, etc.)
+- **Example:**
+```tsx
+import { useBreadcrumb } from "@/hooks/ui/useBreadcrumb";
+import { BreadcrumbNav } from "@/components/features/navigation";
+
+export default function MyPage() {
+  const breadcrumbItems = useBreadcrumb(undefined, {
+    series_id: seriesId,
+    series_title: series?.title,
+    // ... other dynamic params
+  });
+  
+  return (
+    <div>
+      <BreadcrumbNav items={breadcrumbItems} />
+      {/* ... rest of page */}
+    </div>
+  );
+}
+```
+- **For custom breadcrumbs:** Pass items directly: `useBreadcrumb([{ label: "...", href: "..." }])`
+- **Translation keys:** Use `nav.breadcrumb.*` keys in `common.json` namespace
+
 **When:** `Create form <name>`
 - **FIRST**: Search shadcn MCP for form components
 - Path: `src/components/features/<domain>/<name>-form.tsx`
@@ -77,3 +124,5 @@ See `8_mcp_tools.mdc` for detailed MCP usage guidelines.
 | Animation components used (AnimatedSection/Grid/Header) | ✅ |
 | Skeletonize with placeholder divs | ✅ |
 | No animation conflicts with skeleton | ✅ |
+| Page metadata (usePageMetadata) implemented | ✅ |
+| Breadcrumb navigation added (if nested route) | ✅ |
