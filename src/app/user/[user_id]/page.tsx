@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import { UserArticlesLayout } from "@/components/features/article/user-articles-layout";
+import { UserSegmentsLayout } from "@/components/features/series/user-segments-layout";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useIsMounted } from "@/components/providers/no-ssr";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
@@ -48,8 +48,8 @@ export default function ProfilePage() {
 
   const [currentUser] = useAtom(currentUserAtom);
   const [activeTab, setActiveTab] = useState<
-    "articles" | "scraps" | "comments"
-  >("articles");
+    "segments" | "scraps" | "comments"
+  >("segments");
   const isMounted = useIsMounted();
 
   // Fetch user profile data with React Query
@@ -175,7 +175,8 @@ export default function ProfilePage() {
                         </p>
                       )}
                     </div>
-                    {isOwnProfile ? (
+                    {/* Temporarily hidden Edit button */}
+                    {false && isOwnProfile ? (
                       <div className="flex items-center gap-2">
                         <Link href={`/user/${userId}/settings`}>
                           <Button
@@ -241,14 +242,14 @@ export default function ProfilePage() {
                   {/* Stats */}
                   <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-3 sm:mb-4">
                     <Link
-                      href={`/user/${userId}?tab=articles`}
+                      href={`/user/${userId}?tab=segments`}
                       className="flex items-center gap-1.5 sm:gap-2 hover:text-primary transition-colors"
                     >
                       <span className="text-base sm:text-lg font-semibold text-foreground">
-                        {profileData?._count?.articles || 0}
+                        {profileData?._count?.segments || 0}
                       </span>
                       <span className="text-xs sm:text-sm text-muted-foreground">
-                        {t("userStatsArticles", "user")}
+                        {t("userStatsSegments", "user")}
                       </span>
                     </Link>
                     <Link
@@ -332,20 +333,20 @@ export default function ProfilePage() {
         <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="flex gap-2 sm:gap-4 md:gap-8 overflow-x-auto scrollbar-hide">
             <button
-              key="articles"
-              onClick={() => setActiveTab("articles")}
+              key="segments"
+              onClick={() => setActiveTab("segments")}
               className={cn(
                 "py-3 sm:py-4 px-2 sm:px-4 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 sm:gap-2",
-                activeTab === "articles"
+                activeTab === "segments"
                   ? "border-primary text-primary"
                   : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/30",
               )}
             >
               <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>{t("tabsArticles", "profile")}</span>
-              {profileData?._count?.articles !== undefined && (
+              <span>{t("tabsSegments", "profile")}</span>
+              {profileData?._count?.segments !== undefined && (
                 <span className="text-[10px] sm:text-xs bg-muted px-1.5 py-0.5 rounded-full">
-                  {profileData._count.articles}
+                  {profileData._count.segments}
                 </span>
               )}
             </button>
@@ -384,9 +385,9 @@ export default function ProfilePage() {
 
       {/* Content Area */}
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {activeTab === "articles" && (
+        {activeTab === "segments" && (
           <AnimatedSection loading={isLoading} data={profileData}>
-            <UserArticlesLayout
+            <UserSegmentsLayout
               userId={userId}
               initialLayout="grid"
               className="mt-4 sm:mt-6"

@@ -7,8 +7,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { LoginDialog } from "@/components/features/auth";
+import MobileMenuDock from "@/components/features/navigation/mobile-menu-dock";
 import { SearchBar } from "@/components/features/series";
-import BottomNav from "@/components/features/navigation/bottom-nav";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { ThemeSelector, UserDropdown } from "@/components/ui";
 import { LanguageSwitcher } from "@/components/ui/navigation";
@@ -22,7 +22,7 @@ import {
 /**
  * Internationalized Site Navigation Component
  * Desktop navigation bar with language switcher, theme toggle, and user authentication
- * Mobile navigation is handled by BottomNav component
+ * Mobile navigation is handled by MobileMenuDock component
  */
 export default function SiteNav() {
   const { t } = useI18n();
@@ -91,9 +91,9 @@ export default function SiteNav() {
         </div>
       </header>
 
-      {/* Mobile: Fixed Bottom Menu Button - show on small screens */}
-      <div className="md:hidden fixed bottom-4 right-4 z-50">
-        <BottomNav onLogout={handleLogout} isLoggingOut={isLoggingOut} />
+      {/* Mobile: Fixed Bottom Menu Dock - show on small screens */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 pb-4 pt-2">
+        <MobileMenuDock onLogout={handleLogout} isLoggingOut={isLoggingOut} />
       </div>
     </>
   );

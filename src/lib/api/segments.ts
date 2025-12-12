@@ -1,3 +1,4 @@
+import { http } from "@/lib/http";
 import type {
   CreateSegmentDto,
   SeriesSegment,
@@ -10,7 +11,6 @@ import type {
   ApiResponseOffset,
   QueryParamsWithCursor,
 } from "@/lib/types";
-import { http } from "@/lib/http";
 
 /**
  * Query Segment DTO
@@ -19,6 +19,7 @@ import { http } from "@/lib/http";
 export interface QuerySegmentDto extends AdvancedQueryParams {
   seriesId?: string;
   type?: string;
+  userId?: string;
 }
 
 /**
@@ -28,6 +29,7 @@ export interface QuerySegmentDto extends AdvancedQueryParams {
 export interface QuerySegmentCursorDto extends QueryParamsWithCursor {
   seriesId?: string;
   languageCode?: string;
+  userId?: string;
 }
 
 /**
@@ -53,7 +55,7 @@ export class SegmentsAPI {
 
   /**
    * Get all segments with offset pagination
-   * Supports filtering by seriesId via query parameter
+   * Supports filtering by seriesId and userId via query parameters
    * @param params Query parameters with filters and pagination
    */
   static async getSegments(
@@ -69,7 +71,7 @@ export class SegmentsAPI {
   /**
    * Get all segments with cursor pagination
    * Better for real-time feeds and infinite scroll
-   * Supports filtering by seriesId via query parameter
+   * Supports filtering by seriesId and userId via query parameters
    * @param params Cursor pagination parameters
    */
   static async getSegmentsCursor(

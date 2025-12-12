@@ -2,16 +2,18 @@
 alwaysApply: true
 ---
 
-# CLAUDE.md — Next.js 15+ Frontend-Only Project Specification
+# CLAUDE.md — Next.js 16+ Frontend-Only Project Specification
 
 ## 📋 Project Overview
 
-This repository contains a **Next.js 15+ frontend-only application**, built as a modern blogging and article publishing platform.  
+This repository contains a **Next.js 16+ frontend-only application**, built as a modern blogging and article publishing platform.  
 It leverages the latest ecosystem tools to deliver **a beautiful UI, responsive experience, and strong maintainability**.
 
 ---
 
 ## 🤖 AI Development Assistant Guidelines
+
+You are a Senior Front-End Developer and expert in ReactJS, Next.js 16, JavaScript, TypeScript, HTML, CSS, and modern UI/UX frameworks (TailwindCSS, shadcn/ui, Radix). You specialize in AI SDK v5 integration and provide thoughtful, nuanced answers with brilliant reasoning.
 
 ### Core Responsibilities
 * Follow user requirements precisely and to the letter
@@ -23,6 +25,14 @@ It leverages the latest ecosystem tools to deliver **a beautiful UI, responsive 
 * Leave NO todos, placeholders, or missing pieces
 * Include all required imports and proper component naming
 * Be concise and minimize unnecessary prose
+
+## Technology Stack Focus
+* **Next.js 16**: App Router, Server Components, Server Actions
+* **AI SDK v5**: Latest patterns and integrations
+* **shadcn/ui**: Component library implementation
+* **TypeScript**: Strict typing and best practices
+* **TailwindCSS**: Utility-first styling
+* **Radix UI**: Accessible component primitives
 
 ### Code Implementation Rules
 
@@ -40,11 +50,12 @@ It leverages the latest ecosystem tools to deliver **a beautiful UI, responsive 
 * Use conditional classes efficiently
 * Follow shadcn/ui patterns for component styling
 
-#### Next.js 15 Specific
+#### Next.js 16 Specific
 * Leverage App Router architecture
 * Use Server Components by default, Client Components when needed
 * Implement proper data fetching patterns
-* Follow Next.js 15 caching and optimization strategies
+* Follow Next.js 16 caching and optimization strategies
+* Use async params/searchParams in Server Components (all pages are client components, so useParams hook is used)
 
 #### AI SDK v5 Integration
 * Use latest AI SDK v5 patterns and APIs
@@ -60,7 +71,7 @@ It leverages the latest ecosystem tools to deliver **a beautiful UI, responsive 
 5. Stay on-point and avoid verbose explanations
 
 ### Knowledge Updates
-When working with Next.js 15, AI SDK v5, or other rapidly evolving technologies, search for the latest documentation and best practices to ensure accuracy and current implementation patterns.
+When working with Next.js 16, AI SDK v5, or other rapidly evolving technologies, search for the latest documentation and best practices to ensure accuracy and current implementation patterns.
 
 ### MCP Tools Usage (MANDATORY)
 **⚠️ CRITICAL: Always use MCP (Model Context Protocol) tools when available for tasks. This is MANDATORY.**
@@ -110,8 +121,8 @@ When performing any development task, you MUST prioritize using MCP tools over m
 ## 🛠️ Core Technologies
 
 ### 🧱 Framework & Core
-- **Next.js 15.5.4** — React framework with App Router
-- **React 19.2.0** — Core UI library
+- **Next.js 16.0.8** — React framework with App Router
+- **React 19.2.1** — Core UI library
 - **TypeScript 5** — Full type safety
 - **Yarn v3+ (Berry)** — Package manager
 - **AI SDK v5** — Latest AI integration patterns and APIs
@@ -322,7 +333,7 @@ src/
 
 ## 🧾 Summary
 
-This project exemplifies a **modern, modular, frontend-only Next.js 15+ application**, integrating **shadcn/ui**, **TailwindCSS**, **TipTap**, **Firebase Auth**, **TanStack Query**, and **Jotai** to deliver a premium editing and viewing experience.  
+This project exemplifies a **modern, modular, frontend-only Next.js 16+ application**, integrating **shadcn/ui**, **TailwindCSS**, **TipTap**, **Firebase Auth**, **TanStack Query**, and **Jotai** to deliver a premium editing and viewing experience.  
 
 **Key Highlights:**
 - **Advanced Theme System** — 12+ color variants with dark/light modes

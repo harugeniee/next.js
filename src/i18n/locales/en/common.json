@@ -905,5 +905,25 @@
     "title": "Too Many Requests",
     "description": "You have hit the request limit. Please wait before trying again.",
     "retryIn": "Retry in"
+  },
+  "permissionDenied": {
+    "title": "Access Denied",
+    "description": "You don't have permission to access this resource. Please contact an administrator if you believe this is an error.",
+    "goHome": "Go Home",
+    "goBack": "Go Back",
+    "info": "Why am I seeing this?",
+    "reason1": "Insufficient permissions",
+    "reason1Desc": "You may need a specific role or permission to access this page",
+    "reason2": "Account restrictions",
+    "reason2Desc": "Your account may have restrictions that prevent access to certain features",
+    "reason3": "Need help?",
+    "reason3Desc": "Contact support or an administrator if you believe you should have access"
+  },
+  "checkingPermission": "Checking permissions...",
+  "inviteOnly": {
+    "title": "Invite Only",
+    "description": "This site is currently invite-only",
+    "message": "Access to this platform is restricted to invited users only. If you have an invitation, please use it to create your account.",
+    "understand": "I Understand"
   }
 }

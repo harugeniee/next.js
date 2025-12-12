@@ -182,6 +182,35 @@ export class SeriesAPI {
   }
 
   /**
+   * Search series by query string
+   * Uses cursor-based pagination with field filtering
+   * @param query - Search query string
+   * @param fields - Fields to search in (e.g., "title:jsonb")
+   * @param limit - Maximum number of results (default: 10)
+   * @param cursor - Cursor for pagination
+   */
+  static async searchSeries(
+    query: string,
+    fields: string = "title:jsonb",
+    limit: number = 10,
+    cursor?: string,
+  ): Promise<ApiResponseCursor<Series>> {
+    const params: Record<string, string> = {
+      fields,
+      query,
+      limit: limit.toString(),
+    };
+    if (cursor) {
+      params.cursor = cursor;
+    }
+    const response = await http.get<ApiResponseCursor<Series>>(
+      `${this.BASE_URL}/cursor`,
+      { params },
+    );
+    return response.data;
+  }
+
+  /**
    * Get AniList media list
    * Fetches paginated list from AniList API
    */

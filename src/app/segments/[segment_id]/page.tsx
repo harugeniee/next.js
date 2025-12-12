@@ -2,13 +2,12 @@
 
 import {
   ArrowLeft,
-  Download,
+  Copy,
   FileText,
   Image as ImageIcon,
   Lock,
   Maximize2,
   Minimize2,
-  Video,
   ZoomIn,
 } from "lucide-react";
 import Image from "next/image";
@@ -16,7 +15,10 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { toast } from "sonner";
+
 import { ScrambledImageCanvas } from "@/components/features/media/components/scrambled-image-canvas";
+import { BreadcrumbNav } from "@/components/features/navigation";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
 import {
@@ -37,8 +39,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
 import { useCurrentUser } from "@/hooks/auth";
-import { useSegment, useSeries, useSeriesFull } from "@/hooks/series";
-import { BreadcrumbNav } from "@/components/features/navigation";
+import { useSegment, useSeries } from "@/hooks/series";
 import { useBreadcrumb } from "@/hooks/ui";
 import { currentUserAtom } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -66,7 +67,6 @@ export default function SegmentDetailPage() {
 
   // Fetch series data for context (only when we have seriesId from segment)
   const { data: seriesDisplay } = useSeries(seriesId || "");
-  const { data: backendSeries } = useSeriesFull(seriesId || "");
 
   // Check authentication status
   // Use both query and atom to ensure reactivity on logout
@@ -80,32 +80,16 @@ export default function SegmentDetailPage() {
   type ImageSizeMode = "default" | "full" | "half" | "fit";
   const [imageSizeMode, setImageSizeMode] = useState<ImageSizeMode>("default");
 
-  // Helper functions - defined before useMemo to avoid reference errors
-  // Check if media is image
+  // Current page URL for sharing
+  const [currentUrl, setCurrentUrl] = useState<string>("");
+
+  // Helper function - Check if media is image
   const isImage = (url: string, type?: string, mimeType?: string) => {
     const mediaType = mimeType || type;
     if (mediaType) {
       return mediaType.startsWith("image/");
     }
     return /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
-  };
-
-  // Check if media is video
-  const isVideo = (url: string, type?: string, mimeType?: string) => {
-    const mediaType = mimeType || type;
-    if (mediaType) {
-      return mediaType.startsWith("video/");
-    }
-    return /\.(mp4|webm|ogg|mov|avi)$/i.test(url);
-  };
-
-  // Check if media is document
-  const isDocument = (url: string, type?: string, mimeType?: string) => {
-    const mediaType = mimeType || type;
-    if (mediaType) {
-      return mediaType.includes("pdf") || mediaType.includes("epub");
-    }
-    return /\.(pdf|epub)$/i.test(url);
   };
 
   // Get all image attachments - use useMemo to ensure it's computed before useEffect
@@ -167,19 +151,6 @@ export default function SegmentDetailPage() {
     notFound();
   }
 
-  // Format date helper
-  const formatDate = (date: Date | string | undefined) => {
-    if (!date) return "N/A";
-    const dateObj = typeof date === "string" ? new Date(date) : date;
-    return dateObj.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
   // Get segment number for breadcrumb
   const getSegmentNumberForBreadcrumb = () => {
     if (!segment) return undefined;
@@ -195,22 +166,6 @@ export default function SegmentDetailPage() {
     series_title: seriesDisplay?.title,
     segment_number: getSegmentNumberForBreadcrumb(),
   });
-
-  // Format duration helper
-  const formatDuration = (seconds: number | undefined) => {
-    if (!seconds) return "N/A";
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    }
-    if (minutes > 0) {
-      return `${minutes}m ${secs}s`;
-    }
-    return `${secs}s`;
-  };
 
   // Get segment number display
   const getSegmentNumber = () => {
@@ -260,6 +215,30 @@ export default function SegmentDetailPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [segmentId]);
+
+  // Get current URL for sharing
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, [segmentId]);
+
+  // Copy link to clipboard
+  const handleCopyLink = async () => {
+    try {
+      const urlToCopy = currentUrl || window.location.href;
+      await navigator.clipboard.writeText(urlToCopy);
+      toast.success(
+        t("segments.linkCopied", "series") || "Link copied to clipboard!",
+      );
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+      toast.error(
+        t("segments.linkCopyError", "series") ||
+          "Failed to copy link. Please try again.",
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -334,6 +313,27 @@ export default function SegmentDetailPage() {
                           {getAccessTypeText()}
                         </Badge>
                       )}
+                    </div>
+                    {/* Copy Link Section */}
+                    <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row gap-2 sm:items-center">
+                      {/* Link Display */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 border border-border rounded-md">
+                          <span className="text-xs sm:text-sm text-muted-foreground truncate flex-1 min-w-0">
+                            {currentUrl || ""}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Copy Link Button */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleCopyLink}
+                        className="gap-2 shrink-0"
+                      >
+                        <Copy className="h-4 w-4" />
+                        {t("segments.copyLink", "series") || "Copy Link"}
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -627,133 +627,17 @@ export default function SegmentDetailPage() {
                     </Card>
                   )}
 
-                  {/* Non-Image Attachments (Videos, Documents) */}
-                  {((segment.attachments && segment.attachments.length > 0) ||
-                    (segment.media && segment.media.length > 0)) && (
-                    <>
-                      {(segment.attachments || segment.media || []).some(
-                        (media) =>
-                          !isImage(media.url, media.type, media.mimeType),
-                      ) && (
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="text-base sm:text-lg">
-                              Other Attachments
-                            </CardTitle>
-                            <CardDescription>
-                              Videos and documents
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              {(segment.attachments || segment.media || [])
-                                .filter(
-                                  (media) =>
-                                    !isImage(
-                                      media.url,
-                                      media.type,
-                                      media.mimeType,
-                                    ),
-                                )
-                                .map((media) => (
-                                  <div
-                                    key={media.id}
-                                    className="relative group border border-border rounded-lg overflow-hidden bg-card hover:shadow-md transition-shadow"
-                                  >
-                                    {/* Video */}
-                                    {isVideo(
-                                      media.url,
-                                      media.type,
-                                      media.mimeType,
-                                    ) && (
-                                      <div className="relative aspect-video w-full bg-black">
-                                        <video
-                                          src={media.url}
-                                          controls
-                                          className="w-full h-full"
-                                        >
-                                          Your browser does not support the
-                                          video tag.
-                                        </video>
-                                        <div className="absolute top-2 left-2">
-                                          <Badge
-                                            variant="secondary"
-                                            className="gap-1"
-                                          >
-                                            <Video className="h-3 w-3" />
-                                            Video
-                                          </Badge>
-                                        </div>
-                                      </div>
-                                    )}
-
-                                    {/* Document */}
-                                    {isDocument(
-                                      media.url,
-                                      media.type,
-                                      media.mimeType,
-                                    ) && (
-                                      <div className="p-6 flex flex-col items-center justify-center min-h-[200px]">
-                                        <FileText className="h-12 w-12 text-muted-foreground mb-3" />
-                                        <p className="text-sm font-medium text-foreground mb-2">
-                                          {(
-                                            media.mimeType || media.type
-                                          )?.includes("pdf")
-                                            ? "PDF"
-                                            : "EPUB"}
-                                        </p>
-                                        <Button
-                                          variant="outline"
-                                          size="sm"
-                                          className="gap-2"
-                                          asChild
-                                        >
-                                          <a
-                                            href={media.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                          >
-                                            <Download className="h-4 w-4" />
-                                            Open
-                                          </a>
-                                        </Button>
-                                      </div>
-                                    )}
-
-                                    {/* Media Info */}
-                                    <div className="p-3 border-t border-border">
-                                      <p className="text-xs text-muted-foreground truncate">
-                                        {media.mimeType ||
-                                          media.type ||
-                                          "Unknown type"}
-                                      </p>
-                                      {media.name && (
-                                        <p className="text-xs font-medium text-foreground truncate mt-1">
-                                          {media.name}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                ))}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      )}
-                    </>
+                  {/* No Images */}
+                  {imageAttachments.length === 0 && (
+                    <Card>
+                      <CardContent className="py-12 text-center">
+                        <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                        <p className="text-sm text-muted-foreground">
+                          No images available for this segment
+                        </p>
+                      </CardContent>
+                    </Card>
                   )}
-
-                  {/* No Attachments */}
-                  {(!segment.attachments || segment.attachments.length === 0) &&
-                    (!segment.media || segment.media.length === 0) && (
-                      <Card>
-                        <CardContent className="py-12 text-center">
-                          <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                          <p className="text-sm text-muted-foreground">
-                            No attachments available for this segment
-                          </p>
-                        </CardContent>
-                      </Card>
-                    )}
                 </div>
               </div>
             </>

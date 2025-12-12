@@ -39,7 +39,8 @@ const draculaButtonVariants = cva(
 );
 
 export interface DraculaButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof draculaButtonVariants> {}
 
 const DraculaButton = React.forwardRef<HTMLButtonElement, DraculaButtonProps>(

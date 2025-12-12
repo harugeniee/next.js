@@ -16,6 +16,9 @@
   "openListSeasonal": "Mở danh sách Theo Mùa: Thu 2025",
   "searchPlaceholder": "Nhập từ khóa tìm kiếm...",
   "searchShortcut": "⌘K",
+  "searchError": "Lỗi khi tải kết quả tìm kiếm",
+  "noResults": "Không tìm thấy kết quả",
+  "startTyping": "Bắt đầu nhập để tìm kiếm...",
   "minutesAgo": "{{value}} phút trước",
   "hoursAgo": "{{value}} giờ trước",
   "daysAgo": "{{value}} ngày trước",
@@ -210,6 +213,9 @@
     },
     "pages": "trang",
     "minutes": "phút",
+    "copyLink": "Sao Chép Liên Kết",
+    "linkCopied": "Đã sao chép liên kết vào clipboard!",
+    "linkCopyError": "Không thể sao chép liên kết. Vui lòng thử lại.",
     "success": {
       "created": "Chương/Tập đã được tạo thành công!",
       "updated": "Chương/Tập đã được cập nhật thành công!",
@@ -232,6 +238,21 @@
       "deleted": "Chương/Tập đã được xóa thành công!",
       "deleteError": "Không thể xóa chương/tập"
     }
+  },
+  "compression": {
+    "enable": "Bật nén ảnh",
+    "enableDescription": "Giảm kích thước file ảnh trước khi tải lên",
+    "proFeatureTooltip": "Tính năng này chỉ dành cho người dùng Pro",
+    "quality": "Chất lượng",
+    "qualityHint": "Chất lượng cao hơn = file lớn hơn",
+    "format": "Định dạng đầu ra",
+    "compressing": "Đang nén...",
+    "compressed": "Đã nén",
+    "failed": "Nén thất bại",
+    "sizeReduction": "Giảm kích thước {{percent}}%",
+    "advanced": "Cài Đặt Nâng Cao",
+    "maxWidth": "Chiều Rộng Tối Đa (px)",
+    "maxHeight": "Chiều Cao Tối Đa (px)"
   },
   "error": {
     "title": "Không Tìm Thấy Truyện",

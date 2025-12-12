@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, PenTool, Settings, User as UserIcon } from "lucide-react";
+import { LogOut, Settings, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -95,12 +95,13 @@ export function UserDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-purple-500/20" />
 
-        <DropdownMenuItem asChild>
+        {/* Temporarily hidden: Write button */}
+        {/* <DropdownMenuItem asChild>
           <Link href="/write" className="cursor-pointer">
             <PenTool className="mr-2 h-4 w-4" />
             <span>{t("userDropdownWrite", "user")}</span>
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
 
         <DropdownMenuItem asChild>
           <Link href={`/user/${user.id}`} className="cursor-pointer">

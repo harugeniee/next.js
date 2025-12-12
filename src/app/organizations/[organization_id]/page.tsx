@@ -2,27 +2,25 @@
 
 import { BreadcrumbNav } from "@/components/features/navigation";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { Badge, Button, Card, CardContent } from "@/components/ui";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
+import { Badge, Button, Card, CardContent } from "@/components/ui";
 import { useOrganization } from "@/hooks/organizations";
 import { useBreadcrumb, usePageMetadata } from "@/hooks/ui";
-import { useAtom } from "jotai";
 import { currentUserAtom } from "@/lib/auth";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams, notFound } from "next/navigation";
+import { format } from "date-fns";
+import { useAtom } from "jotai";
 import {
   Building2,
   Calendar,
   ExternalLink,
-  Globe,
-  Users,
   FileText,
-  Edit,
   Settings,
   User,
+  Users,
 } from "lucide-react";
-import { format } from "date-fns";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound, useParams } from "next/navigation";
 
 /**
  * Organization Detail Page Component
@@ -50,7 +48,9 @@ export default function OrganizationDetailPage() {
       : undefined,
     image: organization?.logoUrl,
     url: typeof window !== "undefined" ? window.location.href : undefined,
-    keywords: [organization?.name, "organization"].filter(Boolean),
+    keywords: [organization?.name, "organization"].filter((k): k is string =>
+      Boolean(k),
+    ),
     type: "website",
   });
 

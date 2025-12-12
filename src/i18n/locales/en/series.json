@@ -16,6 +16,9 @@
   "openListSeasonal": "Open list Seasonal: Fall 2025",
   "searchPlaceholder": "Enter a manga title...",
   "searchShortcut": "⌘ + K",
+  "searchError": "Error loading search results",
+  "noResults": "No results found",
+  "startTyping": "Start typing to search...",
   "minutesAgo": "{{value}} minutes ago",
   "hoursAgo": "{{value}} hours ago",
   "daysAgo": "{{value}} days ago",
@@ -210,6 +213,9 @@
     },
     "pages": "pages",
     "minutes": "min",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied to clipboard!",
+    "linkCopyError": "Failed to copy link. Please try again.",
     "success": {
       "created": "Segment created successfully!",
       "updated": "Segment updated successfully!",
@@ -232,6 +238,21 @@
       "deleted": "Segment deleted successfully!",
       "deleteError": "Failed to delete segment"
     }
+  },
+  "compression": {
+    "enable": "Enable compression",
+    "enableDescription": "Reduce image file size before upload",
+    "proFeatureTooltip": "This feature is available for Pro users only",
+    "quality": "Quality",
+    "qualityHint": "Higher quality = larger file size",
+    "format": "Output format",
+    "compressing": "Compressing...",
+    "compressed": "Compressed",
+    "failed": "Compression failed",
+    "sizeReduction": "Size reduced by {{percent}}%",
+    "advanced": "Advanced Settings",
+    "maxWidth": "Max Width (px)",
+    "maxHeight": "Max Height (px)"
   },
   "error": {
     "title": "Series Not Found",

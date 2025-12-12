@@ -10,3 +10,10 @@ export {
   useMultipleImageUpload,
   useUserMedia,
 } from "./useMediaQuery";
+
+// Export image compression hook
+export {
+  useImageCompression,
+  type UseImageCompressionOptions,
+  type UseImageCompressionReturn,
+} from "./useImageCompression";

@@ -75,6 +75,7 @@ export const queryKeys = {
     recentlyAdded: () => ["series", "recently-added"] as const,
     byType: (type: string) => ["series", "type", type] as const,
     byGenre: (genre: string) => ["series", "genre", genre] as const,
+    search: (query: string) => ["series", "search", query] as const,
     segments: {
       all: (seriesId: string) => ["series", seriesId, "segments"] as const,
       list: (seriesId: string, params?: AdvancedQueryParams) =>
@@ -91,6 +92,18 @@ export const queryKeys = {
       detail: (seriesId: string, segmentId: string) =>
         ["series", seriesId, "segments", segmentId] as const,
     },
+  },
+
+  // Segments related queries (standalone, not tied to series)
+  segments: {
+    all: () => ["segments"] as const,
+    byUser: (userId: string) => ["segments", "user", userId] as const,
+    byUserCursor: (
+      userId: string,
+      cursor?: string,
+      type?: string,
+      status?: string,
+    ) => ["segments", "user", userId, "cursor", cursor, type, status] as const,
   },
 
   // Comments related queries
@@ -198,6 +211,13 @@ export const queryKeys = {
       ["reports", "content", type, id] as const,
     duplicates: (type: string, id: string) =>
       ["reports", "duplicates", type, id] as const,
+  },
+
+  // Permissions related queries
+  permissions: {
+    all: () => ["permissions"] as const,
+    checkRole: (roleName: string) =>
+      ["permissions", "checkRole", roleName] as const,
   },
 } as const;
 

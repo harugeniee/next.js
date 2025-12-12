@@ -17,9 +17,10 @@ export {
   CardHeader,
   CardTitle,
 } from "./card";
+export { Carousel } from "./carousel";
 export { DateTimePicker } from "./date-time-picker";
+export { ImageCompressionSettings } from "./image-compression-settings";
 export { ImageCropDialog } from "./image-crop-dialog";
 export { ImageUpload } from "./image-upload";
 export { Input } from "./input";
 export { Label } from "./label";
-export { Carousel } from "./carousel";

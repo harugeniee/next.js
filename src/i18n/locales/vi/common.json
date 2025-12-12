@@ -905,5 +905,25 @@
     "title": "Quá nhiều yêu cầu",
     "description": "Bạn đã vượt quá giới hạn gọi API. Vui lòng chờ trước khi thử lại.",
     "retryIn": "Thử lại sau"
+  },
+  "permissionDenied": {
+    "title": "Truy cập bị từ chối",
+    "description": "Bạn không có quyền truy cập tài nguyên này. Vui lòng liên hệ quản trị viên nếu bạn cho rằng đây là lỗi.",
+    "goHome": "Về Trang Chủ",
+    "goBack": "Quay Lại",
+    "info": "Tại sao tôi thấy trang này?",
+    "reason1": "Không đủ quyền",
+    "reason1Desc": "Bạn có thể cần một vai trò hoặc quyền cụ thể để truy cập trang này",
+    "reason2": "Hạn chế tài khoản",
+    "reason2Desc": "Tài khoản của bạn có thể có các hạn chế ngăn truy cập một số tính năng",
+    "reason3": "Cần trợ giúp?",
+    "reason3Desc": "Liên hệ hỗ trợ hoặc quản trị viên nếu bạn cho rằng bạn nên có quyền truy cập"
+  },
+  "checkingPermission": "Đang kiểm tra quyền...",
+  "inviteOnly": {
+    "title": "Chỉ Dành Cho Người Được Mời",
+    "description": "Trang web này hiện chỉ dành cho người được mời",
+    "message": "Quyền truy cập vào nền tảng này bị giới hạn chỉ dành cho người dùng được mời. Nếu bạn có lời mời, vui lòng sử dụng nó để tạo tài khoản của bạn.",
+    "understand": "Tôi Hiểu"
   }
 }

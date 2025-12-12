@@ -1,20 +1,10 @@
 "use client";
 
-import type { User } from "@/lib/interface";
 import { useAtom } from "jotai";
-import {
-  LogOut,
-  Menu,
-  PenTool,
-  Settings,
-  User as UserIcon,
-  X,
-} from "lucide-react";
+import { LogOut, Menu, Settings, User as UserIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 
-import { LoginDialog } from "@/components/features/auth";
 import { useI18n } from "@/components/providers/i18n-provider";
 import {
   Avatar,
@@ -23,14 +13,14 @@ import {
   ThemeSelector,
 } from "@/components/ui";
 import { Button } from "@/components/ui/core/button";
+import { Separator } from "@/components/ui/layout/separator";
+import { LanguageSwitcher } from "@/components/ui/navigation";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/shadcn-io/popover";
-import { LanguageSwitcher } from "@/components/ui/navigation";
-import { Separator } from "@/components/ui/layout/separator";
-import { authLoadingAtom, clearUserState, currentUserAtom } from "@/lib/auth";
+import { authLoadingAtom, currentUserAtom } from "@/lib/auth";
 
 interface BottomNavProps {
   onLogout: () => Promise<void>;
@@ -191,14 +181,15 @@ export default function BottomNav({ onLogout, isLoggingOut }: BottomNavProps) {
 
                 {/* Action buttons - compact for popover */}
                 <div className="space-y-1">
-                  <Button
+                  {/* Temporarily hidden: Write button */}
+                  {/* <Button
                     variant="ghost"
                     className="w-full justify-start gap-2.5 h-9 text-sm px-2"
                     onClick={() => handleNavigate("/write")}
                   >
                     <PenTool className="h-4 w-4" />
                     <span>{t("userDropdownWrite", "user")}</span>
-                  </Button>
+                  </Button> */}
                   <Button
                     variant="ghost"
                     className="w-full justify-start gap-2.5 h-9 text-sm px-2"

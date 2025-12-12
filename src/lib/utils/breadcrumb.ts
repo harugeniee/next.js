@@ -157,14 +157,14 @@ export const BreadcrumbRoutes = {
       seriesTitle?: string,
     ): BreadcrumbItem[] => [
       { label: "nav.breadcrumb.home", href: "/" },
-      { label: "nav.breadcrumb.series", href: "/series" },
       {
         // Use seriesTitle if provided and not empty, otherwise use translation key
         label:
           seriesTitle && seriesTitle.trim()
             ? seriesTitle
             : "nav.breadcrumb.series",
-        href: `/series/${seriesId}`,
+        // Use seriesId if provided, otherwise fallback to /series to prevent invalid href
+        href: seriesId ? `/series/${seriesId}` : "/series",
       },
       {
         // Use segmentNumber if provided, otherwise use translation key

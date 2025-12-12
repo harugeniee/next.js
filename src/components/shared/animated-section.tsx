@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
 import { sectionVariants } from "@/lib/utils/animations";
+import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimatedSectionProps extends HTMLMotionProps<"section"> {
   /**
@@ -39,6 +39,7 @@ interface AnimatedSectionProps extends HTMLMotionProps<"section"> {
  * Wrapper for page sections with automatic animation based on loading state
  * Prevents animation conflicts with Skeletonize component
  * Animation triggers after skeleton disappears
+ * Handles navigation cleanup gracefully to prevent DOM errors
  *
  * @example
  * ```tsx
@@ -59,17 +60,35 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const shouldShow = !loading && (data !== undefined ? !!data : true);
   const [shouldAnimate, setShouldAnimate] = useState(false);
+  const isMountedRef = useRef(true);
+
+  // Track mount state to prevent state updates after unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   // Delay animation until skeleton is completely gone
   useEffect(() => {
     if (shouldShow && !loading) {
       // Small delay to ensure skeleton has been removed from DOM
       const timer = setTimeout(() => {
-        setShouldAnimate(true);
+        // Only update state if component is still mounted
+        if (isMountedRef.current) {
+          setShouldAnimate(true);
+        }
       }, 50);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        // Prevent state updates during cleanup
+        isMountedRef.current = false;
+      };
     } else {
-      setShouldAnimate(false);
+      if (isMountedRef.current) {
+        setShouldAnimate(false);
+      }
     }
   }, [shouldShow, loading]);
 
@@ -78,12 +97,13 @@ export function AnimatedSection({
   if (scrollTriggered) {
     return (
       <motion.section
-        key={shouldAnimate ? "visible" : "hidden"}
         initial="hidden"
         whileInView={shouldAnimate ? "visible" : "hidden"}
         viewport={viewport}
         variants={variants}
         className={className}
+        // Prevent errors during navigation by disabling layout animations
+        layout={false}
         {...props}
       >
         {children}
@@ -93,11 +113,12 @@ export function AnimatedSection({
 
   return (
     <motion.section
-      key={shouldAnimate ? "visible" : "hidden"}
       initial="hidden"
       animate={animateState}
       variants={variants}
       className={className}
+      // Prevent errors during navigation by disabling layout animations
+      layout={false}
       {...props}
     >
       {children}

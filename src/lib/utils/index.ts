@@ -18,6 +18,16 @@ export {
   generatePermutation,
 } from "./image-scrambler";
 
+// Re-export image compression utilities
+export {
+  compressImage,
+  compressImages,
+  compressImagesWithResults,
+  compressImageWithResult,
+  type CompressionOptions,
+  type CompressionResult,
+} from "./image-compression";
+
 // Re-export query utilities
 export { createQueryClient, queryClient } from "./query-client";
 export { queryKeys } from "./query-keys";
@@ -35,3 +45,9 @@ export {
   transformBackendSeriesList,
   transformToPopularSeries,
 } from "./series-utils";
+
+// Re-export permission utilities
+export {
+  isPermissionDeniedPage,
+  redirectToPermissionDenied,
+} from "./permission-utils";

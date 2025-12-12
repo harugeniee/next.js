@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
 import { headerVariants, shouldAnimate } from "@/lib/utils/animations";
+import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimatedHeaderProps extends HTMLMotionProps<"div"> {
   /**
@@ -39,6 +39,7 @@ interface AnimatedHeaderProps extends HTMLMotionProps<"div"> {
  * Wrapper for section headers with fade + slide down animation
  * Prevents animation conflicts with Skeletonize component
  * Animation triggers after skeleton disappears
+ * Handles navigation cleanup gracefully to prevent DOM errors
  *
  * @example
  * ```tsx
@@ -59,17 +60,35 @@ export function AnimatedHeader({
 }: AnimatedHeaderProps) {
   const shouldShow = shouldAnimate(loading, data);
   const [shouldAnimateState, setShouldAnimateState] = useState(false);
+  const isMountedRef = useRef(true);
+
+  // Track mount state to prevent state updates after unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   // Delay animation until skeleton is completely gone
   useEffect(() => {
     if (shouldShow && !loading) {
       // Small delay to ensure skeleton has been removed from DOM
       const timer = setTimeout(() => {
-        setShouldAnimateState(true);
+        // Only update state if component is still mounted
+        if (isMountedRef.current) {
+          setShouldAnimateState(true);
+        }
       }, 50);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        // Prevent state updates during cleanup
+        isMountedRef.current = false;
+      };
     } else {
-      setShouldAnimateState(false);
+      if (isMountedRef.current) {
+        setShouldAnimateState(false);
+      }
     }
   }, [shouldShow, loading]);
 
@@ -78,12 +97,13 @@ export function AnimatedHeader({
   if (scrollTriggered) {
     return (
       <motion.div
-        key={shouldAnimateState ? "visible" : "hidden"}
         initial="hidden"
         whileInView={shouldAnimateState ? "visible" : "hidden"}
         viewport={viewport}
         variants={variants}
         className={className}
+        // Prevent errors during navigation by disabling layout animations
+        layout={false}
         {...props}
       >
         {children}
@@ -93,11 +113,12 @@ export function AnimatedHeader({
 
   return (
     <motion.div
-      key={shouldAnimateState ? "visible" : "hidden"}
       initial="hidden"
       animate={animateState}
       variants={variants}
       className={className}
+      // Prevent errors during navigation by disabling layout animations
+      layout={false}
       {...props}
     >
       {children}

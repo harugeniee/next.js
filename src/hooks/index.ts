@@ -50,3 +50,6 @@ export * from "./share";
 
 // Reports hooks
 export * from "./reports";
+
+// Permissions hooks
+export * from "./permissions";

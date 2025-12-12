@@ -131,7 +131,7 @@ export const RedirectUtils = {
  */
 export const Logger = {
   /**
-   * Log middleware processing information (development only)
+   * Log proxy processing information (development only)
    */
   logRequest(
     pathname: string,
@@ -141,7 +141,7 @@ export const Logger = {
   ): void {
     if (process.env.NODE_ENV !== "development") return;
 
-    console.log("🔒 Middleware:", {
+    console.log("🔒 Proxy:", {
       pathname,
       isProtected,
       isAuth,
@@ -155,16 +155,17 @@ export const Logger = {
   logRedirect(from: string, to: string, reason: string): void {
     if (process.env.NODE_ENV !== "development") return;
 
-    console.log(`🔄 Middleware: ${reason}`, { from, to });
+    console.log(`🔄 Proxy: ${reason}`, { from, to });
   },
 };
 
 /**
- * Main middleware function
+ * Main proxy function
  * Clean, simple, and easy to understand
  * Follows SOLID principles with functional approach
+ * Runs on Node.js runtime for request interception
  */
-export function middleware(request: NextRequest): NextResponse {
+export default function proxy(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
 
   // Determine route types
@@ -210,7 +211,7 @@ export function middleware(request: NextRequest): NextResponse {
 }
 
 /**
- * Middleware configuration
+ * Proxy configuration
  */
 export const config = {
   matcher: [

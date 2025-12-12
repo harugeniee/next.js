@@ -28,13 +28,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRequireAuth } from "@/hooks/auth";
-import { useImageUpload } from "@/hooks/media/useMediaQuery";
 import { useCreateOrganization } from "@/hooks/organizations";
 import { useBreadcrumb } from "@/hooks/ui";
-import { extractErrorMessage } from "@/lib/utils/error-extractor";
+import type { UploadedMedia } from "@/lib/api/media";
 import { http } from "@/lib/http";
 import type { ApiResponse } from "@/lib/types";
-import type { UploadedMedia } from "@/lib/interface";
 import {
   createOrganizationSchema,
   type CreateOrganizationFormData,
@@ -57,7 +55,6 @@ export default function OrganizationRegisterPage() {
   const { isAuthenticated, authLoading } = useRequireAuth();
   const createOrganization = useCreateOrganization();
   const breadcrumbItems = useBreadcrumb();
-  const uploadImage = useImageUpload();
 
   // Logo file state
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -212,11 +209,6 @@ export default function OrganizationRegisterPage() {
     } catch (error: unknown) {
       // Error is already handled by the mutation hook
       console.error("Organization creation error:", error);
-      const errorMessage = extractErrorMessage(
-        error,
-        t("organizationCreateError", "organizations") ||
-          "Failed to create organization. Please try again.",
-      );
     }
   };
 
@@ -615,7 +607,7 @@ export default function OrganizationRegisterPage() {
                       disabled={
                         isSubmitting ||
                         createOrganization.isPending ||
-                        uploadImage.isPending
+                        logoUploadStatus === "uploading"
                       }
                     >
                       {t("register.cancelButton", "organizations") || "Cancel"}
@@ -626,12 +618,12 @@ export default function OrganizationRegisterPage() {
                       disabled={
                         isSubmitting ||
                         createOrganization.isPending ||
-                        uploadImage.isPending
+                        logoUploadStatus === "uploading"
                       }
                     >
                       {isSubmitting ||
                       createOrganization.isPending ||
-                      uploadImage.isPending
+                      logoUploadStatus === "uploading"
                         ? t("register.creating", "organizations") ||
                           "Creating..."
                         : t("register.createButton", "organizations") ||

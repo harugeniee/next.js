@@ -11,19 +11,22 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChaptersList } from "@/components/features/series";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { Badge } from "@/components/ui/core/badge";
-import { useSeries, useSeriesFull } from "@/hooks/series";
+import { useCheckRole } from "@/hooks/permissions";
+import { useSeriesFull } from "@/hooks/series";
 import { usePageMetadata } from "@/hooks/ui";
 import { currentUserAtom } from "@/lib/auth";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import { cn } from "@/lib/utils";
+import { queryKeys } from "@/lib/utils/query-keys";
 import { transformBackendSeries } from "@/lib/utils/series-utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
 /**
@@ -37,6 +40,24 @@ export default function SeriesDetailPage() {
   const seriesId = params.series_id as string;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [currentUser] = useAtom(currentUserAtom);
+  const queryClient = useQueryClient();
+
+  // Check if user has uploader role
+  const { data: roleCheckData, isLoading: isCheckingRole } = useCheckRole(
+    "uploader",
+    !!currentUser,
+  );
+  const hasUploaderRole = roleCheckData?.hasRole ?? false;
+
+  // Refetch role check when user logs in
+  useEffect(() => {
+    if (currentUser) {
+      // User just logged in, refetch role check immediately
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.permissions.checkRole("uploader"),
+      });
+    }
+  }, [currentUser, queryClient]);
 
   // Fetch full backend series data (single API call)
   const {
@@ -224,8 +245,8 @@ export default function SeriesDetailPage() {
                         <BookOpen className="h-4 w-4 mr-2" />
                         {t("actions.read", "series")}
                       </Button>
-                      {/* Only show upload button if user is authenticated */}
-                      {currentUser && (
+                      {/* Only show upload button if user is authenticated and has uploader role */}
+                      {currentUser && !isCheckingRole && hasUploaderRole && (
                         <Link
                           href={`/series/${seriesId}/upload-segment`}
                           className="w-full"

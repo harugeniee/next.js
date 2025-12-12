@@ -58,7 +58,7 @@ src/
 > - ✅ Network via `src/lib/http/client.ts`
 
 ## Core Stack
-Next.js 15+, React 19, TypeScript 5, TailwindCSS 4, shadcn/ui, Jotai, Zod, RHF, next-intl, Jest, ESLint, Prettier, TipTap, Firebase Auth, Axios, Sonner, Mermaid, TanStack Query, framer-motion.
+Next.js 16+, React 19, TypeScript 5, TailwindCSS 4, shadcn/ui, Jotai, Zod, RHF, next-intl, Jest, ESLint, Prettier, TipTap, Firebase Auth, Axios, Sonner, Mermaid, TanStack Query, framer-motion.
 
 ## Yarn scripts
 ```bash
@@ -68,7 +68,8 @@ yarn dlx shadcn add button card input
 Always commit `yarn.lock`.
 
 ## Environment & Tooling
-- Next.js 15+ (App Router), TypeScript strict
+- Next.js 16+ (App Router), TypeScript strict
+- Node.js 20.9+ required
 - Yarn v3+/Berry (no npm/pnpm)
 - shadcn/ui + TailwindCSS
 - Jest + @testing-library/react

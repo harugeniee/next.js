@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
 import {
   containerVariants,
   itemVariants,
   shouldAnimateArray,
 } from "@/lib/utils/animations";
+import { motion, type HTMLMotionProps, type Variants } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 
 interface AnimatedGridProps extends HTMLMotionProps<"div"> {
   /**
@@ -53,6 +53,7 @@ interface AnimatedGridProps extends HTMLMotionProps<"div"> {
  * Automatically wraps children with motion.div and applies item variants
  * Prevents animation conflicts with Skeletonize component
  * Animation triggers after skeleton disappears
+ * Handles navigation cleanup gracefully to prevent DOM errors
  *
  * @example
  * ```tsx
@@ -76,17 +77,35 @@ export function AnimatedGrid({
 }: AnimatedGridProps) {
   const shouldShow = shouldAnimateArray(loading, data);
   const [shouldAnimate, setShouldAnimate] = useState(false);
+  const isMountedRef = useRef(true);
+
+  // Track mount state to prevent state updates after unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   // Delay animation until skeleton is completely gone
   useEffect(() => {
     if (shouldShow && !loading) {
       // Small delay to ensure skeleton has been removed from DOM
       const timer = setTimeout(() => {
-        setShouldAnimate(true);
+        // Only update state if component is still mounted
+        if (isMountedRef.current) {
+          setShouldAnimate(true);
+        }
       }, 50);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        // Prevent state updates during cleanup
+        isMountedRef.current = false;
+      };
     } else {
-      setShouldAnimate(false);
+      if (isMountedRef.current) {
+        setShouldAnimate(false);
+      }
     }
   }, [shouldShow, loading]);
 
@@ -122,12 +141,13 @@ export function AnimatedGrid({
   if (scrollTriggered) {
     return (
       <motion.div
-        key={shouldAnimate ? "visible" : "hidden"}
         variants={customContainerVariants}
         initial="hidden"
         whileInView={shouldAnimate ? "visible" : "hidden"}
         viewport={viewport}
         className={className}
+        // Prevent errors during navigation by disabling layout animations
+        layout={false}
         {...props}
       >
         {wrappedChildren}
@@ -137,11 +157,12 @@ export function AnimatedGrid({
 
   return (
     <motion.div
-      key={shouldAnimate ? "visible" : "hidden"}
       variants={customContainerVariants}
       initial="hidden"
       animate={animateState}
       className={className}
+      // Prevent errors during navigation by disabling layout animations
+      layout={false}
       {...props}
     >
       {wrappedChildren}

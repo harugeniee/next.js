@@ -256,6 +256,11 @@ export interface SeriesSegment {
     username?: string;
     email?: string;
   };
+  /**
+   * Series information included in segment response
+   * This is populated when fetching user segments to avoid additional API calls
+   */
+  series?: Partial<BackendSeries>;
 }
 
 /**

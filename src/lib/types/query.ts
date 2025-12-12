@@ -35,3 +35,7 @@ export interface AdvancedQueryParams extends Pagination {
 export interface QueryParamsWithCursor extends AdvancedQueryParams {
   cursor?: string;
 }
+
+export interface QueryParamsWithOffset extends AdvancedQueryParams {
+  offset?: number;
+}

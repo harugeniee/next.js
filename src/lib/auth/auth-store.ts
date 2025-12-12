@@ -58,7 +58,7 @@ export function storeTokens(accessToken: string, refreshToken?: string) {
   // Store access token in memory (secure, not persisted)
   setAccessToken(accessToken);
 
-  // Also set a cookie for middleware to check
+  // Also set a cookie for proxy to check
   if (typeof document !== "undefined") {
     document.cookie = `accessToken=${accessToken}; path=/; max-age=86400; SameSite=Strict; Secure`;
   }

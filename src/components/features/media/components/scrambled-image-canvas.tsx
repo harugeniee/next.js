@@ -1,6 +1,7 @@
 "use client";
 
-import pacmanLoading from "@/assets/lottiefiles/pacman-loading.json";
+// import pacmanLoading from "@/assets/lottiefiles/pacman-loading.json";
+import rainbowCatRemixLoading from "@/assets/lottiefiles/rainbow-cat-remix-loading.json";
 import { MediaAPI } from "@/lib/api/media";
 import { cn, generatePermutation } from "@/lib/utils";
 import Lottie from "lottie-react";
@@ -702,12 +703,12 @@ export function ScrambledImageCanvas({
         // Hide when animation/drawing starts (even if loading is still true)
         <div className="absolute inset-0 flex items-center justify-center bg-muted/30 backdrop-blur-sm z-20">
           <Lottie
-            animationData={pacmanLoading}
+            animationData={rainbowCatRemixLoading}
             loop
             autoplay
             style={{
-              width: "100%",
-              height: "100%",
+              width: "50%",
+              height: "50%",
             }}
           />
         </div>
