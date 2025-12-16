@@ -21,6 +21,7 @@ export interface UserProfile {
     articles: number;
     followers: number;
     following: number;
+    segments: number;
   };
 }
 
