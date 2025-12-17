@@ -2,11 +2,13 @@
 
 import { Lock } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
+import { useCheckRole } from "@/hooks/permissions";
+import { currentUserAtom } from "@/lib/auth";
 import { cn } from "@/lib/utils";
+import { useAtom } from "jotai";
 
 /**
  * Invite-Only Overlay Component
@@ -18,64 +20,39 @@ import { cn } from "@/lib/utils";
 export function InviteOnlyOverlay() {
   const { t } = useI18n();
   const pathname = usePathname();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [showBlurOverlay, setShowBlurOverlay] = useState(false);
+  const [currentUser] = useAtom(currentUserAtom);
 
-  useEffect(() => {
-    // Only run on client side
-    setMounted(true);
+  // Check if current user has uploader role using shared permissions hook
+  // This hook uses the same role-check API that is used on the series detail page
+  const { data: roleCheckData, isLoading: isCheckingRole } = useCheckRole(
+    "uploader",
+    !!currentUser,
+  );
+  const hasUploaderRole = roleCheckData?.hasRole ?? false;
 
-    // Strictly check if we're on homepage (exactly "/", not "/something")
-    const isHomepage = pathname === "/" || pathname === "";
+  // Compute whether blur overlay should be visible without extra state
+  const isHomepage = pathname === "/" || pathname === "";
+  const shouldShowBlurOverlay =
+    isHomepage && (!currentUser || isCheckingRole || !hasUploaderRole);
 
-    if (isHomepage) {
-      // Show blur overlay only on homepage
-      setShowBlurOverlay(true);
-
-      // Check if user has already dismissed the dialog
-      const hasDismissed = localStorage.getItem(
-        "invite-only-overlay-dismissed",
-      );
-
-      // Show dialog if not dismissed
-      if (!hasDismissed) {
-        setIsDialogOpen(true);
-      } else {
-        // If dialog was dismissed, ensure it stays closed
-        setIsDialogOpen(false);
-      }
-    } else {
-      // Hide everything when not on homepage
-      setShowBlurOverlay(false);
-      setIsDialogOpen(false);
-    }
-  }, [pathname]);
+  // Compute dialog visibility based on localStorage and current overlay rules
+  let shouldShowDialog = false;
+  if (typeof window !== "undefined" && shouldShowBlurOverlay) {
+    const hasDismissed = localStorage.getItem(
+      "invite-only-overlay-dismissed",
+    );
+    shouldShowDialog = !hasDismissed;
+  }
 
   const handleDismiss = () => {
-    // Store dismissal in localStorage
-    localStorage.setItem("invite-only-overlay-dismissed", "true");
-    // Close dialog but keep blur overlay visible
-    setIsDialogOpen(false);
+    // Store dismissal in localStorage so dialog does not show again
+    if (typeof window !== "undefined") {
+      localStorage.setItem("invite-only-overlay-dismissed", "true");
+    }
   };
 
-  // Handle ESC key to close dialog
-  useEffect(() => {
-    if (!isDialogOpen) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        localStorage.setItem("invite-only-overlay-dismissed", "true");
-        setIsDialogOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [isDialogOpen]);
-
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted || !showBlurOverlay) {
+  // Do not render when overlay should be hidden or when user is uploader
+  if (!shouldShowBlurOverlay || hasUploaderRole) {
     return null;
   }
 
@@ -85,7 +62,7 @@ export function InviteOnlyOverlay() {
       <div className="fixed inset-0 z-40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60" />
 
       {/* Custom Dialog modal - Only shows on first visit */}
-      {isDialogOpen && (
+      {shouldShowDialog && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           onClick={handleDismiss}
