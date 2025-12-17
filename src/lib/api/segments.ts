@@ -28,6 +28,7 @@ export interface QuerySegmentDto extends AdvancedQueryParams {
  */
 export interface QuerySegmentCursorDto extends QueryParamsWithCursor {
   seriesId?: string;
+  type?: string;
   languageCode?: string;
   userId?: string;
 }
