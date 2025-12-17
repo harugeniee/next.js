@@ -3,12 +3,18 @@
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button, Input, Label } from "@/components/ui";
 import {
+  Calendar,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/core";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/shadcn-io/popover";
 import { useAuthRedirect } from "@/hooks/auth";
 import {
   accessTokenAtom,
@@ -16,18 +22,75 @@ import {
   fetchMeAction,
   signupAction,
 } from "@/lib/auth";
+import { extractErrorMessage } from "@/lib/utils/error-extractor";
 import {
   registerFormSchema,
   type RegisterFormData,
 } from "@/lib/validators/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, ChevronDownIcon, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { extractErrorMessage } from "@/lib/utils/error-extractor";
+
+/**
+ * Date Picker Field Component
+ * Wrapper component for date picker with popover state management
+ */
+function DatePickerField({
+  id,
+  value,
+  onSelect,
+  placeholder,
+  ariaInvalid,
+  disabled,
+}: {
+  id: string;
+  value?: Date;
+  onSelect: (date: Date | undefined) => void;
+  placeholder: string;
+  ariaInvalid?: boolean;
+  disabled?: (date: Date) => boolean;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const handleDateSelect = (date: Date | undefined) => {
+    onSelect(date);
+    setOpen(false);
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          id={id}
+          variant="outline"
+          className="w-full justify-between font-normal"
+          type="button"
+          aria-invalid={ariaInvalid}
+        >
+          {value ? value.toLocaleDateString() : placeholder}
+          <ChevronDownIcon className="h-4 w-4 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="w-auto overflow-hidden p-0"
+        align="start"
+      >
+        <Calendar
+          mode="single"
+          selected={value}
+          captionLayout="dropdown"
+          onSelect={handleDateSelect}
+          disabled={disabled}
+        />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 /**
  * Register Page Component
  * Handles user registration with form validation and edge cases
@@ -46,6 +109,7 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<RegisterFormData>({
@@ -74,7 +138,7 @@ export default function RegisterPage() {
 
       // Show success message
       toast.success(
-        t("toastLoginSuccess", "toast") || "Account created successfully!",
+        t("authRegisterSuccess", "toast") || "Account created successfully!",
       );
 
       // Reset form
@@ -87,7 +151,7 @@ export default function RegisterPage() {
       // Handle signup errors and show appropriate error message
       const errorMessage = extractErrorMessage(
         error,
-        t("registerErrorDefault", "auth") || "Signup failed. Please try again.",
+        t("errors.registerDefault", "auth") || "Signup failed. Please try again.",
       );
       toast.error(errorMessage);
     } finally {
@@ -129,20 +193,19 @@ export default function RegisterPage() {
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to home
+            {t("nav.backToHome", "auth") || "Back to home"}
           </Link>
         </div>
 
         <Card>
           <CardHeader>
             <CardTitle>
-              {t("registerCardTitle", "auth") ||
-                t("registerTitle", "auth") ||
+              {t("register.cardTitle", "auth") ||
+                t("register.title", "auth") ||
                 "Create Account"}
             </CardTitle>
             <CardDescription>
-              {t("registerCardDescription", "auth") ||
-                t("registerSubtitle", "auth") ||
+              {t("register.cardDescription", "auth") ||
                 "Enter your information below to create your account"}
             </CardDescription>
           </CardHeader>
@@ -152,14 +215,14 @@ export default function RegisterPage() {
                 {/* Username field */}
                 <div className="grid gap-3">
                   <Label htmlFor="username">
-                    {t("username", "auth") || "Username"}
+                    {t("fields.username", "common") || "Username"}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <Input
                     id="username"
                     type="text"
                     placeholder={
-                      t("usernamePlaceholder", "auth") || "Enter your username"
+                      t("placeholders.username", "common") || "Enter your username"
                     }
                     required
                     aria-invalid={!!errors.username}
@@ -175,14 +238,14 @@ export default function RegisterPage() {
                 {/* Email field */}
                 <div className="grid gap-3">
                   <Label htmlFor="email">
-                    {t("email", "auth") || "Email"}
+                    {t("fields.email", "common") || "Email"}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <Input
                     id="email"
                     type="email"
                     placeholder={
-                      t("emailPlaceholder", "auth") || "m@example.com"
+                      t("placeholders.email", "common") || "m@example.com"
                     }
                     required
                     aria-invalid={!!errors.email}
@@ -198,7 +261,7 @@ export default function RegisterPage() {
                 {/* Password field */}
                 <div className="grid gap-3">
                   <Label htmlFor="password">
-                    {t("password", "auth") || "Password"}
+                    {t("fields.password", "common") || "Password"}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
@@ -206,7 +269,7 @@ export default function RegisterPage() {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder={
-                        t("passwordPlaceholder", "auth") ||
+                        t("placeholders.password", "common") ||
                         "Enter your password"
                       }
                       required
@@ -218,7 +281,9 @@ export default function RegisterPage() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       aria-label={
-                        showPassword ? "Hide password" : "Show password"
+                        showPassword
+                          ? t("password.hidePassword", "auth") || "Hide password"
+                          : t("password.showPassword", "auth") || "Show password"
                       }
                     >
                       {showPassword ? (
@@ -238,7 +303,7 @@ export default function RegisterPage() {
                 {/* Confirm Password field */}
                 <div className="grid gap-3">
                   <Label htmlFor="confirmPassword">
-                    {t("confirmPassword", "auth") || "Confirm Password"}
+                    {t("fields.confirmPassword", "common") || "Confirm Password"}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
@@ -246,7 +311,7 @@ export default function RegisterPage() {
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder={
-                        t("confirmPasswordPlaceholder", "auth") ||
+                        t("placeholders.confirmPassword", "common") ||
                         "Confirm your password"
                       }
                       required
@@ -260,7 +325,9 @@ export default function RegisterPage() {
                       }
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       aria-label={
-                        showConfirmPassword ? "Hide password" : "Show password"
+                        showConfirmPassword
+                          ? t("password.hidePassword", "auth") || "Hide password"
+                          : t("password.showPassword", "auth") || "Show password"
                       }
                     >
                       {showConfirmPassword ? (
@@ -280,7 +347,7 @@ export default function RegisterPage() {
                 {/* Name field (optional) */}
                 <div className="grid gap-3">
                   <Label htmlFor="name">
-                    {t("fullName", "auth") || "Full Name"}
+                    {t("fields.fullName", "common") || "Full Name"}
                     <span className="text-muted-foreground ml-1">
                       (optional)
                     </span>
@@ -289,7 +356,7 @@ export default function RegisterPage() {
                     id="name"
                     type="text"
                     placeholder={
-                      t("fullNamePlaceholder", "auth") || "Enter your full name"
+                      t("placeholders.fullName", "common") || "Enter your full name"
                     }
                     aria-invalid={!!errors.name}
                     {...register("name")}
@@ -304,17 +371,48 @@ export default function RegisterPage() {
                 {/* Date of Birth field (optional) */}
                 <div className="grid gap-3">
                   <Label htmlFor="dob">
-                    {t("dob", "auth") || "Date of Birth"}
+                    {t("fields.dob", "common") || "Date of Birth"}
                     <span className="text-muted-foreground ml-1">
                       (optional)
                     </span>
                   </Label>
-                  <Input
-                    id="dob"
-                    type="date"
-                    className="relative [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-3 [&::-webkit-calendar-picker-indicator]:top-1/2 [&::-webkit-calendar-picker-indicator]:-translate-y-1/2 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                    aria-invalid={!!errors.dob}
-                    {...register("dob")}
+                  <Controller
+                    name="dob"
+                    control={control}
+                    render={({ field }) => {
+                      // Convert string (YYYY-MM-DD) to Date object
+                      const dateValue = field.value
+                        ? new Date(field.value)
+                        : undefined;
+                      
+                      // Convert Date to YYYY-MM-DD string
+                      const handleDateSelect = (date: Date | undefined) => {
+                        if (!date) {
+                          field.onChange("");
+                          return;
+                        }
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, "0");
+                        const day = String(date.getDate()).padStart(2, "0");
+                        field.onChange(`${year}-${month}-${day}`);
+                      };
+
+                      return (
+                        <DatePickerField
+                          id="dob"
+                          value={dateValue && !isNaN(dateValue.getTime()) ? dateValue : undefined}
+                          onSelect={handleDateSelect}
+                          placeholder={t("placeholders.dob", "common") || "Select date"}
+                          ariaInvalid={!!errors.dob}
+                          disabled={(date) => {
+                            // Disable future dates for DOB
+                            const today = new Date();
+                            today.setHours(23, 59, 59, 999);
+                            return date > today;
+                          }}
+                        />
+                      );
+                    }}
                   />
                   {errors.dob && (
                     <p className="text-sm text-red-500">{errors.dob.message}</p>
@@ -324,7 +422,7 @@ export default function RegisterPage() {
                 {/* Phone Number field (optional) */}
                 <div className="grid gap-3">
                   <Label htmlFor="phoneNumber">
-                    {t("phoneNumber", "auth") || "Phone Number"}
+                    {t("fields.phone", "common") || "Phone Number"}
                     <span className="text-muted-foreground ml-1">
                       (optional)
                     </span>
@@ -333,7 +431,7 @@ export default function RegisterPage() {
                     id="phoneNumber"
                     type="tel"
                     placeholder={
-                      t("phoneNumberPlaceholder", "auth") ||
+                      t("placeholders.phone", "common") ||
                       "Enter your phone number"
                     }
                     aria-invalid={!!errors.phoneNumber}
@@ -354,8 +452,8 @@ export default function RegisterPage() {
                     disabled={isSubmitting || isLoading}
                   >
                     {isSubmitting || isLoading
-                      ? t("creatingAccount", "auth") || "Creating Account..."
-                      : t("createAccount", "auth") || "Create Account"}
+                      ? t("register.submitting", "auth") || "Creating Account..."
+                      : t("register.button", "auth") || "Create Account"}
                   </Button>
                   <Button
                     variant="outline"
@@ -364,19 +462,19 @@ export default function RegisterPage() {
                     onClick={handleGoogleSignup}
                     disabled={isLoading}
                   >
-                    {t("registerWithGoogle", "auth") || "Register with Google"}
+                    {t("oauth.registerWith", "auth", { provider: t("oauth.google", "auth") }) || "Register with Google"}
                   </Button>
                 </div>
               </div>
 
               {/* Footer text with link to login */}
               <div className="mt-4 text-center text-sm">
-                {t("alreadyHaveAccount", "auth") || "Already have an account?"}{" "}
+                {t("register.alreadyHaveAccount", "auth") || "Already have an account?"}{" "}
                 <Link
                   href="/auth/login"
                   className="underline underline-offset-4 hover:text-primary transition-colors"
                 >
-                  {t("login", "auth") || "Login"}
+                  {t("login.button", "auth") || "Login"}
                 </Link>
               </div>
             </form>
