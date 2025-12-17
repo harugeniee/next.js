@@ -69,9 +69,15 @@ export class AuthAPI {
     dob?: string;
     phoneNumber?: string;
   }): Promise<LoginResponse> {
+    // Convert dob string to Date if provided
+    const requestData = {
+      ...data,
+      ...(data.dob && { dob: new Date(data.dob) }),
+    };
+    
     const response = await publicHttp.post<ApiResponse<LoginResponse>>(
-      `${this.BASE_URL}/signup`,
-      data,
+      `${this.BASE_URL}/register`,
+      requestData,
     );
 
     if (!response.data.success) {
