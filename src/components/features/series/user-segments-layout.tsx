@@ -2,15 +2,15 @@
 
 import { useAtom } from "jotai";
 import {
-    BookOpen,
-    Calendar,
-    EyeOff,
-    Filter,
-    Grid3X3,
-    List,
-    Loader2,
-    Search,
-    Square,
+  BookOpen,
+  Calendar,
+  EyeOff,
+  Filter,
+  Grid3X3,
+  List,
+  Loader2,
+  Search,
+  Square,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,10 +24,10 @@ import { Button } from "@/components/ui/core/button";
 import { Card, CardContent } from "@/components/ui/core/card";
 import { Input } from "@/components/ui/core/input";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
 import { useSeries, useUserSegmentsInfinite } from "@/hooks/series";
 import { currentUserAtom } from "@/lib/auth";

@@ -55,7 +55,12 @@ function UserAvatarIcon({
   user,
   className,
 }: {
-  user: { avatar?: { url?: string }; name?: string; username?: string; email?: string };
+  user: {
+    avatar?: { url?: string };
+    name?: string;
+    username?: string;
+    email?: string;
+  };
   className?: string;
 }) {
   // Generate initials from user data for fallback
@@ -176,7 +181,7 @@ export default function MobileMenuDock({
       const AvatarIcon = ({ className }: { className?: string }) => (
         <UserAvatarIcon user={user} className={className} />
       );
-      
+
       items.push({
         label: t("nav.profile", "common") || "Profile",
         icon: AvatarIcon, // Avatar provides better UX than generic UserIcon
@@ -213,7 +218,15 @@ export default function MobileMenuDock({
     });
 
     return items;
-  }, [user, authLoading, t, router, isDetailPage, pathname, setUserSelectedIndex]);
+  }, [
+    user,
+    authLoading,
+    t,
+    router,
+    isDetailPage,
+    pathname,
+    setUserSelectedIndex,
+  ]);
 
   // Calculate active index based on current pathname
   const pathnameBasedIndex = useMemo(() => {

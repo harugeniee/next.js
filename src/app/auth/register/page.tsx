@@ -75,10 +75,7 @@ function DatePickerField({
           <ChevronDownIcon className="h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        className="w-auto overflow-hidden p-0"
-        align="start"
-      >
+      <PopoverContent className="w-auto overflow-hidden p-0" align="start">
         <Calendar
           mode="single"
           selected={value}
@@ -151,7 +148,8 @@ export default function RegisterPage() {
       // Handle signup errors and show appropriate error message
       const errorMessage = extractErrorMessage(
         error,
-        t("errors.registerDefault", "auth") || "Signup failed. Please try again.",
+        t("errors.registerDefault", "auth") ||
+          "Signup failed. Please try again.",
       );
       toast.error(errorMessage);
     } finally {
@@ -222,7 +220,8 @@ export default function RegisterPage() {
                     id="username"
                     type="text"
                     placeholder={
-                      t("placeholders.username", "common") || "Enter your username"
+                      t("placeholders.username", "common") ||
+                      "Enter your username"
                     }
                     required
                     aria-invalid={!!errors.username}
@@ -282,8 +281,10 @@ export default function RegisterPage() {
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       aria-label={
                         showPassword
-                          ? t("password.hidePassword", "auth") || "Hide password"
-                          : t("password.showPassword", "auth") || "Show password"
+                          ? t("password.hidePassword", "auth") ||
+                            "Hide password"
+                          : t("password.showPassword", "auth") ||
+                            "Show password"
                       }
                     >
                       {showPassword ? (
@@ -303,7 +304,8 @@ export default function RegisterPage() {
                 {/* Confirm Password field */}
                 <div className="grid gap-3">
                   <Label htmlFor="confirmPassword">
-                    {t("fields.confirmPassword", "common") || "Confirm Password"}
+                    {t("fields.confirmPassword", "common") ||
+                      "Confirm Password"}
                     <span className="text-red-500 ml-1">*</span>
                   </Label>
                   <div className="relative">
@@ -326,8 +328,10 @@ export default function RegisterPage() {
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                       aria-label={
                         showConfirmPassword
-                          ? t("password.hidePassword", "auth") || "Hide password"
-                          : t("password.showPassword", "auth") || "Show password"
+                          ? t("password.hidePassword", "auth") ||
+                            "Hide password"
+                          : t("password.showPassword", "auth") ||
+                            "Show password"
                       }
                     >
                       {showConfirmPassword ? (
@@ -356,7 +360,8 @@ export default function RegisterPage() {
                     id="name"
                     type="text"
                     placeholder={
-                      t("placeholders.fullName", "common") || "Enter your full name"
+                      t("placeholders.fullName", "common") ||
+                      "Enter your full name"
                     }
                     aria-invalid={!!errors.name}
                     {...register("name")}
@@ -384,7 +389,7 @@ export default function RegisterPage() {
                       const dateValue = field.value
                         ? new Date(field.value)
                         : undefined;
-                      
+
                       // Convert Date to YYYY-MM-DD string
                       const handleDateSelect = (date: Date | undefined) => {
                         if (!date) {
@@ -392,7 +397,10 @@ export default function RegisterPage() {
                           return;
                         }
                         const year = date.getFullYear();
-                        const month = String(date.getMonth() + 1).padStart(2, "0");
+                        const month = String(date.getMonth() + 1).padStart(
+                          2,
+                          "0",
+                        );
                         const day = String(date.getDate()).padStart(2, "0");
                         field.onChange(`${year}-${month}-${day}`);
                       };
@@ -400,9 +408,15 @@ export default function RegisterPage() {
                       return (
                         <DatePickerField
                           id="dob"
-                          value={dateValue && !isNaN(dateValue.getTime()) ? dateValue : undefined}
+                          value={
+                            dateValue && !isNaN(dateValue.getTime())
+                              ? dateValue
+                              : undefined
+                          }
                           onSelect={handleDateSelect}
-                          placeholder={t("placeholders.dob", "common") || "Select date"}
+                          placeholder={
+                            t("placeholders.dob", "common") || "Select date"
+                          }
                           ariaInvalid={!!errors.dob}
                           disabled={(date) => {
                             // Disable future dates for DOB
@@ -452,7 +466,8 @@ export default function RegisterPage() {
                     disabled={isSubmitting || isLoading}
                   >
                     {isSubmitting || isLoading
-                      ? t("register.submitting", "auth") || "Creating Account..."
+                      ? t("register.submitting", "auth") ||
+                        "Creating Account..."
                       : t("register.button", "auth") || "Create Account"}
                   </Button>
                   <Button
@@ -462,14 +477,17 @@ export default function RegisterPage() {
                     onClick={handleGoogleSignup}
                     disabled={isLoading}
                   >
-                    {t("oauth.registerWith", "auth", { provider: t("oauth.google", "auth") }) || "Register with Google"}
+                    {t("oauth.registerWith", "auth", {
+                      provider: t("oauth.google", "auth"),
+                    }) || "Register with Google"}
                   </Button>
                 </div>
               </div>
 
               {/* Footer text with link to login */}
               <div className="mt-4 text-center text-sm">
-                {t("register.alreadyHaveAccount", "auth") || "Already have an account?"}{" "}
+                {t("register.alreadyHaveAccount", "auth") ||
+                  "Already have an account?"}{" "}
                 <Link
                   href="/auth/login"
                   className="underline underline-offset-4 hover:text-primary transition-colors"

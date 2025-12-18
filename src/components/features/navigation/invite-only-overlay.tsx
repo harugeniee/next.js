@@ -38,9 +38,7 @@ export function InviteOnlyOverlay() {
   // Compute dialog visibility based on localStorage and current overlay rules
   let shouldShowDialog = false;
   if (typeof window !== "undefined" && shouldShowBlurOverlay) {
-    const hasDismissed = localStorage.getItem(
-      "invite-only-overlay-dismissed",
-    );
+    const hasDismissed = localStorage.getItem("invite-only-overlay-dismissed");
     shouldShowDialog = !hasDismissed;
   }
 

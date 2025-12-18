@@ -74,7 +74,7 @@ export class AuthAPI {
       ...data,
       ...(data.dob && { dob: new Date(data.dob) }),
     };
-    
+
     const response = await publicHttp.post<ApiResponse<LoginResponse>>(
       `${this.BASE_URL}/register`,
       requestData,

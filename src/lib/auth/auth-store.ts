@@ -94,25 +94,30 @@ export function clearUserState() {
   if (typeof document !== "undefined") {
     const domain = window.location.hostname;
     const domainParts = domain.split(".");
-    
+
     // Clear cookie with current path
-    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict";
-    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
-    
+    document.cookie =
+      "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict";
+    document.cookie =
+      "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+
     // Clear cookie with domain (if applicable)
     if (domainParts.length > 1) {
       const rootDomain = "." + domainParts.slice(-2).join(".");
       document.cookie = `accessToken=; domain=${rootDomain}; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict`;
       document.cookie = `accessToken=; domain=${rootDomain}; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
     }
-    
+
     // Clear cookie without domain
-    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    
+    document.cookie =
+      "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
     // Also try with Secure flag (if HTTPS)
     if (window.location.protocol === "https:") {
-      document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict; Secure";
-      document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure";
+      document.cookie =
+        "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict; Secure";
+      document.cookie =
+        "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure";
     }
   }
 }
