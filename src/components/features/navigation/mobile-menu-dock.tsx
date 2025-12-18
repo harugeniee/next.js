@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useAtom } from "jotai";
 import {
   ArrowLeft,
@@ -9,6 +10,7 @@ import {
   Search,
   Settings,
   User as UserIcon,
+  XIcon,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -22,12 +24,6 @@ import {
   ThemeSelector,
 } from "@/components/ui";
 import { Button } from "@/components/ui/core/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/layout/dialog";
 import { Separator } from "@/components/ui/layout/separator";
 import {
   Sheet,
@@ -42,6 +38,7 @@ import {
 } from "@/components/ui/shadcn-io/menu-dock";
 import { authLoadingAtom, currentUserAtom } from "@/lib/auth";
 import { cn } from "@/lib/utils";
+import { fadeVariants } from "@/lib/utils/animations";
 
 interface MobileMenuDockProps {
   onLogout: () => Promise<void>;
@@ -168,7 +165,12 @@ export default function MobileMenuDock({
 
     // Add Profile item if user is authenticated, otherwise add Login button
     // Write button is hidden per requirements
-    if (user?.id) {
+    // Only show Login button when auth is not loading and user is not authenticated
+    // This prevents showing Login button when user is actually authenticated (cookie exists but client state not synced yet)
+    if (authLoading) {
+      // Don't add anything while auth is loading to avoid flickering
+      // The button will appear once auth state is determined
+    } else if (user?.id) {
       // Create Avatar icon component wrapper for personalized UX
       // Best practice: Use Avatar instead of generic icon for better user recognition
       const AvatarIcon = ({ className }: { className?: string }) => (
@@ -183,7 +185,7 @@ export default function MobileMenuDock({
         },
       });
     } else {
-      // Add Login button when user is not authenticated
+      // Add Login button when user is not authenticated (and auth loading is complete)
       // Find the index where Login will be inserted
       const loginIndex = items.length;
       items.push({
@@ -193,7 +195,8 @@ export default function MobileMenuDock({
           // Set active index immediately before navigation
           setUserSelectedIndex(loginIndex);
           // Get current path to redirect back after login
-          const currentPath = window.location.pathname;
+          // Use pathname from hook instead of window.location for Next.js App Router compatibility
+          const currentPath = pathname;
           const loginUrl = `/auth/login?redirect=${encodeURIComponent(currentPath)}`;
           router.push(loginUrl);
         },
@@ -210,7 +213,7 @@ export default function MobileMenuDock({
     });
 
     return items;
-  }, [user, t, router, isDetailPage]);
+  }, [user, authLoading, t, router, isDetailPage, pathname, setUserSelectedIndex]);
 
   // Calculate active index based on current pathname
   const pathnameBasedIndex = useMemo(() => {
@@ -310,6 +313,71 @@ export default function MobileMenuDock({
     setIsSettingsOpen(false);
   };
 
+  // Slide down animation variant for search container
+  const slideDownVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 200,
+        mass: 0.5,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.15,
+      },
+    },
+  };
+
+  // Prevent body scroll when search overlay is open
+  useEffect(() => {
+    if (isSearchOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    }
+
+    return () => {
+      // Cleanup on unmount
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+    };
+  }, [isSearchOpen]);
+
+  // Handle ESC key to close search overlay
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isSearchOpen) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    if (isSearchOpen) {
+      window.addEventListener("keydown", handleEscape);
+      return () => window.removeEventListener("keydown", handleEscape);
+    }
+  }, [isSearchOpen]);
 
   return (
     <>
@@ -455,30 +523,68 @@ export default function MobileMenuDock({
         </SheetContent>
       </Sheet>
 
-      {/* Search Dialog */}
-      <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
-        <DialogContent className="sm:max-w-[90vw] max-w-[95vw] p-0 gap-0 top-[20%] translate-y-0">
-          <DialogHeader className="px-4 pt-4 pb-2">
-            <DialogTitle>
-              {t("actions.search", "common") || "Search"}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="px-4 pb-4">
-            <SearchBar
-              className="w-full"
-              showKeyboardShortcut={false}
-              onSearch={(query) => {
-                // Handle search if needed
-                console.log("Search query:", query);
-              }}
-              onResultClick={() => {
-                // Close search dialog when a result is clicked
-                setIsSearchOpen(false);
-              }}
+      {/* Search Overlay - Fixed at top on mobile */}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <div className="fixed inset-0 z-40 md:hidden">
+            {/* Blurred background overlay */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={fadeVariants}
+              className="absolute inset-0 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60"
+              onClick={() => setIsSearchOpen(false)}
+              aria-hidden="true"
             />
+
+            {/* Search container positioned below header */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={slideDownVariants}
+              className="relative top-[0px] px-4 pt-4 pb-6"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="search-title"
+            >
+              {/* Header with title and close button */}
+              <div className="flex items-center justify-between mb-4">
+                <h2
+                  id="search-title"
+                  className="text-lg font-semibold text-foreground"
+                >
+                  {t("actions.search", "common") || "Search"}
+                </h2>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() => setIsSearchOpen(false)}
+                  aria-label={t("actions.close", "common") || "Close search"}
+                >
+                  <XIcon className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Search Bar */}
+              <SearchBar
+                className="w-full"
+                showKeyboardShortcut={false}
+                onSearch={(query) => {
+                  // Handle search if needed
+                  console.log("Search query:", query);
+                }}
+                onResultClick={() => {
+                  // Close search overlay when a result is clicked
+                  setIsSearchOpen(false);
+                }}
+              />
+            </motion.div>
           </div>
-        </DialogContent>
-      </Dialog>
+        )}
+      </AnimatePresence>
     </>
   );
 }

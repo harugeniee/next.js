@@ -177,6 +177,8 @@ export default function proxy(request: NextRequest): NextResponse {
   Logger.logRequest(pathname, isProtected, isAuth, isAuthenticated);
 
   // Handle protected routes - redirect to login if not authenticated
+  console.log("isProtected", isProtected);
+  console.log("isAuthenticated", isAuthenticated);
   if (isProtected && !isAuthenticated) {
     Logger.logRedirect(pathname, "/auth/login", "Protected route without auth");
     return RedirectUtils.createLoginRedirect(request, pathname);

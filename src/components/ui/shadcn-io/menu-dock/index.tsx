@@ -131,21 +131,21 @@ export const MenuDock: React.FC<MenuDockProps> = ({
       case "compact":
         return {
           container: "p-1",
-          item: "p-2 min-w-12",
+          item: "p-2 min-w-12 max-w-20",
           icon: "h-4 w-4",
           text: "text-xs",
         };
       case "large":
         return {
           container: "p-3",
-          item: "p-3 min-w-16",
+          item: "p-3 min-w-16 max-w-24",
           icon: "h-6 w-6",
           text: "text-base",
         };
       default:
         return {
           container: "p-2",
-          item: "p-2 min-w-14",
+          item: "p-2 min-w-14 max-w-20",
           icon: "h-5 w-5",
           text: "text-sm",
         };
@@ -206,8 +206,9 @@ export const MenuDock: React.FC<MenuDockProps> = ({
                 className={cn(
                   "font-medium transition-colors duration-200 capitalize",
                   styles.text,
-                  "whitespace-nowrap",
+                  "whitespace-nowrap truncate max-w-full",
                 )}
+                title={item.label}
               >
                 {item.label}
               </span>

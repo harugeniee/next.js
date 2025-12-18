@@ -59,8 +59,17 @@ export function storeTokens(accessToken: string, refreshToken?: string) {
   setAccessToken(accessToken);
 
   // Also set a cookie for proxy to check
+  // Note: This cookie is set client-side, so it's NOT HttpOnly
+  // Backend should ideally set HttpOnly cookie, but this is a fallback
   if (typeof document !== "undefined") {
-    document.cookie = `accessToken=${accessToken}; path=/; max-age=86400; SameSite=Strict; Secure`;
+    const isSecure = window.location.protocol === "https:";
+    const cookieOptions = [
+      `path=/`,
+      `max-age=86400`,
+      `SameSite=Strict`,
+      ...(isSecure ? ["Secure"] : []),
+    ].join("; ");
+    document.cookie = `accessToken=${accessToken}; ${cookieOptions}`;
   }
 
   // Store refresh token in localStorage only if backend doesn't set HttpOnly cookies
@@ -80,9 +89,31 @@ export function clearUserState() {
   clearTokens();
   clearRefreshTokenFallback();
 
-  // Clear the access token cookie
+  // Clear the access token cookie with all possible variations
+  // This ensures the cookie is deleted regardless of its original settings
   if (typeof document !== "undefined") {
-    document.cookie = "accessToken=; path=/; max-age=0; SameSite=Strict";
+    const domain = window.location.hostname;
+    const domainParts = domain.split(".");
+    
+    // Clear cookie with current path
+    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict";
+    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+    
+    // Clear cookie with domain (if applicable)
+    if (domainParts.length > 1) {
+      const rootDomain = "." + domainParts.slice(-2).join(".");
+      document.cookie = `accessToken=; domain=${rootDomain}; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict`;
+      document.cookie = `accessToken=; domain=${rootDomain}; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+    }
+    
+    // Clear cookie without domain
+    document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    
+    // Also try with Secure flag (if HTTPS)
+    if (window.location.protocol === "https:") {
+      document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict; Secure";
+      document.cookie = "accessToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure";
+    }
   }
 }
 
