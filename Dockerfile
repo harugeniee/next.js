@@ -20,12 +20,23 @@ COPY package.json yarn.lock .yarnrc.yml ./
 # Install dependencies using Yarn 4 (immutable flag instead of frozen-lockfile)
 RUN yarn install --immutable
 
-# Copy source code
+# Copy source code (including .env.production if it exists)
 COPY . .
 
 RUN yarn -v
 
+# Next.js automatically reads .env.production during build
+# No need to manually export - Next.js will load it automatically
+# Verify .env.production exists (optional check)
+RUN if [ -f .env.production ]; then \
+      echo "✓ .env.production found - Next.js will load it during build"; \
+      echo "  Found $(grep -c '^NEXT_PUBLIC_' .env.production 2>/dev/null || echo 0) NEXT_PUBLIC_ variables"; \
+    else \
+      echo "::warning::.env.production not found - build may fail if env vars are required"; \
+    fi
+
 # Build the Next.js application
+# Next.js automatically reads .env.production and embeds NEXT_PUBLIC_* variables into client-side code
 RUN yarn build
 
 # Stage 2: Runner

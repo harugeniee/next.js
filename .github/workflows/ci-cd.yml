@@ -110,6 +110,22 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
       
+      - name: Create .env.production file for build
+        run: |
+          # Create .env.production file from secret (only NEXT_PUBLIC_ variables needed for build)
+          echo "${{ secrets.PRODUCTION_ENV_FILE }}" > .env.production
+          
+          # Verify file was created and show variable count (without values)
+          if [ -f .env.production ]; then
+            NEXT_PUBLIC_COUNT=$(grep -c '^NEXT_PUBLIC_' .env.production 2>/dev/null || echo "0")
+            echo "✓ Created .env.production with $NEXT_PUBLIC_COUNT NEXT_PUBLIC_ variables"
+            echo "Variable names (values hidden):"
+            grep '^NEXT_PUBLIC_' .env.production | cut -d'=' -f1 | sed 's/^/  - /' | head -10
+          else
+            echo "::error::Failed to create .env.production file"
+            exit 1
+          fi
+      
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
