@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           
+      - name: Enable Corepack
+        run: corepack enable
+      
       - name: Install dependencies
         run: yarn install
         
@@ -65,6 +68,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           
+      - name: Enable Corepack
+        run: corepack enable
+      
       - name: Install dependencies
         run: yarn install
         
@@ -100,6 +106,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           
+      - name: Enable Corepack
+        run: corepack enable
+      
       - name: Install dependencies
         run: yarn install
         
