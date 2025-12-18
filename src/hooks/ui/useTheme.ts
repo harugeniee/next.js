@@ -11,7 +11,10 @@ export function useTheme() {
 
   // Ensure component is mounted to prevent hydration mismatch
   useEffect(() => {
-    setMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setMounted(true);
+    });
   }, []);
 
   // Validate theme before setting

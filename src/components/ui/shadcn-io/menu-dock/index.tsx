@@ -79,7 +79,10 @@ export const MenuDock: React.FC<MenuDockProps> = ({
   useEffect(() => {
     if (activeIndex >= finalItems.length) {
       if (externalActiveIndex === undefined) {
-        setInternalActiveIndex(0);
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setInternalActiveIndex(0);
+        });
       }
     }
   }, [finalItems, activeIndex, externalActiveIndex]);

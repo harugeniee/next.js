@@ -235,15 +235,24 @@ export function useAuthRedirect() {
       // Only redirect if we're not already on the target page
       if (window.location.pathname !== redirectUrl) {
         console.log("Redirecting to:", redirectUrl);
-        setHasRedirected(true);
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setHasRedirected(true);
+        });
         router.push(redirectUrl);
       } else {
         console.log("Already on target page, no redirect needed");
-        setHasRedirected(true);
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setHasRedirected(true);
+        });
       }
     } else if (!user) {
       console.log("User not authenticated");
-      setHasRedirected(false);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setHasRedirected(false);
+      });
     }
   }, [user, authLoading, router, searchParams, hasRedirected]);
 

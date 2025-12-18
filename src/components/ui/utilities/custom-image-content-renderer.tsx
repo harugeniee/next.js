@@ -37,8 +37,14 @@ export function CustomImageContentRenderer({
 
   // Reset loading/error when image source changes
   useEffect(() => {
-    setIsLoading(true);
-    setHasError(false);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsLoading(true);
+    });
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setHasError(false);
+    });
   }, [src]);
 
   const handleImageLoad = () => {

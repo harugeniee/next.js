@@ -66,7 +66,10 @@ export function useContentRenderer(
   useEffect(() => {
     if (enableMermaidDiagrams && !mermaidInitialized) {
       initializeMermaid();
-      setMermaidInitialized(true);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setMermaidInitialized(true);
+      });
     }
   }, [enableMermaidDiagrams, mermaidInitialized]);
 

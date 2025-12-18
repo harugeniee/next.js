@@ -18,7 +18,10 @@ export function SyntaxHighlightedContent({ html }: { readonly html: string }) {
   useEffect(() => {
     if (!mermaidInitialized) {
       initializeMermaid();
-      setMermaidInitialized(true);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setMermaidInitialized(true);
+      });
     }
   }, [mermaidInitialized]);
 
