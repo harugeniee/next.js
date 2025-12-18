@@ -93,7 +93,7 @@ export function BreadcrumbNav({
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                {/* Note: No separator here - the next item will add one via needsSeparator logic */}
                 {/* Render the current item (which is the first item after collapsed items) */}
                 <BreadcrumbItem>
                   {shouldRenderAsPage ? (
@@ -113,9 +113,10 @@ export function BreadcrumbNav({
           // Render normal breadcrumb item
           // Add separator before each item except the first one
           // When collapsed, the ellipsis fragment at visibleIndex 1 renders:
-          // <Separator /> <Ellipsis /> <Separator /> <Item D />
-          // So Item D has a separator before it, but NOT after it.
-          // Therefore, Item E (visibleIndex 2) still needs a separator before it.
+          // <Separator /> <Ellipsis /> <Item D />
+          // So Item D doesn't have a separator after it in the fragment.
+          // Item E (visibleIndex 2) needs a separator before it.
+          // Note: visibleIndex 1 is handled by the ellipsis fragment above, so we skip it here
           const needsSeparator = visibleIndex > 0;
 
           return (
