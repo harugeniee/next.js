@@ -38,11 +38,9 @@ export function CustomImageContentRenderer({
   // Reset loading/error when image source changes
   useEffect(() => {
     // Defer state update to avoid cascading renders
+    // Batch both state updates together to prevent unnecessary renders
     queueMicrotask(() => {
       setIsLoading(true);
-    });
-    // Defer state update to avoid cascading renders
-    queueMicrotask(() => {
       setHasError(false);
     });
   }, [src]);
