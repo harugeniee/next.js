@@ -15,7 +15,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/navigation/breadcrumb";
-import { useMediaQuery } from "@/hooks/ui/useSimpleHooks";
 import type { BreadcrumbItem as BreadcrumbItemType } from "@/lib/utils/breadcrumb";
 import Link from "next/link";
 import * as React from "react";
@@ -41,7 +40,6 @@ export function BreadcrumbNav({
   maxItems = 3,
 }: BreadcrumbNavProps) {
   const [open, setOpen] = React.useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   // Don't collapse if items are within limit
   const shouldCollapse = items.length > maxItems;
@@ -97,10 +95,12 @@ export function BreadcrumbNav({
                 <BreadcrumbItem>
                   {shouldRenderAsPage ? (
                     <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                  ) : (
+                  ) : item.href ? (
                     <BreadcrumbLink asChild>
                       <Link href={item.href}>{item.label}</Link>
                     </BreadcrumbLink>
+                  ) : (
+                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
                   )}
                 </BreadcrumbItem>
               </React.Fragment>
@@ -109,8 +109,11 @@ export function BreadcrumbNav({
 
           // Render normal breadcrumb item
           // Add separator before each item except the first one
-          // When collapsed, the ellipsis fragment already includes separators
-          const needsSeparator = visibleIndex > 0;
+          // When collapsed, the ellipsis fragment at visibleIndex 1 already includes
+          // a separator after the item, so we should NOT add a separator for visibleIndex 2
+          const needsSeparator =
+            visibleIndex > 0 &&
+            !(shouldCollapse && visibleIndex === 2);
           
           return (
             <React.Fragment key={`${item.href || item.label}-${visibleIndex}`}>
@@ -118,10 +121,12 @@ export function BreadcrumbNav({
               <BreadcrumbItem>
                 {shouldRenderAsPage ? (
                   <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                ) : (
+                ) : item.href ? (
                   <BreadcrumbLink asChild>
                     <Link href={item.href}>{item.label}</Link>
                   </BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>{item.label}</BreadcrumbPage>
                 )}
               </BreadcrumbItem>
             </React.Fragment>
