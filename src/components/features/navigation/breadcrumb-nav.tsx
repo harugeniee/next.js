@@ -43,10 +43,15 @@ export function BreadcrumbNav({
 
   // Don't collapse if items are within limit
   const shouldCollapse = items.length > maxItems;
+  // Calculate visible items: first item + last (maxItems - 1) items
+  // Handle edge case: when maxItems is 1, show first and last item only
+  const trailingCount = maxItems > 1 ? maxItems - 1 : 1;
   const visibleItems = shouldCollapse
-    ? [items[0], ...items.slice(-(maxItems - 1))]
+    ? [items[0], ...items.slice(-trailingCount)]
     : items;
-  const collapsedItems = shouldCollapse ? items.slice(1, -(maxItems - 1)) : [];
+  const collapsedItems = shouldCollapse
+    ? items.slice(1, -(trailingCount))
+    : [];
 
   if (items.length === 0) {
     return null;
