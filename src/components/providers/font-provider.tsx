@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 // Font types - available font families
 export type FontFamily =
@@ -174,13 +174,19 @@ export function FontProvider({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setMounted(true);
+    });
 
     // Load saved font from localStorage
     const savedFont = localStorage.getItem("fontFamily") as FontFamily;
 
     if (savedFont && fonts.some((f) => f.value === savedFont)) {
-      setFontFamilyState(savedFont);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setFontFamilyState(savedFont);
+      });
     }
   }, []);
 
@@ -215,7 +221,12 @@ export function FontProvider({
   const contextValue: FontContextType = useMemo(
     () => ({
       fontFamily,
-      setFontFamily: (newFont: FontFamily) => setFontFamilyState(newFont),
+      setFontFamily: (newFont: FontFamily) => {
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setFontFamilyState(newFont);
+        });
+      },
       fonts,
       currentFont,
     }),
@@ -248,12 +259,18 @@ export function useCurrentFont() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setMounted(true);
+    });
 
     const savedFont = localStorage.getItem("fontFamily") as FontFamily;
 
     if (savedFont && fonts.some((f) => f.value === savedFont)) {
-      setFontFamily(savedFont);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setFontFamily(savedFont);
+      });
     }
   }, []);
 

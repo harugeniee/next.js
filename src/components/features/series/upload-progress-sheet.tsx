@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, FileText, Loader2, X, XCircle } from "lucide-react";
+import { CheckCircle2, FileText, Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
@@ -51,9 +51,6 @@ export function UploadProgressSheet({
   const totalFiles = mediaFiles.length;
   const completedFiles = Object.values(uploadStatus).filter(
     (status) => status === "success",
-  ).length;
-  const failedFiles = Object.values(uploadStatus).filter(
-    (status) => status === "error",
   ).length;
   // Overall progress is based on number of completed files (0–100%),
   // optionally combined with a small boost while creating the segment.
@@ -232,7 +229,7 @@ export function UploadProgressSheet({
                 ref={filesListRef}
                 className="space-y-2 max-h-[300px] sm:max-h-[400px] overflow-y-auto"
               >
-                {mediaFiles.map((file, index) => {
+                {mediaFiles.map((file) => {
                   const fileKey = `${file.name}-${file.size}-${file.lastModified}`;
                   const status = uploadStatus[fileKey] || "pending";
                   const progress = uploadProgress[fileKey] || 0;

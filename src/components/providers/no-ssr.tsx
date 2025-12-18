@@ -15,7 +15,10 @@ export function NoSSR({ children, fallback = null }: NoSSRProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsMounted(true);
+    });
   }, []);
 
   if (!isMounted) {
@@ -32,7 +35,10 @@ export function useIsMounted() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsMounted(true);
+    });
   }, []);
 
   return isMounted;

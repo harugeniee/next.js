@@ -87,7 +87,10 @@ export function AnimatedHeader({
       };
     } else {
       if (isMountedRef.current) {
-        setShouldAnimateState(false);
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setShouldAnimateState(false);
+        });
       }
     }
   }, [shouldShow, loading]);

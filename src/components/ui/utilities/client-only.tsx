@@ -15,7 +15,10 @@ export function ClientOnly({ children, fallback = null }: ClientOnlyProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsClient(true);
+    });
   }, []);
 
   // Return fallback during SSR and initial render
@@ -35,7 +38,10 @@ export function useClientOnly() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsClient(true);
+    });
   }, []);
 
   return isClient;

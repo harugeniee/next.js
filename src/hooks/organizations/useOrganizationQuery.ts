@@ -6,8 +6,7 @@ import {
   OrganizationsAPI,
   type QueryOrganizationsDto,
 } from "@/lib/api/organizations";
-import type { CreateOrganizationDto, Organization } from "@/lib/interface";
-import { queryKeys } from "@/lib/utils/query-keys";
+import type { CreateOrganizationDto } from "@/lib/interface";
 
 /**
  * Query keys for organization queries

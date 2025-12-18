@@ -87,7 +87,10 @@ export function AnimatedSection({
       };
     } else {
       if (isMountedRef.current) {
-        setShouldAnimate(false);
+        // Defer state update to avoid cascading renders
+        queueMicrotask(() => {
+          setShouldAnimate(false);
+        });
       }
     }
   }, [shouldShow, loading]);

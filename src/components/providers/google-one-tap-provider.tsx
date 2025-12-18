@@ -77,13 +77,19 @@ export default function GoogleOneTapProvider() {
   useEffect(() => {
     // Don't show on mobile devices (prevents FedCM AbortError)
     if (isMobile) {
-      setShouldShow(false);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setShouldShow(false);
+      });
       return;
     }
 
     // Don't show if user is authenticated
     if (currentUser) {
-      setShouldShow(false);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setShouldShow(false);
+      });
       return;
     }
 
@@ -91,12 +97,18 @@ export default function GoogleOneTapProvider() {
     const isExcluded = excludedPaths.some((path) => pathname?.startsWith(path));
 
     if (isExcluded) {
-      setShouldShow(false);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setShouldShow(false);
+      });
       return;
     }
 
     // Show on all other pages when not authenticated and on desktop
-    setShouldShow(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setShouldShow(true);
+    });
   }, [currentUser, pathname, isMobile]);
 
   /**

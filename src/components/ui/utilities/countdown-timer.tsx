@@ -128,7 +128,10 @@ export function CountdownTimer({
   // Handle completion state
   useEffect(() => {
     if (isExpired && !isCompleted) {
-      setIsCompleted(true);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setIsCompleted(true);
+      });
       // Auto-hide after 3 seconds
       const hideTimer = setTimeout(() => {
         setIsCompleted(false);

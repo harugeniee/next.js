@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 // Theme types - shadcn/ui color themes
 export type Theme =
@@ -170,21 +170,30 @@ export function ThemeProvider({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setMounted(true);
+    });
 
     // Load saved theme and color scheme from localStorage
     const savedTheme = localStorage.getItem("theme") as Theme;
     const savedColorScheme = localStorage.getItem("colorScheme") as ColorScheme;
 
     if (savedTheme && themes.some((t) => t.value === savedTheme)) {
-      setThemeState(savedTheme);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setThemeState(savedTheme);
+      });
     }
 
     if (
       savedColorScheme &&
       colorSchemes.some((cs) => cs.value === savedColorScheme)
     ) {
-      setColorSchemeState(savedColorScheme);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setColorSchemeState(savedColorScheme);
+      });
     }
   }, []);
 
@@ -274,20 +283,29 @@ export function useCurrentTheme() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setMounted(true);
+    });
 
     const savedTheme = localStorage.getItem("theme") as Theme;
     const savedColorScheme = localStorage.getItem("colorScheme") as ColorScheme;
 
     if (savedTheme && themes.some((t) => t.value === savedTheme)) {
-      setTheme(savedTheme);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setTheme(savedTheme);
+      });
     }
 
     if (
       savedColorScheme &&
       colorSchemes.some((cs) => cs.value === savedColorScheme)
     ) {
-      setColorScheme(savedColorScheme);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setColorScheme(savedColorScheme);
+      });
     }
   }, []);
 

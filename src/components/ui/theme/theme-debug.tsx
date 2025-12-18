@@ -32,7 +32,10 @@ export function ThemeDebug() {
       "--ring": computedStyle.getPropertyValue("--ring"),
     };
 
-    setCssVars(vars);
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setCssVars(vars);
+    });
   }, [theme, colorScheme]);
 
   return (
