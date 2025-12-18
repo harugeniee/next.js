@@ -54,6 +54,12 @@ export default function OrganizationDetailPage() {
     type: "website",
   });
 
+  // Generate breadcrumb items (must be called unconditionally at top level)
+  const breadcrumbItems = useBreadcrumb(undefined, {
+    organization_id: organizationId,
+    organization_name: organization?.name,
+  });
+
   // Show 404 if organization not found
   if (!isLoading && !error && !organization) {
     notFound();
@@ -124,12 +130,7 @@ export default function OrganizationDetailPage() {
               <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-6 lg:py-8">
                 {/* Breadcrumb Navigation */}
                 <div className="mb-4 sm:mb-6">
-                  <BreadcrumbNav
-                    items={useBreadcrumb(undefined, {
-                      organization_id: organizationId,
-                      organization_name: organization.name,
-                    })}
-                  />
+                  <BreadcrumbNav items={breadcrumbItems} />
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8">

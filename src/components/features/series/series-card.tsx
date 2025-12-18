@@ -38,6 +38,31 @@ function formatAiringTime(targetDate: Date | string): string {
 }
 
 /**
+ * NSFW Overlay Component (Discord-style spoiler)
+ * Declared outside component to prevent recreation on each render
+ */
+const NSFWOverlay = ({ onClick }: { onClick: () => void }) => (
+  <div
+    className="absolute inset-0 z-20 flex items-center justify-center bg-background/90 backdrop-blur-md cursor-pointer transition-opacity duration-300 hover:bg-background/95 border border-border/50"
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onClick();
+    }}
+  >
+    <div className="text-center px-4">
+      <EyeOff className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground mx-auto mb-2" />
+      <p className="text-foreground font-semibold text-xs sm:text-sm mb-1">
+        NSFW
+      </p>
+      <p className="text-muted-foreground text-[10px] sm:text-xs">
+        Click to reveal
+      </p>
+    </div>
+  </div>
+);
+
+/**
  * Series card component with different variants
  * - anichart: AniChart-style vertical poster with gradient overlay
  * - default: Horizontal layout with cover image on left, content on right
@@ -134,28 +159,6 @@ export function SeriesCard({
   const displayGenres = useMemo(() => {
     return genres || series.tags || [];
   }, [genres, series.tags]);
-
-  // NSFW Overlay Component (Discord-style spoiler)
-  const NSFWOverlay = ({ onClick }: { onClick: () => void }) => (
-    <div
-      className="absolute inset-0 z-20 flex items-center justify-center bg-background/90 backdrop-blur-md cursor-pointer transition-opacity duration-300 hover:bg-background/95 border border-border/50"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onClick();
-      }}
-    >
-      <div className="text-center px-4">
-        <EyeOff className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground mx-auto mb-2" />
-        <p className="text-foreground font-semibold text-xs sm:text-sm mb-1">
-          NSFW
-        </p>
-        <p className="text-muted-foreground text-[10px] sm:text-xs">
-          Click to reveal
-        </p>
-      </div>
-    </div>
-  );
 
   // AniChart-style variant: horizontal layout with cover image on left, info panel on right
   if (isAniChart) {

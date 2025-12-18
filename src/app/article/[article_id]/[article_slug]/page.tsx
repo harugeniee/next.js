@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 import { ScheduledCountdownDialog } from "@/components/features/article/scheduled-countdown-dialog";
 import { AuthorCard, BreadcrumbNav } from "@/components/features/navigation";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { useBreadcrumb } from "@/hooks/ui";
 import { Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { ContentRenderer } from "@/components/ui/utilities/content-renderer";
 import { useArticle } from "@/hooks/article";
 import { useReactions } from "@/hooks/reactions";
+import { useBreadcrumb } from "@/hooks/ui";
 import { ARTICLE_CONSTANTS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -118,7 +118,10 @@ export default function ArticleViewPage() {
   // Auto-open countdown dialog for scheduled articles
   useEffect(() => {
     if (isScheduledArticle && scheduledAt && !isLoading) {
-      setIsCountdownDialogOpen(true);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setIsCountdownDialogOpen(true);
+      });
     }
   }, [isScheduledArticle, scheduledAt, isLoading]);
 

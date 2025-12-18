@@ -7,6 +7,19 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 /**
+ * List of paths where One Tap should NOT appear
+ * Customize this list based on your needs
+ */
+const excludedPaths = [
+  "/auth/login", // Login page already has One Tap
+  "/auth/register", // Register page
+  "/auth/callback", // OAuth callback
+  // Add more paths as needed:
+  // "/checkout",     // Don't interrupt checkout
+  // "/payment",      // Don't interrupt payment
+];
+
+/**
  * Global Google One Tap Provider
  *
  * Shows Google One Tap on DESKTOP ONLY, except:
@@ -34,19 +47,6 @@ export default function GoogleOneTapProvider() {
   const router = useRouter();
   const [shouldShow, setShouldShow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
-  /**
-   * List of paths where One Tap should NOT appear
-   * Customize this list based on your needs
-   */
-  const excludedPaths = [
-    "/auth/login", // Login page already has One Tap
-    "/auth/register", // Register page
-    "/auth/callback", // OAuth callback
-    // Add more paths as needed:
-    // "/checkout",     // Don't interrupt checkout
-    // "/payment",      // Don't interrupt payment
-  ];
 
   /**
    * Detect if user is on mobile device

@@ -2,9 +2,9 @@
 
 import { Globe, Palette, Settings as SettingsIcon, Type } from "lucide-react";
 
+import { useFont } from "@/components/providers/font-provider";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useIsMounted } from "@/components/providers/no-ssr";
-import { useFont } from "@/components/providers/font-provider";
 import {
   useTheme,
   type ColorScheme,
@@ -50,9 +50,6 @@ export default function SettingsPage() {
       label: t("appearance.languages.vi", "settings") || "Tiếng Việt",
     },
   ];
-
-  const currentLanguage =
-    languages.find((lang) => lang.value === locale) || languages[0];
 
   // Prevent hydration mismatch
   if (!isMounted) {

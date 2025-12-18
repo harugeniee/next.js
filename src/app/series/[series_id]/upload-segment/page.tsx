@@ -60,7 +60,7 @@ export default function UploadSegmentPage() {
   const seriesId = params.series_id as string;
 
   // Check if user has uploader role - redirects to permission-denied if not
-  const { hasRole, isLoading: isCheckingPermission } =
+  const { isLoading: isCheckingPermission } =
     useRequireRole("uploader");
 
   // Ref for upload card to scroll to when submitting

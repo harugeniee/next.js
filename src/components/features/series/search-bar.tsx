@@ -124,15 +124,17 @@ export function SearchBar({
 
   // Detect Mac for keyboard shortcut display
   useEffect(() => {
-    // More reliable Mac detection
-    const platform = navigator.platform.toUpperCase();
+    // Modern Mac detection using userAgent (platform is deprecated)
     const userAgent = navigator.userAgent.toUpperCase();
-    setIsMac(
-      platform.indexOf("MAC") >= 0 ||
-        platform.indexOf("IPHONE") >= 0 ||
-        platform.indexOf("IPAD") >= 0 ||
-        userAgent.indexOf("MAC OS X") >= 0,
-    );
+    // Defer state update to avoid cascading renders
+    queueMicrotask(() => {
+      setIsMac(
+        userAgent.indexOf("MAC") >= 0 ||
+          userAgent.indexOf("IPHONE") >= 0 ||
+          userAgent.indexOf("IPAD") >= 0 ||
+          userAgent.indexOf("MAC OS X") >= 0,
+      );
+    });
   }, []);
 
   // Keyboard shortcut handler
@@ -152,7 +154,10 @@ export function SearchBar({
   // Open popover when user types
   useEffect(() => {
     if (query.trim().length > 0) {
-      setIsOpen(true);
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setIsOpen(true);
+      });
     }
   }, [query]);
 
