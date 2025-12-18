@@ -26,6 +26,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
       offset={isMobile ? "1rem" : "1.5rem"}
       toastOptions={{
         className: "toast-mobile-optimized",
+        closeButton: true,
+        classNames: {
+          closeButton:
+            "absolute right-2 top-2 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent [&_svg]:size-4 [&_svg]:shrink-0",
+        },
         style: {
           maxWidth: isMobile ? "calc(100vw - 2rem)" : "420px",
           width: isMobile ? "calc(100vw - 2rem)" : "auto",
