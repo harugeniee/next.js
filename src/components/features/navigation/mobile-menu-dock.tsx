@@ -13,7 +13,7 @@ import {
   XIcon,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { SearchBar } from "@/components/features/series";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -112,6 +112,10 @@ export default function MobileMenuDock({
   const [userSelectedIndex, setUserSelectedIndex] = useState<number | null>(
     null,
   );
+  // Scroll tracking state for auto-hide dock functionality
+  const [isDockVisible, setIsDockVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const throttleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Check if current route is a detail/nested page (not in dock menu)
   const isDetailPage = useMemo(() => {
@@ -304,8 +308,58 @@ export default function MobileMenuDock({
       // eslint-disable-next-line -- Syncing with router state (external system)
       setUserSelectedIndex(null);
       prevPathnameRef.current = pathname;
+      // Reset dock visibility on route change to ensure it's visible on new page
+      setIsDockVisible(true);
+      lastScrollY.current = 0;
     }
   }, [pathname]);
+
+  // Throttled scroll handler to detect bottom of page and scroll direction
+  // Throttles scroll events to 150ms for performance optimization
+  const handleScroll = useCallback(() => {
+    // Clear existing timeout if any
+    if (throttleTimeoutRef.current) {
+      clearTimeout(throttleTimeoutRef.current);
+    }
+
+    // Throttle scroll event processing
+    throttleTimeoutRef.current = setTimeout(() => {
+      const currentScrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollThreshold = 50; // Threshold in pixels from bottom
+      const topThreshold = 100; // Always show dock when within 100px from top
+
+      // Check if page is shorter than viewport (always show dock)
+      const isPageShort = documentHeight <= windowHeight;
+
+      // Check if at top of page
+      const isAtTop = currentScrollY < topThreshold;
+
+      // Check if at bottom of page (with threshold)
+      const isAtBottom =
+        currentScrollY + windowHeight >= documentHeight - scrollThreshold;
+
+      // Determine scroll direction
+      const isScrollingDown = currentScrollY > lastScrollY.current;
+      const isScrollingUp = currentScrollY < lastScrollY.current;
+
+      // Update visibility based on scroll position and direction
+      if (isPageShort || isAtTop) {
+        // Always show dock at top or on short pages
+        setIsDockVisible(true);
+      } else if (isAtBottom && isScrollingDown) {
+        // Hide dock when scrolling down to bottom
+        setIsDockVisible(false);
+      } else if (isScrollingUp) {
+        // Show dock when scrolling up
+        setIsDockVisible(true);
+      }
+
+      // Update last scroll position
+      lastScrollY.current = currentScrollY;
+    }, 150);
+  }, []);
 
   // Handle navigation and close sheet
   const handleNavigate = (path: string) => {
@@ -351,6 +405,31 @@ export default function MobileMenuDock({
     },
   };
 
+  // Slide up and fade animation variant for dock visibility
+  // Slides down (y: 100) and fades out when hidden, slides up (y: 0) and fades in when visible
+  const slideUpFadeVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 100,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 200,
+        mass: 0.5,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 200,
+        mass: 0.5,
+      },
+    },
+  };
+
   // Prevent body scroll when search overlay is open
   useEffect(() => {
     if (isSearchOpen) {
@@ -392,10 +471,40 @@ export default function MobileMenuDock({
     }
   }, [isSearchOpen]);
 
+  // Attach scroll event listener for dock visibility
+  // Only attach when search overlay is not open to avoid conflicts
+  useEffect(() => {
+    if (isSearchOpen) {
+      // Don't track scroll when search overlay is open (it prevents body scroll)
+      return;
+    }
+
+    // Initialize scroll position
+    lastScrollY.current = window.scrollY;
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      // Clear any pending throttle timeout
+      if (throttleTimeoutRef.current) {
+        clearTimeout(throttleTimeoutRef.current);
+        throttleTimeoutRef.current = null;
+      }
+    };
+  }, [handleScroll, isSearchOpen]);
+
   return (
     <>
-      {/* Menu Dock Navigation */}
-      <div className="w-full flex justify-center">
+      {/* Menu Dock Navigation with scroll-based visibility */}
+      <motion.div
+        className="w-full flex justify-center"
+        initial="visible"
+        animate={isDockVisible ? "visible" : "hidden"}
+        variants={slideUpFadeVariants}
+      >
         <MenuDock
           items={menuItems}
           variant="compact"
@@ -406,7 +515,7 @@ export default function MobileMenuDock({
           onActiveIndexChange={setUserSelectedIndex}
           // className="w-full max-w-md"
         />
-      </div>
+      </motion.div>
 
       {/* Settings Bottom Sheet - Best UX for mobile */}
       <Sheet open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>

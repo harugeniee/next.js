@@ -57,24 +57,18 @@ export function BreadcrumbNav({
   return (
     <Breadcrumb className={className}>
       <BreadcrumbList>
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1;
+        {visibleItems.map((item, visibleIndex) => {
+          // Use isActive from item if available, otherwise check if it's the last item
+          const isActive = item.isActive ?? false;
+          const shouldRenderAsPage = isActive || !item.href;
 
-          // If collapsed and this is the first item, render it normally
-          if (shouldCollapse && index === 0) {
+          // Render ellipsis dropdown after first item when collapsed
+          // This should appear between the first item and the next visible item
+          if (shouldCollapse && visibleIndex === 1) {
             return (
-              <React.Fragment key={`${item.href || item.label}-${index}`}>
-                <BreadcrumbItem>
-                  {item.href ? (
-                    <BreadcrumbLink asChild>
-                      <Link href={item.href}>{item.label}</Link>
-                    </BreadcrumbLink>
-                  ) : (
-                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                  )}
-                </BreadcrumbItem>
+              <React.Fragment key={`ellipsis-group-${visibleIndex}`}>
+                {/* Render ellipsis dropdown */}
                 <BreadcrumbSeparator />
-                {/* Render ellipsis dropdown after first item */}
                 <BreadcrumbItem>
                   <DropdownMenu open={open} onOpenChange={setOpen}>
                     <DropdownMenuTrigger
@@ -99,32 +93,35 @@ export function BreadcrumbNav({
                   </DropdownMenu>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
+                {/* Render the current item (which is the first item after collapsed items) */}
+                <BreadcrumbItem>
+                  {shouldRenderAsPage ? (
+                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
               </React.Fragment>
             );
           }
 
-          // If collapsed and this item is in the collapsed range, skip it (already in dropdown)
-          if (
-            shouldCollapse &&
-            index > 0 &&
-            index < items.length - (maxItems - 1)
-          ) {
-            return null;
-          }
-
           // Render normal breadcrumb item
+          // Add separator before each item except the first one
+          // When collapsed, the ellipsis fragment already includes separators
+          const needsSeparator = visibleIndex > 0;
+          
           return (
-            <React.Fragment key={`${item.href || item.label}-${index}`}>
-              {index > 0 && <BreadcrumbSeparator />}
+            <React.Fragment key={`${item.href || item.label}-${visibleIndex}`}>
+              {needsSeparator && <BreadcrumbSeparator />}
               <BreadcrumbItem>
-                {isLast ? (
+                {shouldRenderAsPage ? (
                   <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                ) : item.href ? (
+                ) : (
                   <BreadcrumbLink asChild>
                     <Link href={item.href}>{item.label}</Link>
                   </BreadcrumbLink>
-                ) : (
-                  <BreadcrumbPage>{item.label}</BreadcrumbPage>
                 )}
               </BreadcrumbItem>
             </React.Fragment>
