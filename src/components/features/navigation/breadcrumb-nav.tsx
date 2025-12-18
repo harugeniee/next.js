@@ -109,11 +109,11 @@ export function BreadcrumbNav({
 
           // Render normal breadcrumb item
           // Add separator before each item except the first one
-          // When collapsed, the ellipsis fragment at visibleIndex 1 already includes
-          // a separator after the item, so we should NOT add a separator for visibleIndex 2
-          const needsSeparator =
-            visibleIndex > 0 &&
-            !(shouldCollapse && visibleIndex === 2);
+          // When collapsed, the ellipsis fragment at visibleIndex 1 renders:
+          // <Separator /> <Ellipsis /> <Separator /> <Item D />
+          // So Item D has a separator before it, but NOT after it.
+          // Therefore, Item E (visibleIndex 2) still needs a separator before it.
+          const needsSeparator = visibleIndex > 0;
           
           return (
             <React.Fragment key={`${item.href || item.label}-${visibleIndex}`}>
