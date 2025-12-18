@@ -49,9 +49,7 @@ export function BreadcrumbNav({
   const visibleItems = shouldCollapse
     ? [items[0], ...items.slice(-trailingCount)]
     : items;
-  const collapsedItems = shouldCollapse
-    ? items.slice(1, -(trailingCount))
-    : [];
+  const collapsedItems = shouldCollapse ? items.slice(1, -trailingCount) : [];
 
   if (items.length === 0) {
     return null;
@@ -119,7 +117,7 @@ export function BreadcrumbNav({
           // So Item D has a separator before it, but NOT after it.
           // Therefore, Item E (visibleIndex 2) still needs a separator before it.
           const needsSeparator = visibleIndex > 0;
-          
+
           return (
             <React.Fragment key={`${item.href || item.label}-${visibleIndex}`}>
               {needsSeparator && <BreadcrumbSeparator />}
