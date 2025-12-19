@@ -35,7 +35,7 @@ export default function AuthProvider({
         // If there's a valid token, this will succeed
         // If not, it will fail and we'll clear the state
         const user = await fetchMeAction();
-        console.log("AuthProvider: User fetched successfully:", user);
+        // console.log("AuthProvider: User fetched successfully:", user);
         setUser(user);
       } catch (error) {
         // User is not authenticated or API failed, clear state
