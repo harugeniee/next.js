@@ -113,29 +113,20 @@ export default function SegmentDetailPage() {
 
   // Track which images are ready to be unscrambled (sequential processing)
   // Only unscramble images up to this index
+  // Parent component controls sequential processing to avoid conflicts with child timing
   const [maxUnscrambleIndex, setMaxUnscrambleIndex] = useState<number>(-1);
 
-  // Track when sequential processing started (for calculating delays)
-  const [unscrambleStartTime, setUnscrambleStartTime] = useState<number | null>(
-    null,
-  );
-
   // Process images sequentially from top to bottom
+  // This mechanism alone handles timing - no need for child startDelay calculation
   useEffect(() => {
     // Reset when user logs out or when not authenticated
     if (!isAuthenticated || imageAttachments.length === 0) {
       setMaxUnscrambleIndex(-1);
-      setUnscrambleStartTime(null);
       return;
     }
 
     // Reset when authentication state changes (login) or segment changes
     setMaxUnscrambleIndex(-1);
-    setUnscrambleStartTime(null);
-
-    // Record start time for calculating delays
-    const startTime = Date.now();
-    setUnscrambleStartTime(startTime);
 
     // Process images one by one with delay between each
     let currentIndex = 0;
@@ -147,12 +138,13 @@ export default function SegmentDetailPage() {
       }
 
       // Mark this image as ready to unscramble
+      // By the time this state updates and component renders, timing is already correct
       setMaxUnscrambleIndex(currentIndex);
 
       // Process next image after a delay (to avoid overwhelming the browser)
       currentIndex++;
       if (currentIndex < imageAttachments.length) {
-        // Delay increases slightly for each image to ensure smooth processing
+        // Delay between each image to ensure smooth sequential processing
         timeoutId = setTimeout(processNextImage, 300);
       }
     };
@@ -642,20 +634,10 @@ export default function SegmentDetailPage() {
                                               )}
                                               animate={true}
                                               animationDuration={500}
-                                              // Calculate delay to ensure sequential processing
-                                              // Image 0 starts at 100ms, Image 1 at 400ms, Image 2 at 700ms, etc.
-                                              // Each image waits until its scheduled start time
-                                              startDelay={
-                                                unscrambleStartTime
-                                                  ? Math.max(
-                                                      0,
-                                                      100 +
-                                                        index * 300 -
-                                                        (Date.now() -
-                                                          unscrambleStartTime),
-                                                    )
-                                                  : 0
-                                              }
+                                              // No startDelay needed - parent's maxUnscrambleIndex mechanism
+                                              // already ensures sequential processing with correct timing
+                                              // By the time this component renders (index <= maxUnscrambleIndex),
+                                              // it's already scheduled correctly by the parent
                                             />
                                           </div>
                                         ) : (
