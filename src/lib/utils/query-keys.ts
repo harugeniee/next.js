@@ -104,6 +104,9 @@ export const queryKeys = {
       type?: string,
       status?: string,
     ) => ["segments", "user", userId, "cursor", cursor, type, status] as const,
+    next: (segmentId: string) => ["segments", "next", segmentId] as const,
+    previous: (segmentId: string) =>
+      ["segments", "previous", segmentId] as const,
   },
 
   // Comments related queries

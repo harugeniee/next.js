@@ -631,6 +631,46 @@ export function useSegment(segmentId: string) {
 }
 
 /**
+ * Hook for fetching the next segment by segment ID
+ * Automatically extracts languageCode from the current segment
+ * to return the next segment in the same language
+ * @param segmentId Current segment ID (Snowflake ID)
+ * @returns Next segment (same language) or null if not found
+ */
+export function useNextSegment(segmentId: string) {
+  return useQuery<SeriesSegment | null>({
+    queryKey: queryKeys.segments.next(segmentId),
+    queryFn: async () => {
+      return await SegmentsAPI.getNextSegmentById(segmentId);
+    },
+    enabled: !!segmentId && segmentId !== "undefined",
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+  });
+}
+
+/**
+ * Hook for fetching the previous segment by segment ID
+ * Automatically extracts languageCode from the current segment
+ * to return the previous segment in the same language
+ * @param segmentId Current segment ID (Snowflake ID)
+ * @returns Previous segment (same language) or null if not found
+ */
+export function usePreviousSegment(segmentId: string) {
+  return useQuery<SeriesSegment | null>({
+    queryKey: queryKeys.segments.previous(segmentId),
+    queryFn: async () => {
+      return await SegmentsAPI.getPreviousSegmentById(segmentId);
+    },
+    enabled: !!segmentId && segmentId !== "undefined",
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+  });
+}
+
+/**
  * Hook for fetching segments uploaded by a specific user with cursor-based infinite scroll
  * Supports filtering by segment type and status
  * @param userId - User ID to fetch segments for

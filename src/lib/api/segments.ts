@@ -172,6 +172,48 @@ export class SegmentsAPI {
   }
 
   /**
+   * Get the next segment by segment ID
+   * Automatically extracts languageCode from the current segment
+   * to return the next segment in the same language
+   * @param segmentId Current segment ID (Snowflake ID)
+   * @returns Next segment (same language) or null if not found
+   */
+  static async getNextSegmentById(
+    segmentId: string,
+  ): Promise<SeriesSegment | null> {
+    const response = await http.get<
+      ApiResponse<SeriesSegment | null | Record<string, never>>
+    >(`${this.BASE_URL}/${segmentId}/next`);
+    const data = response.data.data;
+    // Handle empty object {} response as null
+    if (!data || (typeof data === "object" && Object.keys(data).length === 0)) {
+      return null;
+    }
+    return data as SeriesSegment;
+  }
+
+  /**
+   * Get the previous segment by segment ID
+   * Automatically extracts languageCode from the current segment
+   * to return the previous segment in the same language
+   * @param segmentId Current segment ID (Snowflake ID)
+   * @returns Previous segment (same language) or null if not found
+   */
+  static async getPreviousSegmentById(
+    segmentId: string,
+  ): Promise<SeriesSegment | null> {
+    const response = await http.get<
+      ApiResponse<SeriesSegment | null | Record<string, never>>
+    >(`${this.BASE_URL}/${segmentId}/previous`);
+    const data = response.data.data;
+    // Handle empty object {} response as null
+    if (!data || (typeof data === "object" && Object.keys(data).length === 0)) {
+      return null;
+    }
+    return data as SeriesSegment;
+  }
+
+  /**
    * Update a segment
    * Requires authentication
    * @param segmentId Segment ID (Snowflake ID)

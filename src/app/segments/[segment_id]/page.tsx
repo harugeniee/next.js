@@ -2,6 +2,7 @@
 
 import {
   ArrowLeft,
+  ArrowRight,
   Copy,
   FileText,
   Image as ImageIcon,
@@ -12,7 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { toast } from "sonner";
@@ -39,7 +40,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
 import { useCurrentUser } from "@/hooks/auth";
-import { useSegment, useSeries } from "@/hooks/series";
+import {
+  useNextSegment,
+  usePreviousSegment,
+  useSegment,
+  useSeries,
+} from "@/hooks/series";
 import { useBreadcrumb } from "@/hooks/ui";
 import { currentUserAtom } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -52,6 +58,7 @@ import { useAtom } from "jotai";
  */
 export default function SegmentDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { t } = useI18n();
   const segmentId = params.segment_id as string;
 
@@ -67,6 +74,10 @@ export default function SegmentDetailPage() {
 
   // Fetch series data for context (only when we have seriesId from segment)
   const { data: seriesDisplay } = useSeries(seriesId || "");
+
+  // Fetch next and previous segments
+  const { data: nextSegment } = useNextSegment(segmentId);
+  const { data: previousSegment } = usePreviousSegment(segmentId);
 
   // Check authentication status
   // Use both query and atom to ensure reactivity on logout
@@ -211,6 +222,30 @@ export default function SegmentDetailPage() {
     return accessMap[segment.accessType] || segment.accessType;
   };
 
+  // Get previous navigation text based on segment type
+  const getPreviousNavText = () => {
+    if (!segment) return t("segments.previous", "series") || "Previous";
+    if (segment.type === "chapter") {
+      return t("segments.previousChapter", "series") || "Previous Chapter";
+    }
+    if (segment.type === "episode") {
+      return t("segments.previousEpisode", "series") || "Previous Episode";
+    }
+    return t("segments.previous", "series") || "Previous";
+  };
+
+  // Get next navigation text based on segment type
+  const getNextNavText = () => {
+    if (!segment) return t("segments.next", "series") || "Next";
+    if (segment.type === "chapter") {
+      return t("segments.nextChapter", "series") || "Next Chapter";
+    }
+    if (segment.type === "episode") {
+      return t("segments.nextEpisode", "series") || "Next Episode";
+    }
+    return t("segments.next", "series") || "Next";
+  };
+
   // Scroll to top when segment changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -239,6 +274,50 @@ export default function SegmentDetailPage() {
       );
     }
   };
+
+  // Navigation Section Component
+  const NavigationSection = ({ className }: { className?: string }) => (
+    <div className={className}>
+      <Card>
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <Button
+              variant="default"
+              size="lg"
+              onClick={() => {
+                if (previousSegment?.id) {
+                  router.push(`/segments/${previousSegment.id}`);
+                }
+              }}
+              disabled={!previousSegment}
+              className="gap-2 w-full sm:w-auto min-w-[140px]"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              {previousSegment
+                ? `${getPreviousNavText()}${previousSegment.number ? ` ${previousSegment.number}` : ""}`
+                : getPreviousNavText()}
+            </Button>
+            <Button
+              variant="default"
+              size="lg"
+              onClick={() => {
+                if (nextSegment?.id) {
+                  router.push(`/segments/${nextSegment.id}`);
+                }
+              }}
+              disabled={!nextSegment}
+              className="gap-2 w-full sm:w-auto min-w-[140px]"
+            >
+              {nextSegment
+                ? `${getNextNavText()}${nextSegment.number ? ` ${nextSegment.number}` : ""}`
+                : getNextNavText()}
+              <ArrowRight className="h-5 w-5" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -281,7 +360,7 @@ export default function SegmentDetailPage() {
               {/* Header */}
               <div className="mb-4 sm:mb-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                  <div>
+                  <div className="flex-1 min-w-0">
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
                       {getSegmentTypeText()} {getSegmentNumber()}
                       {segment.title && `: ${segment.title}`}
@@ -318,7 +397,7 @@ export default function SegmentDetailPage() {
                     <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row gap-2 sm:items-center">
                       {/* Link Display */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 px-3 py-2 bg-muted/50 border border-border rounded-md">
+                        <div className="flex items-center gap-2 px-3 py-2 bg-card border border-border rounded-md">
                           <span className="text-xs sm:text-sm text-muted-foreground truncate flex-1 min-w-0">
                             {currentUrl || ""}
                           </span>
@@ -326,8 +405,8 @@ export default function SegmentDetailPage() {
                       </div>
                       {/* Copy Link Button */}
                       <Button
-                        variant="outline"
-                        size="sm"
+                        variant="default"
+                        size="default"
                         onClick={handleCopyLink}
                         className="gap-2 shrink-0"
                       >
@@ -338,6 +417,9 @@ export default function SegmentDetailPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Top Navigation Section */}
+              <NavigationSection className="mb-4 sm:mb-6" />
 
               <div className="space-y-4 sm:space-y-6">
                 {/* Main Content - Manga Reader Style */}
@@ -638,6 +720,9 @@ export default function SegmentDetailPage() {
                       </CardContent>
                     </Card>
                   )}
+
+                  {/* Bottom Navigation Section */}
+                  <NavigationSection className="mt-6 sm:mt-8" />
                 </div>
               </div>
             </>
