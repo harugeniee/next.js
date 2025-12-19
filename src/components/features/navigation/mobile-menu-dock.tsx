@@ -267,9 +267,7 @@ export default function MobileMenuDock({
     }
     // Settings is now treated as detail page, so Back button will be active (last index)
     // For other routes, default to home (or back if on detail page)
-    return isDetailPage && menuItems.length > 0
-      ? menuItems.length - 1
-      : 0;
+    return isDetailPage && menuItems.length > 0 ? menuItems.length - 1 : 0;
   }, [pathname, menuItems, user?.id, t, isDetailPage]);
 
   // Determine final active index: use user selection if available and valid, otherwise use pathname-based

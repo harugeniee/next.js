@@ -114,9 +114,11 @@ export default function SegmentDetailPage() {
   // Track which images are ready to be unscrambled (sequential processing)
   // Only unscramble images up to this index
   const [maxUnscrambleIndex, setMaxUnscrambleIndex] = useState<number>(-1);
-  
+
   // Track when sequential processing started (for calculating delays)
-  const [unscrambleStartTime, setUnscrambleStartTime] = useState<number | null>(null);
+  const [unscrambleStartTime, setUnscrambleStartTime] = useState<number | null>(
+    null,
+  );
 
   // Process images sequentially from top to bottom
   useEffect(() => {
@@ -647,7 +649,10 @@ export default function SegmentDetailPage() {
                                                 unscrambleStartTime
                                                   ? Math.max(
                                                       0,
-                                                      100 + index * 300 - (Date.now() - unscrambleStartTime),
+                                                      100 +
+                                                        index * 300 -
+                                                        (Date.now() -
+                                                          unscrambleStartTime),
                                                     )
                                                   : 0
                                               }
