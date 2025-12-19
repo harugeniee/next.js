@@ -114,17 +114,26 @@ export default function SegmentDetailPage() {
   // Track which images are ready to be unscrambled (sequential processing)
   // Only unscramble images up to this index
   const [maxUnscrambleIndex, setMaxUnscrambleIndex] = useState<number>(-1);
+  
+  // Track when sequential processing started (for calculating delays)
+  const [unscrambleStartTime, setUnscrambleStartTime] = useState<number | null>(null);
 
   // Process images sequentially from top to bottom
   useEffect(() => {
     // Reset when user logs out or when not authenticated
     if (!isAuthenticated || imageAttachments.length === 0) {
       setMaxUnscrambleIndex(-1);
+      setUnscrambleStartTime(null);
       return;
     }
 
     // Reset when authentication state changes (login) or segment changes
     setMaxUnscrambleIndex(-1);
+    setUnscrambleStartTime(null);
+
+    // Record start time for calculating delays
+    const startTime = Date.now();
+    setUnscrambleStartTime(startTime);
 
     // Process images one by one with delay between each
     let currentIndex = 0;
@@ -631,6 +640,17 @@ export default function SegmentDetailPage() {
                                               )}
                                               animate={true}
                                               animationDuration={500}
+                                              // Calculate delay to ensure sequential processing
+                                              // Image 0 starts at 100ms, Image 1 at 400ms, Image 2 at 700ms, etc.
+                                              // Each image waits until its scheduled start time
+                                              startDelay={
+                                                unscrambleStartTime
+                                                  ? Math.max(
+                                                      0,
+                                                      100 + index * 300 - (Date.now() - unscrambleStartTime),
+                                                    )
+                                                  : 0
+                                              }
                                             />
                                           </div>
                                         ) : (

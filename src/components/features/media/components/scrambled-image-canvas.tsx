@@ -29,6 +29,8 @@ interface ScrambledImageCanvasProps {
   animationDuration?: number;
   /** Stagger delay between tiles in milliseconds (default: 5) */
   staggerDelay?: number;
+  /** Delay before starting unscramble process in milliseconds (default: 0) */
+  startDelay?: number;
 }
 
 /**
@@ -48,6 +50,7 @@ export function ScrambledImageCanvas({
   animate = true,
   animationDuration = 1500,
   staggerDelay = 5,
+  startDelay = 0,
 }: ScrambledImageCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -67,6 +70,7 @@ export function ScrambledImageCanvas({
 
   useEffect(() => {
     let cancelled = false;
+    let delayTimeoutId: NodeJS.Timeout | null = null;
 
     /**
      * Async function to load and unscramble the image
@@ -628,12 +632,25 @@ export function ScrambledImageCanvas({
       }
     }
 
-    // Execute the unscrambling process
-    loadAndUnscrambleImage();
+    // Execute the unscrambling process after startDelay
+    if (startDelay > 0) {
+      delayTimeoutId = setTimeout(() => {
+        if (!cancelled) {
+          loadAndUnscrambleImage();
+        }
+      }, startDelay);
+    } else {
+      loadAndUnscrambleImage();
+    }
 
     // Cleanup function to cancel ongoing operations
     return () => {
       cancelled = true;
+      // Cancel delay timeout if it's still pending
+      if (delayTimeoutId) {
+        clearTimeout(delayTimeoutId);
+        delayTimeoutId = null;
+      }
       // Cancel animation frame if it's running
       if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -645,7 +662,7 @@ export function ScrambledImageCanvas({
         blobUrlRef.current = null;
       }
     };
-  }, [mediaId, src, animate, animationDuration, staggerDelay]);
+  }, [mediaId, src, animate, animationDuration, staggerDelay, startDelay]);
 
   // Always render canvas (even when loading) so ref is available
   // Show skeleton overlay when loading
