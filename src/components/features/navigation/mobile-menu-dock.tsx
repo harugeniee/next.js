@@ -119,11 +119,11 @@ export default function MobileMenuDock({
 
   // Check if current route is a detail/nested page (not in dock menu)
   const isDetailPage = useMemo(() => {
-    // Routes that are in dock menu
+    // Routes that are in dock menu (main navigation pages)
+    // Settings is excluded so Back button appears when navigating to Settings
     const dockRoutes = [
       "/",
       "/auth/login",
-      "/settings",
       user?.id ? `/user/${user.id}` : null,
     ].filter(Boolean) as string[];
 
@@ -135,24 +135,13 @@ export default function MobileMenuDock({
       return pathname.startsWith(route);
     });
 
-    // If doesn't match dock routes, it's a detail page
+    // If doesn't match dock routes, it's a detail page (including Settings)
     return !matchesDockRoute;
   }, [pathname, user?.id]);
 
   // Calculate menu items based on auth state
   const menuItems = useMemo<MenuDockItem[]>(() => {
     const items: MenuDockItem[] = [];
-
-    // Add Back button if on detail page
-    if (isDetailPage) {
-      items.push({
-        label: t("actions.back", "common") || "Back",
-        icon: ArrowLeft,
-        onClick: () => {
-          router.back();
-        },
-      });
-    }
 
     // Always add Home
     items.push({
@@ -212,7 +201,7 @@ export default function MobileMenuDock({
       });
     }
 
-    // Always add Settings as last item
+    // Always add Settings as last item (before Back button)
     items.push({
       label: t("nav.settings", "common") || "Settings",
       icon: Settings,
@@ -220,6 +209,17 @@ export default function MobileMenuDock({
         router.push("/settings");
       },
     });
+
+    // Add Back button at the end (right side) if on detail page
+    if (isDetailPage) {
+      items.push({
+        label: t("actions.back", "common") || "Back",
+        icon: ArrowLeft,
+        onClick: () => {
+          router.back();
+        },
+      });
+    }
 
     return items;
   }, [
@@ -234,16 +234,16 @@ export default function MobileMenuDock({
 
   // Calculate active index based on current pathname
   const pathnameBasedIndex = useMemo(() => {
-    // If on detail page, Back button should be active (index 0)
+    // If on detail page, Back button should be active (last index)
     if (isDetailPage) {
-      return 0;
+      return menuItems.length > 0 ? menuItems.length - 1 : 0;
     }
 
     if (pathname === "/") {
-      // Home is at index 0 if no Back button, otherwise index 1
-      return isDetailPage ? 1 : 0;
+      // Home is always at index 0 (Back button is now at the end)
+      return 0;
     }
-    // Check for Search - this is index 1 (or 2 if Back button exists)
+    // Check for Search - this is index 1
     // So we'll handle it via user click only
 
     // Check for Login route (when not authenticated)
@@ -265,12 +265,11 @@ export default function MobileMenuDock({
         return profileIndex;
       }
     }
-    if (pathname.startsWith("/settings")) {
-      // Settings is always the last item
-      return menuItems.length - 1;
-    }
+    // Settings is now treated as detail page, so Back button will be active (last index)
     // For other routes, default to home (or back if on detail page)
-    return isDetailPage ? 0 : 0;
+    return isDetailPage && menuItems.length > 0
+      ? menuItems.length - 1
+      : 0;
   }, [pathname, menuItems, user?.id, t, isDetailPage]);
 
   // Determine final active index: use user selection if available and valid, otherwise use pathname-based
@@ -513,7 +512,16 @@ export default function MobileMenuDock({
           animated={true}
           activeIndex={finalActiveIndex}
           onActiveIndexChange={setUserSelectedIndex}
-          // className="w-full max-w-md"
+          className={cn(
+            // Light mode: Higher opacity (95%) for better contrast and readability
+            // Subtle blur for elegant glass effect without performance impact
+            "bg-card/95 backdrop-blur-sm border-border/60",
+            "dark:bg-card/90 dark:backdrop-blur-md dark:border-border/50",
+            // Shadow for depth and separation from background
+            "shadow-lg shadow-black/5 dark:shadow-black/20",
+            // Smooth transitions when theme changes
+            "transition-all duration-200",
+          )}
         />
       </motion.div>
 
