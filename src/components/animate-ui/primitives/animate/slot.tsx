@@ -60,10 +60,7 @@ function mergeProps<T extends HTMLElement>(
 
 // Cache for motion components created outside of render
 // This prevents React from complaining about components created during render
-const motionComponentCache = new Map<
-  React.ElementType,
-  React.ElementType
->();
+const motionComponentCache = new Map<React.ElementType, React.ElementType>();
 
 /**
  * Get or create a motion component for the given element type
@@ -109,9 +106,10 @@ function Slot<T extends HTMLElement = HTMLElement>({
     // Return null initially, will be set synchronously in useLayoutEffect
     return null;
   });
-  const [elementType, setElementType] = React.useState<React.ElementType | null>(
-    isValid ? (children.type as React.ElementType) : null,
-  );
+  const [elementType, setElementType] =
+    React.useState<React.ElementType | null>(
+      isValid ? (children.type as React.ElementType) : null,
+    );
 
   // Create the motion component in useLayoutEffect (after render, before paint)
   // This ensures it's not created during the render phase
@@ -153,7 +151,10 @@ function Slot<T extends HTMLElement = HTMLElement>({
       const mergedProps = mergeProps(childProps, props);
       const OriginalBase = children.type as React.ElementType;
       return (
-        <OriginalBase {...mergedProps} ref={mergeRefs(childRef as React.Ref<T>, ref)} />
+        <OriginalBase
+          {...mergedProps}
+          ref={mergeRefs(childRef as React.Ref<T>, ref)}
+        />
       );
     }
     return null;
@@ -169,7 +170,9 @@ function Slot<T extends HTMLElement = HTMLElement>({
 }
 
 export {
-  Slot, type AnyProps, type DOMMotionProps, type SlotProps,
-  type WithAsChild
+  Slot,
+  type AnyProps,
+  type DOMMotionProps,
+  type SlotProps,
+  type WithAsChild,
 };
-
