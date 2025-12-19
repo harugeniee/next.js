@@ -262,6 +262,40 @@
     "maxWidth": "Max Width (px)",
     "maxHeight": "Max Height (px)"
   },
+  "characters": {
+    "title": "Characters",
+    "noCharacters": "No characters available",
+    "loading": "Loading characters...",
+    "endOfList": "No more characters",
+    "error": "Failed to load characters",
+    "layout": {
+      "grid": "Grid",
+      "list": "List",
+      "detail": "Detail"
+    },
+    "search": {
+      "placeholder": "Search characters...",
+      "noResults": "No characters found matching \"{{query}}\""
+    },
+    "description": {
+      "readMore": "Read More",
+      "readLess": "Read Less"
+    },
+    "voiceActors": {
+      "title": "Voice Actors",
+      "primary": "Main",
+      "language": "Language",
+      "none": "No voice actors available",
+      "showAll": "Show {{count}} more",
+      "showLess": "Show Less",
+      "viewAll": "View {{count}} more"
+    },
+    "metadata": {
+      "gender": "Gender",
+      "age": "Age",
+      "bloodType": "Blood Type"
+    }
+  },
   "error": {
     "title": "Series Not Found",
     "message": "The series you're looking for doesn't exist or has been removed.",

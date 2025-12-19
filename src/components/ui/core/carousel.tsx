@@ -16,6 +16,7 @@ interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   showIndicators?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  orientation?: "horizontal" | "vertical";
 }
 
 export function Carousel({
@@ -24,6 +25,7 @@ export function Carousel({
   showIndicators = true,
   autoPlay = false,
   autoPlayInterval = 5000,
+  orientation = "horizontal",
   className,
   ...props
 }: CarouselProps) {
@@ -48,13 +50,22 @@ export function Carousel({
     if (!scrollContainerRef.current) return;
 
     const container = scrollContainerRef.current;
-    const scrollWidth = container.scrollWidth;
-    const itemWidth = scrollWidth / totalItems;
-    container.scrollTo({
-      left: currentIndex * itemWidth,
-      behavior: "smooth",
-    });
-  }, [currentIndex, totalItems]);
+    if (orientation === "vertical") {
+      const scrollHeight = container.scrollHeight;
+      const itemHeight = scrollHeight / totalItems;
+      container.scrollTo({
+        top: currentIndex * itemHeight,
+        behavior: "smooth",
+      });
+    } else {
+      const scrollWidth = container.scrollWidth;
+      const itemWidth = scrollWidth / totalItems;
+      container.scrollTo({
+        left: currentIndex * itemWidth,
+        behavior: "smooth",
+      });
+    }
+  }, [currentIndex, totalItems, orientation]);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev - 1 + totalItems) % totalItems);
@@ -73,10 +84,21 @@ export function Carousel({
       {/* Scroll container */}
       <div
         ref={scrollContainerRef}
-        className="flex overflow-x-hidden scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className={cn(
+          "flex scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
+          orientation === "vertical"
+            ? "flex-col overflow-y-hidden h-full"
+            : "overflow-x-hidden",
+        )}
       >
         {items.map((item, index) => (
-          <div key={index} className="min-w-full flex-shrink-0">
+          <div
+            key={index}
+            className={cn(
+              "flex-shrink-0",
+              orientation === "vertical" ? "min-h-full w-full" : "min-w-full",
+            )}
+          >
             {item}
           </div>
         ))}

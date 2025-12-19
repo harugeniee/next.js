@@ -109,6 +109,14 @@ export const queryKeys = {
       ["segments", "previous", segmentId] as const,
   },
 
+  // Characters related queries
+  characters: {
+    all: () => ["characters"] as const,
+    cursor: (seriesId: string, cursor?: string) =>
+      ["characters", "cursor", seriesId, cursor] as const,
+    bySeries: (seriesId: string) => ["characters", "series", seriesId] as const,
+  },
+
   // Comments related queries
   comments: {
     all: () => ["comments"] as const,

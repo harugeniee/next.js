@@ -1,3 +1,5 @@
+export * from "./character-card";
+export * from "./characters-list";
 export * from "./chapters-list";
 export * from "./latest-updates-list";
 export * from "./recommended-grid";

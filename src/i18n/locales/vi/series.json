@@ -262,6 +262,40 @@
     "maxWidth": "Chiều Rộng Tối Đa (px)",
     "maxHeight": "Chiều Cao Tối Đa (px)"
   },
+  "characters": {
+    "title": "Nhân Vật",
+    "noCharacters": "Không có nhân vật nào",
+    "loading": "Đang tải nhân vật...",
+    "endOfList": "Không còn nhân vật nào",
+    "error": "Không thể tải nhân vật",
+    "layout": {
+      "grid": "Lưới",
+      "list": "Danh Sách",
+      "detail": "Chi Tiết"
+    },
+    "search": {
+      "placeholder": "Tìm kiếm nhân vật...",
+      "noResults": "Không tìm thấy nhân vật nào khớp với \"{{query}}\""
+    },
+    "description": {
+      "readMore": "Đọc Thêm",
+      "readLess": "Thu Gọn"
+    },
+    "voiceActors": {
+      "title": "Diễn Viên Lồng Tiếng",
+      "primary": "Chính",
+      "language": "Ngôn Ngữ",
+      "none": "Không có diễn viên lồng tiếng",
+      "showAll": "Hiển thị thêm {{count}}",
+      "showLess": "Thu Gọn",
+      "viewAll": "Xem thêm {{count}}"
+    },
+    "metadata": {
+      "gender": "Giới Tính",
+      "age": "Tuổi",
+      "bloodType": "Nhóm Máu"
+    }
+  },
   "error": {
     "title": "Không Tìm Thấy Truyện",
     "message": "Truyện bạn đang tìm không tồn tại hoặc đã bị xóa.",

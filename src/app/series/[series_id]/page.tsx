@@ -7,13 +7,21 @@ import {
   Heart,
   Share2,
   Star,
+  User,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { ChaptersList } from "@/components/features/series";
+import {
+  Tabs,
+  TabsContent,
+  TabsContents,
+  TabsList,
+  TabsTrigger,
+} from "@/components/animate-ui/components/radix/tabs";
+import { ChaptersList, CharactersList } from "@/components/features/series";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
@@ -21,6 +29,7 @@ import { Badge } from "@/components/ui/core/badge";
 import { useCheckRole } from "@/hooks/permissions";
 import { useSeriesFull } from "@/hooks/series";
 import { usePageMetadata } from "@/hooks/ui";
+import { useMediaQuery } from "@/hooks/ui/useSimpleHooks";
 import { currentUserAtom } from "@/lib/auth";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import { cn } from "@/lib/utils";
@@ -39,8 +48,13 @@ export default function SeriesDetailPage() {
   const { t } = useI18n();
   const seriesId = params.series_id as string;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState<"chapters" | "characters">(
+    "chapters",
+  );
+  const [areLinksExpanded, setAreLinksExpanded] = useState(false);
   const [currentUser] = useAtom(currentUserAtom);
   const queryClient = useQueryClient();
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   // Check if user has uploader role
   const { data: roleCheckData, isLoading: isCheckingRole } = useCheckRole(
@@ -565,20 +579,46 @@ export default function SeriesDetailPage() {
                                 {t("metadata.links", "series")}
                               </h3>
                               <div className="flex flex-col gap-2 sm:gap-2.5">
-                                {Object.entries(
-                                  backendSeries.externalLinks,
-                                ).map(([label, url], index) => (
-                                  <a
-                                    key={index}
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-xs sm:text-sm md:text-sm text-primary hover:underline py-1.5 sm:py-1 min-h-[44px] sm:min-h-0 transition-colors"
-                                  >
-                                    <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-                                    <span className="break-words">{label}</span>
-                                  </a>
-                                ))}
+                                {Object.entries(backendSeries.externalLinks)
+                                  .slice(
+                                    0,
+                                    isMobile && !areLinksExpanded
+                                      ? 2
+                                      : undefined,
+                                  )
+                                  .map(([label, url], index) => (
+                                    <a
+                                      key={index}
+                                      href={url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center gap-2 text-xs sm:text-sm md:text-sm text-primary hover:underline py-1.5 sm:py-1 min-h-[44px] sm:min-h-0 transition-colors"
+                                    >
+                                      <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                                      <span className="break-words">
+                                        {label}
+                                      </span>
+                                    </a>
+                                  ))}
+                                {/* Show More/Less button for mobile when more than 2 links */}
+                                {isMobile &&
+                                  Object.keys(backendSeries.externalLinks)
+                                    .length > 2 && (
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() =>
+                                        setAreLinksExpanded(!areLinksExpanded)
+                                      }
+                                      className="h-auto py-1.5 text-xs text-primary hover:text-primary/80 hover:underline min-h-[44px] justify-start"
+                                    >
+                                      {areLinksExpanded
+                                        ? t("description.readLess", "series") ||
+                                          "Show Less"
+                                        : t("description.readMore", "series") ||
+                                          `Show ${Object.keys(backendSeries.externalLinks).length - 2} more`}
+                                    </Button>
+                                  )}
                               </div>
                             </div>
                           )}
@@ -681,12 +721,50 @@ export default function SeriesDetailPage() {
                         </div>
                       )}
 
-                      {/* Chapters Section - Infinite Scroll */}
+                      {/* Tab Navigation */}
                       <div className="mt-4 sm:mt-6 md:mt-8">
-                        <ChaptersList
-                          seriesId={seriesId}
-                          enabled={shouldLoadChapters}
-                        />
+                        <Tabs
+                          value={activeTab}
+                          onValueChange={(value) =>
+                            setActiveTab(value as "chapters" | "characters")
+                          }
+                          className="w-full"
+                        >
+                          <TabsList className="w-full sm:w-auto">
+                            <TabsTrigger value="chapters">
+                              <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                              <span>
+                                {t("chapters.title", "series") || "Chapters"}
+                              </span>
+                            </TabsTrigger>
+                            <TabsTrigger value="characters">
+                              <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                              <span>
+                                {t("characters.title", "series") ||
+                                  "Characters"}
+                              </span>
+                            </TabsTrigger>
+                          </TabsList>
+                          <TabsContents className="mt-4 sm:mt-6 md:mt-8">
+                            <TabsContent value="chapters">
+                              <ChaptersList
+                                seriesId={seriesId}
+                                enabled={
+                                  shouldLoadChapters && activeTab === "chapters"
+                                }
+                              />
+                            </TabsContent>
+                            <TabsContent value="characters">
+                              <CharactersList
+                                seriesId={seriesId}
+                                enabled={
+                                  shouldLoadChapters &&
+                                  activeTab === "characters"
+                                }
+                              />
+                            </TabsContent>
+                          </TabsContents>
+                        </Tabs>
                       </div>
                     </header>
                   </main>

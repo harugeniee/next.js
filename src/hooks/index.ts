@@ -9,6 +9,9 @@ export * from "./auth";
 // Article hooks
 export * from "./article";
 
+// Character hooks
+export * from "./characters";
+
 // Content rendering hooks
 export * from "./content";
 

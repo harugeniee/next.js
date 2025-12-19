@@ -1,6 +1,7 @@
 export * from "./article.interface";
 export * from "./bookmark-folder.interface";
 export * from "./bookmark.interface";
+export * from "./character.interface";
 export * from "./comment.interface";
 export * from "./media.interface";
 export * from "./organization.interface";
