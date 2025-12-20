@@ -3,7 +3,6 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-import { InviteOnlyOverlay } from "@/components/features/navigation/invite-only-overlay";
 import { LatestUpdatesList, SearchBar } from "@/components/features/series";
 import { SeriesCard } from "@/components/features/series/series-card";
 import {
@@ -76,9 +75,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Invite-Only Overlay - Shows on first visit */}
-      <InviteOnlyOverlay />
-
       {/* Mobile Search Bar - Only visible on mobile */}
       <section className="border-b border-border bg-background md:hidden">
         <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
