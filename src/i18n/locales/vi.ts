@@ -1,5 +1,6 @@
 import article from "./vi/article.json";
 import auth from "./vi/auth.json";
+import comments from "./vi/comments.json";
 import common from "./vi/common.json";
 import demo from "./vi/demo.json";
 import home from "./vi/home.json";
@@ -14,6 +15,7 @@ import write from "./vi/write.json";
 const viMessages = {
   common,
   auth,
+  comments,
   toast,
   profile,
   user,

@@ -57,11 +57,30 @@ export function clearRefreshToken(): void {
 }
 
 /**
- * Clear all tokens (both access and refresh)
+ * Clear the access token cookie
+ * This function deletes the accessToken cookie with the same attributes used when setting it
+ */
+export function clearAccessTokenCookie(): void {
+  if (typeof document === "undefined") return;
+
+  const isSecure = window.location.protocol === "https:";
+  const cookieOptions = [
+    `path=/`,
+    `max-age=0`,
+    `expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+    `SameSite=Strict`,
+    ...(isSecure ? ["Secure"] : []),
+  ].join("; ");
+  document.cookie = `accessToken=; ${cookieOptions}`;
+}
+
+/**
+ * Clear all tokens (both access and refresh) and cookie
  */
 export function clearAllTokens(): void {
   clearAccessToken();
   clearRefreshToken();
+  clearAccessTokenCookie();
 }
 
 /**

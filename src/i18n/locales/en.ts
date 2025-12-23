@@ -1,5 +1,6 @@
 import article from "./en/article.json";
 import auth from "./en/auth.json";
+import comments from "./en/comments.json";
 import common from "./en/common.json";
 import demo from "./en/demo.json";
 import home from "./en/home.json";
@@ -14,6 +15,7 @@ import write from "./en/write.json";
 const enMessages = {
   common,
   auth,
+  comments,
   toast,
   profile,
   user,

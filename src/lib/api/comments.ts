@@ -2,7 +2,9 @@ import { http } from "@/lib/http";
 import type {
   AdvancedQueryParams,
   ApiResponse,
+  ApiResponseCursor,
   ApiResponseOffset,
+  QueryParamsWithCursor,
 } from "@/lib/types";
 
 /**
@@ -15,8 +17,8 @@ export interface Comment {
   subjectId: string;
   parentId?: string;
   content: string;
-  isPinned?: boolean;
-  isEdited?: boolean;
+  pinned?: boolean;
+  edited?: boolean;
   createdAt: string;
   updatedAt: string;
   user?: {
@@ -93,6 +95,23 @@ export interface QueryCommentsDto extends AdvancedQueryParams {
   includeMentions?: boolean;
 }
 
+/**
+ * DTO for querying comments with cursor pagination
+ * Extends QueryParamsWithCursor to add comment-specific filters
+ * Based on backend QueryCommentsCursorDto
+ */
+export interface QueryCommentsCursorDto extends QueryParamsWithCursor {
+  subjectType?: string;
+  subjectId?: string;
+  parentId?: string;
+  type?: string;
+  pinned?: boolean;
+  edited?: boolean;
+  visibility?: string;
+  includeMedia?: boolean;
+  includeMentions?: boolean;
+}
+
 export interface BatchCommentsDto {
   subjectType: string;
   subjectIds: string[];
@@ -135,6 +154,22 @@ export class CommentsAPI {
     const response = await http.get<ApiResponseOffset<Comment>>(this.BASE_URL, {
       params,
     });
+    return response.data;
+  }
+
+  /**
+   * Get comments with cursor-based pagination
+   * Better for real-time feeds and infinite scroll
+   * @param params Cursor pagination parameters with comment filters
+   * @returns Cursor-paginated list of comments
+   */
+  static async getCommentsCursor(
+    params?: QueryCommentsCursorDto,
+  ): Promise<ApiResponseCursor<Comment>> {
+    const response = await http.get<ApiResponseCursor<Comment>>(
+      `${this.BASE_URL}/cursor`,
+      { params },
+    );
     return response.data;
   }
 

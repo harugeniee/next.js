@@ -16,6 +16,7 @@ export { http, publicHttp } from "./client";
 // Export token management functions
 export {
   clearAccessToken,
+  clearAccessTokenCookie,
   clearAllTokens,
   clearRefreshToken,
   getAccessToken,

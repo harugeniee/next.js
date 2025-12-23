@@ -20,6 +20,7 @@ import { toast } from "sonner";
 
 import { ScrambledImageCanvas } from "@/components/features/media/components/scrambled-image-canvas";
 import { BreadcrumbNav } from "@/components/features/navigation";
+import { SegmentCommentsSection } from "@/components/features/comments";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
 import {
@@ -730,6 +731,9 @@ export default function SegmentDetailPage() {
 
                   {/* Bottom Navigation Section */}
                   <NavigationSection className="mt-6 sm:mt-8" />
+
+                  {/* Comments Section - Lazy loaded when scrolled into view */}
+                  <SegmentCommentsSection segmentId={segmentId} />
                 </div>
               </div>
             </>
