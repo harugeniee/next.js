@@ -57,11 +57,7 @@ export function useCommentsInfinite(
   },
 ) {
   return useInfiniteQuery({
-    queryKey: queryKeys.comments.cursor(
-      subjectType,
-      subjectId,
-      undefined,
-    ),
+    queryKey: queryKeys.comments.cursor(subjectType, subjectId, undefined),
     queryFn: async ({ pageParam }) => {
       const params: QueryCommentsCursorDto = {
         subjectType,

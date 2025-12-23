@@ -121,11 +121,8 @@ export const queryKeys = {
   comments: {
     all: () => ["comments"] as const,
     list: (params?: unknown) => ["comments", "list", params] as const,
-    cursor: (
-      subjectType?: string,
-      subjectId?: string,
-      cursor?: string,
-    ) => ["comments", "cursor", subjectType, subjectId, cursor] as const,
+    cursor: (subjectType?: string, subjectId?: string, cursor?: string) =>
+      ["comments", "cursor", subjectType, subjectId, cursor] as const,
     detail: (id: string, options?: unknown) =>
       ["comments", "detail", id, options] as const,
     replies: (id: string, params?: unknown) =>
