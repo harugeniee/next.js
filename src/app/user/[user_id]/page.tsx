@@ -14,6 +14,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
+import {
+  Tabs,
+  TabsContent,
+  TabsContents,
+  TabsList,
+  TabsTrigger,
+} from "@/components/animate-ui/components/radix/tabs";
 import { UserSegmentsLayout } from "@/components/features/series/user-segments-layout";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useIsMounted } from "@/components/providers/no-ssr";
@@ -328,105 +335,96 @@ export default function ProfilePage() {
         </div>
       </AnimatedSection>
 
-      {/* Content Navigation Tabs */}
-      <div className="border-b border-border bg-background sticky top-0 z-10 backdrop-blur-sm bg-background/95">
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex gap-2 sm:gap-4 md:gap-8 overflow-x-auto scrollbar-hide">
-            <button
-              key="segments"
-              onClick={() => setActiveTab("segments")}
-              className={cn(
-                "py-3 sm:py-4 px-2 sm:px-4 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 sm:gap-2",
-                activeTab === "segments"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/30",
-              )}
-            >
-              <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>{t("tabsSegments", "profile")}</span>
-              {profileData?._count?.segments !== undefined && (
+      {/* Tabs Component - Navigation and Content */}
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) =>
+          setActiveTab(value as "segments" | "scraps" | "comments")
+        }
+        className="w-full"
+      >
+        {/* Content Navigation Tabs */}
+        <div className="border-b border-border bg-background sticky top-0 z-10 backdrop-blur-sm bg-background/95">
+          <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+            <TabsList className="w-full sm:w-auto justify-start bg-transparent p-0 h-auto gap-2 sm:gap-4 md:gap-8">
+              <TabsTrigger
+                value="segments"
+                className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
+              >
+                <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{t("tabsSegments", "profile")}</span>
+                {profileData?._count?.segments !== undefined && (
+                  <span className="text-[10px] sm:text-xs bg-muted px-1.5 py-0.5 rounded-full">
+                    {profileData._count.segments}
+                  </span>
+                )}
+              </TabsTrigger>
+              <TabsTrigger
+                value="scraps"
+                className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
+              >
+                <PenTool className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{t("tabsScraps", "profile")}</span>
                 <span className="text-[10px] sm:text-xs bg-muted px-1.5 py-0.5 rounded-full">
-                  {profileData._count.segments}
+                  0
                 </span>
-              )}
-            </button>
-            <button
-              key="scraps"
-              onClick={() => setActiveTab("scraps")}
-              className={cn(
-                "py-3 sm:py-4 px-2 sm:px-4 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 sm:gap-2",
-                activeTab === "scraps"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/30",
-              )}
-            >
-              <PenTool className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>{t("tabsScraps", "profile")}</span>
-              <span className="text-[10px] sm:text-xs bg-muted px-1.5 py-0.5 rounded-full">
-                0
-              </span>
-            </button>
-            <button
-              key="comments"
-              onClick={() => setActiveTab("comments")}
-              className={cn(
-                "py-3 sm:py-4 px-2 sm:px-4 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap flex items-center gap-1.5 sm:gap-2",
-                activeTab === "comments"
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/30",
-              )}
-            >
-              <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span>{t("tabsComments", "profile")}</span>
-            </button>
+              </TabsTrigger>
+              <TabsTrigger
+                value="comments"
+                className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
+              >
+                <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{t("tabsComments", "profile")}</span>
+              </TabsTrigger>
+            </TabsList>
           </div>
         </div>
-      </div>
 
-      {/* Content Area */}
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-        {activeTab === "segments" && (
-          <AnimatedSection loading={isLoading} data={profileData}>
-            <UserSegmentsLayout
-              userId={userId}
-              initialLayout="grid"
-              className="mt-4 sm:mt-6"
-            />
-          </AnimatedSection>
-        )}
-
-        {activeTab === "scraps" && (
-          <AnimatedSection loading={isLoading} data={profileData}>
-            <Skeletonize loading={isLoading}>
-              <div className="text-center py-8 sm:py-12">
-                <PenTool className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-medium text-foreground mb-2">
-                  {t("contentNoScraps", "profile")}
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
-                  {t("contentNoScrapsDescription", "profile")}
-                </p>
-              </div>
-            </Skeletonize>
-          </AnimatedSection>
-        )}
-
-        {activeTab === "comments" && (
-          <AnimatedSection loading={isLoading} data={profileData}>
-            <Skeletonize loading={isLoading}>
-              <div className="text-center py-8 sm:py-12">
-                <MessageSquare className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
-                <h3 className="text-base sm:text-lg font-medium text-foreground mb-2">
-                  {t("contentNoComments", "profile")}
-                </h3>
-                <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
-                  {t("contentNoCommentsDescription", "profile")}
-                </p>
-              </div>
-            </Skeletonize>
-          </AnimatedSection>
-        )}
-      </div>
+        {/* Content Area */}
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+          <TabsContents>
+            <TabsContent value="segments">
+              <AnimatedSection loading={isLoading} data={profileData}>
+                <UserSegmentsLayout
+                  userId={userId}
+                  initialLayout="grid"
+                  className="mt-4 sm:mt-6"
+                />
+              </AnimatedSection>
+            </TabsContent>
+            <TabsContent value="scraps">
+              <AnimatedSection loading={isLoading} data={profileData}>
+                <Skeletonize loading={isLoading}>
+                  <div className="text-center py-8 sm:py-12">
+                    <PenTool className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-foreground mb-2">
+                      {t("contentNoScraps", "profile")}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
+                      {t("contentNoScrapsDescription", "profile")}
+                    </p>
+                  </div>
+                </Skeletonize>
+              </AnimatedSection>
+            </TabsContent>
+            <TabsContent value="comments">
+              <AnimatedSection loading={isLoading} data={profileData}>
+                <Skeletonize loading={isLoading}>
+                  <div className="text-center py-8 sm:py-12">
+                    <MessageSquare className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-foreground mb-2">
+                      {t("contentNoComments", "profile")}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
+                      {t("contentNoCommentsDescription", "profile")}
+                    </p>
+                  </div>
+                </Skeletonize>
+              </AnimatedSection>
+            </TabsContent>
+          </TabsContents>
+        </div>
+      </Tabs>
     </div>
   );
 }
