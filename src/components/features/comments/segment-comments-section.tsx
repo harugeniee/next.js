@@ -19,6 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/core/avatar
 import { Input } from "@/components/ui/core/input";
 import { useCurrentUser } from "@/hooks/auth";
 import {
+  useCommentReplies,
   useCommentsInfinite,
   useCommentStats,
   useCreateComment,
@@ -385,13 +386,28 @@ function CommentItem({
   formatDate,
 }: CommentItemProps) {
   const { t } = useI18n();
-  const [showReplies, setShowReplies] = useState(false);
 
   // Determine the user id for navigation based on available user data
   const commentUserId = comment.user?.id || comment.userId;
 
-  const replies = comment.replies || [];
-  const replyCount = comment._count?.replies || replies.length;
+  // Get reply count from comment metadata
+  // Check both _count.replies and comment.replies.length as fallback
+  const replyCount = comment._count?.replies ?? (comment.replies?.length ?? 0);
+
+  // Auto-fetch replies when replyCount > 0
+  const {
+    data: repliesData,
+    isLoading: isLoadingReplies,
+    error: repliesError,
+  } = useCommentReplies(comment.id, {
+    limit: 50,
+    sortBy: "createdAt",
+    order: "ASC",
+    enabled: replyCount > 0,
+  });
+
+  // Get replies from API response or empty array
+  const replies = repliesData?.data?.result || [];
 
   return (
     <div className="space-y-3 rounded-lg border border-border bg-card p-3 sm:p-4">
@@ -470,85 +486,95 @@ function CommentItem({
         </div>
       </div>
 
-      {/* Replies */}
+      {/* Replies - Auto-display below parent comment with indent */}
       {replyCount > 0 && (
-        <div className="ml-11 space-y-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowReplies(!showReplies)}
-            className="h-7 text-xs"
-          >
-            {showReplies
-              ? t("hideReplies", "comments")
-              : t("showReplies", "comments")}{" "}
-            ({replyCount})
-          </Button>
-          {showReplies &&
-            replies.map((reply) => (
-              <div
-                key={reply.id}
-                className="flex gap-3 rounded-md border border-border bg-muted/20 p-2 sm:p-3"
-              >
-                {reply.user?.id || reply.userId ? (
-                  <Link
-                    href={`/user/${reply.user?.id || reply.userId}`}
-                    aria-label={
-                      reply.user?.name || reply.user?.username
-                        ? `View profile of ${reply.user.name || reply.user.username}`
-                        : "View user profile"
-                    }
+        <div className="ml-11 space-y-3 mt-3">
+          {isLoadingReplies ? (
+            <div className="flex items-center justify-center py-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                <span>{t("loadingReplies", "comments") || "Loading replies..."}</span>
+              </div>
+            </div>
+          ) : repliesError ? (
+            <div className="p-4 text-center text-sm text-destructive">
+              {t("errorLoadingReplies", "comments") || "Failed to load replies"}
+            </div>
+          ) : replies.length > 0 ? (
+            <div className="space-y-3">
+              {replies.map((reply) => {
+                const replyUserId = reply.user?.id || reply.userId;
+                return (
+                  <div
+                    key={reply.id}
+                    className="flex gap-3 rounded-md border border-border bg-muted/20 p-2 sm:p-3"
                   >
-                    <Avatar className="h-7 w-7 shrink-0">
-                      <AvatarImage
-                        src={reply.user?.avatar?.url}
-                        alt={reply.user?.name || reply.user?.username || "User"}
-                      />
-                      <AvatarFallback>
-                        {getUserInitials(reply.user)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Link>
-                ) : (
-                  <Avatar className="h-7 w-7 shrink-0">
-                    <AvatarImage
-                      src={reply.user?.avatar?.url}
-                      alt={reply.user?.name || reply.user?.username || "User"}
-                    />
-                    <AvatarFallback>
-                      {getUserInitials(reply.user)}
-                    </AvatarFallback>
-                  </Avatar>
-                )}
-                <div className="flex-1 space-y-1">
-                  <div className="flex items-center gap-2">
-                    {reply.user?.id || reply.userId ? (
+                    {replyUserId ? (
                       <Link
-                        href={`/user/${reply.user?.id || reply.userId}`}
-                        className="text-sm font-medium text-foreground hover:underline"
+                        href={`/user/${replyUserId}`}
+                        aria-label={
+                          reply.user?.name || reply.user?.username
+                            ? `View profile of ${reply.user.name || reply.user.username}`
+                            : "View user profile"
+                        }
                       >
-                        {reply.user?.name || reply.user?.username || "Anonymous"}
+                        <Avatar className="h-7 w-7 shrink-0">
+                          <AvatarImage
+                            src={reply.user?.avatar?.url}
+                            alt={reply.user?.name || reply.user?.username || "User"}
+                          />
+                          <AvatarFallback>
+                            {getUserInitials(reply.user)}
+                          </AvatarFallback>
+                        </Avatar>
                       </Link>
                     ) : (
-                      <span className="text-sm font-medium text-foreground">
-                        {reply.user?.name || reply.user?.username || "Anonymous"}
-                      </span>
+                      <Avatar className="h-7 w-7 shrink-0">
+                        <AvatarImage
+                          src={reply.user?.avatar?.url}
+                          alt={reply.user?.name || reply.user?.username || "User"}
+                        />
+                        <AvatarFallback>
+                          {getUserInitials(reply.user)}
+                        </AvatarFallback>
+                      </Avatar>
                     )}
-                    <span className="text-xs text-muted-foreground">
-                      {formatDate(reply.createdAt)}
-                    </span>
-                    {reply.edited && (
-                      <span className="text-xs text-muted-foreground">
-                        ({t("edited", "comments")})
-                      </span>
-                    )}
+                    <div className="flex-1 space-y-1">
+                      <div className="flex items-center gap-2">
+                        {replyUserId ? (
+                          <Link
+                            href={`/user/${replyUserId}`}
+                            className="text-sm font-medium text-foreground hover:underline"
+                          >
+                            {reply.user?.name || reply.user?.username || "Anonymous"}
+                          </Link>
+                        ) : (
+                          <span className="text-sm font-medium text-foreground">
+                            {reply.user?.name || reply.user?.username || "Anonymous"}
+                          </span>
+                        )}
+                        <span className="text-xs text-muted-foreground">
+                          {formatDate(reply.createdAt)}
+                        </span>
+                        {reply.edited && (
+                          <span className="text-xs text-muted-foreground">
+                            ({t("edited", "comments")})
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-foreground whitespace-pre-wrap">
+                        {reply.content}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-foreground whitespace-pre-wrap">
-                    {reply.content}
-                  </p>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
+          ) : (
+            <div className="p-4 text-center text-sm text-muted-foreground">
+              {t("noReplies", "comments") || "No replies yet"}
+            </div>
+          )}
         </div>
       )}
     </div>

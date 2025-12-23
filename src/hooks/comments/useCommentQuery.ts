@@ -125,12 +125,13 @@ export function useComment(
  */
 export function useCommentReplies(
   commentId: string,
-  params?: Omit<QueryCommentsDto, "parentId">,
+  params?: Omit<QueryCommentsDto, "parentId"> & { enabled?: boolean },
 ) {
+  const { enabled, ...queryParams } = params || {};
   return useQuery({
-    queryKey: queryKeys.comments.replies(commentId, params),
-    queryFn: () => CommentsAPI.getCommentReplies(commentId, params),
-    enabled: !!commentId,
+    queryKey: queryKeys.comments.replies(commentId, queryParams),
+    queryFn: () => CommentsAPI.getCommentReplies(commentId, queryParams),
+    enabled: enabled === true && !!commentId,
     staleTime: 2 * 60 * 1000, // 2 minutes
   });
 }
