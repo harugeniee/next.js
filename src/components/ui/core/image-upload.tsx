@@ -241,20 +241,29 @@ export function ImageUpload({
             ) : (
               // Default rectangular preview for other aspect ratios
               <div className="relative w-full">
-                <Image
-                  src={previewUrl}
-                  alt="Preview"
-                  width={400}
-                  height={200}
-                  className="max-h-48 w-full object-cover rounded-md"
-                  unoptimized
-                />
+                <div
+                  className="relative w-full mx-auto rounded-md overflow-hidden border border-border shadow-sm bg-muted"
+                  style={{
+                    aspectRatio: aspectRatio,
+                    maxHeight: "400px",
+                  }}
+                >
+                  <Image
+                    src={previewUrl}
+                    alt="Preview"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 80vw, 800px"
+                    unoptimized
+                  />
+                </div>
                 <div className="absolute top-2 right-2 flex gap-2">
                   {enableCrop && (
                     <Button
                       type="button"
                       variant="secondary"
                       size="sm"
+                      className="shadow-md"
                       onClick={(e) => {
                         e.stopPropagation();
                         if (value) {
@@ -271,6 +280,7 @@ export function ImageUpload({
                     type="button"
                     variant="destructive"
                     size="sm"
+                    className="shadow-md"
                     onClick={handleRemove}
                   >
                     {t("form.coverImageRemove", "write")}

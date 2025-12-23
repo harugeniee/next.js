@@ -31,7 +31,13 @@ export class MediaAPI {
   private static readonly BASE_URL = "/media";
   private static readonly MAX_FILES_PER_UPLOAD = 50;
 
-  static async upload(files: File[]): Promise<ApiResponse<UploadedMedia[]>> {
+  static async upload(
+    files: File[],
+    options?: {
+      folder?: string;
+      scramble?: boolean;
+    },
+  ): Promise<ApiResponse<UploadedMedia[]>> {
     if (!files || files.length === 0) {
       return {
         success: false,
@@ -51,11 +57,22 @@ export class MediaAPI {
     files.forEach((file) => {
       form.append("files", file);
     });
+
+    // Build query parameters
+    const params: Record<string, string> = {};
+    if (options?.folder) {
+      params.folder = options.folder;
+    }
+    if (options?.scramble !== undefined) {
+      params.scramble = options.scramble.toString();
+    }
+
     const response = await http.post<ApiResponse<UploadedMedia[]>>(
       this.BASE_URL,
       form,
       {
         headers: { "Content-Type": "multipart/form-data" },
+        params,
       },
     );
     return response.data;
