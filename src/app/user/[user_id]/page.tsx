@@ -41,7 +41,6 @@ import {
 } from "@/hooks/follow";
 import { useUserProfile } from "@/hooks/users/useUserQuery";
 import { currentUserAtom } from "@/lib/auth";
-import { cn } from "@/lib/utils";
 
 /**
  * Internationalized Profile Page Component
