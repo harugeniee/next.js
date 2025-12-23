@@ -7,7 +7,6 @@ import {
 import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
-import { CommentsAPI } from "@/lib/api/comments";
 import type {
   BatchCommentsDto,
   CreateCommentDto,
@@ -15,6 +14,7 @@ import type {
   QueryCommentsDto,
   UpdateCommentDto,
 } from "@/lib/api/comments";
+import { CommentsAPI } from "@/lib/api/comments";
 import { queryKeys } from "@/lib/utils/query-keys";
 
 /**
@@ -123,7 +123,12 @@ export function useCommentReplies(
   commentId: string,
   params?: Omit<QueryCommentsDto, "parentId"> & { enabled?: boolean },
 ) {
-  const { enabled, ...queryParams } = params || {};
+  const enabled = params?.enabled;
+  // Extract queryParams without enabled field
+  const queryParams: Omit<QueryCommentsDto, "parentId"> | undefined = params
+    ? (({ ...rest }) => rest)(params)
+    : undefined;
+
   return useQuery({
     queryKey: queryKeys.comments.replies(commentId, queryParams),
     queryFn: () => CommentsAPI.getCommentReplies(commentId, queryParams),
