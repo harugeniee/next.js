@@ -15,7 +15,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/core/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/core/avatar";
 import { Input } from "@/components/ui/core/input";
 import { useCurrentUser } from "@/hooks/auth";
 import {
@@ -90,17 +94,13 @@ export function SegmentCommentsSection({
     hasNextPage,
     fetchNextPage,
     error: commentsError,
-  } = useCommentsInfinite(
-    "segment",
-    segmentId,
-    {
-      parentId: undefined, // Only top-level comments
-      enabled: isInView,
-      limit: 20,
-      sortBy: "createdAt",
-      order: "DESC",
-    },
-  );
+  } = useCommentsInfinite("segment", segmentId, {
+    parentId: undefined, // Only top-level comments
+    enabled: isInView,
+    limit: 20,
+    sortBy: "createdAt",
+    order: "DESC",
+  });
 
   // Fetch comment stats only when in view
   const { data: statsData } = useCommentStats(
@@ -112,8 +112,7 @@ export function SegmentCommentsSection({
   const createCommentMutation = useCreateComment();
 
   // Flatten all pages into a single array
-  const comments =
-    commentsData?.pages.flatMap((page) => page.result) ?? [];
+  const comments = commentsData?.pages.flatMap((page) => page.result) ?? [];
   const stats = statsData?.data;
   const totalComments = stats?.total || comments.length;
 
@@ -173,7 +172,10 @@ export function SegmentCommentsSection({
   const handleReply = (comment: Comment) => {
     setReplyingTo(comment);
     // Scroll to comment form
-    commentSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    commentSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
   };
 
   // Cancel reply
@@ -243,7 +245,10 @@ export function SegmentCommentsSection({
                         <div className="flex items-center justify-between p-3 bg-muted/50 rounded-md border border-border">
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <span>
-                              {t("replyTo", "comments")} {replyingTo.user?.name || replyingTo.user?.username || "User"}
+                              {t("replyTo", "comments")}{" "}
+                              {replyingTo.user?.name ||
+                                replyingTo.user?.username ||
+                                "User"}
                             </span>
                           </div>
                           <Button
@@ -261,7 +266,11 @@ export function SegmentCommentsSection({
                         <Avatar className="h-8 w-8 shrink-0">
                           <AvatarImage
                             src={currentUser?.avatar?.url}
-                            alt={currentUser?.name || currentUser?.username || "User"}
+                            alt={
+                              currentUser?.name ||
+                              currentUser?.username ||
+                              "User"
+                            }
                           />
                           <AvatarFallback>
                             {getUserInitials({
@@ -285,7 +294,8 @@ export function SegmentCommentsSection({
                           />
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-muted-foreground">
-                              {commentContent.length} / {COMMENT_CONSTANTS.CONTENT_MAX_LENGTH}{" "}
+                              {commentContent.length} /{" "}
+                              {COMMENT_CONSTANTS.CONTENT_MAX_LENGTH}{" "}
                               {t("charactersRemaining", "comments")}
                             </span>
                             <Button
@@ -342,7 +352,10 @@ export function SegmentCommentsSection({
                           {isFetchingNextPage && (
                             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                               <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                              <span>{t("loadingMore", "comments") || "Loading more comments..."}</span>
+                              <span>
+                                {t("loadingMore", "comments") ||
+                                  "Loading more comments..."}
+                              </span>
                             </div>
                           )}
                         </div>
@@ -392,7 +405,7 @@ function CommentItem({
 
   // Get reply count from comment metadata
   // Check both _count.replies and comment.replies.length as fallback
-  const replyCount = comment._count?.replies ?? (comment.replies?.length ?? 0);
+  const replyCount = comment._count?.replies ?? comment.replies?.length ?? 0;
 
   // Auto-fetch replies when replyCount > 0
   const {
@@ -426,9 +439,7 @@ function CommentItem({
                 src={comment.user?.avatar?.url}
                 alt={comment.user?.name || comment.user?.username || "User"}
               />
-              <AvatarFallback>
-                {getUserInitials(comment.user)}
-              </AvatarFallback>
+              <AvatarFallback>{getUserInitials(comment.user)}</AvatarFallback>
             </Avatar>
           </Link>
         ) : (
@@ -437,9 +448,7 @@ function CommentItem({
               src={comment.user?.avatar?.url}
               alt={comment.user?.name || comment.user?.username || "User"}
             />
-            <AvatarFallback>
-              {getUserInitials(comment.user)}
-            </AvatarFallback>
+            <AvatarFallback>{getUserInitials(comment.user)}</AvatarFallback>
           </Avatar>
         )}
         <div className="flex-1 space-y-1">
@@ -493,7 +502,9 @@ function CommentItem({
             <div className="flex items-center justify-center py-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                <span>{t("loadingReplies", "comments") || "Loading replies..."}</span>
+                <span>
+                  {t("loadingReplies", "comments") || "Loading replies..."}
+                </span>
               </div>
             </div>
           ) : repliesError ? (
@@ -521,7 +532,9 @@ function CommentItem({
                         <Avatar className="h-7 w-7 shrink-0">
                           <AvatarImage
                             src={reply.user?.avatar?.url}
-                            alt={reply.user?.name || reply.user?.username || "User"}
+                            alt={
+                              reply.user?.name || reply.user?.username || "User"
+                            }
                           />
                           <AvatarFallback>
                             {getUserInitials(reply.user)}
@@ -532,7 +545,9 @@ function CommentItem({
                       <Avatar className="h-7 w-7 shrink-0">
                         <AvatarImage
                           src={reply.user?.avatar?.url}
-                          alt={reply.user?.name || reply.user?.username || "User"}
+                          alt={
+                            reply.user?.name || reply.user?.username || "User"
+                          }
                         />
                         <AvatarFallback>
                           {getUserInitials(reply.user)}
@@ -546,11 +561,15 @@ function CommentItem({
                             href={`/user/${replyUserId}`}
                             className="text-sm font-medium text-foreground hover:underline"
                           >
-                            {reply.user?.name || reply.user?.username || "Anonymous"}
+                            {reply.user?.name ||
+                              reply.user?.username ||
+                              "Anonymous"}
                           </Link>
                         ) : (
                           <span className="text-sm font-medium text-foreground">
-                            {reply.user?.name || reply.user?.username || "Anonymous"}
+                            {reply.user?.name ||
+                              reply.user?.username ||
+                              "Anonymous"}
                           </span>
                         )}
                         <span className="text-xs text-muted-foreground">
@@ -580,4 +599,3 @@ function CommentItem({
     </div>
   );
 }
-
