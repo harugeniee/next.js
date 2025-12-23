@@ -24,7 +24,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/animate-ui/components/radix/tooltip";
 import { useMediaQuery } from "@/hooks/ui/useSimpleHooks";
 import type { Character } from "@/lib/interface/character.interface";
 import { cn } from "@/lib/utils";

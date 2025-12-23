@@ -14,7 +14,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/animate-ui/components/radix/tooltip";
 import { cn } from "@/lib/utils";
 import type { CompressionOptions } from "@/lib/utils/image-compression";
 import { Info } from "lucide-react";

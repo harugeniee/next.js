@@ -59,6 +59,7 @@ When performing any development task, you MUST prioritize using MCP tools over m
 | Task | MCP Tool to Use |
 |------|-----------------|
 | Add UI component | `mcp_shadcn_search_items_in_registries` → `mcp_shadcn_get_add_command_for_items` |
+| Add tooltip component | Use `@animate-ui/components-radix-tooltip` (animated tooltip with framer-motion) |
 | Check Next.js docs | `mcp_next-devtools_nextjs_docs` |
 | Search codebase | `mcp_github_search_code` |
 | Create GitHub issue | `mcp_github_issue_write` |
@@ -81,6 +82,7 @@ When performing any development task, you MUST prioritize using MCP tools over m
 3. **Follow patterns** - MCP-provided code follows project conventions
 4. **Stay updated** - MCP tools provide latest documentation and patterns
 5. **Test properly** - Use browser MCP for real user testing
+6. **Use animated tooltip** - Always use `@animate-ui/components-radix-tooltip` from `@/components/animate-ui/components/radix/tooltip` instead of creating custom tooltip components. This provides smooth animations with framer-motion and follows project standards.
 
 ---
 
