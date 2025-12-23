@@ -132,7 +132,9 @@ type TooltipContentProps = Omit<
   React.ComponentProps<typeof TooltipPrimitive.Content>,
   'forceMount' | 'asChild'
 > &
-  HTMLMotionProps<'div'>;
+  HTMLMotionProps<'div'> & {
+    children?: React.ReactNode;
+  };
 
 function TooltipContent({
   onEscapeKeyDown,
@@ -149,6 +151,7 @@ function TooltipContent({
   hideWhenDetached,
   style,
   transition = { type: 'spring', stiffness: 300, damping: 25 },
+  children,
   ...props
 }: TooltipContentProps) {
   const { x, y, followCursor, followCursorSpringOptions } = useTooltip();
@@ -191,7 +194,9 @@ function TooltipContent({
           ...style,
         }}
         {...props}
-      />
+      >
+        {children}
+      </motion.div>
     </TooltipPrimitive.Content>
   );
 }

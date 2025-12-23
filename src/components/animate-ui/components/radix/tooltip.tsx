@@ -1,16 +1,15 @@
-import * as React from 'react';
 
 import {
-  TooltipProvider as TooltipProviderPrimitive,
-  Tooltip as TooltipPrimitive,
-  TooltipTrigger as TooltipTriggerPrimitive,
-  TooltipContent as TooltipContentPrimitive,
   TooltipArrow as TooltipArrowPrimitive,
+  TooltipContent as TooltipContentPrimitive,
   TooltipPortal as TooltipPortalPrimitive,
-  type TooltipProviderProps as TooltipProviderPrimitiveProps,
-  type TooltipProps as TooltipPrimitiveProps,
-  type TooltipTriggerProps as TooltipTriggerPrimitiveProps,
+  Tooltip as TooltipPrimitive,
+  TooltipProvider as TooltipProviderPrimitive,
+  TooltipTrigger as TooltipTriggerPrimitive,
   type TooltipContentProps as TooltipContentPrimitiveProps,
+  type TooltipProps as TooltipPrimitiveProps,
+  type TooltipProviderProps as TooltipProviderPrimitiveProps,
+  type TooltipTriggerProps as TooltipTriggerPrimitiveProps,
 } from '@/components/animate-ui/primitives/radix/tooltip';
 import { cn } from '@/lib/utils/index';
 
@@ -59,18 +58,17 @@ function TooltipContent({
         )}
         {...props}
       >
-        {children}
-        <TooltipArrowPrimitive className="bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <div className="relative">
+          {children}
+          <TooltipArrowPrimitive className="bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        </div>
       </TooltipContentPrimitive>
     </TooltipPortalPrimitive>
   );
 }
 
 export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  type TooltipProps,
-  type TooltipTriggerProps,
-  type TooltipContentProps,
+  Tooltip, TooltipContent, TooltipTrigger, type TooltipContentProps, type TooltipProps,
+  type TooltipTriggerProps
 };
+
