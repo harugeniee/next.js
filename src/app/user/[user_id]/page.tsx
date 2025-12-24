@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 import {
   Tabs,
@@ -75,6 +75,14 @@ export default function ProfilePage() {
     return <div className="min-h-screen bg-background" />;
   }
 
+  // Extract error message logic
+  const getErrorMessage = (): string => {
+    if (error instanceof Error) {
+      return error.message;
+    }
+    return "Failed to fetch user profile";
+  };
+
   // Show error if API call failed
   if (error) {
     return (
@@ -84,9 +92,7 @@ export default function ProfilePage() {
             {t("userErrorTitle", "user")}
           </h1>
           <p className="text-sm sm:text-base text-muted-foreground">
-            {error instanceof Error
-              ? error.message
-              : "Failed to fetch user profile"}
+            {getErrorMessage()}
           </p>
         </div>
       </div>
@@ -140,6 +146,69 @@ export default function ProfilePage() {
     }
   };
 
+  // Extract follow button content logic
+  const renderFollowButtonContent = (): ReactNode => {
+    if (isLoadingFollow) {
+      return "...";
+    }
+
+    if (isFollowing) {
+      return (
+        <>
+          <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+          {t("userActionsUnfollow", "user") || "Unfollow"}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+        {t("userActionsFollow", "user")}
+      </>
+    );
+  };
+
+  // Extract action button rendering logic
+  const renderActionButton = (): ReactNode | null => {
+    // Edit button is currently disabled (temporarily hidden)
+    // Set to true when edit functionality is ready
+    const showEditButton = false;
+
+    if (showEditButton) {
+      return (
+        <div className="flex items-center gap-2">
+          <Link href={`/user/${userId}/settings`}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs sm:text-sm h-8 sm:h-9"
+            >
+              {t("buttonEdit", "common")}
+            </Button>
+          </Link>
+        </div>
+      );
+    }
+
+    // Show follow button if current user exists and it's not own profile
+    if (currentUser && !isOwnProfile) {
+      return (
+        <Button
+          variant={isFollowing ? "outline" : "default"}
+          size="sm"
+          onClick={handleFollowToggle}
+          disabled={isLoadingFollow}
+          className="text-xs sm:text-sm h-8 sm:h-9 min-w-[80px] sm:min-w-[100px]"
+        >
+          {renderFollowButtonContent()}
+        </Button>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <div className="bg-background min-h-screen">
       {/* Profile Header Section */}
@@ -181,44 +250,8 @@ export default function ProfilePage() {
                         </p>
                       )}
                     </div>
-                    {/* Temporarily hidden Edit button */}
-                    {false && isOwnProfile ? (
-                      <div className="flex items-center gap-2">
-                        <Link href={`/user/${userId}/settings`}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-xs sm:text-sm h-8 sm:h-9"
-                          >
-                            {t("buttonEdit", "common")}
-                          </Button>
-                        </Link>
-                      </div>
-                    ) : (
-                      currentUser && (
-                        <Button
-                          variant={isFollowing ? "outline" : "default"}
-                          size="sm"
-                          onClick={handleFollowToggle}
-                          disabled={isLoadingFollow}
-                          className="text-xs sm:text-sm h-8 sm:h-9 min-w-[80px] sm:min-w-[100px]"
-                        >
-                          {isLoadingFollow ? (
-                            "..."
-                          ) : isFollowing ? (
-                            <>
-                              <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                              {t("userActionsUnfollow", "user") || "Unfollow"}
-                            </>
-                          ) : (
-                            <>
-                              <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                              {t("userActionsFollow", "user")}
-                            </>
-                          )}
-                        </Button>
-                      )
-                    )}
+                    {/* Action button (Edit or Follow) */}
+                    {renderActionButton()}
                   </div>
 
                   {/* Bio */}
