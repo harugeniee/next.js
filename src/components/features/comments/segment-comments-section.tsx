@@ -386,8 +386,7 @@ export function SegmentCommentsSection({
                             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                               <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                               <span>
-                                {t("loadingMore", "comments") ||
-                                  "Loading more comments..."}
+                                {t("loadingMore", "comments")}
                               </span>
                             </div>
                           )}
@@ -710,13 +709,13 @@ function CommentItem({
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 <span>
-                  {t("loadingReplies", "comments") || "Loading replies..."}
+                  {t("loadingReplies", "comments")}
                 </span>
               </div>
             </div>
           ) : repliesError ? (
             <div className="p-4 text-center text-sm text-destructive">
-              {t("errorLoadingReplies", "comments") || "Failed to load replies"}
+              {t("errorLoadingReplies", "comments")}
             </div>
           ) : replies.length > 0 ? (
             <div className="space-y-3">
@@ -798,7 +797,7 @@ function CommentItem({
             </div>
           ) : (
             <div className="p-4 text-center text-sm text-muted-foreground">
-              {t("noReplies", "comments") || "No replies yet"}
+              {t("noReplies", "comments")}
             </div>
           )}
         </div>
