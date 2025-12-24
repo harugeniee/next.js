@@ -385,9 +385,7 @@ export function SegmentCommentsSection({
                           {isFetchingNextPage && (
                             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                               <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                              <span>
-                                {t("loadingMore", "comments")}
-                              </span>
+                              <span>{t("loadingMore", "comments")}</span>
                             </div>
                           )}
                         </div>
@@ -708,9 +706,7 @@ function CommentItem({
             <div className="flex items-center justify-center py-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                <span>
-                  {t("loadingReplies", "comments")}
-                </span>
+                <span>{t("loadingReplies", "comments")}</span>
               </div>
             </div>
           ) : repliesError ? (
