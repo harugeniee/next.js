@@ -1,4 +1,5 @@
 import {
+  type InfiniteData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -7,14 +8,17 @@ import {
 import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
+import { useCurrentUser } from "@/hooks/auth";
 import type {
   BatchCommentsDto,
+  Comment,
   CreateCommentDto,
   QueryCommentsCursorDto,
   QueryCommentsDto,
   UpdateCommentDto,
 } from "@/lib/api/comments";
 import { CommentsAPI } from "@/lib/api/comments";
+import type { ApiResponseOffset, PaginationCursor } from "@/lib/types";
 import { queryKeys } from "@/lib/utils/query-keys";
 
 /**
@@ -49,6 +53,7 @@ export function useCommentsInfinite(
     pinned?: boolean;
     edited?: boolean;
     visibility?: string;
+    includeReplies?: boolean;
     includeMedia?: boolean;
     includeMentions?: boolean;
     limit?: number;
@@ -71,6 +76,7 @@ export function useCommentsInfinite(
         pinned: options?.pinned,
         edited: options?.edited,
         visibility: options?.visibility,
+        includeReplies: options?.includeReplies ?? false,
         includeMedia: options?.includeMedia ?? true,
         includeMentions: options?.includeMentions ?? true,
       };
@@ -167,10 +173,233 @@ export function useCommentsBatch(data: BatchCommentsDto) {
 export function useCreateComment() {
   const { t } = useI18n();
   const queryClient = useQueryClient();
+  const { data: currentUser } = useCurrentUser();
 
   return useMutation({
     mutationFn: (data: CreateCommentDto) => CommentsAPI.createComment(data),
+    onMutate: async (variables) => {
+      // Cancel outgoing refetches to avoid overwriting optimistic update
+      await queryClient.cancelQueries({
+        queryKey: queryKeys.comments.cursor(
+          variables.subjectType,
+          variables.subjectId,
+        ),
+      });
+
+      // If it's a reply, also cancel replies queries (all params variations)
+      if (variables.parentId) {
+        await queryClient.cancelQueries({
+          predicate: (query) => {
+            const key = query.queryKey;
+            return (
+              Array.isArray(key) &&
+              key[0] === "comments" &&
+              key[1] === "replies" &&
+              key[2] === variables.parentId
+            );
+          },
+        });
+      }
+
+      // Snapshot previous values for rollback
+      const previousCursorData = queryClient.getQueryData(
+        queryKeys.comments.cursor(
+          variables.subjectType,
+          variables.subjectId,
+        ),
+      );
+
+      const previousRepliesData = variables.parentId
+        ? queryClient.getQueryData(
+            queryKeys.comments.replies(variables.parentId),
+          )
+        : null;
+
+      // Create optimistic reply object
+      if (variables.parentId && currentUser) {
+        const optimisticReply: Comment = {
+          id: `temp-${Date.now()}`,
+          userId: currentUser.id,
+          subjectType: variables.subjectType,
+          subjectId: variables.subjectId,
+          parentId: variables.parentId,
+          content: variables.content || "",
+          pinned: false,
+          edited: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          user: {
+            id: currentUser.id,
+            name: currentUser.name,
+            username: currentUser.username,
+            avatar: currentUser.avatar
+              ? { url: currentUser.avatar.url || "" }
+              : undefined,
+          },
+          replyCount: 0,
+        };
+
+        // Optimistically add reply to replies cache
+        // Use query key pattern matching to update all replies queries for this parent
+        queryClient.setQueriesData<ApiResponseOffset<Comment>>(
+          {
+            predicate: (query) => {
+              const key = query.queryKey;
+              return (
+                Array.isArray(key) &&
+                key[0] === "comments" &&
+                key[1] === "replies" &&
+                key[2] === variables.parentId
+              );
+            },
+          },
+          (old) => {
+            if (!old) {
+              return {
+                success: true,
+                message: "",
+                metadata: { messageKey: "", messageArgs: {} },
+                data: {
+                  result: [optimisticReply],
+                  metaData: {
+                    currentPage: 1,
+                    pageSize: 50,
+                    totalRecords: 1,
+                    totalPages: 1,
+                  },
+                },
+              };
+            }
+
+            return {
+              ...old,
+              data: {
+                ...old.data,
+                result: [...(old.data?.result || []), optimisticReply],
+                metaData: {
+                  ...old.data?.metaData,
+                  totalRecords: (old.data?.metaData?.totalRecords || 0) + 1,
+                },
+              },
+            };
+          },
+        );
+
+        // Optimistically update parent comment's replyCount in cursor queries
+        queryClient.setQueryData<
+          InfiniteData<PaginationCursor<Comment>>
+        >(
+          queryKeys.comments.cursor(
+            variables.subjectType,
+            variables.subjectId,
+          ),
+          (old) => {
+            if (!old) return old;
+
+            return {
+              ...old,
+              pages: old.pages?.map((page) => ({
+                ...page,
+                result: page.result?.map((comment) => {
+                  if (comment.id === variables.parentId) {
+                    return {
+                      ...comment,
+                      replyCount: (comment.replyCount || 0) + 1,
+                    };
+                  }
+                  return comment;
+                }),
+              })),
+            };
+          },
+        );
+      }
+
+      // Return context with snapshot for potential rollback
+      return { previousCursorData, previousRepliesData };
+    },
     onSuccess: (response, variables) => {
+      // If it's a reply, update the replies cache with the real response
+      if (variables.parentId && response.data) {
+        // Update all replies queries for this parent with real response data
+        queryClient.setQueriesData<ApiResponseOffset<Comment>>(
+          {
+            predicate: (query) => {
+              const key = query.queryKey;
+              return (
+                Array.isArray(key) &&
+                key[0] === "comments" &&
+                key[1] === "replies" &&
+                key[2] === variables.parentId
+              );
+            },
+          },
+          (old) => {
+            if (!old) {
+              // If cache doesn't exist, create it with the new reply
+              return {
+                success: true,
+                message: "",
+                metadata: { messageKey: "", messageArgs: {} },
+                data: {
+                  result: [response.data],
+                  metaData: {
+                    currentPage: 1,
+                    pageSize: 50,
+                    totalRecords: 1,
+                    totalPages: 1,
+                  },
+                },
+              };
+            }
+
+            // Replace optimistic reply with real one or add if not found
+            const result = [...(old.data?.result || [])];
+            const optimisticIndex = result.findIndex(
+              (r) => r.id?.startsWith("temp-"),
+            );
+
+            if (optimisticIndex >= 0) {
+              // Replace optimistic reply with real one
+              result[optimisticIndex] = response.data;
+            } else {
+              // Add if not found (optimistic update might not have run)
+              // Insert at the end to maintain chronological order (ASC)
+              result.push(response.data);
+            }
+
+            return {
+              ...old,
+              data: {
+                ...old.data,
+                result,
+                metaData: {
+                  ...old.data.metaData,
+                  totalRecords: result.length,
+                },
+              },
+            };
+          },
+        );
+
+        // Refetch replies queries in background to ensure consistency with server
+        // Only refetch if the queries are currently active/enabled
+        queryClient.refetchQueries(
+          {
+            predicate: (query) => {
+              const key = query.queryKey;
+              return (
+                Array.isArray(key) &&
+                key[0] === "comments" &&
+                key[1] === "replies" &&
+                key[2] === variables.parentId
+              );
+            },
+          },
+          { cancelRefetch: false },
+        );
+      }
+
       // Invalidate comments list for the subject
       queryClient.invalidateQueries({
         queryKey: queryKeys.comments.list({
@@ -195,18 +424,29 @@ export function useCreateComment() {
         ),
       });
 
-      // If it's a reply, invalidate parent comment replies
-      if (variables.parentId) {
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.comments.replies(variables.parentId),
-        });
-      }
-
       toast.success(
         t("commentCreated", "comments") || "Comment created successfully",
       );
     },
-    onError: (error) => {
+    onError: (error, variables, context) => {
+      // Rollback optimistic updates on error
+      if (context?.previousCursorData) {
+        queryClient.setQueryData(
+          queryKeys.comments.cursor(
+            variables.subjectType,
+            variables.subjectId,
+          ),
+          context.previousCursorData,
+        );
+      }
+
+      if (context?.previousRepliesData && variables.parentId) {
+        queryClient.setQueryData(
+          queryKeys.comments.replies(variables.parentId),
+          context.previousRepliesData,
+        );
+      }
+
       console.error("Create comment error:", error);
       toast.error(
         t("commentCreateError", "comments") || "Failed to create comment",

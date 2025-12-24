@@ -32,6 +32,7 @@ export interface Comment {
   replies?: Comment[];
   attachments?: unknown[];
   mentions?: unknown[];
+  replyCount?: number;
   _count?: {
     replies: number;
     reactions: number;
@@ -108,6 +109,7 @@ export interface QueryCommentsCursorDto extends QueryParamsWithCursor {
   pinned?: boolean;
   edited?: boolean;
   visibility?: string;
+  includeReplies?: boolean;
   includeMedia?: boolean;
   includeMentions?: boolean;
 }

@@ -100,6 +100,7 @@ export function SegmentCommentsSection({
     limit: 20,
     sortBy: "createdAt",
     order: "DESC",
+    includeReplies: false,
   });
 
   // Fetch comment stats only when in view
@@ -404,8 +405,8 @@ function CommentItem({
   const commentUserId = comment.user?.id || comment.userId;
 
   // Get reply count from comment metadata
-  // Check both _count.replies and comment.replies.length as fallback
-  const replyCount = comment._count?.replies ?? comment.replies?.length ?? 0;
+  // Backend returns replyCount as a direct property on the Comment entity
+  const replyCount = comment.replyCount ?? 0;
 
   // Auto-fetch replies when replyCount > 0
   const {
@@ -413,6 +414,7 @@ function CommentItem({
     isLoading: isLoadingReplies,
     error: repliesError,
   } = useCommentReplies(comment.id, {
+    page: 1,
     limit: 50,
     sortBy: "createdAt",
     order: "ASC",
