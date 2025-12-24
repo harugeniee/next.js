@@ -57,7 +57,7 @@ export function SegmentCommentsSection({
 
   // Comment form state
   const [commentContent, setCommentContent] = useState("");
-  const [replyingTo, setReplyingTo] = useState<Comment | null>(null);
+  const [replyingToId, setReplyingToId] = useState<string | null>(null);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -146,7 +146,7 @@ export function SegmentCommentsSection({
     };
   }, [isInView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // Handle comment submission
+  // Handle comment submission (for top form - new comments only)
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isAuthenticated || !commentContent.trim()) return;
@@ -155,7 +155,7 @@ export function SegmentCommentsSection({
       await createCommentMutation.mutateAsync({
         subjectType: "segment",
         subjectId: segmentId,
-        parentId: replyingTo?.id,
+        parentId: undefined, // Top form is only for new top-level comments
         content: commentContent.trim(),
         type: COMMENT_CONSTANTS.TYPES.TEXT,
         visibility: COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
@@ -163,25 +163,40 @@ export function SegmentCommentsSection({
 
       // Reset form
       setCommentContent("");
-      setReplyingTo(null);
     } catch (error) {
       console.error("Failed to create comment:", error);
     }
   };
 
-  // Handle reply
-  const handleReply = (comment: Comment) => {
-    setReplyingTo(comment);
-    // Scroll to comment form
-    commentSectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-    });
+  // Handle reply - set replyingToId to show inline form
+  const handleReply = (commentId: string) => {
+    setReplyingToId(commentId);
   };
 
-  // Cancel reply
+  // Cancel reply - clear replyingToId
   const handleCancelReply = () => {
-    setReplyingTo(null);
+    setReplyingToId(null);
+  };
+
+  // Handle inline reply submission
+  const handleSubmitReply = async (parentId: string, content: string) => {
+    if (!isAuthenticated || !content.trim()) return;
+
+    try {
+      await createCommentMutation.mutateAsync({
+        subjectType: "segment",
+        subjectId: segmentId,
+        parentId,
+        content: content.trim(),
+        type: COMMENT_CONSTANTS.TYPES.TEXT,
+        visibility: COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
+      });
+
+      // Close reply form after successful submission
+      setReplyingToId(null);
+    } catch (error) {
+      console.error("Failed to create reply:", error);
+    }
   };
 
   // Get user initials for avatar
@@ -239,30 +254,9 @@ export function SegmentCommentsSection({
             <Skeletonize loading={!isInView && isLoadingComments}>
               {isInView ? (
                 <>
-                  {/* Comment Form */}
+                  {/* Comment Form - Only for new top-level comments */}
                   {isAuthenticated ? (
                     <form onSubmit={handleSubmitComment} className="space-y-3">
-                      {replyingTo && (
-                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-md border border-border">
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span>
-                              {t("replyTo", "comments")}{" "}
-                              {replyingTo.user?.name ||
-                                replyingTo.user?.username ||
-                                "User"}
-                            </span>
-                          </div>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={handleCancelReply}
-                            className="h-7 text-xs"
-                          >
-                            {t("cancel", "comments")}
-                          </Button>
-                        </div>
-                      )}
                       <div className="flex gap-3">
                         <Avatar className="h-8 w-8 shrink-0">
                           <AvatarImage
@@ -284,11 +278,7 @@ export function SegmentCommentsSection({
                           <Input
                             value={commentContent}
                             onChange={(e) => setCommentContent(e.target.value)}
-                            placeholder={
-                              replyingTo
-                                ? t("reply", "comments")
-                                : t("placeholder", "comments")
-                            }
+                            placeholder={t("placeholder", "comments")}
                             maxLength={COMMENT_CONSTANTS.CONTENT_MAX_LENGTH}
                             className="w-full"
                             disabled={createCommentMutation.isPending}
@@ -341,10 +331,15 @@ export function SegmentCommentsSection({
                         <CommentItem
                           key={comment.id}
                           comment={comment}
+                          replyingToId={replyingToId}
                           onReply={handleReply}
+                          onCancelReply={handleCancelReply}
+                          onSubmitReply={handleSubmitReply}
                           isAuthenticated={isAuthenticated}
+                          currentUser={currentUser}
                           getUserInitials={getUserInitials}
                           formatDate={formatDate}
+                          isSubmitting={createCommentMutation.isPending}
                         />
                       ))}
                       {/* Load more trigger */}
@@ -381,23 +376,167 @@ export function SegmentCommentsSection({
 }
 
 /**
+ * Inline Reply Form Component
+ * Displays reply form directly below a comment
+ */
+interface ReplyFormProps {
+  parentComment: Comment;
+  onSubmit: (parentId: string, content: string) => Promise<void>;
+  onCancel: () => void;
+  isSubmitting: boolean;
+  currentUser: ReturnType<typeof useCurrentUser>["data"];
+  getUserInitials: (user?: Comment["user"]) => string;
+}
+
+function ReplyForm({
+  parentComment,
+  onSubmit,
+  onCancel,
+  isSubmitting,
+  currentUser,
+  getUserInitials,
+}: ReplyFormProps) {
+  const { t } = useI18n();
+  const [replyContent, setReplyContent] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Auto-focus input and scroll into view when form opens
+  useEffect(() => {
+    inputRef.current?.focus();
+    // Smooth scroll to form if needed
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }, 100);
+  }, []);
+
+  // Handle ESC key to cancel
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onCancel();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onCancel]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!replyContent.trim() || isSubmitting) return;
+
+    await onSubmit(parentComment.id, replyContent);
+    setReplyContent("");
+  };
+
+  return (
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="mt-3 ml-11 space-y-2 rounded-md border border-border bg-muted/20 p-3 transition-all duration-200"
+    >
+      <div className="flex gap-3">
+        <Avatar className="h-7 w-7 shrink-0">
+          <AvatarImage
+            src={currentUser?.avatar?.url}
+            alt={currentUser?.name || currentUser?.username || "User"}
+          />
+          <AvatarFallback>
+            {getUserInitials({
+              name: currentUser?.name,
+              username: currentUser?.username,
+            } as Comment["user"])}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex-1 space-y-2">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+            <span>
+              {t("replyTo", "comments")}{" "}
+              <span className="font-medium text-foreground">
+                {parentComment.user?.name ||
+                  parentComment.user?.username ||
+                  "User"}
+              </span>
+            </span>
+          </div>
+          <Input
+            ref={inputRef}
+            value={replyContent}
+            onChange={(e) => setReplyContent(e.target.value)}
+            placeholder={t("reply", "comments")}
+            maxLength={COMMENT_CONSTANTS.CONTENT_MAX_LENGTH}
+            className="w-full text-sm"
+            disabled={isSubmitting}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                handleSubmit(e);
+              }
+            }}
+          />
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-muted-foreground">
+              {replyContent.length} / {COMMENT_CONSTANTS.CONTENT_MAX_LENGTH}
+            </span>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={onCancel}
+                disabled={isSubmitting}
+                className="h-7 text-xs"
+              >
+                {t("cancel", "comments")}
+              </Button>
+              <Button
+                type="submit"
+                size="sm"
+                disabled={!replyContent.trim() || isSubmitting}
+                className="h-7 text-xs gap-1"
+              >
+                <Send className="h-3 w-3" />
+                {t("reply", "comments")}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  );
+}
+
+/**
  * Comment Item Component
  * Displays a single comment with replies
  */
 interface CommentItemProps {
   comment: Comment;
-  onReply: (comment: Comment) => void;
+  replyingToId: string | null;
+  onReply: (commentId: string) => void;
+  onCancelReply: () => void;
+  onSubmitReply: (parentId: string, content: string) => Promise<void>;
   isAuthenticated: boolean;
+  currentUser: ReturnType<typeof useCurrentUser>["data"];
   getUserInitials: (user?: Comment["user"]) => string;
   formatDate: (dateString: string) => string;
+  isSubmitting: boolean;
 }
 
 function CommentItem({
   comment,
+  replyingToId,
   onReply,
+  onCancelReply,
+  onSubmitReply,
   isAuthenticated,
+  currentUser,
   getUserInitials,
   formatDate,
+  isSubmitting,
 }: CommentItemProps) {
   const { t } = useI18n();
 
@@ -488,7 +627,7 @@ function CommentItem({
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onReply(comment)}
+              onClick={() => onReply(comment.id)}
               className="h-7 text-xs mt-1"
             >
               {t("reply", "comments")}
@@ -496,6 +635,18 @@ function CommentItem({
           )}
         </div>
       </div>
+
+      {/* Inline Reply Form - Show when this comment is being replied to */}
+      {replyingToId === comment.id && isAuthenticated && (
+        <ReplyForm
+          parentComment={comment}
+          onSubmit={onSubmitReply}
+          onCancel={onCancelReply}
+          isSubmitting={isSubmitting}
+          currentUser={currentUser}
+          getUserInitials={getUserInitials}
+        />
+      )}
 
       {/* Replies - Auto-display below parent comment with indent */}
       {replyCount > 0 && (
