@@ -203,10 +203,7 @@ export function useCreateComment() {
 
       // Snapshot previous values for rollback
       const previousCursorData = queryClient.getQueryData(
-        queryKeys.comments.cursor(
-          variables.subjectType,
-          variables.subjectId,
-        ),
+        queryKeys.comments.cursor(variables.subjectType, variables.subjectId),
       );
 
       const previousRepliesData = variables.parentId
@@ -286,13 +283,8 @@ export function useCreateComment() {
         );
 
         // Optimistically update parent comment's replyCount in cursor queries
-        queryClient.setQueryData<
-          InfiniteData<PaginationCursor<Comment>>
-        >(
-          queryKeys.comments.cursor(
-            variables.subjectType,
-            variables.subjectId,
-          ),
+        queryClient.setQueryData<InfiniteData<PaginationCursor<Comment>>>(
+          queryKeys.comments.cursor(variables.subjectType, variables.subjectId),
           (old) => {
             if (!old) return old;
 
@@ -355,8 +347,8 @@ export function useCreateComment() {
 
             // Replace optimistic reply with real one or add if not found
             const result = [...(old.data?.result || [])];
-            const optimisticIndex = result.findIndex(
-              (r) => r.id?.startsWith("temp-"),
+            const optimisticIndex = result.findIndex((r) =>
+              r.id?.startsWith("temp-"),
             );
 
             if (optimisticIndex >= 0) {
@@ -432,10 +424,7 @@ export function useCreateComment() {
       // Rollback optimistic updates on error
       if (context?.previousCursorData) {
         queryClient.setQueryData(
-          queryKeys.comments.cursor(
-            variables.subjectType,
-            variables.subjectId,
-          ),
+          queryKeys.comments.cursor(variables.subjectType, variables.subjectId),
           context.previousCursorData,
         );
       }

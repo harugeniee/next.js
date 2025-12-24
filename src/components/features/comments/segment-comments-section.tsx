@@ -28,7 +28,7 @@ import {
   useCommentStats,
   useCreateComment,
 } from "@/hooks/comments";
-import type { Comment } from "@/lib/api/comments";
+import type { Comment, CreateCommentMentionDto } from "@/lib/api/comments";
 import { COMMENT_CONSTANTS } from "@/lib/constants/comment.constants";
 import { cn } from "@/lib/utils";
 
@@ -179,15 +179,52 @@ export function SegmentCommentsSection({
   };
 
   // Handle inline reply submission
-  const handleSubmitReply = async (parentId: string, content: string) => {
+  const handleSubmitReply = async (parentComment: Comment, content: string) => {
     if (!isAuthenticated || !content.trim()) return;
+
+    // Get username with fallback priority: username > name > "User"
+    const username =
+      parentComment.user?.username || parentComment.user?.name || "User";
+
+    // Content already contains "@username " prefix from form
+    // Extract the mention prefix and user's actual content
+    const mentionPrefix = `@${username} `;
+
+    // If content doesn't start with mention prefix, add it (safety check)
+    const formattedContent = content.startsWith(mentionPrefix)
+      ? content.trim()
+      : `${mentionPrefix}${content.trim()}`;
+
+    // Validate content length - truncate if exceeds max length
+    const finalContent =
+      formattedContent.length > COMMENT_CONSTANTS.CONTENT_MAX_LENGTH
+        ? formattedContent.slice(0, COMMENT_CONSTANTS.CONTENT_MAX_LENGTH)
+        : formattedContent;
+
+    // Ensure mention prefix is still at the start after truncation
+    const safeContent = finalContent.startsWith(mentionPrefix)
+      ? finalContent
+      : `${mentionPrefix}${finalContent.slice(mentionPrefix.length)}`;
+
+    // Create mention object
+    // Only create mention if parentComment.userId exists
+    const mentions: CreateCommentMentionDto[] = [];
+    if (parentComment.userId) {
+      mentions.push({
+        userId: parentComment.userId,
+        startIndex: 0,
+        length: mentionPrefix.length,
+        type: "user",
+      });
+    }
 
     try {
       await createCommentMutation.mutateAsync({
         subjectType: "segment",
         subjectId: segmentId,
-        parentId,
-        content: content.trim(),
+        parentId: parentComment.id,
+        content: safeContent,
+        mentions: mentions.length > 0 ? mentions : undefined,
         type: COMMENT_CONSTANTS.TYPES.TEXT,
         visibility: COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
       });
@@ -381,7 +418,7 @@ export function SegmentCommentsSection({
  */
 interface ReplyFormProps {
   parentComment: Comment;
-  onSubmit: (parentId: string, content: string) => Promise<void>;
+  onSubmit: (parentComment: Comment, content: string) => Promise<void>;
   onCancel: () => void;
   isSubmitting: boolean;
   currentUser: ReturnType<typeof useCurrentUser>["data"];
@@ -397,13 +434,29 @@ function ReplyForm({
   getUserInitials,
 }: ReplyFormProps) {
   const { t } = useI18n();
-  const [replyContent, setReplyContent] = useState("");
+
+  // Get username with fallback priority: username > name > "User"
+  const username =
+    parentComment.user?.username || parentComment.user?.name || "User";
+
+  // Calculate mention prefix - this will be used as initial value
+  const mentionPrefix = `@${username} `;
+
+  // Initialize reply content with "@username " prefix
+  // Component will remount when key changes (set in parent), so initial state is always correct
+  const [replyContent, setReplyContent] = useState(mentionPrefix);
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   // Auto-focus input and scroll into view when form opens
   useEffect(() => {
     inputRef.current?.focus();
+    // Move cursor to end of input (after "@username ")
+    const input = inputRef.current;
+    if (input) {
+      const length = input.value.length;
+      input.setSelectionRange(length, length);
+    }
     // Smooth scroll to form if needed
     setTimeout(() => {
       formRef.current?.scrollIntoView({
@@ -429,7 +482,7 @@ function ReplyForm({
     e.preventDefault();
     if (!replyContent.trim() || isSubmitting) return;
 
-    await onSubmit(parentComment.id, replyContent);
+    await onSubmit(parentComment, replyContent);
     setReplyContent("");
   };
 
@@ -518,7 +571,7 @@ interface CommentItemProps {
   replyingToId: string | null;
   onReply: (commentId: string) => void;
   onCancelReply: () => void;
-  onSubmitReply: (parentId: string, content: string) => Promise<void>;
+  onSubmitReply: (parentComment: Comment, content: string) => Promise<void>;
   isAuthenticated: boolean;
   currentUser: ReturnType<typeof useCurrentUser>["data"];
   getUserInitials: (user?: Comment["user"]) => string;
@@ -639,6 +692,7 @@ function CommentItem({
       {/* Inline Reply Form - Show when this comment is being replied to */}
       {replyingToId === comment.id && isAuthenticated && (
         <ReplyForm
+          key={`reply-form-${comment.id}`}
           parentComment={comment}
           onSubmit={onSubmitReply}
           onCancel={onCancelReply}
