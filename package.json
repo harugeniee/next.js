@@ -18,7 +18,8 @@
     "audit:fix": "yarn audit --fix",
     "outdated": "yarn outdated",
     "clean": "rm -rf .next out dist",
-    "clean:all": "rm -rf .next out dist node_modules yarn.lock && yarn install"
+    "clean:all": "rm -rf .next out dist node_modules yarn.lock && yarn install",
+    "check:all": "yarn lint && yarn type-check && yarn format:check"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
