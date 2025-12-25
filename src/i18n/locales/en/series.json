@@ -92,6 +92,17 @@
     "no": "No",
     "unknown": "Unknown"
   },
+  "status": {
+    "unknown": "Unknown",
+    "finished": "Finished",
+    "releasing": "Releasing",
+    "ongoing": "Ongoing",
+    "comingSoon": "Coming Soon",
+    "completed": "Completed",
+    "notYetReleased": "Not Yet Released",
+    "cancelled": "Cancelled",
+    "hiatus": "Hiatus"
+  },
   "releasingStatus": {
     "finished": "Finished",
     "releasing": "Releasing",

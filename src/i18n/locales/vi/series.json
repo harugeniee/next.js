@@ -92,6 +92,17 @@
     "no": "Không",
     "unknown": "Không Rõ"
   },
+  "status": {
+    "unknown": "Không Rõ",
+    "finished": "Hoàn Thành",
+    "releasing": "Đang Phát Hành",
+    "ongoing": "Đang Tiếp Diễn",
+    "comingSoon": "Sắp Ra Mắt",
+    "completed": "Đã Hoàn Thành",
+    "notYetReleased": "Chưa Phát Hành",
+    "cancelled": "Đã Hủy",
+    "hiatus": "Tạm Dừng"
+  },
   "releasingStatus": {
     "finished": "Hoàn Thành",
     "releasing": "Đang Phát Hành",
