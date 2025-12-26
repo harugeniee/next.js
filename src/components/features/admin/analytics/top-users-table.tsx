@@ -29,16 +29,17 @@ interface TopUsersTableProps {
 export function TopUsersTable({ data, isLoading }: TopUsersTableProps) {
   const { t } = useI18n();
 
+  const topUsersData = data?.topUsers;
   const topUsers = useMemo(() => {
-    if (!data?.topUsers) return [];
-    return Object.entries(data.topUsers)
+    if (!topUsersData) return [];
+    return Object.entries(topUsersData)
       .map(([userId, count]) => ({
         userId,
         count,
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data.topUsers]);
+  }, [topUsersData]);
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">

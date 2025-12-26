@@ -265,7 +265,7 @@ export class MediaAPI {
    */
   static async getUserMedia(
     userId: string,
-  ): Promise<ApiResponse<UploadedMedia[]>> {
+  ): Promise<MediaListResponse> {
     return this.getMedia({ userId });
   }
 

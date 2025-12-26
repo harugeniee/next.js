@@ -33,10 +33,10 @@ export const updateMediaSchema = z.object({
     .or(z.literal("")),
   isPublic: z.boolean().optional(),
   tags: z
-    .array(z.string())
+    .union([z.array(z.string()), z.string()])
     .optional()
-    .or(z.string().optional())
     .transform((val) => {
+      if (!val) return undefined;
       if (typeof val === "string") {
         try {
           return JSON.parse(val);

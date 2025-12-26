@@ -3,9 +3,9 @@ export interface Pagination {
 
   limit?: number;
 
-  sortBy: string;
+  sortBy?: string;
 
-  order: "ASC" | "DESC";
+  order?: "ASC" | "DESC";
 }
 
 export interface AdvancedQueryParams extends Pagination {

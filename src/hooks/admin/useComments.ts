@@ -61,14 +61,14 @@ export function useDeleteComment() {
     ) => {
       baseMutation.mutate(commentId, {
         ...options,
-        onSuccess: (data, variables, context) => {
+        onSuccess: (data, variables, onMutateResult, context) => {
           // Invalidate admin-specific queries
           queryClient.invalidateQueries({
             queryKey: queryKeys.comments.admin.all(),
           });
           // Call original onSuccess if provided
           if (options?.onSuccess) {
-            options.onSuccess(data, variables, context);
+            options.onSuccess(data, variables, onMutateResult, context);
           }
         },
       });
@@ -132,4 +132,4 @@ export function usePinComment() {
  * Re-export base comment stats hook for subject-specific stats
  * Use this when you need stats for a specific subject (article, segment, etc.)
  */
-export { useCommentStatsBase as useCommentStats } from "@/hooks/comments";
+export { useCommentStats } from "@/hooks/comments";

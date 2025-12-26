@@ -56,7 +56,8 @@ export function MediaForm({
   };
 
   const form = useForm<UpdateMediaFormData>({
-    resolver: zodResolver(updateMediaSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(updateMediaSchema) as any,
     defaultValues: {
       name: media?.name || "",
       description: media?.description || "",

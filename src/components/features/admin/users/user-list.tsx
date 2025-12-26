@@ -43,12 +43,12 @@ import type {
   UpdateUserDto,
   User,
 } from "@/lib/interface/user.interface";
-import type { ApiResponseOffset } from "@/lib/types";
+import type { PaginationOffset } from "@/lib/types";
 import { UserActions } from "./user-actions";
 import { UserFormDialog } from "./user-form-dialog";
 
 interface UserListProps {
-  data?: ApiResponseOffset<User>;
+  data?: PaginationOffset<User>;
   isLoading: boolean;
   page: number;
   limit: number;

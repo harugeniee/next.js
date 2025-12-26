@@ -26,11 +26,11 @@ import type {
   Organization,
   UpdateOrganizationDto,
 } from "@/lib/interface/organization.interface";
-import type { AdvancedQueryParams } from "@/lib/types";
+import type { QueryOrganizationsDto } from "@/lib/api/organizations";
 
 export default function OrganizationsPage() {
   const { t } = useI18n();
-  const [filters, setFilters] = useState<AdvancedQueryParams>({
+  const [filters, setFilters] = useState<QueryOrganizationsDto>({
     page: 1,
     limit: 10,
     sortBy: "createdAt",
@@ -53,7 +53,7 @@ export default function OrganizationsPage() {
   const handleStatusChange = useCallback((status: string) => {
     setFilters((prev) => ({
       ...prev,
-      status: status === "all" ? undefined : status,
+      status: status === "all" ? undefined : (status as "active" | "inactive" | "suspended"),
       page: 1,
     }));
   }, []);
@@ -61,7 +61,7 @@ export default function OrganizationsPage() {
   const handleVisibilityChange = useCallback((visibility: string) => {
     setFilters((prev) => ({
       ...prev,
-      visibility: visibility === "all" ? undefined : visibility,
+      visibility: visibility === "all" ? undefined : (visibility as "public" | "private"),
       page: 1,
     }));
   }, []);
@@ -133,8 +133,8 @@ export default function OrganizationsPage() {
           onSearch={handleSearch}
           onStatusChange={handleStatusChange}
           onVisibilityChange={handleVisibilityChange}
-          status={filters.status}
-          visibility={filters.visibility}
+          status={Array.isArray(filters.status) ? filters.status[0] : filters.status}
+          visibility={filters.visibility as string | undefined}
         />
       </AnimatedSection>
 

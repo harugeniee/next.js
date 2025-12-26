@@ -58,8 +58,12 @@ export function BadgeForm({
   const { t } = useI18n();
   const isEditMode = !!badge;
 
-  const form = useForm<CreateBadgeFormData>({
-    resolver: zodResolver(isEditMode ? updateBadgeSchema : createBadgeSchema),
+  type FormData = CreateBadgeFormData | UpdateBadgeFormData;
+  const form = useForm<FormData>({
+    resolver: zodResolver(
+      isEditMode ? updateBadgeSchema : createBadgeSchema,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ) as any,
     defaultValues: {
       type: badge?.type || BadgeType.CONTENT_CREATOR,
       name: badge?.name || "",
@@ -127,7 +131,11 @@ export function BadgeForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onSubmit={form.handleSubmit(handleSubmit as any)}
+        className="space-y-6"
+      >
         {/* Basic Information */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">

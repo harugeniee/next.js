@@ -22,12 +22,12 @@ export function useOrganizations(params?: AdvancedQueryParams) {
     queryKey: queryKeys.organizations.list(params),
     queryFn: () =>
       OrganizationsAPI.getOrganizations(
-        params || {
+        (params || {
           page: 1,
           limit: 10,
           sortBy: "createdAt",
           order: "DESC",
-        },
+        }) as Parameters<typeof OrganizationsAPI.getOrganizations>[0],
       ),
     staleTime: STALE_TIME_5_MIN,
     gcTime: GC_TIME_10_MIN,

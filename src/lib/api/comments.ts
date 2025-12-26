@@ -4,6 +4,7 @@ import type {
   ApiResponse,
   ApiResponseCursor,
   ApiResponseOffset,
+  PaginationOffset,
   QueryParamsWithCursor,
 } from "@/lib/types";
 
@@ -17,8 +18,13 @@ export interface Comment {
   subjectId: string;
   parentId?: string;
   content: string;
+  type?: string;
   pinned?: boolean;
   edited?: boolean;
+  editedAt?: string | Date;
+  visibility?: string;
+  flags?: string[];
+  metadata?: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
   user?: {
@@ -179,11 +185,15 @@ export class CommentsAPI {
    */
   static async getComments(
     params?: QueryCommentsDto,
-  ): Promise<ApiResponseOffset<Comment>> {
+  ): Promise<PaginationOffset<Comment>> {
     const response = await http.get<ApiResponseOffset<Comment>>(this.BASE_URL, {
       params,
     });
-    return response.data;
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Failed to fetch comments");
+    }
+    // Extract the pagination data from the nested structure
+    return response.data.data;
   }
 
   /**
@@ -250,12 +260,16 @@ export class CommentsAPI {
   static async getCommentReplies(
     commentId: string,
     params?: Omit<QueryCommentsDto, "parentId">,
-  ): Promise<ApiResponseOffset<Comment>> {
+  ): Promise<PaginationOffset<Comment>> {
     const response = await http.get<ApiResponseOffset<Comment>>(
       `${this.BASE_URL}/${commentId}/replies`,
       { params },
     );
-    return response.data;
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Failed to fetch comment replies");
+    }
+    // Extract the pagination data from the nested structure
+    return response.data.data;
   }
 
   /**

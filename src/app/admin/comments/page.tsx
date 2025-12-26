@@ -160,7 +160,7 @@ export default function CommentsPage() {
 
       {/* Comments List */}
       <CommentList
-        data={commentsData?.data}
+        data={commentsData}
         isLoading={commentsLoading}
         page={commentFilters.page || 1}
         limit={commentFilters.limit || 20}

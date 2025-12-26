@@ -106,7 +106,7 @@ export const createCharacterSchema = z.object({
       `Notes must be less than ${CHARACTER_CONSTANTS.NOTES_MAX_LENGTH} characters`,
     )
     .optional(),
-  metadata: z.record(z.unknown()).optional().nullable(),
+  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
   seriesId: z.string().optional(),
 });
 

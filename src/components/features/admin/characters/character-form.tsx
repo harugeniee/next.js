@@ -52,10 +52,12 @@ export function CharacterForm({
   const { t } = useI18n();
   const isEditMode = !!character;
 
-  const form = useForm<UpdateCharacterFormData>({
+  type FormData = CreateCharacterFormData | UpdateCharacterFormData;
+  const form = useForm<FormData>({
     resolver: zodResolver(
       isEditMode ? updateCharacterSchema : createCharacterSchema,
-    ),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ) as any,
     defaultValues: {
       myAnimeListId: character?.myAnimeListId ?? "",
       aniListId: character?.aniListId ?? "",

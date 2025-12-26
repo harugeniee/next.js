@@ -43,12 +43,12 @@ import type {
   Organization,
   UpdateOrganizationDto,
 } from "@/lib/interface/organization.interface";
-import type { ApiResponseOffset } from "@/lib/types";
+import type { PaginationOffset } from "@/lib/types";
 import { OrganizationActions } from "./organization-actions";
 import { OrganizationFormDialog } from "./organization-form-dialog";
 
 interface OrganizationListProps {
-  data?: ApiResponseOffset<Organization>;
+  data?: PaginationOffset<Organization>;
   isLoading: boolean;
   page: number;
   limit: number;

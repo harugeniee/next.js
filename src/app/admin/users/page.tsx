@@ -122,8 +122,8 @@ export default function UsersPage() {
           onSearch={handleSearch}
           onRoleChange={handleRoleChange}
           onStatusChange={handleStatusChange}
-          role={filters.role}
-          status={filters.status}
+          role={Array.isArray(filters.role) ? filters.role[0] : filters.role}
+          status={Array.isArray(filters.status) ? filters.status[0] : filters.status}
         />
       </AnimatedSection>
 

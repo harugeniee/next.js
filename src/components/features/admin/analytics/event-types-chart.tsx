@@ -34,13 +34,14 @@ interface EventTypesChartProps {
 export function EventTypesChart({ data, isLoading }: EventTypesChartProps) {
   const { t } = useI18n();
 
+  const eventTypes = data?.eventTypes;
   const chartData = useMemo(() => {
-    if (!data?.eventTypes) return [];
-    const total = Object.values(data.eventTypes).reduce(
+    if (!eventTypes) return [];
+    const total = Object.values(eventTypes).reduce(
       (sum, count) => sum + count,
       0,
     );
-    return Object.entries(data.eventTypes)
+    return Object.entries(eventTypes)
       .map(([eventType, count], index) => ({
         eventType,
         count,
@@ -49,7 +50,7 @@ export function EventTypesChart({ data, isLoading }: EventTypesChartProps) {
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data.eventTypes]);
+  }, [eventTypes]);
 
   const chartConfig = useMemo(() => {
     const config: ChartConfig = {};

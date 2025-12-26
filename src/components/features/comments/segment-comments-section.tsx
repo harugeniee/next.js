@@ -115,7 +115,7 @@ export function SegmentCommentsSection({
   // Flatten all pages into a single array
   const comments = commentsData?.pages.flatMap((page) => page.result) ?? [];
   const stats = statsData?.data;
-  const totalComments = stats?.total || comments.length;
+  const totalComments = stats?.totalComments || comments.length;
 
   // Intersection Observer for infinite scroll
   useEffect(() => {
@@ -611,7 +611,7 @@ function CommentItem({
   });
 
   // Get replies from API response or empty array
-  const replies = repliesData?.data?.result || [];
+  const replies = repliesData?.result || [];
 
   return (
     <div className="space-y-3 rounded-lg border border-border bg-card p-3 sm:p-4">
@@ -715,7 +715,7 @@ function CommentItem({
             </div>
           ) : replies.length > 0 ? (
             <div className="space-y-3">
-              {replies.map((reply) => {
+              {replies.map((reply: Comment) => {
                 const replyUserId = reply.user?.id || reply.userId;
                 return (
                   <div

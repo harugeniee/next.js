@@ -394,12 +394,12 @@ export function CommentList({
           </Skeletonize>
 
           {/* Pagination Info */}
-          {data && data.metaData.total > 0 && (
+          {data && data.metaData.totalRecords && data.metaData.totalRecords > 0 && (
             <div className="mt-4 text-sm text-muted-foreground text-center">
               {t("comments.list.pagination.showing", "admin", {
                 from: (page - 1) * limit + 1,
-                to: Math.min(page * limit, data.metaData.total),
-                total: data.metaData.total,
+                to: Math.min(page * limit, data.metaData.totalRecords),
+                total: data.metaData.totalRecords,
               })}
             </div>
           )}

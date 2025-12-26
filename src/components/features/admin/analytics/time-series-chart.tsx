@@ -63,13 +63,14 @@ export function TimeSeriesChart({
 }: TimeSeriesChartProps) {
   const { t } = useI18n();
 
+  const timeSeries = data?.timeSeries;
   const chartData = useMemo(() => {
-    if (!data?.timeSeries) return [];
-    return data.timeSeries.map((item) => ({
+    if (!timeSeries) return [];
+    return timeSeries.map((item) => ({
       date: formatDate(item.date, granularity),
       count: item.count,
     }));
-  }, [data.timeSeries, granularity]);
+  }, [timeSeries, granularity]);
 
   const chartConfig = {
     count: {

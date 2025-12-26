@@ -25,7 +25,7 @@ import {
   assignBadgeSchema,
   type AssignBadgeFormData,
 } from "@/lib/validators/badges";
-import { BadgeEntityType, type Badge } from "@/lib/types/badges";
+import { BadgeEntityType, BadgeStatus, type Badge } from "@/lib/types/badges";
 import { useBadges } from "@/hooks/admin/useBadges";
 
 interface BadgeAssignmentFormProps {
@@ -51,7 +51,7 @@ export function BadgeAssignmentForm({
   const { data: badgesData } = useBadges({
     limit: 100,
     isManuallyAssignable: true,
-    statuses: ["active" as const],
+    statuses: [BadgeStatus.ACTIVE],
   });
 
   const form = useForm<AssignBadgeFormData>({

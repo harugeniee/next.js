@@ -132,7 +132,10 @@ export function CommentFilters({
 
   const handleReset = useCallback(() => {
     setSearchQuery("");
-    onFiltersChange({});
+    onFiltersChange({
+      sortBy: "createdAt",
+      order: "DESC",
+    });
   }, [onFiltersChange]);
 
   const hasActiveFilters = useMemo(() => {

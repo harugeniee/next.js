@@ -29,9 +29,10 @@ interface TopContentTableProps {
 export function TopContentTable({ data, isLoading }: TopContentTableProps) {
   const { t } = useI18n();
 
+  const topContentData = data?.topContent;
   const topContent = useMemo(() => {
-    if (!data?.topContent) return [];
-    return Object.entries(data.topContent)
+    if (!topContentData) return [];
+    return Object.entries(topContentData)
       .map(([key, count]) => {
         const [subjectType, subjectId] = key.split(":");
         return {
@@ -43,7 +44,7 @@ export function TopContentTable({ data, isLoading }: TopContentTableProps) {
       })
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data.topContent]);
+  }, [topContentData]);
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">

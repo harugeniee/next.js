@@ -8,6 +8,7 @@ import type {
   ApiResponse,
   ApiResponseOffset,
   AdvancedQueryParams,
+  PaginationOffset,
 } from "@/lib/types";
 
 /**
@@ -119,7 +120,7 @@ export class UserAPI {
    */
   static async getUsers(
     params: AdvancedQueryParams,
-  ): Promise<ApiResponseOffset<User>> {
+  ): Promise<PaginationOffset<User>> {
     try {
       const response = await http.get<ApiResponseOffset<User>>(
         `${this.BASE_URL}`,

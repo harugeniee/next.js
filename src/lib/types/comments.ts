@@ -1,9 +1,9 @@
-import type { ApiResponseOffset } from "@/lib/types";
 import type {
   Comment,
   CommentStatsOverview,
   QueryCommentsDto,
 } from "@/lib/api/comments";
+import type { PaginationOffset } from "@/lib/types/response";
 
 /**
  * Admin-specific type aliases for consistency with other admin pages
@@ -17,9 +17,9 @@ export type GetCommentDto = QueryCommentsDto;
 
 /**
  * Response type for paginated comments list
- * Type alias for ApiResponseOffset<Comment> to maintain consistency
+ * Uses PaginationOffset to match actual API response structure
  */
-export type CommentListResponse = ApiResponseOffset<Comment>;
+export type CommentListResponse = PaginationOffset<Comment>;
 
 /**
  * Comment statistics type

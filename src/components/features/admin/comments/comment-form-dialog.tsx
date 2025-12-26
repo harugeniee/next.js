@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { Comment } from "@/lib/api/comments";
-import { COMMENT_CONSTANTS } from "@/lib/constants/comment.constants";
+import { COMMENT_CONSTANTS, type CommentVisibility } from "@/lib/constants/comment.constants";
 import {
   updateCommentSchema,
   type UpdateCommentFormData,
@@ -60,7 +60,7 @@ export function CommentFormDialog({
     resolver: zodResolver(updateCommentSchema),
     defaultValues: {
       content: comment?.content ?? "",
-      visibility: comment?.visibility ?? COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
+      visibility: (comment?.visibility as CommentVisibility | undefined) ?? COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
       flags: comment?.flags ?? [],
       pinned: comment?.pinned ?? false,
     },
@@ -77,7 +77,7 @@ export function CommentFormDialog({
     if (comment) {
       form.reset({
         content: comment.content ?? "",
-        visibility: comment.visibility ?? COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
+        visibility: (comment.visibility as CommentVisibility | undefined) ?? COMMENT_CONSTANTS.VISIBILITY.PUBLIC,
         flags: comment.flags ?? [],
         pinned: comment.pinned ?? false,
       });

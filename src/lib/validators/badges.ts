@@ -28,7 +28,7 @@ const BADGE_CONSTANTS = {
  */
 export const createBadgeSchema = z.object({
   type: z.nativeEnum(BadgeType, {
-    required_error: "Badge type is required",
+    message: "Badge type is required",
   }),
   name: z
     .string()
@@ -45,10 +45,10 @@ export const createBadgeSchema = z.object({
     )
     .optional(),
   category: z.nativeEnum(BadgeCategory, {
-    required_error: "Category is required",
+    message: "Category is required",
   }),
   rarity: z.nativeEnum(BadgeRarity, {
-    required_error: "Rarity is required",
+    message: "Rarity is required",
   }),
   status: z.nativeEnum(BadgeStatus).optional(),
   isVisible: z.boolean().optional(),
@@ -83,7 +83,7 @@ export const createBadgeSchema = z.object({
     .optional()
     .or(z.literal("")),
   requirements: z.string().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
   isAutoAssigned: z.boolean().optional(),
   isManuallyAssignable: z.boolean().optional(),
   isRevokable: z.boolean().optional(),
@@ -103,7 +103,7 @@ export const updateBadgeSchema = createBadgeSchema.partial();
 export const assignBadgeSchema = z.object({
   badgeId: z.string().min(1, "Badge ID is required"),
   entityType: z.nativeEnum(BadgeEntityType, {
-    required_error: "Entity type is required",
+    message: "Entity type is required",
   }),
   entityId: z.string().min(1, "Entity ID is required"),
   expiresAt: z.string().datetime().optional().or(z.literal("")),
@@ -115,7 +115,7 @@ export const assignBadgeSchema = z.object({
     )
     .optional(),
   isVisible: z.boolean().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**
@@ -130,7 +130,7 @@ export const revokeBadgeSchema = z.object({
       `Revocation reason must be less than ${BADGE_CONSTANTS.ASSIGNMENT_REASON_MAX_LENGTH} characters`,
     )
     .optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 // ============================================================================

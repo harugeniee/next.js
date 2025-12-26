@@ -76,6 +76,7 @@ export default function CharactersPage() {
     setCharacterFilters((prev) => ({ ...prev, page }));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLimitChange = (limit: number) => {
     setCharacterFilters((prev) => ({ ...prev, limit, page: 1 }));
   };
@@ -184,7 +185,6 @@ export default function CharactersPage() {
         page={characterFilters.page || 1}
         limit={characterFilters.limit || 20}
         onPageChange={handlePageChange}
-        onLimitChange={handleLimitChange}
         onCreate={handleCreateCharacter}
         onEdit={handleCharacterEdit}
         onDelete={handleCharacterDelete}
