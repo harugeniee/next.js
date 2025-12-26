@@ -232,6 +232,26 @@ export const queryKeys = {
     checkRole: (roleName: string) =>
       ["permissions", "checkRole", roleName] as const,
   },
+
+  // Analytics related queries
+  analytics: {
+    all: () => ["analytics"] as const,
+    dashboard: {
+      overview: (params?: unknown) =>
+        ["analytics", "dashboard", "overview", params] as const,
+      trends: (params?: unknown) =>
+        ["analytics", "dashboard", "trends", params] as const,
+      topContent: (params?: unknown) =>
+        ["analytics", "dashboard", "top-content", params] as const,
+      userEngagement: (params?: unknown) =>
+        ["analytics", "dashboard", "user-engagement", params] as const,
+    },
+    platform: {
+      overview: () => ["analytics", "platform", "overview"] as const,
+    },
+    events: (params?: unknown) =>
+      ["analytics", "events", params] as const,
+  },
 } as const;
 
 /**

@@ -41,6 +41,58 @@
     "designEngineering": "Design Engineering",
     "salesMarketing": "Sales & Marketing",
     "travel": "Travel"
+  },
+  "dashboard": {
+    "title": "Analytics Dashboard",
+    "description": "Comprehensive analytics and insights for your platform",
+    "error": "Failed to load analytics data",
+    "breadcrumb": {
+      "admin": "Admin",
+      "analytics": "Analytics"
+    },
+    "metrics": {
+      "totalEvents": "Total Events",
+      "totalEventsDesc": "All tracked events",
+      "uniqueUsers": "Unique Users",
+      "uniqueUsersDesc": "Active users",
+      "contentInteractions": "Content Interactions",
+      "contentInteractionsDesc": "Views, likes, comments",
+      "socialInteractions": "Social Interactions",
+      "socialInteractionsDesc": "Follows, shares",
+      "systemInteractions": "System Interactions",
+      "systemInteractionsDesc": "Page views, system events",
+      "engagementInteractions": "Engagement Interactions",
+      "engagementInteractionsDesc": "Reactions, bookmarks"
+    },
+    "charts": {
+      "timeSeries": "Event Trends",
+      "timeSeriesDesc": "Analytics trends over time",
+      "eventTypes": "Event Types Distribution",
+      "eventTypesDesc": "Distribution of different event types",
+      "events": "Events"
+    },
+    "tables": {
+      "topContent": "Top Content",
+      "topContentDesc": "Most popular content",
+      "topUsers": "Top Users",
+      "topUsersDesc": "Most active users"
+    },
+    "filters": {
+      "title": "Filters",
+      "reset": "Reset",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "selectDate": "Select a date",
+      "granularity": "Time Granularity",
+      "granularityHour": "Hour",
+      "granularityDay": "Day",
+      "granularityWeek": "Week",
+      "granularityMonth": "Month",
+      "eventTypes": "Event Types",
+      "eventTypesPlaceholder": "Comma-separated event types",
+      "userIds": "User IDs",
+      "userIdsPlaceholder": "Comma-separated user IDs"
+    }
   }
 }
 

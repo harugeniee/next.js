@@ -41,6 +41,58 @@
     "designEngineering": "Thiết kế Kỹ thuật",
     "salesMarketing": "Bán hàng & Tiếp thị",
     "travel": "Du lịch"
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển Phân tích",
+    "description": "Phân tích và thông tin chi tiết toàn diện cho nền tảng của bạn",
+    "error": "Không thể tải dữ liệu phân tích",
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "analytics": "Phân tích"
+    },
+    "metrics": {
+      "totalEvents": "Tổng Sự kiện",
+      "totalEventsDesc": "Tất cả sự kiện được theo dõi",
+      "uniqueUsers": "Người dùng Duy nhất",
+      "uniqueUsersDesc": "Người dùng hoạt động",
+      "contentInteractions": "Tương tác Nội dung",
+      "contentInteractionsDesc": "Lượt xem, thích, bình luận",
+      "socialInteractions": "Tương tác Xã hội",
+      "socialInteractionsDesc": "Theo dõi, chia sẻ",
+      "systemInteractions": "Tương tác Hệ thống",
+      "systemInteractionsDesc": "Lượt xem trang, sự kiện hệ thống",
+      "engagementInteractions": "Tương tác Tương tác",
+      "engagementInteractionsDesc": "Phản ứng, đánh dấu"
+    },
+    "charts": {
+      "timeSeries": "Xu hướng Sự kiện",
+      "timeSeriesDesc": "Xu hướng phân tích theo thời gian",
+      "eventTypes": "Phân bổ Loại Sự kiện",
+      "eventTypesDesc": "Phân bổ các loại sự kiện khác nhau",
+      "events": "Sự kiện"
+    },
+    "tables": {
+      "topContent": "Nội dung Hàng đầu",
+      "topContentDesc": "Nội dung phổ biến nhất",
+      "topUsers": "Người dùng Hàng đầu",
+      "topUsersDesc": "Người dùng hoạt động nhất"
+    },
+    "filters": {
+      "title": "Bộ lọc",
+      "reset": "Đặt lại",
+      "fromDate": "Từ Ngày",
+      "toDate": "Đến Ngày",
+      "selectDate": "Chọn ngày",
+      "granularity": "Độ chi tiết Thời gian",
+      "granularityHour": "Giờ",
+      "granularityDay": "Ngày",
+      "granularityWeek": "Tuần",
+      "granularityMonth": "Tháng",
+      "eventTypes": "Loại Sự kiện",
+      "eventTypesPlaceholder": "Loại sự kiện phân cách bằng dấu phẩy",
+      "userIds": "ID Người dùng",
+      "userIdsPlaceholder": "ID người dùng phân cách bằng dấu phẩy"
+    }
   }
 }
 
