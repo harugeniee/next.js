@@ -43,7 +43,7 @@ export function TopContentTable({ data, isLoading }: TopContentTableProps) {
       })
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data?.topContent]);
+  }, [data.topContent]);
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">

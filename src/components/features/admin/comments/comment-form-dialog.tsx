@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import {
   Dialog,
@@ -64,6 +64,12 @@ export function CommentFormDialog({
       flags: comment?.flags ?? [],
       pinned: comment?.pinned ?? false,
     },
+  });
+
+  // Watch flags field for React Compiler compatibility
+  const watchedFlags = useWatch({
+    control: form.control,
+    name: "flags",
   });
 
   // Update form when comment changes
@@ -210,8 +216,7 @@ export function CommentFormDialog({
               </FormLabel>
               <div className="space-y-2">
                 {Object.values(COMMENT_CONSTANTS.FLAGS).map((flag) => {
-                  const isChecked =
-                    form.watch("flags")?.includes(flag) ?? false;
+                  const isChecked = (watchedFlags ?? []).includes(flag);
                   return (
                     <div key={flag} className="flex items-center space-x-2">
                       <input

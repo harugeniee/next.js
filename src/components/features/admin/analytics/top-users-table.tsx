@@ -38,7 +38,7 @@ export function TopUsersTable({ data, isLoading }: TopUsersTableProps) {
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data?.topUsers]);
+  }, [data.topUsers]);
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">

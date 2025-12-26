@@ -49,7 +49,7 @@ export function EventTypesChart({ data, isLoading }: EventTypesChartProps) {
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
-  }, [data?.eventTypes]);
+  }, [data.eventTypes]);
 
   const chartConfig = useMemo(() => {
     const config: ChartConfig = {};

@@ -42,7 +42,7 @@ export default function MediaPage() {
 
   // Dialog state
   const [mediaFormOpen, setMediaFormOpen] = useState(false);
-  const [selectedMedia, setSelectedMedia] = useState<Media | undefined>();
+  const [selectedMedia] = useState<Media | undefined>();
 
   const { data: mediaData, isLoading: mediaLoading } = useMedia(mediaFilters);
   const { data: statisticsData, isLoading: statisticsLoading } =

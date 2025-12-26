@@ -69,7 +69,7 @@ export function TimeSeriesChart({
       date: formatDate(item.date, granularity),
       count: item.count,
     }));
-  }, [data?.timeSeries, granularity]);
+  }, [data.timeSeries, granularity]);
 
   const chartConfig = {
     count: {
