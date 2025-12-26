@@ -1,5 +1,7 @@
 import { http } from "../http";
-import type { ApiResponse } from "../types";
+import type { ApiResponse, ApiResponseOffset } from "../types";
+import type { Media } from "../interface/media.interface";
+import type { MediaListResponse } from "../types/media";
 
 export type UploadedMedia = {
   id: string;
@@ -80,18 +82,54 @@ export class MediaAPI {
 
   /**
    * Get media list with query parameters
+   * Supports admin query parameters for filtering and pagination
    */
   static async getMedia(params?: {
     page?: number;
     limit?: number;
     userId?: string;
     type?: string;
-  }): Promise<ApiResponse<UploadedMedia[]>> {
-    const response = await http.get<ApiResponse<UploadedMedia[]>>(
-      this.BASE_URL,
-      { params },
-    );
-    return response.data;
+    query?: string;
+    sortBy?: string;
+    order?: "ASC" | "DESC";
+    mimeType?: string;
+    status?: string;
+    isPublic?: boolean;
+  }): Promise<MediaListResponse> {
+    try {
+      const queryParams: Record<string, unknown> = {};
+
+      if (params?.page) queryParams.page = params.page;
+      if (params?.limit) queryParams.limit = params.limit;
+      if (params?.userId) queryParams.userId = params.userId;
+      if (params?.type) queryParams.type = params.type;
+      if (params?.query) queryParams.query = params.query;
+      if (params?.sortBy) queryParams.sortBy = params.sortBy;
+      if (params?.order) queryParams.order = params.order;
+      if (params?.mimeType) queryParams.mimeType = params.mimeType;
+      if (params?.status) queryParams.status = params.status;
+      if (params?.isPublic !== undefined)
+        queryParams.isPublic = params.isPublic;
+
+      const response = await http.get<ApiResponseOffset<Media>>(
+        this.BASE_URL,
+        { params: queryParams },
+      );
+
+      const paginationData = response.data.data;
+      return {
+        result: paginationData.result,
+        metaData: {
+          total: paginationData.metaData.totalRecords ?? 0,
+          page: paginationData.metaData.currentPage ?? 1,
+          limit: paginationData.metaData.pageSize,
+          totalPages: paginationData.metaData.totalPages ?? 1,
+        },
+      };
+    } catch (error) {
+      console.error("Error fetching media:", error);
+      throw error;
+    }
   }
 
   /**
@@ -108,17 +146,31 @@ export class MediaAPI {
 
   /**
    * Update media
+   * Supports updating name, description, altText, isPublic, tags, and metadata
    */
   static async updateMedia(
     mediaId: string,
     data: {
       name?: string;
-      metadata?: string;
+      description?: string;
+      altText?: string;
+      isPublic?: boolean;
+      tags?: string[] | string;
+      metadata?: string | Record<string, unknown>;
     },
   ): Promise<ApiResponse<UploadedMedia>> {
+    // Convert tags array to JSON string if needed
+    const payload: Record<string, unknown> = { ...data };
+    if (Array.isArray(data.tags)) {
+      payload.tags = JSON.stringify(data.tags);
+    }
+    if (typeof data.metadata === "object" && data.metadata !== null) {
+      payload.metadata = JSON.stringify(data.metadata);
+    }
+
     const response = await http.put<ApiResponse<UploadedMedia>>(
       `${this.BASE_URL}/${mediaId}`,
-      data,
+      payload,
     );
     return response.data;
   }
@@ -228,6 +280,70 @@ export class MediaAPI {
     const response = await http.get<ApiResponse<ScrambleKeyResponse>>(
       `${this.BASE_URL}/${mediaId}/scramble-key`,
     );
+    return response.data;
+  }
+
+  /**
+   * Get media statistics for admin dashboard
+   * Returns aggregated statistics about media files
+   * Endpoint: /v1/media/stats/overview
+   */
+  static async getMediaStatistics(): Promise<
+    ApiResponse<{
+      totalMedia: number;
+      totalActiveMedia: number;
+      mediaByType: Record<string, number>;
+      mediaByStatus: Record<string, number>;
+      mediaByStorageProvider: Record<string, number>;
+      publicMedia: number;
+      privateMedia: number;
+      totalStorageSize: number;
+      averageFileSize: number;
+      totalViews: number;
+      totalDownloads: number;
+      recentUploads: number;
+      scrambledImages: number;
+      mediaByMimeType: Array<{
+        mimeType: string;
+        count: number;
+      }>;
+      topUploaders: Array<{
+        userId: string;
+        username: string;
+        count: number;
+      }>;
+      mostViewedMedia: Array<unknown>;
+      mostDownloadedMedia: Array<unknown>;
+    }>
+  > {
+    const response = await http.get<
+      ApiResponse<{
+        totalMedia: number;
+        totalActiveMedia: number;
+        mediaByType: Record<string, number>;
+        mediaByStatus: Record<string, number>;
+        mediaByStorageProvider: Record<string, number>;
+        publicMedia: number;
+        privateMedia: number;
+        totalStorageSize: number;
+        averageFileSize: number;
+        totalViews: number;
+        totalDownloads: number;
+        recentUploads: number;
+        scrambledImages: number;
+        mediaByMimeType: Array<{
+          mimeType: string;
+          count: number;
+        }>;
+        topUploaders: Array<{
+          userId: string;
+          username: string;
+          count: number;
+        }>;
+        mostViewedMedia: Array<unknown>;
+        mostDownloadedMedia: Array<unknown>;
+      }>
+    >(`${this.BASE_URL}/stats/overview`);
     return response.data;
   }
 }

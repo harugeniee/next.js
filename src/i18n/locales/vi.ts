@@ -6,6 +6,7 @@ import comments from "./vi/comments.json";
 import common from "./vi/common.json";
 import demo from "./vi/demo.json";
 import home from "./vi/home.json";
+import media from "./vi/media.json";
 import organizations from "./vi/organizations.json";
 import series from "./vi/series.json";
 import profile from "./vi/profile.json";
@@ -30,6 +31,7 @@ const viMessages = {
   organizations,
   admin,
   characters,
+  media,
 };
 
 export default viMessages;

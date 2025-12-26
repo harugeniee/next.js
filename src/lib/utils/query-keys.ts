@@ -50,6 +50,13 @@ export const queryKeys = {
     all: () => ["media"] as const,
     byUser: (userId: string) => ["media", "user", userId] as const,
     uploads: () => ["media", "uploads"] as const,
+    admin: {
+      all: () => ["media", "admin"] as const,
+      lists: (params?: unknown) =>
+        ["media", "admin", "lists", params] as const,
+      detail: (id: string) => ["media", "admin", "detail", id] as const,
+      statistics: () => ["media", "admin", "statistics"] as const,
+    },
   },
 
   // Users related queries

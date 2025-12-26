@@ -8,6 +8,7 @@ import {
   BookOpen,
   Bot,
   Command,
+  FileImage,
   Frame,
   GalleryVerticalEnd,
   Map,
@@ -122,6 +123,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.comments.management", "admin"),
               url: "/admin/comments",
+            },
+          ],
+        },
+        {
+          title: t("nav.media.title", "admin"),
+          url: "/admin/media",
+          icon: FileImage,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.media.management", "admin"),
+              url: "/admin/media",
             },
           ],
         },

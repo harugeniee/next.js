@@ -30,6 +30,10 @@
       "title": "Bình luận",
       "management": "Quản lý"
     },
+    "media": {
+      "title": "Media",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",

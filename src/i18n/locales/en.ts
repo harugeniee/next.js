@@ -6,6 +6,7 @@ import comments from "./en/comments.json";
 import common from "./en/common.json";
 import demo from "./en/demo.json";
 import home from "./en/home.json";
+import media from "./en/media.json";
 import organizations from "./en/organizations.json";
 import series from "./en/series.json";
 import profile from "./en/profile.json";
@@ -30,6 +31,7 @@ const enMessages = {
   organizations,
   admin,
   characters,
+  media,
 };
 
 export default enMessages;

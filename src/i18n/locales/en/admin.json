@@ -30,6 +30,10 @@
       "title": "Comments",
       "management": "Management"
     },
+    "media": {
+      "title": "Media",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",
