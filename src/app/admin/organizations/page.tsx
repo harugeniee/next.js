@@ -53,7 +53,10 @@ export default function OrganizationsPage() {
   const handleStatusChange = useCallback((status: string) => {
     setFilters((prev) => ({
       ...prev,
-      status: status === "all" ? undefined : (status as "active" | "inactive" | "suspended"),
+      status:
+        status === "all"
+          ? undefined
+          : (status as "active" | "inactive" | "suspended"),
       page: 1,
     }));
   }, []);
@@ -61,7 +64,8 @@ export default function OrganizationsPage() {
   const handleVisibilityChange = useCallback((visibility: string) => {
     setFilters((prev) => ({
       ...prev,
-      visibility: visibility === "all" ? undefined : (visibility as "public" | "private"),
+      visibility:
+        visibility === "all" ? undefined : (visibility as "public" | "private"),
       page: 1,
     }));
   }, []);
@@ -133,7 +137,9 @@ export default function OrganizationsPage() {
           onSearch={handleSearch}
           onStatusChange={handleStatusChange}
           onVisibilityChange={handleVisibilityChange}
-          status={Array.isArray(filters.status) ? filters.status[0] : filters.status}
+          status={
+            Array.isArray(filters.status) ? filters.status[0] : filters.status
+          }
           visibility={filters.visibility as string | undefined}
         />
       </AnimatedSection>

@@ -263,9 +263,7 @@ export class MediaAPI {
   /**
    * Get user media (legacy endpoint)
    */
-  static async getUserMedia(
-    userId: string,
-  ): Promise<MediaListResponse> {
+  static async getUserMedia(userId: string): Promise<MediaListResponse> {
     return this.getMedia({ userId });
   }
 

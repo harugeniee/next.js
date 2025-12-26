@@ -266,7 +266,9 @@ export class CommentsAPI {
       { params },
     );
     if (!response.data.success) {
-      throw new Error(response.data.message || "Failed to fetch comment replies");
+      throw new Error(
+        response.data.message || "Failed to fetch comment replies",
+      );
     }
     // Extract the pagination data from the nested structure
     return response.data.data;
