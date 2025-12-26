@@ -2,6 +2,7 @@ import { http } from "@/lib/http";
 import type {
   ApiResponse,
   ApiResponseOffset,
+  PaginationOffset,
   QueryParamsWithOffset,
 } from "@/lib/types";
 import type { Organization, CreateOrganizationDto } from "@/lib/interface";
@@ -46,12 +47,18 @@ export class OrganizationsAPI {
    */
   static async getOrganizations(
     params?: QueryOrganizationsDto,
-  ): Promise<ApiResponseOffset<Organization>> {
+  ): Promise<PaginationOffset<Organization>> {
     const response = await http.get<ApiResponseOffset<Organization>>(
       this.BASE_URL,
       { params },
     );
-    return response.data;
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || "Failed to fetch organizations");
+    }
+
+    // Extract the pagination data from the nested structure
+    return response.data.data;
   }
 
   /**

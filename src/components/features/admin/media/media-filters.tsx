@@ -32,10 +32,7 @@ interface MediaFiltersProps {
  * Media Filters Component
  * Provides filtering controls for media list
  */
-export function MediaFilters({
-  filters,
-  onFiltersChange,
-}: MediaFiltersProps) {
+export function MediaFilters({ filters, onFiltersChange }: MediaFiltersProps) {
   const { t } = useI18n();
   const [searchQuery, setSearchQuery] = useState(filters.query || "");
 
@@ -166,9 +163,7 @@ export function MediaFilters({
                 <SelectValue placeholder={t("filters.all", "media")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">
-                  {t("filters.all", "media")}
-                </SelectItem>
+                <SelectItem value="all">{t("filters.all", "media")}</SelectItem>
                 <SelectItem value={MEDIA_CONSTANTS.TYPES.IMAGE}>
                   {t("filters.types.image", "media")}
                 </SelectItem>
@@ -208,9 +203,7 @@ export function MediaFilters({
                 <SelectValue placeholder={t("filters.all", "media")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">
-                  {t("filters.all", "media")}
-                </SelectItem>
+                <SelectItem value="all">{t("filters.all", "media")}</SelectItem>
                 <SelectItem value={MEDIA_CONSTANTS.STATUS.ACTIVE}>
                   {t("filters.statuses.active", "media")}
                 </SelectItem>
@@ -244,9 +237,7 @@ export function MediaFilters({
                 <SelectValue placeholder={t("filters.all", "media")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">
-                  {t("filters.all", "media")}
-                </SelectItem>
+                <SelectItem value="all">{t("filters.all", "media")}</SelectItem>
                 <SelectItem value="true">
                   {t("filters.public", "media")}
                 </SelectItem>
@@ -312,4 +303,3 @@ export function MediaFilters({
     </Card>
   );
 }
-

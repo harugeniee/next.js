@@ -48,7 +48,10 @@ export function MediaForm({
       const parsed = JSON.parse(tags);
       return Array.isArray(parsed) ? parsed : [];
     } catch {
-      return tags.split(",").map((tag) => tag.trim()).filter(Boolean);
+      return tags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
     }
   };
 
@@ -243,4 +246,3 @@ export function MediaForm({
     </Form>
   );
 }
-

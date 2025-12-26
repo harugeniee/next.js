@@ -22,6 +22,10 @@
       "title": "Users",
       "management": "Management"
     },
+    "organizations": {
+      "title": "Organizations",
+      "management": "Management"
+    },
     "characters": {
       "title": "Characters",
       "management": "Management"
@@ -567,5 +571,63 @@
       "update": "Update",
       "saving": "Saving..."
     }
+  },
+  "organizations": {
+    "title": "Organizations",
+    "description": "Manage all organizations",
+    "breadcrumb": {
+      "admin": "Admin",
+      "organizations": "Organizations"
+    },
+    "list": {
+      "title": "Organizations",
+      "description": "List of all organizations",
+      "create": "Create Organization"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name or slug...",
+      "status": "Status",
+      "visibility": "Visibility"
+    },
+    "fields": {
+      "organization": "Organization",
+      "name": "Name",
+      "namePlaceholder": "Enter organization name",
+      "slug": "Slug",
+      "slugPlaceholder": "organization-slug",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter organization description",
+      "websiteUrl": "Website URL",
+      "logoUrl": "Logo URL",
+      "visibility": "Visibility",
+      "status": "Status",
+      "owner": "Owner",
+      "members": "Members",
+      "articles": "Articles"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended"
+    },
+    "visibility": {
+      "public": "Public",
+      "private": "Private"
+    },
+    "create": {
+      "title": "Create Organization",
+      "description": "Create a new organization"
+    },
+    "edit": {
+      "title": "Edit Organization",
+      "description": "Update organization information"
+    },
+    "deleteConfirm": "Are you sure you want to delete organization \"{name}\"?",
+    "createSuccess": "Organization created successfully",
+    "createError": "Failed to create organization",
+    "updateSuccess": "Organization updated successfully",
+    "updateError": "Failed to update organization",
+    "deleteSuccess": "Organization deleted successfully",
+    "deleteError": "Failed to delete organization"
   }
 }

@@ -94,9 +94,7 @@ export default function MediaPage() {
     const mediaName =
       media.name || media.originalName || media.title || "Unknown Media";
 
-    if (
-      !confirm(t("list.deleteConfirm", "media", { name: mediaName }))
-    ) {
+    if (!confirm(t("list.deleteConfirm", "media", { name: mediaName }))) {
       return;
     }
 
@@ -136,9 +134,7 @@ export default function MediaPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>
-                {t("breadcrumb.media", "media")}
-              </BreadcrumbPage>
+              <BreadcrumbPage>{t("breadcrumb.media", "media")}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -200,4 +196,3 @@ export default function MediaPage() {
     </div>
   );
 }
-

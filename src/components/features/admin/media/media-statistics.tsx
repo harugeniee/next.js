@@ -85,9 +85,7 @@ export function MediaStatisticsCards({
       },
       {
         title: t("stats.byType", "media"),
-        value: data?.mediaByType
-          ? Object.keys(data.mediaByType).length
-          : 0,
+        value: data?.mediaByType ? Object.keys(data.mediaByType).length : 0,
         icon: BarChart3,
         description: t("stats.byTypeDesc", "media"),
       },
@@ -118,9 +116,7 @@ export function MediaStatisticsCards({
       },
       {
         title: t("stats.byStatus", "media"),
-        value: data?.mediaByStatus
-          ? Object.keys(data.mediaByStatus).length
-          : 0,
+        value: data?.mediaByStatus ? Object.keys(data.mediaByStatus).length : 0,
         icon: TrendingUp,
         description: t("stats.byStatusDesc", "media"),
       },
@@ -199,4 +195,3 @@ export function MediaStatisticsCards({
     </Skeletonize>
   );
 }
-

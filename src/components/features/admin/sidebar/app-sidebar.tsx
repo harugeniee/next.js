@@ -7,6 +7,7 @@ import {
   BarChart3,
   BookOpen,
   Bot,
+  Building2,
   Command,
   FileImage,
   Frame,
@@ -99,6 +100,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.users.management", "admin"),
               url: "/admin/users",
+            },
+          ],
+        },
+        {
+          title: t("nav.organizations.title", "admin"),
+          url: "/admin/organizations",
+          icon: Building2,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.organizations.management", "admin"),
+              url: "/admin/organizations",
             },
           ],
         },

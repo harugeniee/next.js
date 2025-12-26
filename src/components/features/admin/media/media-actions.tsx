@@ -95,10 +95,7 @@ export function MediaActions({
             {t("actions.edit", "media")}
           </DropdownMenuItem>
           {canActivate && (
-            <DropdownMenuItem
-              onClick={handleActivate}
-              disabled={isActivating}
-            >
+            <DropdownMenuItem onClick={handleActivate} disabled={isActivating}>
               <Power className="mr-2 h-4 w-4" />
               {t("actions.activate", "media")}
             </DropdownMenuItem>
@@ -138,4 +135,3 @@ export function MediaActions({
     </>
   );
 }
-

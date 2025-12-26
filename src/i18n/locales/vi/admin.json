@@ -22,6 +22,10 @@
       "title": "Người dùng",
       "management": "Quản lý"
     },
+    "organizations": {
+      "title": "Tổ chức",
+      "management": "Quản lý"
+    },
     "characters": {
       "title": "Nhân vật",
       "management": "Quản lý"
@@ -567,5 +571,63 @@
       "update": "Cập nhật",
       "saving": "Đang lưu..."
     }
+  },
+  "organizations": {
+    "title": "Tổ chức",
+    "description": "Quản lý tất cả các tổ chức",
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "organizations": "Tổ chức"
+    },
+    "list": {
+      "title": "Tổ chức",
+      "description": "Danh sách tất cả các tổ chức",
+      "create": "Tạo tổ chức"
+    },
+    "filters": {
+      "searchPlaceholder": "Tìm kiếm theo tên hoặc slug...",
+      "status": "Trạng thái",
+      "visibility": "Hiển thị"
+    },
+    "fields": {
+      "organization": "Tổ chức",
+      "name": "Tên",
+      "namePlaceholder": "Nhập tên tổ chức",
+      "slug": "Slug",
+      "slugPlaceholder": "organization-slug",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập mô tả tổ chức",
+      "websiteUrl": "URL trang web",
+      "logoUrl": "URL logo",
+      "visibility": "Hiển thị",
+      "status": "Trạng thái",
+      "owner": "Chủ sở hữu",
+      "members": "Thành viên",
+      "articles": "Bài viết"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "suspended": "Tạm ngưng"
+    },
+    "visibility": {
+      "public": "Công khai",
+      "private": "Riêng tư"
+    },
+    "create": {
+      "title": "Tạo tổ chức",
+      "description": "Tạo một tổ chức mới"
+    },
+    "edit": {
+      "title": "Chỉnh sửa tổ chức",
+      "description": "Cập nhật thông tin tổ chức"
+    },
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa tổ chức \"{name}\"?",
+    "createSuccess": "Tạo tổ chức thành công",
+    "createError": "Không thể tạo tổ chức",
+    "updateSuccess": "Cập nhật tổ chức thành công",
+    "updateError": "Không thể cập nhật tổ chức",
+    "deleteSuccess": "Xóa tổ chức thành công",
+    "deleteError": "Không thể xóa tổ chức"
   }
 }

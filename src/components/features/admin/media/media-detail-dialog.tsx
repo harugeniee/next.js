@@ -94,7 +94,8 @@ export function MediaDetailDialog({
               <h3 className="text-lg font-semibold">{displayName}</h3>
               {media.type && (
                 <p className="text-sm text-muted-foreground">
-                  {t(`types.${media.type.toLowerCase()}`, "media") || media.type}
+                  {t(`types.${media.type.toLowerCase()}`, "media") ||
+                    media.type}
                 </p>
               )}
             </div>
@@ -108,7 +109,9 @@ export function MediaDetailDialog({
             <div className="grid grid-cols-2 gap-4 text-sm">
               {media.name && (
                 <div>
-                  <span className="font-medium">{t("fields.name", "media")}: </span>
+                  <span className="font-medium">
+                    {t("fields.name", "media")}:{" "}
+                  </span>
                   <span className="text-muted-foreground">{media.name}</span>
                 </div>
               )}
@@ -124,7 +127,9 @@ export function MediaDetailDialog({
               )}
               {media.type && (
                 <div>
-                  <span className="font-medium">{t("fields.type", "media")}: </span>
+                  <span className="font-medium">
+                    {t("fields.type", "media")}:{" "}
+                  </span>
                   <span className="text-muted-foreground">{media.type}</span>
                 </div>
               )}
@@ -133,7 +138,9 @@ export function MediaDetailDialog({
                   <span className="font-medium">
                     {t("fields.mimeType", "media")}:{" "}
                   </span>
-                  <span className="text-muted-foreground">{media.mimeType}</span>
+                  <span className="text-muted-foreground">
+                    {media.mimeType}
+                  </span>
                 </div>
               )}
               {media.status && (
@@ -149,7 +156,9 @@ export function MediaDetailDialog({
                   {t("fields.isPublic", "media")}:{" "}
                 </span>
                 <span className="text-muted-foreground">
-                  {media.isPublic ? t("common.yes", "common") : t("common.no", "common")}
+                  {media.isPublic
+                    ? t("common.yes", "common")
+                    : t("common.no", "common")}
                 </span>
               </div>
             </div>
@@ -174,7 +183,9 @@ export function MediaDetailDialog({
             </h4>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="font-medium">{t("fields.size", "media")}: </span>
+                <span className="font-medium">
+                  {t("fields.size", "media")}:{" "}
+                </span>
                 <span className="text-muted-foreground">
                   {formatFileSize(media.size)}
                 </span>
@@ -229,7 +240,9 @@ export function MediaDetailDialog({
                 {t("detail.sections.userInfo", "media")}
               </h4>
               <div className="text-sm">
-                <span className="font-medium">{t("fields.user", "media")}: </span>
+                <span className="font-medium">
+                  {t("fields.user", "media")}:{" "}
+                </span>
                 {media.userId ? (
                   <Link
                     href={`/admin/users/${media.userId}`}
@@ -323,4 +336,3 @@ export function MediaDetailDialog({
     </Dialog>
   );
 }
-

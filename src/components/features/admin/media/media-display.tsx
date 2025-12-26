@@ -64,18 +64,15 @@ export function MediaDisplay({
 
   // Check if it's an image
   const isImage =
-    mediaType === MEDIA_CONSTANTS.TYPES.IMAGE ||
-    mimeType.startsWith("image/");
+    mediaType === MEDIA_CONSTANTS.TYPES.IMAGE || mimeType.startsWith("image/");
 
   // Check if it's a video
   const isVideo =
-    mediaType === MEDIA_CONSTANTS.TYPES.VIDEO ||
-    mimeType.startsWith("video/");
+    mediaType === MEDIA_CONSTANTS.TYPES.VIDEO || mimeType.startsWith("video/");
 
   // Check if it's audio
   const isAudio =
-    mediaType === MEDIA_CONSTANTS.TYPES.AUDIO ||
-    mimeType.startsWith("audio/");
+    mediaType === MEDIA_CONSTANTS.TYPES.AUDIO || mimeType.startsWith("audio/");
 
   // Check if it's a document
   const isDocument =
@@ -154,11 +151,15 @@ export function MediaDisplay({
           </div>
         ) : isAudio ? (
           <div className="flex items-center justify-center w-full h-full bg-muted">
-            <Music className={cn(iconSizeClasses[size], "text-muted-foreground")} />
+            <Music
+              className={cn(iconSizeClasses[size], "text-muted-foreground")}
+            />
           </div>
         ) : (
           <div className="flex items-center justify-center w-full h-full bg-muted">
-            <Icon className={cn(iconSizeClasses[size], "text-muted-foreground")} />
+            <Icon
+              className={cn(iconSizeClasses[size], "text-muted-foreground")}
+            />
           </div>
         )}
       </div>
@@ -170,4 +171,3 @@ export function MediaDisplay({
     </div>
   );
 }
-

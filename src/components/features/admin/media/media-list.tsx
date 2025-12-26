@@ -125,21 +125,11 @@ export function MediaList({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>
-                        {t("list.table.media", "media")}
-                      </TableHead>
-                      <TableHead>
-                        {t("list.table.type", "media")}
-                      </TableHead>
-                      <TableHead>
-                        {t("list.table.size", "media")}
-                      </TableHead>
-                      <TableHead>
-                        {t("list.table.user", "media")}
-                      </TableHead>
-                      <TableHead>
-                        {t("list.table.status", "media")}
-                      </TableHead>
+                      <TableHead>{t("list.table.media", "media")}</TableHead>
+                      <TableHead>{t("list.table.type", "media")}</TableHead>
+                      <TableHead>{t("list.table.size", "media")}</TableHead>
+                      <TableHead>{t("list.table.user", "media")}</TableHead>
+                      <TableHead>{t("list.table.status", "media")}</TableHead>
                       <TableHead>
                         {t("list.table.createdAt", "media")}
                       </TableHead>
@@ -151,7 +141,8 @@ export function MediaList({
                   <TableBody>
                     {data.result.map((media) => {
                       const mediaName = getMediaName(media);
-                      const isActive = media.status === MEDIA_CONSTANTS.STATUS.ACTIVE;
+                      const isActive =
+                        media.status === MEDIA_CONSTANTS.STATUS.ACTIVE;
 
                       return (
                         <TableRow
@@ -208,7 +199,10 @@ export function MediaList({
                           <TableCell>
                             {media.type ? (
                               <Badge variant="outline">
-                                {t(`types.${media.type.toLowerCase()}`, "media") || media.type}
+                                {t(
+                                  `types.${media.type.toLowerCase()}`,
+                                  "media",
+                                ) || media.type}
                               </Badge>
                             ) : (
                               <span className="text-muted-foreground text-sm">
@@ -245,13 +239,12 @@ export function MediaList({
                             )}
                           </TableCell>
                           <TableCell>
-                            <Badge
-                              variant={
-                                isActive ? "default" : "secondary"
-                              }
-                            >
+                            <Badge variant={isActive ? "default" : "secondary"}>
                               {media.status
-                                ? t(`statuses.${media.status.toLowerCase()}`, "media") || media.status
+                                ? t(
+                                    `statuses.${media.status.toLowerCase()}`,
+                                    "media",
+                                  ) || media.status
                                 : "-"}
                             </Badge>
                           </TableCell>
@@ -409,4 +402,3 @@ export function MediaList({
     </AnimatedSection>
   );
 }
-

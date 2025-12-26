@@ -52,8 +52,7 @@ export const queryKeys = {
     uploads: () => ["media", "uploads"] as const,
     admin: {
       all: () => ["media", "admin"] as const,
-      lists: (params?: unknown) =>
-        ["media", "admin", "lists", params] as const,
+      lists: (params?: unknown) => ["media", "admin", "lists", params] as const,
       detail: (id: string) => ["media", "admin", "detail", id] as const,
       statistics: () => ["media", "admin", "statistics"] as const,
     },
@@ -285,6 +284,19 @@ export const queryKeys = {
     statistics: () => ["badges", "statistics"] as const,
     assignments: (filters?: GetBadgeAssignmentDto) =>
       ["badges", "assignments", filters] as const,
+  },
+
+  // Organizations related queries
+  organizations: {
+    all: () => ["organizations"] as const,
+    lists: () => ["organizations", "list"] as const,
+    list: (params?: AdvancedQueryParams) =>
+      ["organizations", "list", params] as const,
+    details: () => ["organizations", "detail"] as const,
+    detail: (id: string) => ["organizations", "detail", id] as const,
+    bySlug: (slug: string) => ["organizations", "slug", slug] as const,
+    myOwned: () => ["organizations", "my", "owned"] as const,
+    myMemberships: () => ["organizations", "my", "memberships"] as const,
   },
 } as const;
 

@@ -111,10 +111,9 @@ export class MediaAPI {
       if (params?.isPublic !== undefined)
         queryParams.isPublic = params.isPublic;
 
-      const response = await http.get<ApiResponseOffset<Media>>(
-        this.BASE_URL,
-        { params: queryParams },
-      );
+      const response = await http.get<ApiResponseOffset<Media>>(this.BASE_URL, {
+        params: queryParams,
+      });
 
       const paginationData = response.data.data;
       return {
