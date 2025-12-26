@@ -10,7 +10,6 @@ import {
   Type,
   Users,
   Eye,
-  EyeOff,
 } from "lucide-react";
 import { useMemo } from "react";
 

@@ -1,8 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import {
@@ -19,7 +17,6 @@ import {
   AvatarImage,
 } from "@/components/ui/core/avatar";
 import { Badge } from "@/components/ui/core/badge";
-import { Button } from "@/components/ui/core/button";
 import {
   Card,
   CardContent,
@@ -87,7 +84,6 @@ export function CommentList({
   isPinning,
 }: CommentListProps) {
   const { t } = useI18n();
-  const router = useRouter();
   const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
 

@@ -2,11 +2,7 @@
 
 import {
   File,
-  FileAudio,
-  FileImage,
   FileText,
-  FileVideo,
-  Image as ImageIcon,
   Music,
   Video,
   Archive,

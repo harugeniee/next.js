@@ -6,7 +6,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { useI18n } from "@/components/providers/i18n-provider";
 import type { User } from "@/lib/interface/user.interface";
 import { cn } from "@/lib/utils";
 

@@ -10,7 +10,6 @@ import {
   DialogTitle,
 } from "@/components/ui/layout/dialog";
 import { useI18n } from "@/components/providers/i18n-provider";
-import { MEDIA_CONSTANTS } from "@/lib/constants/media.constants";
 import type { Media } from "@/lib/interface/media.interface";
 import { MediaDisplay } from "./media-display";
 
