@@ -41,7 +41,10 @@ export const updateMediaSchema = z.object({
         try {
           return JSON.parse(val);
         } catch {
-          return val.split(",").map((tag) => tag.trim()).filter(Boolean);
+          return val
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter(Boolean);
         }
       }
       return val;
@@ -49,4 +52,3 @@ export const updateMediaSchema = z.object({
 });
 
 export type UpdateMediaFormData = z.infer<typeof updateMediaSchema>;
-

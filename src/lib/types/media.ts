@@ -78,4 +78,3 @@ export interface MediaStatistics {
   mostViewedMedia: Array<unknown>; // Array of media items
   mostDownloadedMedia: Array<unknown>; // Array of media items
 }
-
