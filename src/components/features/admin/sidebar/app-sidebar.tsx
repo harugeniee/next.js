@@ -17,7 +17,6 @@ import {
 
 import { useCurrentUser } from "@/hooks/auth";
 import { currentUserAtom } from "@/lib/auth";
-import { getUserAvatarUrl, getUserDisplayName } from "@/lib/utils";
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
@@ -160,23 +159,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [user] = useAtom(currentUserAtom);
   const { isLoading } = useCurrentUser();
 
-  // Map User interface to sidebar user structure
-  const sidebarUser = React.useMemo(() => {
-    if (!user) {
-      return {
-        name: "User",
-        email: "",
-        avatar: "/avatar.png",
-      };
-    }
-
-    return {
-      name: getUserDisplayName(user),
-      email: user.email || "",
-      avatar: getUserAvatarUrl(user),
-    };
-  }, [user]);
-
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -195,9 +177,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Skeleton className="h-3 w-32" />
             </div>
           </div>
-        ) : (
-          <NavUser user={sidebarUser} />
-        )}
+        ) : user?.id ? (
+          <NavUser user={user} />
+        ) : null}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
