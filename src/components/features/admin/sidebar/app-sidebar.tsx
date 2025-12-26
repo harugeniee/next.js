@@ -2,6 +2,7 @@
 
 import { useAtom } from "jotai";
 import {
+  Award,
   AudioWaveform,
   BarChart3,
   BookOpen,
@@ -70,6 +71,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.analytics.dashboard", "admin"),
               url: "/admin/analytics",
+            },
+          ],
+        },
+        {
+          title: t("nav.badges.title", "admin"),
+          url: "/admin/badges",
+          icon: Award,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.badges.management", "admin"),
+              url: "/admin/badges",
             },
           ],
         },

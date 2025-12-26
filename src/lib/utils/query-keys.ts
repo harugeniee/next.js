@@ -5,6 +5,7 @@
  * @see https://tkdodo.eu/blog/effective-react-query-keys
  */
 
+import type { GetBadgeAssignmentDto, GetBadgeDto } from "../types/badges";
 import { AdvancedQueryParams } from "../types";
 
 export const queryKeys = {
@@ -251,6 +252,16 @@ export const queryKeys = {
     },
     events: (params?: unknown) =>
       ["analytics", "events", params] as const,
+  },
+
+  // Badges related queries
+  badges: {
+    all: () => ["badges"] as const,
+    lists: (filters?: GetBadgeDto) => ["badges", "list", filters] as const,
+    detail: (id: string) => ["badges", "detail", id] as const,
+    statistics: () => ["badges", "statistics"] as const,
+    assignments: (filters?: GetBadgeAssignmentDto) =>
+      ["badges", "assignments", filters] as const,
   },
 } as const;
 
