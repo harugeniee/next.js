@@ -3,6 +3,7 @@
 import { useAtom } from "jotai";
 import {
   AudioWaveform,
+  BarChart3,
   BookOpen,
   Bot,
   Command,
@@ -60,6 +61,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         },
       ],
       navMain: [
+        {
+          title: t("nav.analytics.title", "admin"),
+          url: "/admin/analytics",
+          icon: BarChart3,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.analytics.dashboard", "admin"),
+              url: "/admin/analytics",
+            },
+          ],
+        },
         {
           title: t("nav.playground.title", "admin"),
           url: "#",

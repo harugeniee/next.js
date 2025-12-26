@@ -10,6 +10,10 @@
     "free": "Miễn phí"
   },
   "nav": {
+    "analytics": {
+      "title": "Phân tích",
+      "dashboard": "Bảng điều khiển"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",
