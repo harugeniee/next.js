@@ -1,20 +1,20 @@
 "use client";
 
+import { format } from "date-fns";
 import {
   ArrowLeft,
-  Edit,
-  Trash2,
   Calendar,
+  CheckCircle2,
+  Edit,
   Mail,
   Phone,
   Shield,
+  Trash2,
   User as UserIcon,
-  CheckCircle2,
   XCircle,
 } from "lucide-react";
-import { useState } from "react";
 import Link from "next/link";
-import { format } from "date-fns";
+import { useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
@@ -33,10 +33,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/core/card";
-import { Separator } from "@/components/ui/layout/separator";
 import { Skeleton } from "@/components/ui/core/skeleton";
+import { Separator } from "@/components/ui/layout/separator";
 import type { User } from "@/lib/interface/user.interface";
-import { USER_CONSTANTS } from "@/lib/constants/user.constants";
 import { UserFormDialog } from "./user-form-dialog";
 
 interface UserDetailProps {

@@ -1,17 +1,14 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { useI18n } from "@/components/providers/i18n-provider";
 import {
-  useComments as useCommentsBase,
-  useCommentStats as useCommentStatsBase,
   useDeleteComment as useDeleteCommentBase,
-  useUpdateComment as useUpdateCommentBase,
   usePinComment as usePinCommentBase,
+  useUpdateComment as useUpdateCommentBase
 } from "@/hooks/comments";
-import { CommentsAPI } from "@/lib/api/comments";
-import { queryKeys } from "@/lib/utils/query-keys";
-import type { GetCommentDto } from "@/lib/types/comments";
 import type { QueryCommentsDto } from "@/lib/api/comments";
+import { CommentsAPI } from "@/lib/api/comments";
+import type { GetCommentDto } from "@/lib/types/comments";
+import { queryKeys } from "@/lib/utils/query-keys";
 
 const STALE_TIME_5_MIN = 5 * 60 * 1000;
 const GC_TIME_10_MIN = 10 * 60 * 1000;

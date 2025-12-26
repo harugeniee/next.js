@@ -53,7 +53,7 @@ export function CharacterForm({
   const isEditMode = !!character;
 
   const form = useForm<UpdateCharacterFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     resolver: zodResolver(
       isEditMode ? updateCharacterSchema : createCharacterSchema,
     ) as any,

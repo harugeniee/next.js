@@ -1,16 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { AnalyticsAPI } from "@/lib/api/analytics";
 import type {
-  AnalyticsEventsResponse,
   AnalyticsQueryParams,
-  AnalyticsTrendsResponse,
-  DashboardOverviewResponse,
-  DashboardQueryParams,
-  PlatformOverviewResponse,
-  TopContentResponse,
-  UserEngagementResponse,
+  DashboardQueryParams
 } from "@/lib/api/analytics";
+import { AnalyticsAPI } from "@/lib/api/analytics";
 import { queryKeys } from "@/lib/utils/query-keys";
 
 /**
