@@ -1,0 +1,46 @@
+{
+  "teams": {
+    "acmeInc": "Acme Inc",
+    "acmeCorp": "Acme Corp.",
+    "evilCorp": "Evil Corp."
+  },
+  "plans": {
+    "enterprise": "Doanh nghiệp",
+    "startup": "Khởi nghiệp",
+    "free": "Miễn phí"
+  },
+  "nav": {
+    "playground": {
+      "title": "Sân chơi",
+      "history": "Lịch sử",
+      "starred": "Đã đánh dấu",
+      "settings": "Cài đặt"
+    },
+    "models": {
+      "title": "Mô hình",
+      "genesis": "Genesis",
+      "explorer": "Explorer",
+      "quantum": "Quantum"
+    },
+    "documentation": {
+      "title": "Tài liệu",
+      "introduction": "Giới thiệu",
+      "getStarted": "Bắt đầu",
+      "tutorials": "Hướng dẫn",
+      "changelog": "Nhật ký thay đổi"
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "general": "Chung",
+      "team": "Nhóm",
+      "billing": "Thanh toán",
+      "limits": "Giới hạn"
+    }
+  },
+  "projects": {
+    "designEngineering": "Thiết kế Kỹ thuật",
+    "salesMarketing": "Bán hàng & Tiếp thị",
+    "travel": "Du lịch"
+  }
+}
+

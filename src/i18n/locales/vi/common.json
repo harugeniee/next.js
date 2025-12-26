@@ -925,5 +925,15 @@
     "description": "Trang web này hiện chỉ dành cho người được mời",
     "message": "Quyền truy cập vào nền tảng này bị giới hạn chỉ dành cho người dùng được mời. Nếu bạn có lời mời, vui lòng sử dụng nó để tạo tài khoản của bạn.",
     "understand": "Tôi Hiểu"
+  },
+  "sidebar": {
+    "platform": "Nền tảng",
+    "projects": "Dự án",
+    "teams": "Nhóm",
+    "addTeam": "Thêm nhóm",
+    "more": "Thêm",
+    "viewProject": "Xem dự án",
+    "shareProject": "Chia sẻ dự án",
+    "deleteProject": "Xóa dự án"
   }
 }

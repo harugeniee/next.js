@@ -1,3 +1,4 @@
+import admin from "./vi/admin.json";
 import article from "./vi/article.json";
 import auth from "./vi/auth.json";
 import comments from "./vi/comments.json";
@@ -26,6 +27,7 @@ const viMessages = {
   series,
   settings,
   organizations,
+  admin,
 };
 
 export default viMessages;

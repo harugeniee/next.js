@@ -1,3 +1,4 @@
+import admin from "./en/admin.json";
 import article from "./en/article.json";
 import auth from "./en/auth.json";
 import comments from "./en/comments.json";
@@ -26,6 +27,7 @@ const enMessages = {
   series,
   settings,
   organizations,
+  admin,
 };
 
 export default enMessages;

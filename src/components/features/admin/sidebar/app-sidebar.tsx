@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { useAtom } from "jotai";
 import {
   AudioWaveform,
@@ -14,14 +13,10 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react";
+import * as React from "react";
 
-import { useCurrentUser } from "@/hooks/auth";
-import { currentUserAtom } from "@/lib/auth";
-import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
-import { NavUser } from "./nav-user";
-import { SidebarSettings } from "./sidebar-settings";
-import { TeamSwitcher } from "./team-switcher";
+import { useI18n } from "@/components/providers/i18n-provider";
+import { Skeleton } from "@/components/ui/core/skeleton";
 import {
   Sidebar,
   SidebarContent,
@@ -30,136 +25,147 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { Skeleton } from "@/components/ui/core/skeleton";
-
-// Sample data for teams and navigation (can be replaced with real data later)
-const sampleData = {
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+import { useCurrentUser } from "@/hooks/auth";
+import { currentUserAtom } from "@/lib/auth";
+import { NavMain } from "./nav-main";
+import { NavProjects } from "./nav-projects";
+import { NavUser } from "./nav-user";
+import { SidebarSettings } from "./sidebar-settings";
+import { TeamSwitcher } from "./team-switcher";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { t } = useI18n();
   const [user] = useAtom(currentUserAtom);
   const { isLoading } = useCurrentUser();
+
+  // Sample data for teams and navigation (can be replaced with real data later)
+  // Translated using i18n keys from admin namespace
+  const sampleData = React.useMemo(
+    () => ({
+      teams: [
+        {
+          name: t("teams.acmeInc", "admin"),
+          logo: GalleryVerticalEnd,
+          plan: t("plans.enterprise", "admin"),
+        },
+        {
+          name: t("teams.acmeCorp", "admin"),
+          logo: AudioWaveform,
+          plan: t("plans.startup", "admin"),
+        },
+        {
+          name: t("teams.evilCorp", "admin"),
+          logo: Command,
+          plan: t("plans.free", "admin"),
+        },
+      ],
+      navMain: [
+        {
+          title: t("nav.playground.title", "admin"),
+          url: "#",
+          icon: SquareTerminal,
+          isActive: true,
+          items: [
+            {
+              title: t("nav.playground.history", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.playground.starred", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.playground.settings", "admin"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: t("nav.models.title", "admin"),
+          url: "#",
+          icon: Bot,
+          items: [
+            {
+              title: t("nav.models.genesis", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.models.explorer", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.models.quantum", "admin"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: t("nav.documentation.title", "admin"),
+          url: "#",
+          icon: BookOpen,
+          items: [
+            {
+              title: t("nav.documentation.introduction", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.documentation.getStarted", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.documentation.tutorials", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.documentation.changelog", "admin"),
+              url: "#",
+            },
+          ],
+        },
+        {
+          title: t("nav.settings.title", "admin"),
+          url: "#",
+          icon: Settings2,
+          items: [
+            {
+              title: t("nav.settings.general", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.settings.team", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.settings.billing", "admin"),
+              url: "#",
+            },
+            {
+              title: t("nav.settings.limits", "admin"),
+              url: "#",
+            },
+          ],
+        },
+      ],
+      projects: [
+        {
+          name: t("projects.designEngineering", "admin"),
+          url: "#",
+          icon: Frame,
+        },
+        {
+          name: t("projects.salesMarketing", "admin"),
+          url: "#",
+          icon: PieChart,
+        },
+        {
+          name: t("projects.travel", "admin"),
+          url: "#",
+          icon: Map,
+        },
+      ],
+    }),
+    [t],
+  );
 
   return (
     <Sidebar collapsible="icon" {...props}>

@@ -925,5 +925,15 @@
     "description": "This site is currently invite-only",
     "message": "Access to this platform is restricted to invited users only. If you have an invitation, please use it to create your account.",
     "understand": "I Understand"
+  },
+  "sidebar": {
+    "platform": "Platform",
+    "projects": "Projects",
+    "teams": "Teams",
+    "addTeam": "Add team",
+    "more": "More",
+    "viewProject": "View Project",
+    "shareProject": "Share Project",
+    "deleteProject": "Delete Project"
   }
 }

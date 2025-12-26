@@ -2,6 +2,7 @@
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
 
+import { useI18n } from "@/components/providers/i18n-provider"
 import {
   Collapsible,
   CollapsibleContent,
@@ -32,9 +33,11 @@ export function NavMain({
     }[]
   }[]
 }) {
+  const { t } = useI18n()
+
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("sidebar.platform", "common")}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
