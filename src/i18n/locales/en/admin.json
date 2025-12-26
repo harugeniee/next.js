@@ -26,6 +26,10 @@
       "title": "Characters",
       "management": "Management"
     },
+    "comments": {
+      "title": "Comments",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",
@@ -403,6 +407,161 @@
         "delete": "Delete",
         "back": "Back to Users"
       }
+    }
+  },
+  "comments": {
+    "title": "Comments Management",
+    "description": "Manage and moderate all comments on the platform",
+    "breadcrumb": {
+      "admin": "Admin",
+      "comments": "Comments"
+    },
+    "statistics": {
+      "totalComments": "Total Comments",
+      "totalCommentsDesc": "All comments in the system",
+      "totalTopLevelComments": "Top Level Comments",
+      "totalTopLevelCommentsDesc": "Comments that are not replies",
+      "totalReplies": "Total Replies",
+      "totalRepliesDesc": "All reply comments",
+      "pinnedComments": "Pinned Comments",
+      "pinnedCommentsDesc": "Currently pinned comments",
+      "editedComments": "Edited Comments",
+      "editedCommentsDesc": "Comments that have been edited",
+      "recentComments": "Recent Comments (24h)",
+      "recentCommentsDesc": "Comments from last 24 hours",
+      "commentsWithMedia": "Comments with Media",
+      "commentsWithMediaDesc": "Comments containing media attachments",
+      "totalMediaAttachments": "Media Attachments",
+      "totalMediaAttachmentsDesc": "Total number of media attachments",
+      "commentsWithMentions": "Comments with Mentions",
+      "commentsWithMentionsDesc": "Comments that mention users",
+      "totalMentions": "Total Mentions",
+      "totalMentionsDesc": "Total number of user mentions",
+      "averageReplyCount": "Avg Reply Count",
+      "averageReplyCountDesc": "Average replies per comment",
+      "commentsByType": "Comment Types",
+      "commentsByTypeDesc": "Number of different comment types",
+      "commentsByVisibility": "Visibility Types",
+      "commentsByVisibilityDesc": "Number of different visibility levels",
+      "commentsBySubjectType": "Subject Types",
+      "commentsBySubjectTypeDesc": "Number of different subject types"
+    },
+    "filters": {
+      "title": "Filters",
+      "reset": "Reset",
+      "search": "Search",
+      "searchPlaceholder": "Search by content...",
+      "subjectType": "Subject Type",
+      "visibility": "Visibility",
+      "type": "Type",
+      "pinned": "Pinned",
+      "notPinned": "Not Pinned",
+      "edited": "Edited",
+      "notEdited": "Not Edited",
+      "userId": "User ID",
+      "userIdPlaceholder": "Enter user ID",
+      "sortBy": "Sort By",
+      "sortByCreatedAt": "Created At",
+      "sortByUpdatedAt": "Updated At",
+      "sortByReplyCount": "Reply Count",
+      "order": "Order",
+      "orderAsc": "Ascending",
+      "orderDesc": "Descending",
+      "all": "All",
+      "subjectTypes": {
+        "article": "Article",
+        "post": "Post",
+        "comment": "Comment",
+        "user": "User",
+        "media": "Media",
+        "event": "Event",
+        "product": "Product"
+      },
+      "visibilityTypes": {
+        "public": "Public",
+        "private": "Private",
+        "hidden": "Hidden",
+        "deleted": "Deleted"
+      },
+      "types": {
+        "text": "Text",
+        "rich": "Rich",
+        "embed": "Embed",
+        "system": "System"
+      }
+    },
+    "list": {
+      "title": "Comments",
+      "description": "List of all comments",
+      "pinned": "Pinned",
+      "edited": "Edited",
+      "deleteConfirm": "Are you sure you want to delete comment \"{preview}\"?",
+      "pagination": {
+        "showing": "Showing {from} to {to} of {total} comments"
+      },
+      "table": {
+        "user": "User",
+        "content": "Content",
+        "subject": "Subject",
+        "parent": "Parent",
+        "status": "Status",
+        "replies": "Replies",
+        "createdAt": "Created At",
+        "actions": "Actions"
+      }
+    },
+    "actions": {
+      "viewDetails": "View Details",
+      "edit": "Edit",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "delete": "Delete"
+    },
+    "detail": {
+      "title": "Comment Details",
+      "description": "View full comment information",
+      "content": "Content",
+      "subject": "Subject",
+      "parentComment": "Parent Comment",
+      "status": "Status",
+      "pinned": "Pinned",
+      "edited": "Edited",
+      "replyCount": "Reply Count",
+      "createdAt": "Created At",
+      "editedAt": "Edited At",
+      "updatedAt": "Updated At",
+      "flags": "Flags",
+      "metadata": "Metadata"
+    },
+    "form": {
+      "editTitle": "Edit Comment",
+      "editDescription": "Update comment content and settings",
+      "content": "Content",
+      "contentPlaceholder": "Enter comment content",
+      "visibility": "Visibility",
+      "selectVisibility": "Select visibility",
+      "visibilityTypes": {
+        "public": "Public",
+        "private": "Private",
+        "hidden": "Hidden",
+        "deleted": "Deleted"
+      },
+      "pinned": "Pinned",
+      "pinnedDescription": "Pin this comment to the top",
+      "flags": "Flags",
+      "flags": {
+        "spam": "Spam",
+        "inappropriate": "Inappropriate",
+        "offensive": "Offensive",
+        "harassment": "Harassment",
+        "hate_speech": "Hate Speech",
+        "violence": "Violence",
+        "copyright": "Copyright",
+        "misinformation": "Misinformation"
+      },
+      "cancel": "Cancel",
+      "update": "Update",
+      "saving": "Saving..."
     }
   }
 }

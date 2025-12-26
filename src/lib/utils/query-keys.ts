@@ -139,6 +139,15 @@ export const queryKeys = {
     stats: (subjectType: string, subjectId: string) =>
       ["comments", "stats", subjectType, subjectId] as const,
     batch: (data: unknown) => ["comments", "batch", data] as const,
+    // Admin-specific query keys
+    admin: {
+      all: () => ["comments", "admin"] as const,
+      lists: () => ["comments", "admin", "list"] as const,
+      list: (params?: unknown) =>
+        ["comments", "admin", "list", params] as const,
+      detail: (id: string) => ["comments", "admin", "detail", id] as const,
+      statistics: () => ["comments", "admin", "statistics"] as const,
+    },
   },
 
   // Bookmarks related queries

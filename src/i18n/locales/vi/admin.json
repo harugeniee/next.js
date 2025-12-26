@@ -26,6 +26,10 @@
       "title": "Nhân vật",
       "management": "Quản lý"
     },
+    "comments": {
+      "title": "Bình luận",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",
@@ -403,6 +407,161 @@
         "delete": "Xóa",
         "back": "Quay lại Người dùng"
       }
+    }
+  },
+  "comments": {
+    "title": "Quản lý Bình luận",
+    "description": "Quản lý và điều hành tất cả bình luận trên nền tảng",
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "comments": "Bình luận"
+    },
+    "statistics": {
+      "totalComments": "Tổng Bình luận",
+      "totalCommentsDesc": "Tất cả bình luận trong hệ thống",
+      "totalTopLevelComments": "Bình luận Cấp cao nhất",
+      "totalTopLevelCommentsDesc": "Bình luận không phải là phản hồi",
+      "totalReplies": "Tổng Phản hồi",
+      "totalRepliesDesc": "Tất cả bình luận phản hồi",
+      "pinnedComments": "Bình luận Đã Ghim",
+      "pinnedCommentsDesc": "Bình luận đang được ghim",
+      "editedComments": "Bình luận Đã Chỉnh sửa",
+      "editedCommentsDesc": "Bình luận đã được chỉnh sửa",
+      "recentComments": "Bình luận Gần đây (24h)",
+      "recentCommentsDesc": "Bình luận trong 24 giờ qua",
+      "commentsWithMedia": "Bình luận có Phương tiện",
+      "commentsWithMediaDesc": "Bình luận chứa tệp đính kèm phương tiện",
+      "totalMediaAttachments": "Tệp đính kèm Phương tiện",
+      "totalMediaAttachmentsDesc": "Tổng số tệp đính kèm phương tiện",
+      "commentsWithMentions": "Bình luận có Đề cập",
+      "commentsWithMentionsDesc": "Bình luận đề cập đến người dùng",
+      "totalMentions": "Tổng Đề cập",
+      "totalMentionsDesc": "Tổng số đề cập người dùng",
+      "averageReplyCount": "Số Phản hồi Trung bình",
+      "averageReplyCountDesc": "Số phản hồi trung bình mỗi bình luận",
+      "commentsByType": "Loại Bình luận",
+      "commentsByTypeDesc": "Số lượng loại bình luận khác nhau",
+      "commentsByVisibility": "Loại Hiển thị",
+      "commentsByVisibilityDesc": "Số lượng mức độ hiển thị khác nhau",
+      "commentsBySubjectType": "Loại Chủ đề",
+      "commentsBySubjectTypeDesc": "Số lượng loại chủ đề khác nhau"
+    },
+    "filters": {
+      "title": "Bộ lọc",
+      "reset": "Đặt lại",
+      "search": "Tìm kiếm",
+      "searchPlaceholder": "Tìm kiếm theo nội dung...",
+      "subjectType": "Loại Chủ đề",
+      "visibility": "Hiển thị",
+      "type": "Loại",
+      "pinned": "Đã ghim",
+      "notPinned": "Chưa ghim",
+      "edited": "Đã chỉnh sửa",
+      "notEdited": "Chưa chỉnh sửa",
+      "userId": "ID Người dùng",
+      "userIdPlaceholder": "Nhập ID người dùng",
+      "sortBy": "Sắp xếp theo",
+      "sortByCreatedAt": "Ngày Tạo",
+      "sortByUpdatedAt": "Ngày Cập nhật",
+      "sortByReplyCount": "Số Phản hồi",
+      "order": "Thứ tự",
+      "orderAsc": "Tăng dần",
+      "orderDesc": "Giảm dần",
+      "all": "Tất cả",
+      "subjectTypes": {
+        "article": "Bài viết",
+        "post": "Bài đăng",
+        "comment": "Bình luận",
+        "user": "Người dùng",
+        "media": "Phương tiện",
+        "event": "Sự kiện",
+        "product": "Sản phẩm"
+      },
+      "visibilityTypes": {
+        "public": "Công khai",
+        "private": "Riêng tư",
+        "hidden": "Ẩn",
+        "deleted": "Đã xóa"
+      },
+      "types": {
+        "text": "Văn bản",
+        "rich": "Phong phú",
+        "embed": "Nhúng",
+        "system": "Hệ thống"
+      }
+    },
+    "list": {
+      "title": "Bình luận",
+      "description": "Danh sách tất cả bình luận",
+      "pinned": "Đã ghim",
+      "edited": "Đã chỉnh sửa",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa bình luận \"{preview}\"?",
+      "pagination": {
+        "showing": "Hiển thị {from} đến {to} trong tổng số {total} bình luận"
+      },
+      "table": {
+        "user": "Người dùng",
+        "content": "Nội dung",
+        "subject": "Chủ đề",
+        "parent": "Cha",
+        "status": "Trạng thái",
+        "replies": "Phản hồi",
+        "createdAt": "Ngày Tạo",
+        "actions": "Hành động"
+      }
+    },
+    "actions": {
+      "viewDetails": "Xem Chi tiết",
+      "edit": "Chỉnh sửa",
+      "pin": "Ghim",
+      "unpin": "Bỏ ghim",
+      "delete": "Xóa"
+    },
+    "detail": {
+      "title": "Chi tiết Bình luận",
+      "description": "Xem thông tin đầy đủ của bình luận",
+      "content": "Nội dung",
+      "subject": "Chủ đề",
+      "parentComment": "Bình luận Cha",
+      "status": "Trạng thái",
+      "pinned": "Đã ghim",
+      "edited": "Đã chỉnh sửa",
+      "replyCount": "Số Phản hồi",
+      "createdAt": "Ngày Tạo",
+      "editedAt": "Ngày Chỉnh sửa",
+      "updatedAt": "Ngày Cập nhật",
+      "flags": "Cờ",
+      "metadata": "Siêu dữ liệu"
+    },
+    "form": {
+      "editTitle": "Chỉnh sửa Bình luận",
+      "editDescription": "Cập nhật nội dung và cài đặt bình luận",
+      "content": "Nội dung",
+      "contentPlaceholder": "Nhập nội dung bình luận",
+      "visibility": "Hiển thị",
+      "selectVisibility": "Chọn hiển thị",
+      "visibilityTypes": {
+        "public": "Công khai",
+        "private": "Riêng tư",
+        "hidden": "Ẩn",
+        "deleted": "Đã xóa"
+      },
+      "pinned": "Đã ghim",
+      "pinnedDescription": "Ghim bình luận này lên đầu",
+      "flags": "Cờ",
+      "flags": {
+        "spam": "Spam",
+        "inappropriate": "Không phù hợp",
+        "offensive": "Xúc phạm",
+        "harassment": "Quấy rối",
+        "hate_speech": "Ngôn từ Thù địch",
+        "violence": "Bạo lực",
+        "copyright": "Bản quyền",
+        "misinformation": "Thông tin Sai lệch"
+      },
+      "cancel": "Hủy",
+      "update": "Cập nhật",
+      "saving": "Đang lưu..."
     }
   }
 }

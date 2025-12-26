@@ -11,6 +11,7 @@ import {
   Frame,
   GalleryVerticalEnd,
   Map,
+  MessageSquare,
   PieChart,
   Settings2,
   SquareTerminal,
@@ -109,6 +110,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.characters.management", "admin"),
               url: "/admin/characters",
+            },
+          ],
+        },
+        {
+          title: t("nav.comments.title", "admin"),
+          url: "/admin/comments",
+          icon: MessageSquare,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.comments.management", "admin"),
+              url: "/admin/comments",
             },
           ],
         },

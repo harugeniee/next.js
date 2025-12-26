@@ -125,9 +125,36 @@ export interface BatchCommentsDto {
 }
 
 export interface CommentStats {
-  total: number;
-  replies: number;
-  pinned: number;
+  totalComments: number;
+  totalReplies: number;
+  pinnedComments: number;
+  recentComments: number;
+}
+
+/**
+ * Comprehensive comment statistics overview for admin dashboard
+ * Returns aggregate statistics across all comments
+ */
+export interface CommentStatsOverview {
+  totalComments: number;
+  totalTopLevelComments: number;
+  totalReplies: number;
+  pinnedComments: number;
+  editedComments: number;
+  commentsByType: Record<string, number>;
+  commentsByVisibility: Record<string, number>;
+  commentsBySubjectType: Record<string, number>;
+  commentsWithMedia: number;
+  totalMediaAttachments: number;
+  commentsWithMentions: number;
+  totalMentions: number;
+  recentComments: number;
+  averageReplyCount: number;
+  topCommentedSubjects: Array<{
+    subjectType: string;
+    subjectId: string;
+    count: number;
+  }>;
 }
 
 /**
@@ -200,6 +227,19 @@ export class CommentsAPI {
       {
         params: { subjectType, subjectId },
       },
+    );
+    return response.data;
+  }
+
+  /**
+   * Get comprehensive comment statistics overview (admin)
+   * Returns aggregate statistics across all comments
+   */
+  static async getCommentStatsOverview(): Promise<
+    ApiResponse<CommentStatsOverview>
+  > {
+    const response = await http.get<ApiResponse<CommentStatsOverview>>(
+      `${this.BASE_URL}/stats/overview`,
     );
     return response.data;
   }
