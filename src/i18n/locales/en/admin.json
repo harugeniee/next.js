@@ -22,6 +22,10 @@
       "title": "Users",
       "management": "Management"
     },
+    "characters": {
+      "title": "Characters",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",

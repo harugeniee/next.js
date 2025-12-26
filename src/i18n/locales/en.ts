@@ -1,6 +1,7 @@
 import admin from "./en/admin.json";
 import article from "./en/article.json";
 import auth from "./en/auth.json";
+import characters from "./en/characters.json";
 import comments from "./en/comments.json";
 import common from "./en/common.json";
 import demo from "./en/demo.json";
@@ -28,6 +29,7 @@ const enMessages = {
   settings,
   organizations,
   admin,
+  characters,
 };
 
 export default enMessages;

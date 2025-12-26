@@ -1,0 +1,164 @@
+{
+  "title": "Quản lý Nhân vật",
+  "description": "Quản lý nhân vật và thông tin của họ",
+  "breadcrumb": {
+    "admin": "Quản trị",
+    "characters": "Nhân vật"
+  },
+  "list": {
+    "title": "Nhân vật",
+    "description": "Danh sách tất cả nhân vật",
+    "create": "Tạo Nhân vật",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa nhân vật \"{{name}}\"?",
+    "seriesId": "ID Series",
+    "showMore": "Xem thêm",
+    "detailDialog": {
+      "description": "Xem chi tiết đầy đủ nhân vật"
+    },
+    "table": {
+      "character": "Nhân vật",
+      "id": "ID",
+      "gender": "Giới tính",
+      "ageBloodType": "Tuổi / Nhóm máu",
+      "dateOfBirth": "Ngày sinh",
+      "myAnimeListId": "ID MyAnimeList",
+      "aniListId": "ID AniList",
+      "series": "Series",
+      "voiceActors": "Diễn viên Lồng tiếng",
+      "siteUrl": "URL Trang web",
+      "createdAt": "Ngày tạo",
+      "actions": "Hành động"
+    },
+    "pagination": {
+      "showing": "Hiển thị {{from}}-{{to}} trong tổng số {{total}} nhân vật",
+      "previous": "Trước",
+      "next": "Tiếp",
+      "page": "Trang {{page}}"
+    }
+  },
+  "filters": {
+    "title": "Bộ lọc",
+    "reset": "Đặt lại",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm theo tên...",
+    "gender": "Giới tính",
+    "sortBy": "Sắp xếp theo",
+    "sortByCreatedAt": "Ngày tạo",
+    "sortByUpdatedAt": "Ngày cập nhật",
+    "sortByName": "Tên",
+    "order": "Thứ tự",
+    "orderAsc": "Tăng dần",
+    "orderDesc": "Giảm dần",
+    "all": "Tất cả"
+  },
+  "form": {
+    "createTitle": "Tạo Nhân vật",
+    "createDescription": "Tạo nhân vật mới",
+    "editTitle": "Chỉnh sửa Nhân vật",
+    "editDescription": "Cập nhật thông tin nhân vật",
+    "basicInfo": "Thông tin Cơ bản",
+    "characterDetails": "Chi tiết Nhân vật",
+    "externalInfo": "ID và Liên kết Bên ngoài",
+    "additionalInfo": "Thông tin Bổ sung",
+    "nameFirstPlaceholder": "Tên",
+    "nameMiddlePlaceholder": "Tên đệm",
+    "nameLastPlaceholder": "Họ",
+    "nameFullPlaceholder": "Tên đầy đủ",
+    "nameNativePlaceholder": "Tên gốc",
+    "nameUserPreferredPlaceholder": "Tên ưa thích",
+    "descriptionPlaceholder": "Mô tả nhân vật",
+    "selectGender": "Chọn giới tính",
+    "agePlaceholder": "Tuổi (ví dụ: 17, 18-20)",
+    "bloodTypePlaceholder": "Nhóm máu (ví dụ: A, B, AB, O)",
+    "myAnimeListIdPlaceholder": "ID MyAnimeList",
+    "aniListIdPlaceholder": "ID AniList",
+    "imageIdPlaceholder": "ID Hình ảnh",
+    "seriesIdPlaceholder": "ID Series",
+    "siteUrlPlaceholder": "https://example.com",
+    "notesPlaceholder": "Ghi chú bổ sung",
+    "none": "Không có",
+    "cancel": "Hủy",
+    "create": "Tạo",
+    "update": "Cập nhật",
+    "saving": "Đang lưu..."
+  },
+  "stats": {
+    "totalCharacters": "Tổng Nhân vật",
+    "totalCharactersDesc": "Tất cả nhân vật trong hệ thống",
+    "activeCharacters": "Nhân vật Hoạt động",
+    "activeCharactersDesc": "Nhân vật đang hoạt động",
+    "byGender": "Giới tính",
+    "byGenderDesc": "Danh mục giới tính duy nhất",
+    "byBloodType": "Nhóm máu",
+    "byBloodTypeDesc": "Danh mục nhóm máu duy nhất",
+    "withImages": "Có Hình ảnh",
+    "withImagesDesc": "Nhân vật có hình ảnh",
+    "withVoiceActors": "Có Diễn viên Lồng tiếng",
+    "withVoiceActorsDesc": "Nhân vật có diễn viên lồng tiếng",
+    "totalVoiceActors": "Tổng Diễn viên Lồng tiếng",
+    "totalVoiceActorsDesc": "Tổng số phân công diễn viên lồng tiếng",
+    "totalReactions": "Tổng Phản ứng",
+    "totalReactionsDesc": "Tổng phản ứng trên nhân vật",
+    "bySeries": "Series",
+    "bySeriesDesc": "Series có nhân vật"
+  },
+  "fields": {
+    "nameFirst": "Tên",
+    "nameMiddle": "Tên đệm",
+    "nameLast": "Họ",
+    "nameFull": "Tên đầy đủ",
+    "nameNative": "Tên gốc",
+    "nameUserPreferred": "Tên ưa thích",
+    "description": "Mô tả",
+    "gender": "Giới tính",
+    "dateOfBirth": "Ngày sinh",
+    "age": "Tuổi",
+    "bloodType": "Nhóm máu",
+    "myAnimeListId": "ID MyAnimeList",
+    "aniListId": "ID AniList",
+    "imageId": "ID Hình ảnh",
+    "seriesId": "ID Series",
+    "siteUrl": "URL Trang web",
+    "notes": "Ghi chú"
+  },
+  "genders": {
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "unknown": "Không xác định"
+  },
+  "createSuccess": "Tạo nhân vật thành công",
+  "createError": "Không thể tạo nhân vật",
+  "updateSuccess": "Cập nhật nhân vật thành công",
+  "updateError": "Không thể cập nhật nhân vật",
+  "deleteSuccess": "Xóa nhân vật thành công",
+  "deleteError": "Không thể xóa nhân vật",
+  "detail": {
+    "title": "Chi tiết Nhân vật: {name}",
+    "description": "Xem và quản lý thông tin nhân vật",
+    "error": "Không thể tải chi tiết nhân vật",
+    "sections": {
+      "basicInfo": "Thông tin Cơ bản",
+      "basicInfoDesc": "Thông tin hồ sơ cơ bản của nhân vật",
+      "externalInfo": "Thông tin Bên ngoài",
+      "externalInfoDesc": "ID và liên kết bên ngoài",
+      "mediaInfo": "Thông tin Media",
+      "mediaInfoDesc": "Hình ảnh và media của nhân vật",
+      "metadata": "Metadata",
+      "metadataDesc": "Thông tin tạo và cập nhật nhân vật"
+    },
+    "fields": {
+      "characterId": "ID Nhân vật",
+      "createdAt": "Ngày tạo",
+      "updatedAt": "Ngày cập nhật"
+    },
+    "actions": {
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "back": "Quay lại Nhân vật"
+    }
+  }
+}
+

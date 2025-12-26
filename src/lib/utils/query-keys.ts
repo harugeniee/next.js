@@ -117,6 +117,13 @@ export const queryKeys = {
     cursor: (seriesId: string, cursor?: string) =>
       ["characters", "cursor", seriesId, cursor] as const,
     bySeries: (seriesId: string) => ["characters", "series", seriesId] as const,
+    admin: {
+      all: () => ["characters", "admin"] as const,
+      lists: (params?: unknown) =>
+        ["characters", "admin", "lists", params] as const,
+      detail: (id: string) => ["characters", "admin", "detail", id] as const,
+      statistics: () => ["characters", "admin", "statistics"] as const,
+    },
   },
 
   // Comments related queries

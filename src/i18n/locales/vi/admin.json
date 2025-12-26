@@ -22,6 +22,10 @@
       "title": "Người dùng",
       "management": "Quản lý"
     },
+    "characters": {
+      "title": "Nhân vật",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",

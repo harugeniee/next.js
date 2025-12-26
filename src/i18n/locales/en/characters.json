@@ -1,0 +1,164 @@
+{
+  "title": "Character Management",
+  "description": "Manage characters and their information",
+  "breadcrumb": {
+    "admin": "Admin",
+    "characters": "Characters"
+  },
+  "list": {
+    "title": "Characters",
+    "description": "List of all characters",
+    "create": "Create Character",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete character \"{{name}}\"?",
+    "seriesId": "Series ID",
+    "showMore": "Show more",
+    "detailDialog": {
+      "description": "View full character details"
+    },
+    "table": {
+      "character": "Character",
+      "id": "ID",
+      "gender": "Gender",
+      "ageBloodType": "Age / Blood Type",
+      "dateOfBirth": "Date of Birth",
+      "myAnimeListId": "MyAnimeList ID",
+      "aniListId": "AniList ID",
+      "series": "Series",
+      "voiceActors": "Voice Actors",
+      "siteUrl": "Site URL",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "pagination": {
+      "showing": "Showing {{from}}-{{to}} of {{total}} characters",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{page}}"
+    }
+  },
+  "filters": {
+    "title": "Filters",
+    "reset": "Reset",
+    "search": "Search",
+    "searchPlaceholder": "Search by name...",
+    "gender": "Gender",
+    "sortBy": "Sort By",
+    "sortByCreatedAt": "Created At",
+    "sortByUpdatedAt": "Updated At",
+    "sortByName": "Name",
+    "order": "Order",
+    "orderAsc": "Ascending",
+    "orderDesc": "Descending",
+    "all": "All"
+  },
+  "form": {
+    "createTitle": "Create Character",
+    "createDescription": "Create a new character",
+    "editTitle": "Edit Character",
+    "editDescription": "Update character information",
+    "basicInfo": "Basic Information",
+    "characterDetails": "Character Details",
+    "externalInfo": "External IDs and Links",
+    "additionalInfo": "Additional Information",
+    "nameFirstPlaceholder": "First name",
+    "nameMiddlePlaceholder": "Middle name",
+    "nameLastPlaceholder": "Last name",
+    "nameFullPlaceholder": "Full name",
+    "nameNativePlaceholder": "Native name",
+    "nameUserPreferredPlaceholder": "User preferred name",
+    "descriptionPlaceholder": "Character description",
+    "selectGender": "Select gender",
+    "agePlaceholder": "Age (e.g., 17, 18-20)",
+    "bloodTypePlaceholder": "Blood type (e.g., A, B, AB, O)",
+    "myAnimeListIdPlaceholder": "MyAnimeList ID",
+    "aniListIdPlaceholder": "AniList ID",
+    "imageIdPlaceholder": "Image ID",
+    "seriesIdPlaceholder": "Series ID",
+    "siteUrlPlaceholder": "https://example.com",
+    "notesPlaceholder": "Additional notes",
+    "none": "None",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "saving": "Saving..."
+  },
+  "stats": {
+    "totalCharacters": "Total Characters",
+    "totalCharactersDesc": "All characters in the system",
+    "activeCharacters": "Active Characters",
+    "activeCharactersDesc": "Currently active characters",
+    "byGender": "Genders",
+    "byGenderDesc": "Unique gender categories",
+    "byBloodType": "Blood Types",
+    "byBloodTypeDesc": "Unique blood type categories",
+    "withImages": "With Images",
+    "withImagesDesc": "Characters with images",
+    "withVoiceActors": "With Voice Actors",
+    "withVoiceActorsDesc": "Characters with voice actors assigned",
+    "totalVoiceActors": "Total Voice Actors",
+    "totalVoiceActorsDesc": "Total voice actor assignments",
+    "totalReactions": "Total Reactions",
+    "totalReactionsDesc": "Total reactions on characters",
+    "bySeries": "Series",
+    "bySeriesDesc": "Series with characters"
+  },
+  "fields": {
+    "nameFirst": "First Name",
+    "nameMiddle": "Middle Name",
+    "nameLast": "Last Name",
+    "nameFull": "Full Name",
+    "nameNative": "Native Name",
+    "nameUserPreferred": "User Preferred Name",
+    "description": "Description",
+    "gender": "Gender",
+    "dateOfBirth": "Date of Birth",
+    "age": "Age",
+    "bloodType": "Blood Type",
+    "myAnimeListId": "MyAnimeList ID",
+    "aniListId": "AniList ID",
+    "imageId": "Image ID",
+    "seriesId": "Series ID",
+    "siteUrl": "Site URL",
+    "notes": "Notes"
+  },
+  "genders": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "unknown": "Unknown"
+  },
+  "createSuccess": "Character created successfully",
+  "createError": "Failed to create character",
+  "updateSuccess": "Character updated successfully",
+  "updateError": "Failed to update character",
+  "deleteSuccess": "Character deleted successfully",
+  "deleteError": "Failed to delete character",
+  "detail": {
+    "title": "Character Details: {name}",
+    "description": "View and manage character information",
+    "error": "Failed to load character details",
+    "sections": {
+      "basicInfo": "Basic Information",
+      "basicInfoDesc": "Character's basic profile information",
+      "externalInfo": "External Information",
+      "externalInfoDesc": "External IDs and links",
+      "mediaInfo": "Media Information",
+      "mediaInfoDesc": "Character images and media",
+      "metadata": "Metadata",
+      "metadataDesc": "Character creation and update information"
+    },
+    "fields": {
+      "characterId": "Character ID",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "back": "Back to Characters"
+    }
+  }
+}
+

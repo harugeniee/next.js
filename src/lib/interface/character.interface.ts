@@ -5,6 +5,7 @@
 
 import type { BaseEntityCustom } from "./base.interface";
 import type { Media } from "./media.interface";
+import type { SeriesTitle } from "./series.interface";
 
 /**
  * Character Name structure
@@ -105,4 +106,8 @@ export interface Character extends BaseEntityCustom {
   metadata?: Record<string, unknown> | null;
   voiceActors?: CharacterStaff[];
   seriesId?: string;
+  series?: {
+    id: string;
+    title?: SeriesTitle;
+  };
 }

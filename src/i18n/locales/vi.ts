@@ -1,6 +1,7 @@
 import admin from "./vi/admin.json";
 import article from "./vi/article.json";
 import auth from "./vi/auth.json";
+import characters from "./vi/characters.json";
 import comments from "./vi/comments.json";
 import common from "./vi/common.json";
 import demo from "./vi/demo.json";
@@ -28,6 +29,7 @@ const viMessages = {
   settings,
   organizations,
   admin,
+  characters,
 };
 
 export default viMessages;
