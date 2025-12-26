@@ -1,7 +1,6 @@
 "use client";
 
 import { Edit, MoreHorizontal, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";

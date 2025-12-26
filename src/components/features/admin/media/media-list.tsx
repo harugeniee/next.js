@@ -7,7 +7,6 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { Badge } from "@/components/ui/core/badge";
-import { Button } from "@/components/ui/core/button";
 import {
   Card,
   CardContent,

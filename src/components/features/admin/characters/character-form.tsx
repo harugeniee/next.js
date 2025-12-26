@@ -55,7 +55,7 @@ export function CharacterForm({
   const form = useForm<UpdateCharacterFormData>({
     resolver: zodResolver(
       isEditMode ? updateCharacterSchema : createCharacterSchema,
-    ) as any,
+    ),
     defaultValues: {
       myAnimeListId: character?.myAnimeListId ?? "",
       aniListId: character?.aniListId ?? "",

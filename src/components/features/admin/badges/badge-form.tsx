@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
 import { Input } from "@/components/ui/core/input";
-import { Label } from "@/components/ui/core/label";
 import {
   Form,
   FormControl,

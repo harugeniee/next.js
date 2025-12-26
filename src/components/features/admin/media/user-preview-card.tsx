@@ -25,8 +25,6 @@ export function UserPreviewCard({
   children,
   className,
 }: UserPreviewCardProps) {
-  const { t } = useI18n();
-
   // If no user, just render children without hover card
   if (!user) {
     return <>{children}</>;

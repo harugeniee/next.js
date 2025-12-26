@@ -15,7 +15,11 @@ import {
 } from "@/components/ui/navigation/breadcrumb";
 import { useUserMutations, useUsers } from "@/hooks/admin/useUsers";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
-import type { User } from "@/lib/interface/user.interface";
+import type {
+  CreateUserDto,
+  UpdateUserDto,
+  User,
+} from "@/lib/interface/user.interface";
 import type { AdvancedQueryParams } from "@/lib/types";
 
 export default function UsersPage() {
@@ -63,11 +67,11 @@ export default function UsersPage() {
     setFilters((prev) => ({ ...prev, limit, page: 1 }));
   };
 
-  const handleCreate = async (data: any) => {
+  const handleCreate = async (data: CreateUserDto) => {
     await createUser.mutateAsync(data);
   };
 
-  const handleUpdate = async (id: string, data: any) => {
+  const handleUpdate = async (id: string, data: UpdateUserDto) => {
     await updateUser.mutateAsync({ id, data });
   };
 

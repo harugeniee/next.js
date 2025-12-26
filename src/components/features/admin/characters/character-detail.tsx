@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
 
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -26,7 +27,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/core/card";
-import { Separator } from "@/components/ui/layout/separator";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import type { Character } from "@/lib/interface/character.interface";
 import type { UpdateCharacterFormData } from "@/lib/validators/characters";
@@ -520,10 +520,15 @@ export function CharacterDetail({
                             {t("fields.imageId", "characters")} Preview
                           </div>
                           <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
-                            <img
+                            <Image
                               src={character.image.url}
                               alt={characterName}
+                              width={128}
+                              height={128}
                               className="w-full h-full object-cover"
+                              unoptimized={character.image.url.startsWith(
+                                "data:",
+                              )}
                             />
                           </div>
                         </div>

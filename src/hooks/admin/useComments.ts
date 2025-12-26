@@ -53,9 +53,6 @@ export function useDeleteComment() {
   const queryClient = useQueryClient();
   const baseMutation = useDeleteCommentBase();
 
-  // Wrap the mutation to also invalidate admin queries
-  const originalOnSuccess = baseMutation.mutate?.options?.onSuccess;
-
   return {
     ...baseMutation,
     mutate: (

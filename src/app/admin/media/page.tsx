@@ -70,11 +70,6 @@ export default function MediaPage() {
     setMediaFilters((prev) => ({ ...prev, page }));
   };
 
-  const handleMediaEdit = (media: Media) => {
-    setSelectedMedia(media);
-    setMediaFormOpen(true);
-  };
-
   const handleMediaSubmit = async (data: UpdateMediaDto) => {
     try {
       if (selectedMedia) {
@@ -100,7 +95,7 @@ export default function MediaPage() {
 
     try {
       await deleteMediaMutation.mutateAsync(media.id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };
@@ -108,7 +103,7 @@ export default function MediaPage() {
   const handleMediaActivate = async (id: string) => {
     try {
       await activateMediaMutation.mutateAsync(id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };
@@ -116,7 +111,7 @@ export default function MediaPage() {
   const handleMediaDeactivate = async (id: string) => {
     try {
       await deactivateMediaMutation.mutateAsync(id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

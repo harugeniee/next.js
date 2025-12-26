@@ -83,7 +83,7 @@ export default function CharacterDetailPage() {
       await deleteCharacterMutation.mutateAsync(character.id);
       // Redirect to characters list after deletion
       router.push("/admin/characters");
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

@@ -1,8 +1,8 @@
 "use client";
 
-import { Edit, MoreHorizontal, Trash2, Eye } from "lucide-react";
-import { useState } from "react";
+import { Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
@@ -12,14 +12,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
-import type { User } from "@/lib/interface/user.interface";
+import type { UpdateUserDto, User } from "@/lib/interface/user.interface";
 import { UserFormDialog } from "./user-form-dialog";
 
 interface UserActionsProps {
-  user: User;
-  onDelete: (user: User) => void;
-  onUpdate: (id: string, data: any) => Promise<void>;
-  isUpdating?: boolean;
+  readonly user: User;
+  readonly onDelete: (user: User) => void;
+  readonly onUpdate: (id: string, data: UpdateUserDto) => Promise<void>;
+  readonly isUpdating?: boolean;
 }
 
 export function UserActions({
@@ -27,7 +27,7 @@ export function UserActions({
   onDelete,
   onUpdate,
   isUpdating,
-}: UserActionsProps) {
+}: Readonly<UserActionsProps>) {
   const { t } = useI18n();
   const [showEditDialog, setShowEditDialog] = useState(false);
 

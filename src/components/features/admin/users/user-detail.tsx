@@ -35,13 +35,13 @@ import {
 } from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import { Separator } from "@/components/ui/layout/separator";
-import type { User } from "@/lib/interface/user.interface";
+import type { UpdateUserDto, User } from "@/lib/interface/user.interface";
 import { UserFormDialog } from "./user-form-dialog";
 
 interface UserDetailProps {
   user?: User;
   isLoading: boolean;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: UpdateUserDto) => Promise<void>;
   onDelete: (user: User) => void;
   isUpdating?: boolean;
 }

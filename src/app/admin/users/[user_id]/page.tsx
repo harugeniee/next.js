@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/navigation/breadcrumb";
 import { useUser, useUserMutations } from "@/hooks/admin/useUsers";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
-import type { User } from "@/lib/interface/user.interface";
+import type { UpdateUserDto, User } from "@/lib/interface/user.interface";
 
 /**
  * Admin User Detail Page
@@ -43,7 +43,7 @@ export default function UserDetailPage() {
     notFound();
   }
 
-  const handleUpdate = async (id: string, data: any) => {
+  const handleUpdate = async (id: string, data: UpdateUserDto) => {
     try {
       await updateUser.mutateAsync({ id, data });
     } catch (error) {
@@ -64,7 +64,7 @@ export default function UserDetailPage() {
         await deleteUser.mutateAsync(user.id);
         // Redirect to users list after deletion
         router.push("/admin/users");
-      } catch (error) {
+      } catch {
         // Error handled by mutation
       }
     }

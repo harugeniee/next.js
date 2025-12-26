@@ -103,22 +103,11 @@ export function MediaDisplay({
     mimeType.includes("tar") ||
     mimeType.includes("gzip");
 
-  // Get appropriate icon
-  const getIcon = () => {
-    if (isImage) return FileImage;
-    if (isVideo) return FileVideo;
-    if (isAudio) return FileAudio;
-    if (isDocument) return FileText;
-    if (isPresentation) return Presentation;
-    if (isSpreadsheet) return Table;
-    if (isArchive) return Archive;
-    return File;
-  };
-
-  const Icon = getIcon();
-
   // Get preview URL (thumbnail for images, preview for videos)
   const previewUrl = media.thumbnailUrl || media.previewUrl || media.url;
+
+  // Icon className for fallback icons
+  const iconClassName = cn(iconSizeClasses[size], "text-muted-foreground");
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
@@ -157,9 +146,17 @@ export function MediaDisplay({
           </div>
         ) : (
           <div className="flex items-center justify-center w-full h-full bg-muted">
-            <Icon
-              className={cn(iconSizeClasses[size], "text-muted-foreground")}
-            />
+            {isDocument ? (
+              <FileText className={iconClassName} />
+            ) : isPresentation ? (
+              <Presentation className={iconClassName} />
+            ) : isSpreadsheet ? (
+              <Table className={iconClassName} />
+            ) : isArchive ? (
+              <Archive className={iconClassName} />
+            ) : (
+              <File className={iconClassName} />
+            )}
           </div>
         )}
       </div>

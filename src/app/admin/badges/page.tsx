@@ -51,11 +51,10 @@ export default function BadgesPage() {
     page: 1,
     limit: 20,
   });
-  const [assignmentFilters, setAssignmentFilters] =
-    useState<GetBadgeAssignmentDto>({
-      page: 1,
-      limit: 20,
-    });
+  const [assignmentFilters] = useState<GetBadgeAssignmentDto>({
+    page: 1,
+    limit: 20,
+  });
 
   // Dialog state
   const [badgeFormOpen, setBadgeFormOpen] = useState(false);
@@ -116,7 +115,7 @@ export default function BadgesPage() {
 
     try {
       await deleteBadgeMutation.mutateAsync(badge.id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };
@@ -147,7 +146,7 @@ export default function BadgesPage() {
           revocationReason: t("badges.assignments.revokedByAdmin", "admin"),
         },
       });
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

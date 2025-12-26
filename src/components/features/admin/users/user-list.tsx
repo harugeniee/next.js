@@ -38,7 +38,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import type { CreateUserDto, User } from "@/lib/interface/user.interface";
+import type {
+  CreateUserDto,
+  UpdateUserDto,
+  User,
+} from "@/lib/interface/user.interface";
 import type { ApiResponseOffset } from "@/lib/types";
 import { UserActions } from "./user-actions";
 import { UserFormDialog } from "./user-form-dialog";
@@ -51,7 +55,7 @@ interface UserListProps {
   onPageChange: (page: number) => void;
   onLimitChange: (limit: number) => void;
   onCreate: (data: CreateUserDto) => Promise<void>;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: UpdateUserDto) => Promise<void>;
   onDelete: (user: User) => void;
   isCreating?: boolean;
   isUpdating?: boolean;
@@ -61,9 +65,11 @@ export function UserList({
   data,
   isLoading,
   page,
-  limit,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  limit: _limit,
   onPageChange,
-  onLimitChange,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onLimitChange: _onLimitChange,
   onCreate,
   onUpdate,
   onDelete,

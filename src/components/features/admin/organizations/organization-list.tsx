@@ -41,6 +41,7 @@ import {
 import type {
   CreateOrganizationDto,
   Organization,
+  UpdateOrganizationDto,
 } from "@/lib/interface/organization.interface";
 import type { ApiResponseOffset } from "@/lib/types";
 import { OrganizationActions } from "./organization-actions";
@@ -54,7 +55,7 @@ interface OrganizationListProps {
   onPageChange: (page: number) => void;
   onLimitChange: (limit: number) => void;
   onCreate: (data: CreateOrganizationDto) => Promise<void>;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onUpdate: (id: string, data: UpdateOrganizationDto) => Promise<void>;
   onDelete: (organization: Organization) => void;
   isCreating?: boolean;
   isUpdating?: boolean;
@@ -64,9 +65,11 @@ export function OrganizationList({
   data,
   isLoading,
   page,
-  limit,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  limit: _limit,
   onPageChange,
-  onLimitChange,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onLimitChange: _onLimitChange,
   onCreate,
   onUpdate,
   onDelete,

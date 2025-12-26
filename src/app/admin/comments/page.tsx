@@ -98,7 +98,7 @@ export default function CommentsPage() {
 
     try {
       await deleteCommentMutation.mutateAsync(comment.id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };
@@ -106,7 +106,7 @@ export default function CommentsPage() {
   const handleCommentPin = async (id: string, pinned: boolean) => {
     try {
       await pinCommentMutation.mutateAsync({ commentId: id, pinned });
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

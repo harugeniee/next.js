@@ -12,14 +12,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
-import type { Organization } from "@/lib/interface/organization.interface";
+import type {
+  Organization,
+  UpdateOrganizationDto,
+} from "@/lib/interface/organization.interface";
 import { OrganizationFormDialog } from "./organization-form-dialog";
 
 interface OrganizationActionsProps {
-  organization: Organization;
-  onDelete: (organization: Organization) => void;
-  onUpdate: (id: string, data: any) => Promise<void>;
-  isUpdating?: boolean;
+  readonly organization: Organization;
+  readonly onDelete: (organization: Organization) => void;
+  readonly onUpdate: (id: string, data: UpdateOrganizationDto) => Promise<void>;
+  readonly isUpdating?: boolean;
 }
 
 export function OrganizationActions({
@@ -27,7 +30,7 @@ export function OrganizationActions({
   onDelete,
   onUpdate,
   isUpdating,
-}: OrganizationActionsProps) {
+}: Readonly<OrganizationActionsProps>) {
   const { t } = useI18n();
   const [showEditDialog, setShowEditDialog] = useState(false);
 

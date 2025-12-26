@@ -125,7 +125,7 @@ export default function CharactersPage() {
 
     try {
       await deleteCharacterMutation.mutateAsync(character.id);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

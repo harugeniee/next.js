@@ -21,7 +21,11 @@ import {
   useOrganizations,
 } from "@/hooks/admin/useOrganizations";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
-import type { Organization } from "@/lib/interface/organization.interface";
+import type {
+  CreateOrganizationDto,
+  Organization,
+  UpdateOrganizationDto,
+} from "@/lib/interface/organization.interface";
 import type { AdvancedQueryParams } from "@/lib/types";
 
 export default function OrganizationsPage() {
@@ -70,11 +74,11 @@ export default function OrganizationsPage() {
     setFilters((prev) => ({ ...prev, limit, page: 1 }));
   };
 
-  const handleCreate = async (data: any) => {
+  const handleCreate = async (data: CreateOrganizationDto) => {
     await createOrganization.mutateAsync(data);
   };
 
-  const handleUpdate = async (id: string, data: any) => {
+  const handleUpdate = async (id: string, data: UpdateOrganizationDto) => {
     await updateOrganization.mutateAsync({ id, data });
   };
 
