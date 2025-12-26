@@ -55,6 +55,7 @@ export const queryKeys = {
   // Users related queries
   users: {
     all: () => ["users"] as const,
+    list: (params?: AdvancedQueryParams) => ["users", "list", params] as const,
     profile: (userId: string) => ["users", "profile", userId] as const,
     search: (query: string) => ["users", "search", query] as const,
   },

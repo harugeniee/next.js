@@ -1,5 +1,6 @@
 import { http } from "@/lib/http";
-import type { ApiResponse } from "@/lib/types";
+import type { User, UpdateUserDto, CreateUserDto } from "@/lib/interface/user.interface";
+import type { ApiResponse, ApiResponseOffset, AdvancedQueryParams } from "@/lib/types";
 
 /**
  * Public user profile structure
@@ -101,6 +102,93 @@ export class UserAPI {
       return response.data.data;
     } catch (error) {
       console.error("Error updating user profile:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get all users with pagination and filters
+   */
+  static async getUsers(params: AdvancedQueryParams): Promise<ApiResponseOffset<User>> {
+    try {
+      const response = await http.get<ApiResponseOffset<User>>(`${this.BASE_URL}`, {
+        params,
+      });
+
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Failed to fetch users");
+      }
+
+      // Extract the pagination data from the nested structure
+      return response.data.data;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete user by ID
+   */
+  static async deleteUser(userId: string): Promise<void> {
+    try {
+      await http.delete<ApiResponse<void>>(`${this.BASE_URL}/${userId}`);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Create a new user
+   */
+  static async createUser(userData: CreateUserDto): Promise<User> {
+    try {
+      const response = await http.post<ApiResponse<User>>(`${this.BASE_URL}/register`, userData);
+      
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Failed to create user");
+      }
+      
+      return response.data.data;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Update user by ID (Admin)
+   */
+  static async updateUser(userId: string, userData: UpdateUserDto): Promise<User> {
+    try {
+      const response = await http.patch<ApiResponse<User>>(`${this.BASE_URL}/${userId}`, userData);
+      
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Failed to update user");
+      }
+      
+      return response.data.data;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get user by ID (Admin) - Returns full User object
+   */
+  static async getUserById(userId: string): Promise<User> {
+    try {
+      const response = await http.get<ApiResponse<User>>(`${this.BASE_URL}/${userId}`);
+      
+      if (!response.data.success) {
+        throw new Error(response.data.message || "Failed to fetch user");
+      }
+      
+      return response.data.data;
+    } catch (error) {
+      console.error("Error fetching user:", error);
       throw error;
     }
   }

@@ -935,5 +935,13 @@
     "viewProject": "View Project",
     "shareProject": "Share Project",
     "deleteProject": "Delete Project"
+  },
+  "all": "All",
+  "clearFilters": "Clear Filters",
+  "viewDetails": "View Details",
+  "admin": "Admin",
+  "create": "Create",
+  "common": {
+    "actions": "Actions"
   }
 }

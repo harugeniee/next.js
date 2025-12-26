@@ -935,5 +935,13 @@
     "viewProject": "Xem dự án",
     "shareProject": "Chia sẻ dự án",
     "deleteProject": "Xóa dự án"
+  },
+  "all": "Tất cả",
+  "clearFilters": "Xóa bộ lọc",
+  "viewDetails": "Xem chi tiết",
+  "admin": "Quản trị",
+  "create": "Tạo",
+  "common": {
+    "actions": "Hành động"
   }
 }

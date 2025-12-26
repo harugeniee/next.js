@@ -27,6 +27,8 @@ export interface AdvancedQueryParams extends Pagination {
 
   status?: string | string[];
 
+  role?: string | string[];
+
   ids?: string | string[];
 
   userId?: string;

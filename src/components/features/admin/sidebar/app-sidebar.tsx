@@ -14,6 +14,7 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Users,
 } from "lucide-react";
 import * as React from "react";
 
@@ -83,6 +84,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.badges.management", "admin"),
               url: "/admin/badges",
+            },
+          ],
+        },
+        {
+          title: t("nav.users.title", "admin"),
+          url: "/admin/users",
+          icon: Users,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.users.management", "admin"),
+              url: "/admin/users",
             },
           ],
         },

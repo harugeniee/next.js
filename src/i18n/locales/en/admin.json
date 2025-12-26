@@ -18,6 +18,10 @@
       "title": "Badges",
       "management": "Management"
     },
+    "users": {
+      "title": "Users",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",
@@ -307,6 +311,94 @@
       "rate_limit": "Rate Limit",
       "analytics": "Analytics",
       "worker": "Worker"
+    }
+  },
+  "users": {
+    "title": "User Management",
+    "description": "Manage users and their accounts",
+    "breadcrumb": {
+      "admin": "Admin",
+      "users": "Users"
+    },
+    "list": {
+      "title": "Users",
+      "description": "List of all users",
+      "create": "Create User"
+    },
+    "filters": {
+      "searchPlaceholder": "Search by name or email...",
+      "role": "Role",
+      "status": "Status"
+    },
+    "fields": {
+      "user": "User",
+      "email": "Email",
+      "username": "Username",
+      "name": "Name",
+      "password": "Password",
+      "role": "Role",
+      "status": "Status",
+      "verified": "Verified",
+      "phoneNumber": "Phone Number",
+      "dob": "Date of Birth"
+    },
+    "roles": {
+      "admin": "Admin",
+      "user": "User",
+      "moderator": "Moderator",
+      "super_admin": "Super Admin"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "suspended": "Suspended",
+      "removed": "Removed"
+    },
+    "create": {
+      "title": "Create User",
+      "description": "Create a new user account"
+    },
+    "edit": {
+      "title": "Edit User",
+      "description": "Update user information"
+    },
+    "deleteConfirm": "Are you sure you want to delete user \"{name}\"?",
+    "createSuccess": "User created successfully",
+    "createError": "Failed to create user",
+    "updateSuccess": "User updated successfully",
+    "updateError": "Failed to update user",
+    "deleteSuccess": "User deleted successfully",
+    "deleteError": "Failed to delete user",
+    "detail": {
+      "title": "User Details: {name}",
+      "description": "View and manage user account information",
+      "error": "Failed to load user details",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "basicInfoDesc": "User's basic profile information",
+        "accountDetails": "Account Details",
+        "accountDetailsDesc": "Account role, status, and verification",
+        "authentication": "Authentication",
+        "authenticationDesc": "Authentication method and provider information",
+        "metadata": "Metadata",
+        "metadataDesc": "Account creation and update information"
+      },
+      "fields": {
+        "emailVerified": "Email Verified",
+        "phoneVerified": "Phone Verified",
+        "authMethod": "Authentication Method",
+        "oauthProvider": "OAuth Provider",
+        "firebaseUid": "Firebase UID",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "userId": "User ID"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "back": "Back to Users"
+      }
     }
   }
 }

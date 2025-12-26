@@ -18,6 +18,10 @@
       "title": "Huy hiệu",
       "management": "Quản lý"
     },
+    "users": {
+      "title": "Người dùng",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",
@@ -307,6 +311,94 @@
       "rate_limit": "Giới hạn Tỷ lệ",
       "analytics": "Phân tích",
       "worker": "Worker"
+    }
+  },
+  "users": {
+    "title": "Quản lý Người dùng",
+    "description": "Quản lý người dùng và tài khoản của họ",
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "users": "Người dùng"
+    },
+    "list": {
+      "title": "Người dùng",
+      "description": "Danh sách tất cả người dùng",
+      "create": "Tạo Người dùng"
+    },
+    "filters": {
+      "searchPlaceholder": "Tìm kiếm theo tên hoặc email...",
+      "role": "Vai trò",
+      "status": "Trạng thái"
+    },
+    "fields": {
+      "user": "Người dùng",
+      "email": "Email",
+      "username": "Tên người dùng",
+      "name": "Tên",
+      "password": "Mật khẩu",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "verified": "Đã xác minh",
+      "phoneNumber": "Số Điện thoại",
+      "dob": "Ngày Sinh"
+    },
+    "roles": {
+      "admin": "Quản trị viên",
+      "user": "Người dùng",
+      "moderator": "Điều hành viên",
+      "super_admin": "Quản trị viên Cấp cao"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "pending": "Đang chờ",
+      "suspended": "Bị đình chỉ",
+      "removed": "Đã xóa"
+    },
+    "create": {
+      "title": "Tạo Người dùng",
+      "description": "Tạo tài khoản người dùng mới"
+    },
+    "edit": {
+      "title": "Chỉnh sửa Người dùng",
+      "description": "Cập nhật thông tin người dùng"
+    },
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa người dùng \"{name}\"?",
+    "createSuccess": "Tạo người dùng thành công",
+    "createError": "Không thể tạo người dùng",
+    "updateSuccess": "Cập nhật người dùng thành công",
+    "updateError": "Không thể cập nhật người dùng",
+    "deleteSuccess": "Xóa người dùng thành công",
+    "deleteError": "Không thể xóa người dùng",
+    "detail": {
+      "title": "Chi tiết Người dùng: {name}",
+      "description": "Xem và quản lý thông tin tài khoản người dùng",
+      "error": "Không thể tải chi tiết người dùng",
+      "sections": {
+        "basicInfo": "Thông tin Cơ bản",
+        "basicInfoDesc": "Thông tin hồ sơ cơ bản của người dùng",
+        "accountDetails": "Chi tiết Tài khoản",
+        "accountDetailsDesc": "Vai trò, trạng thái và xác minh tài khoản",
+        "authentication": "Xác thực",
+        "authenticationDesc": "Phương thức xác thực và thông tin nhà cung cấp",
+        "metadata": "Siêu dữ liệu",
+        "metadataDesc": "Thông tin tạo và cập nhật tài khoản"
+      },
+      "fields": {
+        "emailVerified": "Email Đã Xác minh",
+        "phoneVerified": "Điện thoại Đã Xác minh",
+        "authMethod": "Phương thức Xác thực",
+        "oauthProvider": "Nhà cung cấp OAuth",
+        "firebaseUid": "Firebase UID",
+        "createdAt": "Ngày Tạo",
+        "updatedAt": "Ngày Cập nhật",
+        "userId": "ID Người dùng"
+      },
+      "actions": {
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "back": "Quay lại Người dùng"
+      }
     }
   }
 }
