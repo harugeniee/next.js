@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import type {
   AnalyticsQueryParams,
-  DashboardQueryParams
+  DashboardQueryParams,
 } from "@/lib/api/analytics";
 import { AnalyticsAPI } from "@/lib/api/analytics";
 import { queryKeys } from "@/lib/utils/query-keys";

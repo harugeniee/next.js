@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   useDeleteComment as useDeleteCommentBase,
   usePinComment as usePinCommentBase,
-  useUpdateComment as useUpdateCommentBase
+  useUpdateComment as useUpdateCommentBase,
 } from "@/hooks/comments";
 import type { QueryCommentsDto } from "@/lib/api/comments";
 import { CommentsAPI } from "@/lib/api/comments";

@@ -53,7 +53,6 @@ export function CharacterForm({
   const isEditMode = !!character;
 
   const form = useForm<UpdateCharacterFormData>({
-     
     resolver: zodResolver(
       isEditMode ? updateCharacterSchema : createCharacterSchema,
     ) as any,

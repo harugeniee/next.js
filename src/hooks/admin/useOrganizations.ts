@@ -2,13 +2,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
-import {
-    OrganizationsAPI
-} from "@/lib/api/organizations";
+import { OrganizationsAPI } from "@/lib/api/organizations";
 import type {
-    CreateOrganizationDto,
-    Organization,
-    UpdateOrganizationDto,
+  CreateOrganizationDto,
+  Organization,
+  UpdateOrganizationDto,
 } from "@/lib/interface/organization.interface";
 import type { AdvancedQueryParams, PaginationOffset } from "@/lib/types";
 import { queryKeys } from "@/lib/utils/query-keys";
