@@ -20,6 +20,7 @@ import { currentUserAtom } from "@/lib/auth";
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
+import { SidebarSettings } from "./sidebar-settings";
 import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
@@ -27,6 +28,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/core/skeleton";
 
@@ -169,6 +171,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={sampleData.projects} />
       </SidebarContent>
       <SidebarFooter>
+        <SidebarSettings />
+        <SidebarSeparator />
         {isLoading ? (
           <div className="flex items-center gap-2 p-2">
             <Skeleton className="h-8 w-8 rounded-lg" />
