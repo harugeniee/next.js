@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
+import { useAtom } from "jotai";
 import {
   AudioWaveform,
   BookOpen,
@@ -12,27 +13,26 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "./nav-main"
-import { NavProjects } from "./nav-projects"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
+import { useCurrentUser } from "@/hooks/auth";
+import { currentUserAtom } from "@/lib/auth";
+import { getUserAvatarUrl, getUserDisplayName } from "@/lib/utils";
+import { NavMain } from "./nav-main";
+import { NavProjects } from "./nav-projects";
+import { NavUser } from "./nav-user";
+import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/core/skeleton";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
+// Sample data for teams and navigation (can be replaced with real data later)
+const sampleData = {
   teams: [
     {
       name: "Acme Inc",
@@ -154,22 +154,52 @@ const data = {
       icon: Map,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [user] = useAtom(currentUserAtom);
+  const { isLoading } = useCurrentUser();
+
+  // Map User interface to sidebar user structure
+  const sidebarUser = React.useMemo(() => {
+    if (!user) {
+      return {
+        name: "User",
+        email: "",
+        avatar: "/avatar.png",
+      };
+    }
+
+    return {
+      name: getUserDisplayName(user),
+      email: user.email || "",
+      avatar: getUserAvatarUrl(user),
+    };
+  }, [user]);
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher teams={sampleData.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={sampleData.navMain} />
+        <NavProjects projects={sampleData.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {isLoading ? (
+          <div className="flex items-center gap-2 p-2">
+            <Skeleton className="h-8 w-8 rounded-lg" />
+            <div className="flex-1 space-y-1">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+          </div>
+        ) : (
+          <NavUser user={sidebarUser} />
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

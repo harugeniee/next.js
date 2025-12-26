@@ -51,3 +51,43 @@ export {
   isPermissionDeniedPage,
   redirectToPermissionDenied,
 } from "./permission-utils";
+
+/**
+ * Get avatar URL from User object
+ * Priority: photoUrl > avatar.url > fallback
+ */
+export function getUserAvatarUrl(
+  user: { photoUrl?: string; avatar?: { url?: string } } | null | undefined,
+  fallback: string = "/avatar.png",
+): string {
+  if (!user) return fallback;
+  return user.photoUrl || user.avatar?.url || fallback;
+}
+
+/**
+ * Get user display name from User object
+ * Priority: name > username > fallback
+ */
+export function getUserDisplayName(
+  user: { name?: string; username?: string } | null | undefined,
+  fallback: string = "User",
+): string {
+  if (!user) return fallback;
+  return user.name || user.username || fallback;
+}
+
+/**
+ * Get user initials for avatar fallback
+ */
+export function getUserInitials(
+  user: { name?: string; username?: string } | null | undefined,
+): string {
+  if (!user) return "U";
+  const name = user.name || user.username || "";
+  if (!name) return "U";
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+}
