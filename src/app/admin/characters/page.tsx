@@ -118,9 +118,7 @@ export default function CharactersPage() {
       "Unknown Character";
 
     if (
-      !confirm(
-        t("list.deleteConfirm", "characters", { name: characterName }),
-      )
+      !confirm(t("list.deleteConfirm", "characters", { name: characterName }))
     ) {
       return;
     }
@@ -203,11 +201,9 @@ export default function CharactersPage() {
         character={selectedCharacter}
         onSubmit={handleCharacterSubmit}
         isLoading={
-          createCharacterMutation.isPending ||
-          updateCharacterMutation.isPending
+          createCharacterMutation.isPending || updateCharacterMutation.isPending
         }
       />
     </div>
   );
 }
-

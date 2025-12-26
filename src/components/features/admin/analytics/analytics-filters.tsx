@@ -21,7 +21,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import type { DashboardQueryParams } from "@/lib/api/analytics";
 
 interface AnalyticsFiltersProps {
@@ -80,7 +85,10 @@ export function AnalyticsFilters({
   const handleEventTypesChange = useCallback(
     (value: string) => {
       const eventTypes = value
-        ? value.split(",").map((type) => type.trim()).filter(Boolean)
+        ? value
+            .split(",")
+            .map((type) => type.trim())
+            .filter(Boolean)
         : undefined;
       onFiltersChange({
         ...filters,
@@ -93,7 +101,10 @@ export function AnalyticsFilters({
   const handleUserIdsChange = useCallback(
     (value: string) => {
       const userIds = value
-        ? value.split(",").map((id) => id.trim()).filter(Boolean)
+        ? value
+            .split(",")
+            .map((id) => id.trim())
+            .filter(Boolean)
         : undefined;
       onFiltersChange({
         ...filters,
@@ -232,7 +243,10 @@ export function AnalyticsFilters({
           <div className="space-y-2">
             <Label>{t("dashboard.filters.eventTypes", "admin")}</Label>
             <Input
-              placeholder={t("dashboard.filters.eventTypesPlaceholder", "admin")}
+              placeholder={t(
+                "dashboard.filters.eventTypesPlaceholder",
+                "admin",
+              )}
               value={filters.eventTypes?.join(", ") || ""}
               onChange={(e) => handleEventTypesChange(e.target.value)}
             />
@@ -252,4 +266,3 @@ export function AnalyticsFilters({
     </Card>
   );
 }
-

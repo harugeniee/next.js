@@ -8,7 +8,13 @@ import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { BadgeDisplay } from "./badge-display";
 import { Button } from "@/components/ui/core/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import {
   DropdownMenu,
@@ -16,7 +22,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
-import type { BadgeAssignment, BadgeAssignmentListResponse } from "@/lib/types/badges";
+import type {
+  BadgeAssignment,
+  BadgeAssignmentListResponse,
+} from "@/lib/types/badges";
 
 interface BadgeAssignmentsTableProps {
   readonly data?: BadgeAssignmentListResponse;
@@ -61,7 +70,11 @@ export function BadgeAssignmentsTable({
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
                       {assignment.badge && (
-                        <BadgeDisplay badge={assignment.badge} size="md" showName={false} />
+                        <BadgeDisplay
+                          badge={assignment.badge}
+                          size="md"
+                          showName={false}
+                        />
                       )}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
@@ -71,22 +84,32 @@ export function BadgeAssignmentsTable({
                             </span>
                           )}
                           <span className="text-xs text-muted-foreground px-2 py-1 rounded bg-muted">
-                            {assignment.entityType}:{assignment.entityId.slice(0, 8)}...
+                            {assignment.entityType}:
+                            {assignment.entityId.slice(0, 8)}...
                           </span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-xs text-muted-foreground">
-                            {t(`badges.assignments.status.${assignment.status}`, "admin")}
+                            {t(
+                              `badges.assignments.status.${assignment.status}`,
+                              "admin",
+                            )}
                           </span>
-                          <span className="text-xs text-muted-foreground">•</span>
                           <span className="text-xs text-muted-foreground">
-                            {t("badges.assignments.assignedAt", "admin")}: {formatDate(assignment.assignedAt)}
+                            •
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {t("badges.assignments.assignedAt", "admin")}:{" "}
+                            {formatDate(assignment.assignedAt)}
                           </span>
                           {assignment.expiresAt && (
                             <>
-                              <span className="text-xs text-muted-foreground">•</span>
                               <span className="text-xs text-muted-foreground">
-                                {t("badges.assignments.expiresAt", "admin")}: {formatDate(assignment.expiresAt)}
+                                •
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                {t("badges.assignments.expiresAt", "admin")}:{" "}
+                                {formatDate(assignment.expiresAt)}
                               </span>
                             </>
                           )}
@@ -150,4 +173,3 @@ export function BadgeAssignmentsTable({
     </AnimatedSection>
   );
 }
-

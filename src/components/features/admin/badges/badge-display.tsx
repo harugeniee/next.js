@@ -3,10 +3,7 @@
 import { Award } from "lucide-react";
 import Image from "next/image";
 
-import type {
-  Badge,
-  BadgeRarity,
-} from "@/lib/types/badges";
+import type { Badge, BadgeRarity } from "@/lib/types/badges";
 import { cn } from "@/lib/utils";
 
 interface BadgeDisplayProps {
@@ -59,12 +56,7 @@ export function BadgeDisplay({
   const rarityColor = getRarityColor(badge.rarity);
 
   return (
-    <div
-      className={cn(
-        "flex items-center gap-2",
-        className,
-      )}
-    >
+    <div className={cn("flex items-center gap-2", className)}>
       <div
         className={cn(
           "relative rounded-full flex items-center justify-center",
@@ -100,4 +92,3 @@ export function BadgeDisplay({
     </div>
   );
 }
-

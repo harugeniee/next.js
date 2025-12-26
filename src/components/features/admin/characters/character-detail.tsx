@@ -125,7 +125,11 @@ export function CharacterDetail({
               <div className="flex items-center gap-4">
                 <Skeletonize loading={isLoading}>
                   {character ? (
-                    <CharacterDisplay character={character} size="lg" showName={false} />
+                    <CharacterDisplay
+                      character={character}
+                      size="lg"
+                      showName={false}
+                    />
                   ) : (
                     <div className="h-20 w-20 rounded-full bg-muted" />
                   )}
@@ -134,10 +138,15 @@ export function CharacterDetail({
                   <Skeletonize loading={isLoading}>
                     {character ? (
                       <>
-                        <CardTitle className="text-2xl">{characterName}</CardTitle>
+                        <CardTitle className="text-2xl">
+                          {characterName}
+                        </CardTitle>
                         {character.gender && (
                           <CardDescription className="text-base">
-                            {t(`genders.${character.gender.toLowerCase()}`, "characters")}
+                            {t(
+                              `genders.${character.gender.toLowerCase()}`,
+                              "characters",
+                            )}
                           </CardDescription>
                         )}
                       </>
@@ -179,7 +188,9 @@ export function CharacterDetail({
         <AnimatedSection loading={isLoading} data={character}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("detail.sections.basicInfo", "characters")}</CardTitle>
+              <CardTitle>
+                {t("detail.sections.basicInfo", "characters")}
+              </CardTitle>
               <CardDescription>
                 {t("detail.sections.basicInfoDesc", "characters")}
               </CardDescription>
@@ -195,7 +206,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameFirst", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.first}</div>
+                          <div className="font-medium">
+                            {character.name.first}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -206,7 +219,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameMiddle", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.middle}</div>
+                          <div className="font-medium">
+                            {character.name.middle}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -217,7 +232,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameLast", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.last}</div>
+                          <div className="font-medium">
+                            {character.name.last}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -228,7 +245,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameFull", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.full}</div>
+                          <div className="font-medium">
+                            {character.name.full}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -239,7 +258,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameNative", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.native}</div>
+                          <div className="font-medium">
+                            {character.name.native}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -250,7 +271,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.nameUserPreferred", "characters")}
                           </div>
-                          <div className="font-medium">{character.name.userPreferred}</div>
+                          <div className="font-medium">
+                            {character.name.userPreferred}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -275,7 +298,10 @@ export function CharacterDetail({
                             {t("fields.gender", "characters")}
                           </div>
                           <Badge variant="outline" className="mt-1">
-                            {t(`genders.${character.gender.toLowerCase()}`, "characters")}
+                            {t(
+                              `genders.${character.gender.toLowerCase()}`,
+                              "characters",
+                            )}
                           </Badge>
                         </div>
                       </div>
@@ -298,7 +324,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.bloodType", "characters")}
                           </div>
-                          <div className="font-medium">{character.bloodType}</div>
+                          <div className="font-medium">
+                            {character.bloodType}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -332,7 +360,9 @@ export function CharacterDetail({
         <AnimatedSection loading={isLoading} data={character}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("detail.sections.externalInfo", "characters")}</CardTitle>
+              <CardTitle>
+                {t("detail.sections.externalInfo", "characters")}
+              </CardTitle>
               <CardDescription>
                 {t("detail.sections.externalInfoDesc", "characters")}
               </CardDescription>
@@ -348,7 +378,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.myAnimeListId", "characters")}
                           </div>
-                          <div className="font-medium">{character.myAnimeListId}</div>
+                          <div className="font-medium">
+                            {character.myAnimeListId}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -359,7 +391,9 @@ export function CharacterDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("fields.aniListId", "characters")}
                           </div>
-                          <div className="font-medium">{character.aniListId}</div>
+                          <div className="font-medium">
+                            {character.aniListId}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -375,7 +409,9 @@ export function CharacterDetail({
                               <div className="text-sm text-muted-foreground">
                                 {t("fields.seriesId", "characters")}
                               </div>
-                              <div className="font-medium">{character.seriesId}</div>
+                              <div className="font-medium">
+                                {character.seriesId}
+                              </div>
                             </div>
                           </div>
                         ) : null;
@@ -452,7 +488,9 @@ export function CharacterDetail({
         <AnimatedSection loading={isLoading} data={character}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("detail.sections.mediaInfo", "characters")}</CardTitle>
+              <CardTitle>
+                {t("detail.sections.mediaInfo", "characters")}
+              </CardTitle>
               <CardDescription>
                 {t("detail.sections.mediaInfoDesc", "characters")}
               </CardDescription>
@@ -510,7 +548,9 @@ export function CharacterDetail({
         <AnimatedSection loading={isLoading} data={character}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("detail.sections.metadata", "characters")}</CardTitle>
+              <CardTitle>
+                {t("detail.sections.metadata", "characters")}
+              </CardTitle>
               <CardDescription>
                 {t("detail.sections.metadataDesc", "characters")}
               </CardDescription>
@@ -576,11 +616,12 @@ export function CharacterDetail({
           open={showEditDialog}
           onOpenChange={setShowEditDialog}
           character={character}
-          onSubmit={(data) => onUpdate(character.id, data as UpdateCharacterFormData)}
+          onSubmit={(data) =>
+            onUpdate(character.id, data as UpdateCharacterFormData)
+          }
           isLoading={isUpdating}
         />
       )}
     </div>
   );
 }
-

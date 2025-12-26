@@ -101,11 +101,7 @@ export function useCreateBadge() {
 export function useUpdateBadge() {
   const queryClient = useQueryClient();
 
-  return useMutation<
-    Badge,
-    Error,
-    { id: string; data: UpdateBadgeDto }
-  >({
+  return useMutation<Badge, Error, { id: string; data: UpdateBadgeDto }>({
     mutationFn: ({ id, data }) => BadgesAPI.updateBadge(id, data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.badges.all() });
@@ -184,4 +180,3 @@ export function useRevokeBadge() {
     },
   });
 }
-

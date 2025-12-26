@@ -110,7 +110,9 @@ export function CharacterDetailDialog({
           <div className="grid grid-cols-2 gap-4 text-sm">
             {character.age && (
               <div>
-                <span className="font-medium">{t("fields.age", "characters")}: </span>
+                <span className="font-medium">
+                  {t("fields.age", "characters")}:{" "}
+                </span>
                 <span className="text-muted-foreground">{character.age}</span>
               </div>
             )}
@@ -119,7 +121,9 @@ export function CharacterDetailDialog({
                 <span className="font-medium">
                   {t("fields.bloodType", "characters")}:{" "}
                 </span>
-                <span className="text-muted-foreground">{character.bloodType}</span>
+                <span className="text-muted-foreground">
+                  {character.bloodType}
+                </span>
               </div>
             )}
             {character.dateOfBirth && (
@@ -132,47 +136,48 @@ export function CharacterDetailDialog({
                 </span>
               </div>
             )}
-                    {(() => {
-                      const seriesId = getSeriesId(character);
-                      const seriesTitle = getSeriesTitle(character);
-                      
-                      if (!seriesId) return null;
+            {(() => {
+              const seriesId = getSeriesId(character);
+              const seriesTitle = getSeriesTitle(character);
 
-                      const truncatedTitle = truncateTitle(seriesTitle, 20);
-                      const shouldShowTooltip = seriesTitle.length > 20;
+              if (!seriesId) return null;
 
-                      return (
-                        <div>
-                          <span className="font-medium">{t("fields.seriesId", "characters")}: </span>
-                          {shouldShowTooltip ? (
-                            <Tooltip delayDuration={200}>
-                              <TooltipTrigger asChild>
-                                <Link
-                                  href={`/series/${seriesId}`}
-                                  className="text-primary hover:underline font-medium inline-block"
-                                >
-                                  {truncatedTitle}
-                                </Link>
-                              </TooltipTrigger>
-                              <TooltipContent side="top" sideOffset={5}>
-                                {seriesTitle}
-                              </TooltipContent>
-                            </Tooltip>
-                          ) : (
-                            <Link
-                              href={`/series/${seriesId}`}
-                              className="text-primary hover:underline font-medium"
-                            >
-                              {truncatedTitle}
-                            </Link>
-                          )}
-                        </div>
-                      );
-                    })()}
+              const truncatedTitle = truncateTitle(seriesTitle, 20);
+              const shouldShowTooltip = seriesTitle.length > 20;
+
+              return (
+                <div>
+                  <span className="font-medium">
+                    {t("fields.seriesId", "characters")}:{" "}
+                  </span>
+                  {shouldShowTooltip ? (
+                    <Tooltip delayDuration={200}>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href={`/series/${seriesId}`}
+                          className="text-primary hover:underline font-medium inline-block"
+                        >
+                          {truncatedTitle}
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="top" sideOffset={5}>
+                        {seriesTitle}
+                      </TooltipContent>
+                    </Tooltip>
+                  ) : (
+                    <Link
+                      href={`/series/${seriesId}`}
+                      className="text-primary hover:underline font-medium"
+                    >
+                      {truncatedTitle}
+                    </Link>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </DialogContent>
     </Dialog>
   );
 }
-

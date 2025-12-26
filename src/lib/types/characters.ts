@@ -89,4 +89,3 @@ export interface CharacterStatistics {
     count: number;
   }>;
 }
-

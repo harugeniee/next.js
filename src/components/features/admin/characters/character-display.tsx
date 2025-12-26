@@ -44,12 +44,7 @@ export function CharacterDisplay({
     "Unknown Character";
 
   return (
-    <div
-      className={cn(
-        "flex items-center gap-2",
-        className,
-      )}
-    >
+    <div className={cn("flex items-center gap-2", className)}>
       <div
         className={cn(
           "relative rounded-full flex items-center justify-center overflow-hidden bg-muted",
@@ -81,4 +76,3 @@ export function CharacterDisplay({
     </div>
   );
 }
-

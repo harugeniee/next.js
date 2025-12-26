@@ -7,7 +7,13 @@ import { ExternalLink } from "lucide-react";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import type { DashboardOverviewResponse } from "@/lib/api/analytics";
 
@@ -68,7 +74,9 @@ export function TopContentTable({ data, isLoading }: TopContentTableProps) {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-semibold">{item.count}</span>
+                      <span className="text-sm font-semibold">
+                        {item.count}
+                      </span>
                       <Link
                         href={`/${item.subjectType}/${item.subjectId}`}
                         className="text-muted-foreground hover:text-foreground transition-colors"
@@ -101,4 +109,3 @@ export function TopContentTable({ data, isLoading }: TopContentTableProps) {
     </AnimatedSection>
   );
 }
-

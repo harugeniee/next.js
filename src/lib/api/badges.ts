@@ -1,17 +1,17 @@
 import { http } from "@/lib/http";
 import type { ApiResponse, ApiResponseOffset } from "@/lib/types";
 import type {
-    AssignBadgeDto,
-    Badge,
-    BadgeAssignment,
-    BadgeAssignmentListResponse,
-    BadgeListResponse,
-    BadgeStatistics,
-    CreateBadgeDto,
-    GetBadgeAssignmentDto,
-    GetBadgeDto,
-    RevokeBadgeDto,
-    UpdateBadgeDto,
+  AssignBadgeDto,
+  Badge,
+  BadgeAssignment,
+  BadgeAssignmentListResponse,
+  BadgeListResponse,
+  BadgeStatistics,
+  CreateBadgeDto,
+  GetBadgeAssignmentDto,
+  GetBadgeDto,
+  RevokeBadgeDto,
+  UpdateBadgeDto,
 } from "@/lib/types/badges";
 
 /**
@@ -24,9 +24,7 @@ export class BadgesAPI {
   /**
    * Create a new badge
    */
-  static async createBadge(
-    createBadgeDto: CreateBadgeDto,
-  ): Promise<Badge> {
+  static async createBadge(createBadgeDto: CreateBadgeDto): Promise<Badge> {
     try {
       const response = await http.post<ApiResponse<Badge>>(
         this.BASE_URL,
@@ -34,9 +32,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to create badge",
-        );
+        throw new Error(response.data.message || "Failed to create badge");
       }
 
       return response.data.data;
@@ -49,9 +45,7 @@ export class BadgesAPI {
   /**
    * Get all badges with optional filters
    */
-  static async getBadges(
-    params?: GetBadgeDto,
-  ): Promise<BadgeListResponse> {
+  static async getBadges(params?: GetBadgeDto): Promise<BadgeListResponse> {
     try {
       const queryParams: Record<string, unknown> = {};
 
@@ -88,10 +82,9 @@ export class BadgesAPI {
         queryParams.isManuallyAssignable = params.isManuallyAssignable;
       }
 
-      const response = await http.get<ApiResponseOffset<Badge>>(
-        this.BASE_URL,
-        { params: queryParams },
-      );
+      const response = await http.get<ApiResponseOffset<Badge>>(this.BASE_URL, {
+        params: queryParams,
+      });
 
       const paginationData = response.data.data;
       return {
@@ -119,9 +112,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to fetch badge",
-        );
+        throw new Error(response.data.message || "Failed to fetch badge");
       }
 
       return response.data.data;
@@ -253,9 +244,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to update badge",
-        );
+        throw new Error(response.data.message || "Failed to update badge");
       }
 
       return response.data.data;
@@ -275,9 +264,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to delete badge",
-        );
+        throw new Error(response.data.message || "Failed to delete badge");
       }
     } catch (error) {
       console.error("Error deleting badge:", error);
@@ -298,9 +285,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to assign badge",
-        );
+        throw new Error(response.data.message || "Failed to assign badge");
       }
 
       return response.data.data;
@@ -324,9 +309,7 @@ export class BadgesAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to revoke badge",
-        );
+        throw new Error(response.data.message || "Failed to revoke badge");
       }
 
       return response.data.data;
@@ -510,4 +493,3 @@ export class BadgesAPI {
     }
   }
 }
-

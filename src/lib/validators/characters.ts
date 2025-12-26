@@ -122,4 +122,3 @@ export const updateCharacterSchema = createCharacterSchema.partial();
 
 export type CreateCharacterFormData = z.infer<typeof createCharacterSchema>;
 export type UpdateCharacterFormData = z.infer<typeof updateCharacterSchema>;
-

@@ -12,4 +12,3 @@ export { BadgeForm } from "./badge-form";
 export { BadgeAssignmentForm } from "./badge-assignment-form";
 export { BadgeFormDialog } from "./badge-form-dialog";
 export { BadgeAssignmentDialog } from "./badge-assignment-dialog";
-

@@ -290,9 +290,7 @@ export class AnalyticsAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to fetch top content",
-        );
+        throw new Error(response.data.message || "Failed to fetch top content");
       }
 
       return response.data.data;
@@ -443,4 +441,3 @@ export class AnalyticsAPI {
     }
   }
 }
-

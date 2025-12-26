@@ -26,7 +26,7 @@ export function SidebarSettings() {
       className={cn(
         "flex items-center gap-2",
         // Horizontal layout when expanded, vertical when collapsed
-        isCollapsed ? "flex-col" : "flex-row"
+        isCollapsed ? "flex-col" : "flex-row",
       )}
     >
       <LanguageSwitcher
@@ -34,7 +34,7 @@ export function SidebarSettings() {
         size={size}
         className={cn(
           // Ensure consistent sizing
-          isCollapsed ? "w-full" : "flex-1"
+          isCollapsed ? "w-full" : "flex-1",
         )}
       />
       <ThemeSelector
@@ -42,10 +42,9 @@ export function SidebarSettings() {
         size={size}
         className={cn(
           // Ensure consistent sizing
-          isCollapsed ? "w-full" : "flex-1"
+          isCollapsed ? "w-full" : "flex-1",
         )}
       />
     </div>
   );
 }
-

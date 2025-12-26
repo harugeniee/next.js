@@ -8,26 +8,26 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
 import { Input } from "@/components/ui/core/input";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/layout/form";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import type { Character } from "@/lib/interface/character.interface";
 import {
-    createCharacterSchema,
-    updateCharacterSchema,
-    type CreateCharacterFormData,
-    type UpdateCharacterFormData,
+  createCharacterSchema,
+  updateCharacterSchema,
+  type CreateCharacterFormData,
+  type UpdateCharacterFormData,
 } from "@/lib/validators/characters";
 
 interface CharacterFormProps {
@@ -54,7 +54,9 @@ export function CharacterForm({
 
   const form = useForm<UpdateCharacterFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(isEditMode ? updateCharacterSchema : createCharacterSchema) as any,
+    resolver: zodResolver(
+      isEditMode ? updateCharacterSchema : createCharacterSchema,
+    ) as any,
     defaultValues: {
       myAnimeListId: character?.myAnimeListId ?? "",
       aniListId: character?.aniListId ?? "",
@@ -151,12 +153,30 @@ export function CharacterForm({
     let cleanedName: UpdateCharacterFormData["name"] = undefined;
     if (data.name) {
       cleanedName = {
-        first: data.name.first === "" || data.name.first === null ? undefined : data.name.first,
-        middle: data.name.middle === "" || data.name.middle === null ? undefined : data.name.middle,
-        last: data.name.last === "" || data.name.last === null ? undefined : data.name.last,
-        full: data.name.full === "" || data.name.full === null ? undefined : data.name.full,
-        native: data.name.native === "" || data.name.native === null ? undefined : data.name.native,
-        userPreferred: data.name.userPreferred === "" || data.name.userPreferred === null ? undefined : data.name.userPreferred,
+        first:
+          data.name.first === "" || data.name.first === null
+            ? undefined
+            : data.name.first,
+        middle:
+          data.name.middle === "" || data.name.middle === null
+            ? undefined
+            : data.name.middle,
+        last:
+          data.name.last === "" || data.name.last === null
+            ? undefined
+            : data.name.last,
+        full:
+          data.name.full === "" || data.name.full === null
+            ? undefined
+            : data.name.full,
+        native:
+          data.name.native === "" || data.name.native === null
+            ? undefined
+            : data.name.native,
+        userPreferred:
+          data.name.userPreferred === "" || data.name.userPreferred === null
+            ? undefined
+            : data.name.userPreferred,
         alternative: data.name.alternative,
         alternativeSpoiler: data.name.alternativeSpoiler,
       };
@@ -224,7 +244,10 @@ export function CharacterForm({
                   <FormLabel>{t("fields.nameMiddle", "characters")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t("form.nameMiddlePlaceholder", "characters")}
+                      placeholder={t(
+                        "form.nameMiddlePlaceholder",
+                        "characters",
+                      )}
                       {...field}
                       value={field.value || ""}
                     />
@@ -278,7 +301,10 @@ export function CharacterForm({
                   <FormLabel>{t("fields.nameNative", "characters")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t("form.nameNativePlaceholder", "characters")}
+                      placeholder={t(
+                        "form.nameNativePlaceholder",
+                        "characters",
+                      )}
                       {...field}
                       value={field.value || ""}
                     />
@@ -298,7 +324,10 @@ export function CharacterForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t("form.nameUserPreferredPlaceholder", "characters")}
+                      placeholder={t(
+                        "form.nameUserPreferredPlaceholder",
+                        "characters",
+                      )}
                       {...field}
                       value={field.value || ""}
                     />
@@ -354,33 +383,33 @@ export function CharacterForm({
                       }}
                       value={normalizedValue || "none"}
                     >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          placeholder={t("form.selectGender", "characters")}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="none">
-                        {t("form.none", "characters")}
-                      </SelectItem>
-                      <SelectItem value="male">
-                        {t("genders.male", "characters")}
-                      </SelectItem>
-                      <SelectItem value="female">
-                        {t("genders.female", "characters")}
-                      </SelectItem>
-                      <SelectItem value="other">
-                        {t("genders.other", "characters")}
-                      </SelectItem>
-                      <SelectItem value="unknown">
-                        {t("genders.unknown", "characters")}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            placeholder={t("form.selectGender", "characters")}
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="none">
+                          {t("form.none", "characters")}
+                        </SelectItem>
+                        <SelectItem value="male">
+                          {t("genders.male", "characters")}
+                        </SelectItem>
+                        <SelectItem value="female">
+                          {t("genders.female", "characters")}
+                        </SelectItem>
+                        <SelectItem value="other">
+                          {t("genders.other", "characters")}
+                        </SelectItem>
+                        <SelectItem value="unknown">
+                          {t("genders.unknown", "characters")}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                 );
               }}
             />
@@ -401,7 +430,9 @@ export function CharacterForm({
                       }
                       onChange={(e) => {
                         const value = e.target.value;
-                        field.onChange(value ? new Date(value).toISOString() : "");
+                        field.onChange(
+                          value ? new Date(value).toISOString() : "",
+                        );
                       }}
                     />
                   </FormControl>
@@ -460,10 +491,15 @@ export function CharacterForm({
               name="myAnimeListId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("fields.myAnimeListId", "characters")}</FormLabel>
+                  <FormLabel>
+                    {t("fields.myAnimeListId", "characters")}
+                  </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={t("form.myAnimeListIdPlaceholder", "characters")}
+                      placeholder={t(
+                        "form.myAnimeListIdPlaceholder",
+                        "characters",
+                      )}
                       {...field}
                       value={field.value || ""}
                     />
@@ -596,4 +632,3 @@ export function CharacterForm({
     </Form>
   );
 }
-

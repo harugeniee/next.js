@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import Link from "next/link";
+import { ChevronRight, type LucideIcon } from "lucide-react";
 
-import { useI18n } from "@/components/providers/i18n-provider"
+import { useI18n } from "@/components/providers/i18n-provider";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/layout/collapsible"
+} from "@/components/ui/layout/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -18,23 +18,23 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+      title: string;
+      url: string;
+    }[];
+  }[];
 }) {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
     <SidebarGroup>
@@ -90,5 +90,5 @@ export function NavMain({
         })}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

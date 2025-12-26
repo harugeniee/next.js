@@ -72,7 +72,11 @@ export default function UsersPage() {
   };
 
   const handleDelete = async (user: User) => {
-    if (confirm(t("users.deleteConfirm", "admin", { name: user.name || user.username }))) {
+    if (
+      confirm(
+        t("users.deleteConfirm", "admin", { name: user.name || user.username }),
+      )
+    ) {
       await deleteUser.mutateAsync(user.id);
     }
   };
@@ -136,4 +140,3 @@ export default function UsersPage() {
     </div>
   );
 }
-

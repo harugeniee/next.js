@@ -8,7 +8,13 @@ import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { BadgeDisplay } from "./badge-display";
 import { Button } from "@/components/ui/core/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import {
   DropdownMenu,
@@ -84,13 +90,18 @@ export function BadgeList({
                           <span className="text-xs text-muted-foreground">
                             {t(`badges.categories.${badge.category}`, "admin")}
                           </span>
-                          <span className="text-xs text-muted-foreground">•</span>
+                          <span className="text-xs text-muted-foreground">
+                            •
+                          </span>
                           <span className="text-xs text-muted-foreground">
                             {t(`badges.rarities.${badge.rarity}`, "admin")}
                           </span>
-                          <span className="text-xs text-muted-foreground">•</span>
                           <span className="text-xs text-muted-foreground">
-                            {badge.assignmentCount} {t("badges.list.assignments", "admin")}
+                            •
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {badge.assignmentCount}{" "}
+                            {t("badges.list.assignments", "admin")}
                           </span>
                         </div>
                       </div>
@@ -156,4 +167,3 @@ export function BadgeList({
     </AnimatedSection>
   );
 }
-

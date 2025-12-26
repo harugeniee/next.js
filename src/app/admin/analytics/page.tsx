@@ -73,7 +73,10 @@ export default function AnalyticsDashboardPage() {
 
       {/* Filters Section */}
       <AnimatedSection loading={false} data={true}>
-        <AnalyticsFilters filters={filters} onFiltersChange={handleFiltersChange} />
+        <AnalyticsFilters
+          filters={filters}
+          onFiltersChange={handleFiltersChange}
+        />
       </AnimatedSection>
 
       {/* Error State */}
@@ -108,4 +111,3 @@ export default function AnalyticsDashboardPage() {
     </div>
   );
 }
-

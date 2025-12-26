@@ -3,7 +3,11 @@ import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { UserAPI } from "@/lib/api/users";
-import type { CreateUserDto, UpdateUserDto, User } from "@/lib/interface/user.interface";
+import type {
+  CreateUserDto,
+  UpdateUserDto,
+  User,
+} from "@/lib/interface/user.interface";
 import type { AdvancedQueryParams, PaginationOffset } from "@/lib/types";
 import { queryKeys } from "@/lib/utils/query-keys";
 
@@ -16,12 +20,15 @@ const GC_TIME_10_MIN = 10 * 60 * 1000;
 export function useUsers(params?: AdvancedQueryParams) {
   return useQuery<PaginationOffset<User>, Error>({
     queryKey: queryKeys.users.list(params),
-    queryFn: () => UserAPI.getUsers(params || {
-      page: 1,
-      limit: 10,
-      sortBy: "createdAt",
-      order: "DESC",
-    }),
+    queryFn: () =>
+      UserAPI.getUsers(
+        params || {
+          page: 1,
+          limit: 10,
+          sortBy: "createdAt",
+          order: "DESC",
+        },
+      ),
     staleTime: STALE_TIME_5_MIN,
     gcTime: GC_TIME_10_MIN,
     retry: 3,
@@ -62,11 +69,17 @@ export function useUserMutations() {
     },
   });
 
-  const updateUserMutation = useMutation<User, Error, { id: string; data: UpdateUserDto }>({
+  const updateUserMutation = useMutation<
+    User,
+    Error,
+    { id: string; data: UpdateUserDto }
+  >({
     mutationFn: ({ id, data }) => UserAPI.updateUser(id, data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.users.all() });
-      queryClient.invalidateQueries({ queryKey: queryKeys.users.profile(data.id) });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.users.profile(data.id),
+      });
       toast.success(t("users.updateSuccess", "admin"));
     },
     onError: (error) => {
@@ -91,4 +104,3 @@ export function useUserMutations() {
     deleteUser: deleteUserMutation,
   };
 }
-

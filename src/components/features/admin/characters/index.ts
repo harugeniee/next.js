@@ -7,4 +7,3 @@ export { CharacterForm } from "./character-form";
 export { CharacterFormDialog } from "./character-form-dialog";
 export { CharacterList } from "./character-list";
 export { CharacterStatisticsCards } from "./character-statistics";
-

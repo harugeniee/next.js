@@ -5,21 +5,26 @@ import { useCallback, useMemo, useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Input } from "@/components/ui/core/input";
 import { Label } from "@/components/ui/core/label";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import type {
-    BadgeCategory,
-    BadgeRarity,
-    BadgeStatus,
-    GetBadgeDto,
+  BadgeCategory,
+  BadgeRarity,
+  BadgeStatus,
+  GetBadgeDto,
 } from "@/lib/types/badges";
 
 interface BadgeFiltersProps {
@@ -31,10 +36,7 @@ interface BadgeFiltersProps {
  * Badge Filters Component
  * Provides filtering controls for badge list
  */
-export function BadgeFilters({
-  filters,
-  onFiltersChange,
-}: BadgeFiltersProps) {
+export function BadgeFilters({ filters, onFiltersChange }: BadgeFiltersProps) {
   const { t } = useI18n();
   const [searchQuery, setSearchQuery] = useState(filters.query || "");
 
@@ -53,7 +55,8 @@ export function BadgeFilters({
     (value: string) => {
       onFiltersChange({
         ...filters,
-        categories: value && value !== "all" ? [value as BadgeCategory] : undefined,
+        categories:
+          value && value !== "all" ? [value as BadgeCategory] : undefined,
       });
     },
     [filters, onFiltersChange],
@@ -188,7 +191,9 @@ export function BadgeFilters({
                 <SelectValue placeholder={t("badges.filters.all", "admin")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("badges.filters.all", "admin")}</SelectItem>
+                <SelectItem value="all">
+                  {t("badges.filters.all", "admin")}
+                </SelectItem>
                 <SelectItem value="common">
                   {t("badges.categories.common", "admin")}
                 </SelectItem>
@@ -222,7 +227,9 @@ export function BadgeFilters({
                 <SelectValue placeholder={t("badges.filters.all", "admin")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("badges.filters.all", "admin")}</SelectItem>
+                <SelectItem value="all">
+                  {t("badges.filters.all", "admin")}
+                </SelectItem>
                 <SelectItem value="common">
                   {t("badges.rarities.common", "admin")}
                 </SelectItem>
@@ -256,7 +263,9 @@ export function BadgeFilters({
                 <SelectValue placeholder={t("badges.filters.all", "admin")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("badges.filters.all", "admin")}</SelectItem>
+                <SelectItem value="all">
+                  {t("badges.filters.all", "admin")}
+                </SelectItem>
                 <SelectItem value="active">
                   {t("badges.statuses.active", "admin")}
                 </SelectItem>
@@ -284,7 +293,9 @@ export function BadgeFilters({
                 <SelectValue placeholder={t("badges.filters.all", "admin")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("badges.filters.all", "admin")}</SelectItem>
+                <SelectItem value="all">
+                  {t("badges.filters.all", "admin")}
+                </SelectItem>
                 <SelectItem value="true">
                   {t("badges.filters.visible", "admin")}
                 </SelectItem>
@@ -306,7 +317,9 @@ export function BadgeFilters({
                 <SelectValue placeholder={t("badges.filters.all", "admin")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("badges.filters.all", "admin")}</SelectItem>
+                <SelectItem value="all">
+                  {t("badges.filters.all", "admin")}
+                </SelectItem>
                 <SelectItem value="true">
                   {t("badges.filters.obtainable", "admin")}
                 </SelectItem>
@@ -321,4 +334,3 @@ export function BadgeFilters({
     </Card>
   );
 }
-

@@ -51,17 +51,19 @@ export default function BadgesPage() {
     page: 1,
     limit: 20,
   });
-  const [assignmentFilters, setAssignmentFilters] = useState<GetBadgeAssignmentDto>({
-    page: 1,
-    limit: 20,
-  });
+  const [assignmentFilters, setAssignmentFilters] =
+    useState<GetBadgeAssignmentDto>({
+      page: 1,
+      limit: 20,
+    });
 
   // Dialog state
   const [badgeFormOpen, setBadgeFormOpen] = useState(false);
   const [assignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState<Badge | undefined>();
 
-  const { data: badgesData, isLoading: badgesLoading } = useBadges(badgeFilters);
+  const { data: badgesData, isLoading: badgesLoading } =
+    useBadges(badgeFilters);
   const { data: assignmentsData, isLoading: assignmentsLoading } =
     useBadgeAssignments(assignmentFilters);
   const { data: statisticsData, isLoading: statisticsLoading } =
@@ -107,9 +109,7 @@ export default function BadgesPage() {
 
   const handleBadgeDelete = async (badge: Badge) => {
     if (
-      !confirm(
-        t("badges.list.deleteConfirm", "admin", { name: badge.name }),
-      )
+      !confirm(t("badges.list.deleteConfirm", "admin", { name: badge.name }))
     ) {
       return;
     }
@@ -136,11 +136,7 @@ export default function BadgesPage() {
   };
 
   const handleAssignmentRevoke = async (assignment: BadgeAssignment) => {
-    if (
-      !confirm(
-        t("badges.assignments.revokeConfirm", "admin"),
-      )
-    ) {
+    if (!confirm(t("badges.assignments.revokeConfirm", "admin"))) {
       return;
     }
 
@@ -242,4 +238,3 @@ export default function BadgesPage() {
     </div>
   );
 }
-

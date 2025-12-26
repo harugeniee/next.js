@@ -1,6 +1,14 @@
 import { http } from "@/lib/http";
-import type { User, UpdateUserDto, CreateUserDto } from "@/lib/interface/user.interface";
-import type { ApiResponse, ApiResponseOffset, AdvancedQueryParams } from "@/lib/types";
+import type {
+  User,
+  UpdateUserDto,
+  CreateUserDto,
+} from "@/lib/interface/user.interface";
+import type {
+  ApiResponse,
+  ApiResponseOffset,
+  AdvancedQueryParams,
+} from "@/lib/types";
 
 /**
  * Public user profile structure
@@ -109,11 +117,16 @@ export class UserAPI {
   /**
    * Get all users with pagination and filters
    */
-  static async getUsers(params: AdvancedQueryParams): Promise<ApiResponseOffset<User>> {
+  static async getUsers(
+    params: AdvancedQueryParams,
+  ): Promise<ApiResponseOffset<User>> {
     try {
-      const response = await http.get<ApiResponseOffset<User>>(`${this.BASE_URL}`, {
-        params,
-      });
+      const response = await http.get<ApiResponseOffset<User>>(
+        `${this.BASE_URL}`,
+        {
+          params,
+        },
+      );
 
       if (!response.data.success) {
         throw new Error(response.data.message || "Failed to fetch users");
@@ -144,12 +157,15 @@ export class UserAPI {
    */
   static async createUser(userData: CreateUserDto): Promise<User> {
     try {
-      const response = await http.post<ApiResponse<User>>(`${this.BASE_URL}/register`, userData);
-      
+      const response = await http.post<ApiResponse<User>>(
+        `${this.BASE_URL}/register`,
+        userData,
+      );
+
       if (!response.data.success) {
         throw new Error(response.data.message || "Failed to create user");
       }
-      
+
       return response.data.data;
     } catch (error) {
       console.error("Error creating user:", error);
@@ -160,14 +176,20 @@ export class UserAPI {
   /**
    * Update user by ID (Admin)
    */
-  static async updateUser(userId: string, userData: UpdateUserDto): Promise<User> {
+  static async updateUser(
+    userId: string,
+    userData: UpdateUserDto,
+  ): Promise<User> {
     try {
-      const response = await http.patch<ApiResponse<User>>(`${this.BASE_URL}/${userId}`, userData);
-      
+      const response = await http.patch<ApiResponse<User>>(
+        `${this.BASE_URL}/${userId}`,
+        userData,
+      );
+
       if (!response.data.success) {
         throw new Error(response.data.message || "Failed to update user");
       }
-      
+
       return response.data.data;
     } catch (error) {
       console.error("Error updating user:", error);
@@ -180,12 +202,14 @@ export class UserAPI {
    */
   static async getUserById(userId: string): Promise<User> {
     try {
-      const response = await http.get<ApiResponse<User>>(`${this.BASE_URL}/${userId}`);
-      
+      const response = await http.get<ApiResponse<User>>(
+        `${this.BASE_URL}/${userId}`,
+      );
+
       if (!response.data.success) {
         throw new Error(response.data.message || "Failed to fetch user");
       }
-      
+
       return response.data.data;
     } catch (error) {
       console.error("Error fetching user:", error);

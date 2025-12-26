@@ -315,4 +315,3 @@ export interface BadgeAssignmentListResponse {
     totalPages: number;
   };
 }
-

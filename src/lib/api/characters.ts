@@ -58,9 +58,7 @@ export class CharactersAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to create character",
-        );
+        throw new Error(response.data.message || "Failed to create character");
       }
 
       return response.data.data;
@@ -89,7 +87,8 @@ export class CharactersAPI {
       }
       if (params?.seriesId) queryParams.seriesId = params.seriesId;
       if (params?.gender) queryParams.gender = params.gender;
-      if (params?.myAnimeListId) queryParams.myAnimeListId = params.myAnimeListId;
+      if (params?.myAnimeListId)
+        queryParams.myAnimeListId = params.myAnimeListId;
       if (params?.aniListId) queryParams.aniListId = params.aniListId;
 
       const response = await http.get<ApiResponseOffset<Character>>(
@@ -123,9 +122,7 @@ export class CharactersAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to fetch character",
-        );
+        throw new Error(response.data.message || "Failed to fetch character");
       }
 
       return response.data.data;
@@ -149,9 +146,7 @@ export class CharactersAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to update character",
-        );
+        throw new Error(response.data.message || "Failed to update character");
       }
 
       return response.data.data;
@@ -171,9 +166,7 @@ export class CharactersAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to delete character",
-        );
+        throw new Error(response.data.message || "Failed to delete character");
       }
     } catch (error) {
       console.error("Error deleting character:", error);

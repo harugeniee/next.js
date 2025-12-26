@@ -1,6 +1,17 @@
 "use client";
 
-import { ArrowLeft, Edit, Trash2, Calendar, Mail, Phone, Shield, User as UserIcon, CheckCircle2, XCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Edit,
+  Trash2,
+  Calendar,
+  Mail,
+  Phone,
+  Shield,
+  User as UserIcon,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -8,7 +19,11 @@ import { format } from "date-fns";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/core/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/core/avatar";
 import { Badge } from "@/components/ui/core/badge";
 import { Button } from "@/components/ui/core/button";
 import {
@@ -73,7 +88,10 @@ export function UserDetail({
                 <Skeletonize loading={isLoading}>
                   {user ? (
                     <Avatar className="h-20 w-20">
-                      <AvatarImage src={user.avatar?.url || user.photoUrl} alt={user.username} />
+                      <AvatarImage
+                        src={user.avatar?.url || user.photoUrl}
+                        alt={user.username}
+                      />
                       <AvatarFallback className="text-lg">
                         {user.username.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
@@ -131,7 +149,9 @@ export function UserDetail({
         <AnimatedSection loading={isLoading} data={user}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("users.detail.sections.basicInfo", "admin")}</CardTitle>
+              <CardTitle>
+                {t("users.detail.sections.basicInfo", "admin")}
+              </CardTitle>
               <CardDescription>
                 {t("users.detail.sections.basicInfoDesc", "admin")}
               </CardDescription>
@@ -167,7 +187,9 @@ export function UserDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("users.fields.dob", "admin")}
                           </div>
-                          <div className="font-medium">{formatDate(user.dob)}</div>
+                          <div className="font-medium">
+                            {formatDate(user.dob)}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -188,7 +210,9 @@ export function UserDetail({
         <AnimatedSection loading={isLoading} data={user}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("users.detail.sections.accountDetails", "admin")}</CardTitle>
+              <CardTitle>
+                {t("users.detail.sections.accountDetails", "admin")}
+              </CardTitle>
               <CardDescription>
                 {t("users.detail.sections.accountDetailsDesc", "admin")}
               </CardDescription>
@@ -215,7 +239,9 @@ export function UserDetail({
                           {t("users.fields.status", "admin")}
                         </div>
                         <Badge
-                          variant={user.status === "active" ? "default" : "secondary"}
+                          variant={
+                            user.status === "active" ? "default" : "secondary"
+                          }
                           className="mt-1"
                         >
                           {t(`users.status.${user.status}`, "admin")}
@@ -267,7 +293,9 @@ export function UserDetail({
         <AnimatedSection loading={isLoading} data={user}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("users.detail.sections.authentication", "admin")}</CardTitle>
+              <CardTitle>
+                {t("users.detail.sections.authentication", "admin")}
+              </CardTitle>
               <CardDescription>
                 {t("users.detail.sections.authenticationDesc", "admin")}
               </CardDescription>
@@ -282,7 +310,9 @@ export function UserDetail({
                         <div className="text-sm text-muted-foreground">
                           {t("users.detail.fields.authMethod", "admin")}
                         </div>
-                        <div className="font-medium">{user.authMethod || "-"}</div>
+                        <div className="font-medium">
+                          {user.authMethod || "-"}
+                        </div>
                       </div>
                     </div>
                     {user.oauthProvider && (
@@ -292,7 +322,9 @@ export function UserDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("users.detail.fields.oauthProvider", "admin")}
                           </div>
-                          <div className="font-medium">{user.oauthProvider}</div>
+                          <div className="font-medium">
+                            {user.oauthProvider}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -303,7 +335,9 @@ export function UserDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("users.detail.fields.firebaseUid", "admin")}
                           </div>
-                          <div className="font-mono text-xs break-all">{user.firebaseUid}</div>
+                          <div className="font-mono text-xs break-all">
+                            {user.firebaseUid}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -323,7 +357,9 @@ export function UserDetail({
         <AnimatedSection loading={isLoading} data={user}>
           <Card>
             <CardHeader>
-              <CardTitle>{t("users.detail.sections.metadata", "admin")}</CardTitle>
+              <CardTitle>
+                {t("users.detail.sections.metadata", "admin")}
+              </CardTitle>
               <CardDescription>
                 {t("users.detail.sections.metadataDesc", "admin")}
               </CardDescription>
@@ -338,7 +374,9 @@ export function UserDetail({
                         <div className="text-sm text-muted-foreground">
                           {t("users.detail.fields.createdAt", "admin")}
                         </div>
-                        <div className="font-medium">{formatDate(user.createdAt)}</div>
+                        <div className="font-medium">
+                          {formatDate(user.createdAt)}
+                        </div>
                       </div>
                     </div>
                     {user.updatedAt && (
@@ -348,7 +386,9 @@ export function UserDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("users.detail.fields.updatedAt", "admin")}
                           </div>
-                          <div className="font-medium">{formatDate(user.updatedAt)}</div>
+                          <div className="font-medium">
+                            {formatDate(user.updatedAt)}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -359,7 +399,9 @@ export function UserDetail({
                           <div className="text-sm text-muted-foreground">
                             {t("users.detail.fields.userId", "admin")}
                           </div>
-                          <div className="font-mono text-xs break-all">{user.id}</div>
+                          <div className="font-mono text-xs break-all">
+                            {user.id}
+                          </div>
                         </div>
                       </div>
                     )}
@@ -390,4 +432,3 @@ export function UserDetail({
     </div>
   );
 }
-

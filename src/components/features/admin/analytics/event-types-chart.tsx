@@ -6,8 +6,19 @@ import { Pie, PieChart } from "recharts";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import type { DashboardOverviewResponse } from "@/lib/api/analytics";
 
@@ -20,10 +31,7 @@ interface EventTypesChartProps {
  * Event Types Chart Component
  * Displays distribution of event types
  */
-export function EventTypesChart({
-  data,
-  isLoading,
-}: EventTypesChartProps) {
+export function EventTypesChart({ data, isLoading }: EventTypesChartProps) {
   const { t } = useI18n();
 
   const chartData = useMemo(() => {
@@ -76,11 +84,7 @@ export function EventTypesChart({
                       cursor={false}
                       content={<ChartTooltipContent hideLabel />}
                     />
-                    <Pie
-                      data={chartData}
-                      dataKey="count"
-                      nameKey="eventType"
-                    />
+                    <Pie data={chartData} dataKey="count" nameKey="eventType" />
                   </PieChart>
                 </ChartContainer>
                 <div className="space-y-2">
@@ -114,10 +118,7 @@ export function EventTypesChart({
                 </div>
                 <div className="space-y-2">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between"
-                    >
+                    <div key={i} className="flex items-center justify-between">
                       <Skeleton className="h-4 w-32" />
                       <Skeleton className="h-4 w-16" />
                     </div>
@@ -131,4 +132,3 @@ export function EventTypesChart({
     </AnimatedSection>
   );
 }
-

@@ -22,7 +22,12 @@ interface UserActionsProps {
   isUpdating?: boolean;
 }
 
-export function UserActions({ user, onDelete, onUpdate, isUpdating }: UserActionsProps) {
+export function UserActions({
+  user,
+  onDelete,
+  onUpdate,
+  isUpdating,
+}: UserActionsProps) {
   const { t } = useI18n();
   const [showEditDialog, setShowEditDialog] = useState(false);
 
@@ -66,4 +71,3 @@ export function UserActions({ user, onDelete, onUpdate, isUpdating }: UserAction
     </>
   );
 }
-

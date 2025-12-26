@@ -76,7 +76,10 @@ export const createBadgeSchema = z.object({
     .or(z.literal("")),
   color: z
     .string()
-    .regex(/^#[0-9A-Fa-f]{6}$/, "Color must be a valid hex color (e.g., #FF0000)")
+    .regex(
+      /^#[0-9A-Fa-f]{6}$/,
+      "Color must be a valid hex color (e.g., #FF0000)",
+    )
     .optional()
     .or(z.literal("")),
   requirements: z.string().optional(),
@@ -138,4 +141,3 @@ export type CreateBadgeFormData = z.infer<typeof createBadgeSchema>;
 export type UpdateBadgeFormData = z.infer<typeof updateBadgeSchema>;
 export type AssignBadgeFormData = z.infer<typeof assignBadgeSchema>;
 export type RevokeBadgeFormData = z.infer<typeof revokeBadgeSchema>;
-

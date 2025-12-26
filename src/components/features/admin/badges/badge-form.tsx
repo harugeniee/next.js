@@ -39,7 +39,9 @@ import {
 
 interface BadgeFormProps {
   readonly badge?: Badge;
-  readonly onSubmit: (data: CreateBadgeFormData | UpdateBadgeFormData) => Promise<void>;
+  readonly onSubmit: (
+    data: CreateBadgeFormData | UpdateBadgeFormData,
+  ) => Promise<void>;
   readonly onCancel: () => void;
   readonly isLoading?: boolean;
 }
@@ -147,7 +149,9 @@ export function BadgeForm({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("badges.form.selectType", "admin")} />
+                        <SelectValue
+                          placeholder={t("badges.form.selectType", "admin")}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -190,7 +194,10 @@ export function BadgeForm({
                 <FormControl>
                   <textarea
                     className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    placeholder={t("badges.form.descriptionPlaceholder", "admin")}
+                    placeholder={t(
+                      "badges.form.descriptionPlaceholder",
+                      "admin",
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -350,7 +357,9 @@ export function BadgeForm({
                     min={0}
                     max={9999}
                     {...field}
-                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value) || 0)
+                    }
                   />
                 </FormControl>
                 <FormMessage />
@@ -508,7 +517,10 @@ export function BadgeForm({
                 <FormControl>
                   <textarea
                     className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    placeholder={t("badges.form.requirementsPlaceholder", "admin")}
+                    placeholder={t(
+                      "badges.form.requirementsPlaceholder",
+                      "admin",
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -533,7 +545,9 @@ export function BadgeForm({
                     }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value ? new Date(value).toISOString() : "");
+                      field.onChange(
+                        value ? new Date(value).toISOString() : "",
+                      );
                     }}
                   />
                 </FormControl>
@@ -545,7 +559,12 @@ export function BadgeForm({
 
         {/* Form Actions */}
         <div className="flex justify-end gap-2">
-          <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            disabled={isLoading}
+          >
             {t("badges.form.cancel", "admin")}
           </Button>
           <Button type="submit" disabled={isLoading}>
@@ -560,4 +579,3 @@ export function BadgeForm({
     </Form>
   );
 }
-

@@ -74,9 +74,7 @@ export default function CharacterDetailPage() {
       "Unknown Character";
 
     if (
-      !confirm(
-        t("list.deleteConfirm", "characters", { name: characterName }),
-      )
+      !confirm(t("list.deleteConfirm", "characters", { name: characterName }))
     ) {
       return;
     }
@@ -158,4 +156,3 @@ export default function CharacterDetailPage() {
     </div>
   );
 }
-

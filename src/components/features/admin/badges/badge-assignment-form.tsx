@@ -118,7 +118,9 @@ export function BadgeAssignmentForm({
             name="entityType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("badges.assignment.entityType", "admin")}</FormLabel>
+                <FormLabel>
+                  {t("badges.assignment.entityType", "admin")}
+                </FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -146,10 +148,15 @@ export function BadgeAssignmentForm({
             name="entityId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("badges.assignment.entityId", "admin")}</FormLabel>
+                <FormLabel>
+                  {t("badges.assignment.entityId", "admin")}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder={t("badges.assignment.entityIdPlaceholder", "admin")}
+                    placeholder={t(
+                      "badges.assignment.entityIdPlaceholder",
+                      "admin",
+                    )}
                     {...field}
                   />
                 </FormControl>
@@ -166,7 +173,9 @@ export function BadgeAssignmentForm({
             name="expiresAt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("badges.assignment.expiresAt", "admin")}</FormLabel>
+                <FormLabel>
+                  {t("badges.assignment.expiresAt", "admin")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="datetime-local"
@@ -177,7 +186,9 @@ export function BadgeAssignmentForm({
                     }
                     onChange={(e) => {
                       const value = e.target.value;
-                      field.onChange(value ? new Date(value).toISOString() : "");
+                      field.onChange(
+                        value ? new Date(value).toISOString() : "",
+                      );
                     }}
                   />
                 </FormControl>
@@ -240,7 +251,12 @@ export function BadgeAssignmentForm({
 
         {/* Form Actions */}
         <div className="flex justify-end gap-2">
-          <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            disabled={isLoading}
+          >
             {t("badges.assignment.cancel", "admin")}
           </Button>
           <Button type="submit" disabled={isLoading}>
@@ -253,4 +269,3 @@ export function BadgeAssignmentForm({
     </Form>
   );
 }
-

@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from "@/components/animate-ui/components/radix/tooltip";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
@@ -16,28 +16,28 @@ import { Skeletonize } from "@/components/shared/skeletonize";
 import { Badge } from "@/components/ui/core/badge";
 import { Button } from "@/components/ui/core/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/core/card";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/core/table";
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 } from "@/components/ui/pagination";
 import type { Character } from "@/lib/interface/character.interface";
 import type { CharacterListResponse } from "@/lib/types/characters";
@@ -55,7 +55,10 @@ interface CharacterListProps {
   readonly onCreate?: () => void;
   readonly onEdit?: (character: Character) => void;
   readonly onDelete?: (character: Character) => void;
-  readonly onUpdate?: (id: string, data: UpdateCharacterFormData) => Promise<void>;
+  readonly onUpdate?: (
+    id: string,
+    data: UpdateCharacterFormData,
+  ) => Promise<void>;
   readonly isUpdating?: boolean;
 }
 
@@ -77,7 +80,9 @@ export function CharacterList({
 }: CharacterListProps) {
   const { t } = useI18n();
   const router = useRouter();
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null,
+  );
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
 
   const MAX_DESCRIPTION_LENGTH = 10;
@@ -157,11 +162,21 @@ export function CharacterList({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t("list.table.character", "characters")}</TableHead>
-                      <TableHead>{t("list.table.gender", "characters")}</TableHead>
-                      <TableHead>{t("list.table.ageBloodType", "characters")}</TableHead>
-                      <TableHead>{t("list.table.series", "characters")}</TableHead>
-                      <TableHead>{t("list.table.createdAt", "characters")}</TableHead>
+                      <TableHead>
+                        {t("list.table.character", "characters")}
+                      </TableHead>
+                      <TableHead>
+                        {t("list.table.gender", "characters")}
+                      </TableHead>
+                      <TableHead>
+                        {t("list.table.ageBloodType", "characters")}
+                      </TableHead>
+                      <TableHead>
+                        {t("list.table.series", "characters")}
+                      </TableHead>
+                      <TableHead>
+                        {t("list.table.createdAt", "characters")}
+                      </TableHead>
                       <TableHead className="text-right">
                         {t("list.table.actions", "characters")}
                       </TableHead>
@@ -170,29 +185,39 @@ export function CharacterList({
                   <TableBody>
                     {data.result.map((character) => {
                       const characterName = getCharacterName(character);
-                      const ageBloodType = [
-                        character.age,
-                        character.bloodType,
-                      ]
-                        .filter(Boolean)
-                        .join(" / ") || "-";
+                      const ageBloodType =
+                        [character.age, character.bloodType]
+                          .filter(Boolean)
+                          .join(" / ") || "-";
 
                       return (
                         <TableRow
                           key={character.id}
                           className="cursor-pointer hover:bg-muted/50 transition-colors"
-                          onClick={() => router.push(`/admin/characters/${character.id}`)}
+                          onClick={() =>
+                            router.push(`/admin/characters/${character.id}`)
+                          }
                         >
                           <TableCell>
                             <div className="flex items-center gap-3">
-                              <CharacterDisplay character={character} size="sm" showName={false} />
+                              <CharacterDisplay
+                                character={character}
+                                size="sm"
+                                showName={false}
+                              />
                               <div className="flex flex-col min-w-0 flex-1">
-                                <span className="font-medium truncate">{characterName}</span>
+                                <span className="font-medium truncate">
+                                  {characterName}
+                                </span>
                                 {character.description && (
                                   <div className="text-xs text-muted-foreground">
-                                    {character.description.length > MAX_DESCRIPTION_LENGTH ? (
+                                    {character.description.length >
+                                    MAX_DESCRIPTION_LENGTH ? (
                                       <span>
-                                        {character.description.substring(0, MAX_DESCRIPTION_LENGTH)}
+                                        {character.description.substring(
+                                          0,
+                                          MAX_DESCRIPTION_LENGTH,
+                                        )}
                                         {"... "}
                                         <button
                                           type="button"
@@ -219,10 +244,15 @@ export function CharacterList({
                           <TableCell>
                             {character.gender ? (
                               <Badge variant="outline">
-                                {t(`genders.${character.gender.toLowerCase()}`, "characters")}
+                                {t(
+                                  `genders.${character.gender.toLowerCase()}`,
+                                  "characters",
+                                )}
                               </Badge>
                             ) : (
-                              <span className="text-muted-foreground text-sm">-</span>
+                              <span className="text-muted-foreground text-sm">
+                                -
+                              </span>
                             )}
                           </TableCell>
                           <TableCell>
@@ -232,14 +262,19 @@ export function CharacterList({
                             {(() => {
                               const seriesId = getSeriesId(character);
                               const seriesTitle = getSeriesTitle(character);
-                              
+
                               if (!seriesId) {
                                 return (
-                                  <span className="text-muted-foreground text-sm">-</span>
+                                  <span className="text-muted-foreground text-sm">
+                                    -
+                                  </span>
                                 );
                               }
 
-                              const truncatedTitle = truncateTitle(seriesTitle, 20);
+                              const truncatedTitle = truncateTitle(
+                                seriesTitle,
+                                20,
+                              );
                               const shouldShowTooltip = seriesTitle.length > 20;
 
                               if (shouldShowTooltip) {
@@ -279,7 +314,9 @@ export function CharacterList({
                             })()}
                           </TableCell>
                           <TableCell>
-                            <span className="text-sm">{formatDate(character.createdAt)}</span>
+                            <span className="text-sm">
+                              {formatDate(character.createdAt)}
+                            </span>
                           </TableCell>
                           <TableCell
                             className="text-right"
@@ -330,7 +367,10 @@ export function CharacterList({
               <div className="rounded-md border">
                 <div className="h-10 w-full bg-muted/10" />
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="flex items-center space-x-2 py-2 px-2 border-b last:border-b-0">
+                  <div
+                    key={i}
+                    className="flex items-center space-x-2 py-2 px-2 border-b last:border-b-0"
+                  >
                     <div className="h-10 w-10 rounded-full bg-muted/20" />
                     <div className="space-y-2 flex-1 min-w-[200px]">
                       <div className="h-4 w-[200px] bg-muted/20 rounded" />
@@ -373,50 +413,50 @@ export function CharacterList({
                         }
                       }}
                       className={
-                        page <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer"
+                        page <= 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
                       }
                     />
                   </PaginationItem>
-                  {Array.from({ length: data.metaData.totalPages }, (_, i) => i + 1).map(
-                    (pageNum) => {
-                      // Show first page, last page, current page, and pages around current
-                      const showPage =
-                        pageNum === 1 ||
-                        pageNum === data.metaData.totalPages ||
-                        (pageNum >= page - 1 && pageNum <= page + 1);
+                  {Array.from(
+                    { length: data.metaData.totalPages },
+                    (_, i) => i + 1,
+                  ).map((pageNum) => {
+                    // Show first page, last page, current page, and pages around current
+                    const showPage =
+                      pageNum === 1 ||
+                      pageNum === data.metaData.totalPages ||
+                      (pageNum >= page - 1 && pageNum <= page + 1);
 
-                      if (!showPage) {
-                        // Show ellipsis
-                        if (
-                          pageNum === page - 2 ||
-                          pageNum === page + 2
-                        ) {
-                          return (
-                            <PaginationItem key={pageNum}>
-                              <PaginationEllipsis />
-                            </PaginationItem>
-                          );
-                        }
-                        return null;
+                    if (!showPage) {
+                      // Show ellipsis
+                      if (pageNum === page - 2 || pageNum === page + 2) {
+                        return (
+                          <PaginationItem key={pageNum}>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        );
                       }
+                      return null;
+                    }
 
-                      return (
-                        <PaginationItem key={pageNum}>
-                          <PaginationLink
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              onPageChange(pageNum);
-                            }}
-                            isActive={pageNum === page}
-                            className="cursor-pointer"
-                          >
-                            {pageNum}
-                          </PaginationLink>
-                        </PaginationItem>
-                      );
-                    },
-                  )}
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onPageChange(pageNum);
+                          }}
+                          isActive={pageNum === page}
+                          className="cursor-pointer"
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
                   <PaginationItem>
                     <PaginationNext
                       href="#"
@@ -449,4 +489,3 @@ export function CharacterList({
     </AnimatedSection>
   );
 }
-

@@ -3,7 +3,12 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronsUpDown, LogOut, Settings, User as UserIcon } from "lucide-react";
+import {
+  ChevronsUpDown,
+  LogOut,
+  Settings,
+  User as UserIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useAtom } from "jotai";
 
@@ -27,13 +32,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  clearUserState,
-  currentUserAtom,
-  logoutAction,
-} from "@/lib/auth";
+import { clearUserState, currentUserAtom, logoutAction } from "@/lib/auth";
 import type { User } from "@/lib/interface";
-import { getUserAvatarUrl, getUserDisplayName, getUserInitials } from "@/lib/utils";
+import {
+  getUserAvatarUrl,
+  getUserDisplayName,
+  getUserInitials,
+} from "@/lib/utils";
 
 interface NavUserProps {
   user: User & { id: string }; // Ensure id is required for profile link

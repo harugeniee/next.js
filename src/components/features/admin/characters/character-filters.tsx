@@ -5,7 +5,12 @@ import { useCallback, useMemo, useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Input } from "@/components/ui/core/input";
 import { Label } from "@/components/ui/core/label";
 import {
@@ -130,7 +135,9 @@ export function CharacterFilters({
                 <SelectValue placeholder={t("filters.all", "characters")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">{t("filters.all", "characters")}</SelectItem>
+                <SelectItem value="all">
+                  {t("filters.all", "characters")}
+                </SelectItem>
                 <SelectItem value="male">
                   {t("genders.male", "characters")}
                 </SelectItem>
@@ -196,4 +203,3 @@ export function CharacterFilters({
     </Card>
   );
 }
-

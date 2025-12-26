@@ -6,8 +6,19 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/core/skeleton";
 import type { DashboardOverviewResponse } from "@/lib/api/analytics";
 import { format } from "date-fns";
@@ -103,8 +114,10 @@ export function TimeSeriesChart({
                     axisLine={false}
                     tickMargin={8}
                     tickFormatter={(value) => {
-                      if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
-                      if (value >= 1_000) return `${(value / 1_000).toFixed(1)}K`;
+                      if (value >= 1_000_000)
+                        return `${(value / 1_000_000).toFixed(1)}M`;
+                      if (value >= 1_000)
+                        return `${(value / 1_000).toFixed(1)}K`;
                       return value.toString();
                     }}
                   />
@@ -134,4 +147,3 @@ export function TimeSeriesChart({
     </AnimatedSection>
   );
 }
-

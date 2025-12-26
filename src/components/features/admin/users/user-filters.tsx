@@ -55,7 +55,8 @@ export function UserFilters({
     onStatusChange("all");
   };
 
-  const hasActiveFilters = searchValue || (role && role !== "all") || (status && status !== "all");
+  const hasActiveFilters =
+    searchValue || (role && role !== "all") || (status && status !== "all");
 
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
@@ -107,7 +108,12 @@ export function UserFilters({
         </div>
         {hasActiveFilters && (
           <div className="flex items-end">
-            <Button variant="ghost" size="icon" onClick={clearFilters} title={t("clearFilters", "common")}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={clearFilters}
+              title={t("clearFilters", "common")}
+            >
               <X className="h-4 w-4" />
             </Button>
           </div>
@@ -116,4 +122,3 @@ export function UserFilters({
     </div>
   );
 }
-

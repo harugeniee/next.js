@@ -258,8 +258,7 @@ export const queryKeys = {
     platform: {
       overview: () => ["analytics", "platform", "overview"] as const,
     },
-    events: (params?: unknown) =>
-      ["analytics", "events", params] as const,
+    events: (params?: unknown) => ["analytics", "events", params] as const,
   },
 
   // Badges related queries

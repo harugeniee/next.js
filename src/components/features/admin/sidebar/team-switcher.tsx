@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { ChevronsUpDown, Plus } from "lucide-react"
-import * as React from "react"
+import { ChevronsUpDown, Plus } from "lucide-react";
+import * as React from "react";
 
-import { useI18n } from "@/components/providers/i18n-provider"
+import { useI18n } from "@/components/providers/i18n-provider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,29 +12,29 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/layout/dropdown-menu"
+} from "@/components/ui/layout/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function TeamSwitcher({
   teams,
 }: Readonly<{
   teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
+    name: string;
+    logo: React.ElementType;
+    plan: string;
+  }[];
 }>) {
-  const { t } = useI18n()
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const { t } = useI18n();
+  const { isMobile } = useSidebar();
+  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
   if (!activeTeam) {
-    return null
+    return null;
   }
 
   return (
@@ -91,5 +91,5 @@ export function TeamSwitcher({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
