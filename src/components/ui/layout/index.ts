@@ -58,6 +58,8 @@ export {
   SheetTrigger,
 } from "./sheet";
 
+export { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./collapsible";
+
 export {
   Tags,
   TagsContent,

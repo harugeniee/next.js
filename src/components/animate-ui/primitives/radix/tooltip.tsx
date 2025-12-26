@@ -160,7 +160,6 @@ function TooltipContent({
 
   return (
     <TooltipPrimitive.Content
-      asChild
       forceMount
       align={align}
       alignOffset={alignOffset}

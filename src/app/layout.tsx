@@ -1,4 +1,4 @@
-import { SiteFooter, SiteNav } from "@/components/features/navigation";
+import { ConditionalLayout } from "@/components/features/navigation";
 import {
   AuthProvider,
   FontProvider,
@@ -190,9 +190,7 @@ export default function RootLayout({
                       <RateLimitProvider>
                         {/* Global Google One Tap - Shows on all pages when not authenticated */}
                         <GoogleOneTapProvider />
-                        <SiteNav />
-                        {children}
-                        <SiteFooter />
+                        <ConditionalLayout>{children}</ConditionalLayout>
                       </RateLimitProvider>
                     </LoadingProvider>
                   </AuthProvider>
