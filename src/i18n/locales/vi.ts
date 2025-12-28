@@ -8,6 +8,7 @@ import demo from "./vi/demo.json";
 import home from "./vi/home.json";
 import media from "./vi/media.json";
 import organizations from "./vi/organizations.json";
+import permissions from "./vi/permissions.json";
 import series from "./vi/series.json";
 import profile from "./vi/profile.json";
 import settings from "./vi/settings.json";
@@ -32,6 +33,7 @@ const viMessages = {
   admin,
   characters,
   media,
+  permissions,
 };
 
 export default viMessages;

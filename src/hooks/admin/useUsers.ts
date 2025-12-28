@@ -17,7 +17,10 @@ const GC_TIME_10_MIN = 10 * 60 * 1000;
 /**
  * Hook for fetching users list with filters
  */
-export function useUsers(params?: AdvancedQueryParams) {
+export function useUsers(
+  params?: AdvancedQueryParams,
+  options?: { enabled?: boolean },
+) {
   return useQuery<PaginationOffset<User>, Error>({
     queryKey: queryKeys.users.list(params),
     queryFn: () =>
@@ -29,6 +32,7 @@ export function useUsers(params?: AdvancedQueryParams) {
           order: "DESC",
         },
       ),
+    enabled: options?.enabled !== false,
     staleTime: STALE_TIME_5_MIN,
     gcTime: GC_TIME_10_MIN,
     retry: 3,

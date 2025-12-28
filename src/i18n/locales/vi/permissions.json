@@ -1,0 +1,125 @@
+{
+  "title": "Quyền hạn",
+  "description": "Quản lý vai trò và quyền hạn",
+  "nav": {
+    "title": "Quyền hạn"
+  },
+  "breadcrumb": {
+    "admin": "Quản trị",
+    "permissions": "Quyền hạn"
+  },
+  "list": {
+    "title": "Vai trò",
+    "description": "Danh sách tất cả các vai trò",
+    "create": "Tạo vai trò",
+    "viewUsers": "Xem người dùng",
+    "usersCount": "Người dùng"
+  },
+  "filters": {
+    "searchPlaceholder": "Tìm kiếm theo tên hoặc mô tả...",
+    "scopeType": "Loại phạm vi"
+  },
+  "fields": {
+    "name": "Tên",
+    "description": "Mô tả",
+    "position": "Vị trí",
+    "color": "Màu sắc",
+    "mentionable": "Có thể đề cập",
+    "managed": "Được quản lý",
+    "icon": "Biểu tượng",
+    "unicodeEmoji": "Emoji Unicode",
+    "permissions": "Quyền hạn",
+    "scopeType": "Loại phạm vi",
+    "scopeId": "ID phạm vi"
+  },
+  "create": {
+    "title": "Tạo vai trò",
+    "description": "Tạo một vai trò mới"
+  },
+  "edit": {
+    "title": "Chỉnh sửa vai trò",
+    "description": "Cập nhật thông tin vai trò"
+  },
+  "deleteConfirm": "Bạn có chắc chắn muốn xóa vai trò \"{name}\"?",
+  "createSuccess": "Tạo vai trò thành công",
+  "createError": "Không thể tạo vai trò",
+  "updateSuccess": "Cập nhật vai trò thành công",
+  "updateError": "Không thể cập nhật vai trò",
+  "deleteSuccess": "Xóa vai trò thành công",
+  "deleteError": "Không thể xóa vai trò",
+  "assignRole": {
+    "title": "Gán vai trò",
+    "description": "Gán vai trò cho người dùng",
+    "success": "Gán vai trò thành công",
+    "error": "Không thể gán vai trò"
+  },
+  "removeRole": {
+    "success": "Gỡ vai trò thành công",
+    "error": "Không thể gỡ vai trò"
+  },
+  "assignRole": {
+    "title": "Gán vai trò",
+    "description": "Gán vai trò cho người dùng",
+    "button": "Gán vai trò",
+    "remove": "Gỡ vai trò",
+    "removeConfirm": "Bạn có chắc chắn muốn gỡ vai trò này khỏi người dùng {userId} không?",
+    "form": {
+      "user": "Người dùng",
+      "selectUser": "Chọn người dùng",
+      "searchUser": "Tìm kiếm người dùng...",
+      "userId": "ID người dùng",
+      "userIdPlaceholder": "Nhập ID người dùng",
+      "role": "Vai trò",
+      "selectRole": "Chọn vai trò",
+      "reason": "Lý do",
+      "reasonPlaceholder": "Nhập lý do gán vai trò (tùy chọn)",
+      "reasonDesc": "Lý do tùy chọn cho việc gán vai trò này",
+      "isTemporary": "Gán tạm thời",
+      "isTemporaryDesc": "Vai trò này sẽ hết hạn",
+      "expiresAt": "Ngày hết hạn",
+      "expiresAtDesc": "Khi nào vai trò này hết hạn",
+      "cancel": "Hủy",
+      "assign": "Gán",
+      "assigning": "Đang gán...",
+      "userRequired": "Người dùng là bắt buộc",
+      "roleRequired": "Vai trò là bắt buộc",
+      "expiresAtRequired": "Ngày hết hạn là bắt buộc cho các gán tạm thời"
+    }
+  },
+  "detail": {
+    "title": "Chi tiết vai trò: {name}",
+    "description": "Xem và quản lý thông tin vai trò",
+    "error": "Không thể tải chi tiết vai trò",
+    "sections": {
+      "roleInfo": "Thông tin vai trò",
+      "roleInfoDesc": "Chi tiết và cài đặt vai trò cơ bản",
+      "users": "Người dùng có vai trò",
+      "usersDesc": "Người dùng được gán vai trò này",
+      "metadata": "Siêu dữ liệu",
+      "metadataDesc": "Thông tin tạo và cập nhật vai trò"
+    },
+    "actions": {
+      "back": "Quay lại danh sách vai trò",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    },
+    "fields": {
+      "createdAt": "Ngày tạo",
+      "updatedAt": "Ngày cập nhật",
+      "roleId": "ID vai trò"
+    },
+    "noUsers": "Không có người dùng nào được gán vai trò này",
+    "temporary": "Tạm thời",
+    "expires": "Hết hạn",
+    "fields": {
+      "userId": "ID người dùng"
+    },
+    "tabs": {
+      "details": "Chi tiết",
+      "users": "Người dùng",
+      "detailsDesc": "Thông tin và cài đặt vai trò",
+      "usersDesc": "Quản lý người dùng với vai trò này"
+    }
+  }
+}
+

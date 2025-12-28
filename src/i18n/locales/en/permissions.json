@@ -1,0 +1,125 @@
+{
+  "title": "Permissions",
+  "description": "Manage roles and permissions",
+  "nav": {
+    "title": "Permissions"
+  },
+  "breadcrumb": {
+    "admin": "Admin",
+    "permissions": "Permissions"
+  },
+  "list": {
+    "title": "Roles",
+    "description": "List of all roles",
+    "create": "Create Role",
+    "viewUsers": "View Users",
+    "usersCount": "Users"
+  },
+  "filters": {
+    "searchPlaceholder": "Search by name or description...",
+    "scopeType": "Scope Type"
+  },
+  "fields": {
+    "name": "Name",
+    "description": "Description",
+    "position": "Position",
+    "color": "Color",
+    "mentionable": "Mentionable",
+    "managed": "Managed",
+    "icon": "Icon",
+    "unicodeEmoji": "Unicode Emoji",
+    "permissions": "Permissions",
+    "scopeType": "Scope Type",
+    "scopeId": "Scope ID"
+  },
+  "create": {
+    "title": "Create Role",
+    "description": "Create a new role"
+  },
+  "edit": {
+    "title": "Edit Role",
+    "description": "Update role information"
+  },
+  "deleteConfirm": "Are you sure you want to delete role \"{name}\"?",
+  "createSuccess": "Role created successfully",
+  "createError": "Failed to create role",
+  "updateSuccess": "Role updated successfully",
+  "updateError": "Failed to update role",
+  "deleteSuccess": "Role deleted successfully",
+  "deleteError": "Failed to delete role",
+  "assignRole": {
+    "title": "Assign Role",
+    "description": "Assign a role to a user",
+    "success": "Role assigned successfully",
+    "error": "Failed to assign role"
+  },
+  "removeRole": {
+    "success": "Role removed successfully",
+    "error": "Failed to remove role"
+  },
+  "assignRole": {
+    "title": "Assign Role",
+    "description": "Assign a role to a user",
+    "button": "Assign Role",
+    "remove": "Remove Role",
+    "removeConfirm": "Are you sure you want to remove this role from user {userId}?",
+    "form": {
+      "user": "User",
+      "selectUser": "Select a user",
+      "searchUser": "Search users...",
+      "userId": "User ID",
+      "userIdPlaceholder": "Enter user ID",
+      "role": "Role",
+      "selectRole": "Select a role",
+      "reason": "Reason",
+      "reasonPlaceholder": "Enter reason for assignment (optional)",
+      "reasonDesc": "Optional reason for this role assignment",
+      "isTemporary": "Temporary Assignment",
+      "isTemporaryDesc": "This role assignment will expire",
+      "expiresAt": "Expiration Date",
+      "expiresAtDesc": "When this assignment expires",
+      "cancel": "Cancel",
+      "assign": "Assign",
+      "assigning": "Assigning...",
+      "userRequired": "User is required",
+      "roleRequired": "Role is required",
+      "expiresAtRequired": "Expiration date is required for temporary assignments"
+    }
+  },
+  "detail": {
+    "title": "Role Details: {name}",
+    "description": "View and manage role information",
+    "error": "Failed to load role details",
+    "sections": {
+      "roleInfo": "Role Information",
+      "roleInfoDesc": "Basic role details and settings",
+      "users": "Users with Role",
+      "usersDesc": "Users assigned to this role",
+      "metadata": "Metadata",
+      "metadataDesc": "Role creation and update information"
+    },
+    "actions": {
+      "back": "Back to Roles",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "fields": {
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "roleId": "Role ID"
+    },
+    "noUsers": "No users assigned to this role",
+    "temporary": "Temporary",
+    "expires": "Expires",
+    "fields": {
+      "userId": "User ID"
+    },
+    "tabs": {
+      "details": "Details",
+      "users": "Users",
+      "detailsDesc": "Role information and settings",
+      "usersDesc": "Manage users with this role"
+    }
+  }
+}
+

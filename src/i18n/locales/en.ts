@@ -8,6 +8,7 @@ import demo from "./en/demo.json";
 import home from "./en/home.json";
 import media from "./en/media.json";
 import organizations from "./en/organizations.json";
+import permissions from "./en/permissions.json";
 import series from "./en/series.json";
 import profile from "./en/profile.json";
 import settings from "./en/settings.json";
@@ -32,6 +33,7 @@ const enMessages = {
   admin,
   characters,
   media,
+  permissions,
 };
 
 export default enMessages;

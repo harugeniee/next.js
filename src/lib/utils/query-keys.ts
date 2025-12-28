@@ -255,6 +255,16 @@ export const queryKeys = {
     all: () => ["permissions"] as const,
     checkRole: (roleName: string) =>
       ["permissions", "checkRole", roleName] as const,
+    roles: {
+      all: () => ["permissions", "roles"] as const,
+      detail: (id: string) => ["permissions", "roles", id] as const,
+    },
+    userRoles: {
+      byUser: (userId: string) =>
+        ["permissions", "userRoles", "user", userId] as const,
+      byRole: (roleId: string) =>
+        ["permissions", "userRoles", "role", roleId] as const,
+    },
   },
 
   // Analytics related queries

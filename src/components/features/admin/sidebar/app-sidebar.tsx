@@ -12,6 +12,7 @@ import {
   FileImage,
   Frame,
   GalleryVerticalEnd,
+  Key,
   Map,
   MessageSquare,
   PieChart,
@@ -112,6 +113,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.organizations.management", "admin"),
               url: "/admin/organizations",
+            },
+          ],
+        },
+        {
+          title: t("nav.title", "permissions"),
+          url: "/admin/permissions",
+          icon: Key,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.title", "permissions"),
+              url: "/admin/permissions",
             },
           ],
         },
