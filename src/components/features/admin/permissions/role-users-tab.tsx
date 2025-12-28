@@ -113,7 +113,8 @@ export function RoleUsersTab({
       });
   }, [usersWithRole, usersMap, searchQuery]);
 
-  const isLoadingData = isLoadingUsers || isLoadingUserData;
+  // Combine all loading states including prop
+  const isLoadingData = isLoading || isLoadingUsers || isLoadingUserData;
 
   const formatDate = (date?: Date | string) => {
     if (!date) return "-";
@@ -158,11 +159,11 @@ export function RoleUsersTab({
                 </CardDescription>
               </div>
               {role && (
-                 <Button
-                   size="sm"
-                   onClick={() => setShowAssignDialog(true)}
-                   disabled={isLoadingData}
-                 >
+                <Button
+                  size="sm"
+                  onClick={() => setShowAssignDialog(true)}
+                  disabled={isLoadingData}
+                >
                   <Plus className="mr-2 h-4 w-4" />
                   {t("assignRole.button", "permissions")}
                 </Button>
@@ -181,8 +182,8 @@ export function RoleUsersTab({
               </div>
             )}
           </CardHeader>
-           <CardContent>
-             <Skeletonize loading={isLoadingData}>
+          <CardContent>
+            <Skeletonize loading={isLoadingData}>
               {enrichedUserRoles && enrichedUserRoles.length > 0 ? (
                 <div className="rounded-md border">
                   <Table>

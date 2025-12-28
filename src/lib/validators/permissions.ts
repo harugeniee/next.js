@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 /**
- * Assign Role validation schema
- * Matches backend AssignRoleDto validation
+ * Assign Role validation schema for form
+ * Form-specific schema with isTemporary as required boolean
  */
-export const assignRoleSchema = z
+export const assignRoleFormSchema = z
   .object({
     userId: z.string().min(1, "User ID is required"),
     roleId: z.string().min(1, "Role ID is required"),
@@ -13,7 +13,8 @@ export const assignRoleSchema = z
       .max(1000, "Reason must be less than 1000 characters")
       .optional(),
     assignedBy: z.string().optional(),
-    isTemporary: z.boolean().optional().default(false),
+    // Required boolean for form (always provided via defaultValues)
+    isTemporary: z.boolean(),
     expiresAt: z.string().optional(),
   })
   .refine(
@@ -48,6 +49,15 @@ export const assignRoleSchema = z
   );
 
 /**
- * Type for assign role form data
+ * Assign Role validation schema for API
+ * Matches backend AssignRoleDto validation (isTemporary is optional)
  */
-export type AssignRoleFormData = z.infer<typeof assignRoleSchema>;
+export const assignRoleSchema = assignRoleFormSchema.extend({
+  isTemporary: z.boolean().optional().default(false),
+});
+
+/**
+ * Type for assign role form data
+ * Uses form schema which has isTemporary as required boolean
+ */
+export type AssignRoleFormData = z.infer<typeof assignRoleFormSchema>;

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
@@ -26,7 +26,7 @@ import {
 import { useRoles } from "@/hooks/admin/usePermissions";
 import type { Role } from "@/lib/interface/permission.interface";
 import {
-  assignRoleSchema,
+  assignRoleFormSchema,
   type AssignRoleFormData,
 } from "@/lib/validators/permissions";
 import { SearchableUserSelect } from "./searchable-user-select";
@@ -51,12 +51,10 @@ export function AssignRoleForm({
   const { t } = useI18n();
 
   // Fetch roles for selection if no role is preselected
-  const { data: rolesData } = useRoles({
-    limit: 100,
-  });
+  const { data: rolesData } = useRoles();
 
   const form = useForm<AssignRoleFormData>({
-    resolver: zodResolver(assignRoleSchema),
+    resolver: zodResolver(assignRoleFormSchema),
     defaultValues: {
       userId: "",
       roleId: preselectedRole?.id || "",
@@ -66,7 +64,11 @@ export function AssignRoleForm({
     },
   });
 
-  const isTemporary = form.watch("isTemporary");
+  // Use useWatch hook instead of form.watch() to avoid React Compiler warnings
+  const isTemporary = useWatch({
+    control: form.control,
+    name: "isTemporary",
+  });
 
   // Update form when preselected role changes
   useEffect(() => {
@@ -135,7 +137,7 @@ export function AssignRoleForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {rolesData?.result?.map((role: Role) => (
+                    {rolesData?.map((role: Role) => (
                       <SelectItem key={role.id} value={role.id}>
                         <div className="flex items-center gap-2">
                           {role.color && (

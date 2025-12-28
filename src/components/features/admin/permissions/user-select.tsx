@@ -111,15 +111,12 @@ export function UserSelect({
     [onValueChange],
   );
 
-  const handleOpenChange = useCallback(
-    (isOpen: boolean) => {
-      setOpen(isOpen);
-      if (!isOpen) {
-        setSearchQuery("");
-      }
-    },
-    [],
-  );
+  const handleOpenChange = useCallback((isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      setSearchQuery("");
+    }
+  }, []);
 
   // Auto-focus search input when popover opens
   useEffect(() => {
