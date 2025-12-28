@@ -47,12 +47,6 @@
   "updateError": "Failed to update role",
   "deleteSuccess": "Role deleted successfully",
   "deleteError": "Failed to delete role",
-  "assignRole": {
-    "title": "Assign Role",
-    "description": "Assign a role to a user",
-    "success": "Role assigned successfully",
-    "error": "Failed to assign role"
-  },
   "removeRole": {
     "success": "Role removed successfully",
     "error": "Failed to remove role"
@@ -63,6 +57,8 @@
     "button": "Assign Role",
     "remove": "Remove Role",
     "removeConfirm": "Are you sure you want to remove this role from user {userId}?",
+    "success": "Role assigned successfully",
+    "error": "Failed to assign role",
     "form": {
       "user": "User",
       "selectUser": "Select a user",
@@ -109,8 +105,13 @@
       "roleId": "Role ID"
     },
     "noUsers": "No users assigned to this role",
+    "noSearchResults": "No users found matching your search",
+    "searchPlaceholder": "Search users by name, email, or ID...",
     "temporary": "Temporary",
+    "permanent": "Permanent",
     "expires": "Expires",
+    "assignment": "Assignment",
+    "assigned": "Assigned",
     "fields": {
       "userId": "User ID"
     },

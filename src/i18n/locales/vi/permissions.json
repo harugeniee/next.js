@@ -47,12 +47,6 @@
   "updateError": "Không thể cập nhật vai trò",
   "deleteSuccess": "Xóa vai trò thành công",
   "deleteError": "Không thể xóa vai trò",
-  "assignRole": {
-    "title": "Gán vai trò",
-    "description": "Gán vai trò cho người dùng",
-    "success": "Gán vai trò thành công",
-    "error": "Không thể gán vai trò"
-  },
   "removeRole": {
     "success": "Gỡ vai trò thành công",
     "error": "Không thể gỡ vai trò"
@@ -63,6 +57,8 @@
     "button": "Gán vai trò",
     "remove": "Gỡ vai trò",
     "removeConfirm": "Bạn có chắc chắn muốn gỡ vai trò này khỏi người dùng {userId} không?",
+    "success": "Gán vai trò thành công",
+    "error": "Không thể gán vai trò",
     "form": {
       "user": "Người dùng",
       "selectUser": "Chọn người dùng",
@@ -109,8 +105,13 @@
       "roleId": "ID vai trò"
     },
     "noUsers": "Không có người dùng nào được gán vai trò này",
+    "noSearchResults": "Không tìm thấy người dùng nào khớp với tìm kiếm của bạn",
+    "searchPlaceholder": "Tìm kiếm người dùng theo tên, email hoặc ID...",
     "temporary": "Tạm thời",
+    "permanent": "Vĩnh viễn",
     "expires": "Hết hạn",
+    "assignment": "Gán vai trò",
+    "assigned": "Đã gán",
     "fields": {
       "userId": "ID người dùng"
     },

@@ -56,6 +56,34 @@ export function useUser(userId: string) {
 }
 
 /**
+ * Hook for fetching multiple users by IDs (batch fetch)
+ * Fetches users in parallel using Promise.all
+ */
+export function useUsersByIds(userIds: string[]) {
+  return useQuery<Record<string, User>, Error>({
+    queryKey: ["users", "byIds", userIds.sort().join(",")],
+    queryFn: async () => {
+      // Fetch all users in parallel
+      const userPromises = userIds.map((id) => UserAPI.getUserById(id));
+      const users = await Promise.all(userPromises);
+      
+      // Create a map of userId -> User for easy lookup
+      const userMap: Record<string, User> = {};
+      users.forEach((user) => {
+        userMap[user.id] = user;
+      });
+      
+      return userMap;
+    },
+    enabled: userIds.length > 0,
+    staleTime: STALE_TIME_5_MIN,
+    gcTime: GC_TIME_10_MIN,
+    retry: 2, // Fewer retries for batch operations
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+  });
+}
+
+/**
  * Hook for user mutations
  */
 export function useUserMutations() {

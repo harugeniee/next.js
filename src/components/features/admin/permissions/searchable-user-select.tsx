@@ -119,9 +119,7 @@ export function SearchableUserSelect({
                 ? t("actions.loading", "common")
                 : placeholder || t("assignRole.form.selectUser", "permissions")
             }
-          >
-            {selectedUser ? selectedUser.name || selectedUser.username : undefined}
-          </SelectValue>
+          />
         </div>
       </SelectTrigger>
       <SelectContent className="w-[var(--radix-select-trigger-width)]">
