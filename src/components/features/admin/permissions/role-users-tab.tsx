@@ -59,7 +59,7 @@ interface RoleUsersTabProps {
  */
 export function RoleUsersTab({
   role,
-  isLoading: _isLoading,
+  isLoading,
   onAssignRole,
   onRemoveRole,
   isAssigning,
@@ -113,7 +113,7 @@ export function RoleUsersTab({
       });
   }, [usersWithRole, usersMap, searchQuery]);
 
-  const isLoading = isLoadingUsers || isLoadingUserData;
+  const isLoadingData = isLoadingUsers || isLoadingUserData;
 
   const formatDate = (date?: Date | string) => {
     if (!date) return "-";
@@ -145,7 +145,7 @@ export function RoleUsersTab({
 
   return (
     <div className="space-y-6">
-      <AnimatedSection loading={isLoading} data={usersWithRole}>
+      <AnimatedSection loading={isLoadingData} data={usersWithRole}>
         <Card>
           <CardHeader>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -158,11 +158,11 @@ export function RoleUsersTab({
                 </CardDescription>
               </div>
               {role && (
-                <Button
-                  size="sm"
-                  onClick={() => setShowAssignDialog(true)}
-                  disabled={isLoading}
-                >
+                 <Button
+                   size="sm"
+                   onClick={() => setShowAssignDialog(true)}
+                   disabled={isLoadingData}
+                 >
                   <Plus className="mr-2 h-4 w-4" />
                   {t("assignRole.button", "permissions")}
                 </Button>
@@ -181,8 +181,8 @@ export function RoleUsersTab({
               </div>
             )}
           </CardHeader>
-          <CardContent>
-            <Skeletonize loading={isLoading}>
+           <CardContent>
+             <Skeletonize loading={isLoadingData}>
               {enrichedUserRoles && enrichedUserRoles.length > 0 ? (
                 <div className="rounded-md border">
                   <Table>

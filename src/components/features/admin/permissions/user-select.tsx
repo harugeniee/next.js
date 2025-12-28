@@ -111,12 +111,15 @@ export function UserSelect({
     [onValueChange],
   );
 
-  // Reset search when popover closes
-  useEffect(() => {
-    if (!open) {
-      setSearchQuery("");
-    }
-  }, [open]);
+  const handleOpenChange = useCallback(
+    (isOpen: boolean) => {
+      setOpen(isOpen);
+      if (!isOpen) {
+        setSearchQuery("");
+      }
+    },
+    [],
+  );
 
   // Auto-focus search input when popover opens
   useEffect(() => {
@@ -134,7 +137,7 @@ export function UserSelect({
   }, [open]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"

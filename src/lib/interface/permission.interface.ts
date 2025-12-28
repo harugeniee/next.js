@@ -174,7 +174,7 @@ export interface CreateRoleDto {
  * DTO for updating an existing role
  * All fields are optional since this is a partial update
  */
-export interface UpdateRoleDto extends Partial<CreateRoleDto> {}
+export type UpdateRoleDto = Partial<CreateRoleDto>;
 
 /**
  * DTO for assigning a role to a user

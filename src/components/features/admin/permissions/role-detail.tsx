@@ -17,7 +17,6 @@ import { Badge } from "@/components/ui/core/badge";
 import { Button } from "@/components/ui/core/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,

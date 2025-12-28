@@ -60,7 +60,7 @@ export function SearchableUserSelect({
   const selectedUser = useMemo(() => {
     if (!value || !usersData?.result) return undefined;
     return usersData.result.find((user) => user.id === value);
-  }, [value, usersData?.result]);
+  }, [value, usersData]);
 
   // Filter users based on search query
   const filteredUsers = useMemo(() => {
@@ -86,7 +86,7 @@ export function SearchableUserSelect({
 
     // Limit to 5 results
     return filtered.slice(0, DISPLAY_LIMIT);
-  }, [usersData?.result, searchQuery]);
+  }, [usersData, searchQuery]);
 
   // Clear search when dropdown closes
   const handleOpenChange = (isOpen: boolean) => {
