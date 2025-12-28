@@ -33,11 +33,7 @@ export function RoleActions({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="h-8 w-8 p-0"
-          disabled={isUpdating}
-        >
+        <Button variant="ghost" className="h-8 w-8 p-0" disabled={isUpdating}>
           <span className="sr-only">{t("actions.menu", "common")}</span>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
@@ -67,4 +63,3 @@ export function RoleActions({
     </DropdownMenu>
   );
 }
-

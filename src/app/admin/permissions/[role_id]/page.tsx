@@ -13,15 +13,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/navigation/breadcrumb";
-import {
-  useRole,
-  useRoleMutations,
-} from "@/hooks/admin/usePermissions";
+import { useRole, useRoleMutations } from "@/hooks/admin/usePermissions";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
-import type {
-  UpdateRoleDto,
-  Role,
-} from "@/lib/interface/permission.interface";
+import type { UpdateRoleDto, Role } from "@/lib/interface/permission.interface";
 
 /**
  * Admin Role Detail Page
@@ -96,9 +90,7 @@ export default function RoleDetailPage() {
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
               <BreadcrumbPage>
-                {role
-                  ? role.name
-                  : t("detail.title", "permissions")}
+                {role ? role.name : t("detail.title", "permissions")}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -145,4 +137,3 @@ export default function RoleDetailPage() {
     </div>
   );
 }
-

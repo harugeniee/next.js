@@ -18,7 +18,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/shadcn-io/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/shadcn-io/popover";
 import { useUsers } from "@/hooks/admin/useUsers";
 import { useDebounce } from "@/hooks/ui/useSimpleHooks";
 import { cn } from "@/lib/utils";
@@ -55,7 +59,11 @@ export function UserSelect({
 
   // Fetch users - show initial list when popover opens, then filter by search
   // Only fetch when popover is open to optimize performance
-  const { data: usersData, isLoading, error } = useUsers(
+  const {
+    data: usersData,
+    isLoading,
+    error,
+  } = useUsers(
     {
       query: debouncedSearch || undefined,
       limit: 30,
@@ -68,7 +76,7 @@ export function UserSelect({
   const selectedUserFromResults = usersData?.result?.find(
     (user) => user.id === value,
   );
-  
+
   // If we have a value but the user is not in results, we'll show it anyway
   // The selected user will be displayed in the trigger button
   const selectedUser = selectedUserFromResults;
@@ -243,9 +251,7 @@ export function UserSelect({
                           alt={selectedUser.username}
                         />
                         <AvatarFallback className="text-xs">
-                          {selectedUser.username
-                            .substring(0, 2)
-                            .toUpperCase()}
+                          {selectedUser.username.substring(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex flex-col flex-1 min-w-0">
@@ -274,7 +280,9 @@ export function UserSelect({
                           <Check
                             className={cn(
                               "h-4 w-4 shrink-0",
-                              value === user.id ? "opacity-100 text-primary" : "opacity-0",
+                              value === user.id
+                                ? "opacity-100 text-primary"
+                                : "opacity-0",
                             )}
                           />
                           <Avatar className="h-6 w-6 shrink-0">

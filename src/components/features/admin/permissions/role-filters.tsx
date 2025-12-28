@@ -13,10 +13,7 @@ interface RoleFiltersProps {
   className?: string;
 }
 
-export function RoleFilters({
-  onSearch,
-  className,
-}: RoleFiltersProps) {
+export function RoleFilters({ onSearch, className }: RoleFiltersProps) {
   const { t } = useI18n();
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 500);
@@ -64,4 +61,3 @@ export function RoleFilters({
     </div>
   );
 }
-

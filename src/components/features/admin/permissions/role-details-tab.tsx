@@ -27,10 +27,7 @@ interface RoleDetailsTabProps {
  * RoleDetailsTab Component
  * Displays role information and metadata in the Details tab
  */
-export function RoleDetailsTab({
-  role,
-  isLoading,
-}: RoleDetailsTabProps) {
+export function RoleDetailsTab({ role, isLoading }: RoleDetailsTabProps) {
   const { t } = useI18n();
 
   const formatDate = (date?: Date | string) => {
@@ -114,7 +111,9 @@ export function RoleDetailsTab({
                       {t("fields.mentionable", "permissions")}
                     </div>
                     <Badge variant={role.mentionable ? "default" : "secondary"}>
-                      {role.mentionable ? t("yes", "common") : t("no", "common")}
+                      {role.mentionable
+                        ? t("yes", "common")
+                        : t("no", "common")}
                     </Badge>
                   </div>
                   <div className="space-y-2">
@@ -229,4 +228,3 @@ export function RoleDetailsTab({
     </div>
   );
 }
-

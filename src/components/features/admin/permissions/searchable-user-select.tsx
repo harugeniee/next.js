@@ -45,7 +45,11 @@ export function SearchableUserSelect({
   const [open, setOpen] = useState(false);
 
   // Fetch users (limit to reasonable number for client-side filtering)
-  const { data: usersData, isLoading, error } = useUsers({
+  const {
+    data: usersData,
+    isLoading,
+    error,
+  } = useUsers({
     limit: 100,
     page: 1,
     sortBy: "createdAt",
@@ -61,7 +65,7 @@ export function SearchableUserSelect({
   // Filter users based on search query
   const filteredUsers = useMemo(() => {
     if (!usersData?.result) return [];
-    
+
     if (!searchQuery.trim()) {
       // No search query, return first 5 users
       return usersData.result.slice(0, DISPLAY_LIMIT);
@@ -72,7 +76,7 @@ export function SearchableUserSelect({
       const name = (user.name || "").toLowerCase();
       const username = (user.username || "").toLowerCase();
       const email = (user.email || "").toLowerCase();
-      
+
       return (
         name.includes(query) ||
         username.includes(query) ||
@@ -193,4 +197,3 @@ export function SearchableUserSelect({
     </Select>
   );
 }
-

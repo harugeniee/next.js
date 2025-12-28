@@ -238,4 +238,3 @@ export interface EffectivePermissions {
    */
   permissionDetails: Record<string, "allow" | "deny" | "undefined">;
 }
-

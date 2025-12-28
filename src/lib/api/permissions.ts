@@ -170,9 +170,7 @@ export class PermissionsAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to fetch user roles",
-        );
+        throw new Error(response.data.message || "Failed to fetch user roles");
       }
 
       return response.data.data;

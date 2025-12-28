@@ -114,7 +114,9 @@ export function RoleList({
                       <TableRow
                         key={role.id}
                         className="cursor-pointer hover:bg-muted/50 transition-colors"
-                        onClick={() => router.push(`/admin/permissions/${role.id}`)}
+                        onClick={() =>
+                          router.push(`/admin/permissions/${role.id}`)
+                        }
                       >
                         <TableCell>
                           <div className="flex items-center gap-2">
@@ -125,7 +127,9 @@ export function RoleList({
                               />
                             )}
                             {role.unicodeEmoji && (
-                              <span className="text-lg">{role.unicodeEmoji}</span>
+                              <span className="text-lg">
+                                {role.unicodeEmoji}
+                              </span>
                             )}
                             <span className="font-medium">{role.name}</span>
                             {role.mentionable && (
@@ -160,7 +164,9 @@ export function RoleList({
                               </span>
                             </div>
                           ) : (
-                            <span className="text-muted-foreground text-xs">-</span>
+                            <span className="text-muted-foreground text-xs">
+                              -
+                            </span>
                           )}
                         </TableCell>
                         <TableCell
@@ -225,4 +231,3 @@ export function RoleList({
     </AnimatedSection>
   );
 }
-

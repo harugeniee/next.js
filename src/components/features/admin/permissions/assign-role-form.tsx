@@ -116,7 +116,9 @@ export function AssignRoleForm({
             name="roleId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("assignRole.form.role", "permissions")}</FormLabel>
+                <FormLabel>
+                  {t("assignRole.form.role", "permissions")}
+                </FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
@@ -125,7 +127,10 @@ export function AssignRoleForm({
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue
-                        placeholder={t("assignRole.form.selectRole", "permissions")}
+                        placeholder={t(
+                          "assignRole.form.selectRole",
+                          "permissions",
+                        )}
                       />
                     </SelectTrigger>
                   </FormControl>
@@ -160,11 +165,16 @@ export function AssignRoleForm({
           name="reason"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("assignRole.form.reason", "permissions")}</FormLabel>
+              <FormLabel>
+                {t("assignRole.form.reason", "permissions")}
+              </FormLabel>
               <FormControl>
                 <textarea
                   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  placeholder={t("assignRole.form.reasonPlaceholder", "permissions")}
+                  placeholder={t(
+                    "assignRole.form.reasonPlaceholder",
+                    "permissions",
+                  )}
                   {...field}
                   disabled={isLoading}
                 />
@@ -260,4 +270,3 @@ export function AssignRoleForm({
     </Form>
   );
 }
-

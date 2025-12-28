@@ -66,13 +66,13 @@ export function useUsersByIds(userIds: string[]) {
       // Fetch all users in parallel
       const userPromises = userIds.map((id) => UserAPI.getUserById(id));
       const users = await Promise.all(userPromises);
-      
+
       // Create a map of userId -> User for easy lookup
       const userMap: Record<string, User> = {};
       users.forEach((user) => {
         userMap[user.id] = user;
       });
-      
+
       return userMap;
     },
     enabled: userIds.length > 0,

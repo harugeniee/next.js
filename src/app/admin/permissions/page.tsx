@@ -13,10 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/navigation/breadcrumb";
-import {
-  useRoleMutations,
-  useRoles,
-} from "@/hooks/admin/usePermissions";
+import { useRoleMutations, useRoles } from "@/hooks/admin/usePermissions";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type {
   CreateRoleDto,
@@ -115,4 +112,3 @@ export default function PermissionsPage() {
     </div>
   );
 }
-

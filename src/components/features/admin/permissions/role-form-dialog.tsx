@@ -196,7 +196,11 @@ export function RoleFormDialog({
                     {t("fields.unicodeEmoji", "permissions")}
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="👑" {...field} value={field.value || ""} />
+                    <Input
+                      placeholder="👑"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -261,4 +265,3 @@ export function RoleFormDialog({
     </Dialog>
   );
 }
-

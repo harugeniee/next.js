@@ -8,7 +8,10 @@ export const assignRoleSchema = z
   .object({
     userId: z.string().min(1, "User ID is required"),
     roleId: z.string().min(1, "Role ID is required"),
-    reason: z.string().max(1000, "Reason must be less than 1000 characters").optional(),
+    reason: z
+      .string()
+      .max(1000, "Reason must be less than 1000 characters")
+      .optional(),
     assignedBy: z.string().optional(),
     isTemporary: z.boolean().optional().default(false),
     expiresAt: z.string().optional(),
@@ -48,4 +51,3 @@ export const assignRoleSchema = z
  * Type for assign role form data
  */
 export type AssignRoleFormData = z.infer<typeof assignRoleSchema>;
-

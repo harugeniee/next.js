@@ -37,14 +37,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/animate-ui/components/radix/tooltip";
-import {
-  useUsersWithRole,
-} from "@/hooks/admin/usePermissions";
+import { useUsersWithRole } from "@/hooks/admin/usePermissions";
 import { useUsersByIds } from "@/hooks/admin/useUsers";
-import type {
-  Role,
-  UserRole,
-} from "@/lib/interface/permission.interface";
+import type { Role, UserRole } from "@/lib/interface/permission.interface";
 import type { AssignRoleFormData } from "@/lib/validators/permissions";
 import { AssignRoleDialog } from "./assign-role-dialog";
 
@@ -74,9 +69,10 @@ export function RoleUsersTab({
   const router = useRouter();
   const [showAssignDialog, setShowAssignDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const { data: usersWithRole, isLoading: isLoadingUsers } =
-    useUsersWithRole(role?.id || "");
+
+  const { data: usersWithRole, isLoading: isLoadingUsers } = useUsersWithRole(
+    role?.id || "",
+  );
 
   // Extract user IDs from UserRole array
   const userIds = useMemo(
@@ -85,7 +81,8 @@ export function RoleUsersTab({
   );
 
   // Fetch user data for all userIds
-  const { data: usersMap, isLoading: isLoadingUserData } = useUsersByIds(userIds);
+  const { data: usersMap, isLoading: isLoadingUserData } =
+    useUsersByIds(userIds);
 
   // Combine UserRole with User data and filter by search
   const enrichedUserRoles = useMemo(() => {
@@ -98,7 +95,7 @@ export function RoleUsersTab({
       }))
       .filter(({ user, userRole }) => {
         if (!searchQuery.trim()) return true;
-        
+
         const query = searchQuery.toLowerCase().trim();
         const userName = (user?.name || "").toLowerCase();
         const username = (user?.username || "").toLowerCase();
@@ -192,8 +189,12 @@ export function RoleUsersTab({
                     <TableHeader>
                       <TableRow>
                         <TableHead>{t("users.fields.user", "admin")}</TableHead>
-                        <TableHead>{t("detail.assignment", "permissions")}</TableHead>
-                        <TableHead>{t("users.fields.status", "admin")}</TableHead>
+                        <TableHead>
+                          {t("detail.assignment", "permissions")}
+                        </TableHead>
+                        <TableHead>
+                          {t("users.fields.status", "admin")}
+                        </TableHead>
                         <TableHead className="text-right">
                           {t("actions", "common")}
                         </TableHead>
@@ -216,7 +217,9 @@ export function RoleUsersTab({
                                       alt={user.username}
                                     />
                                     <AvatarFallback>
-                                      {user.username.substring(0, 2).toUpperCase()}
+                                      {user.username
+                                        .substring(0, 2)
+                                        .toUpperCase()}
                                     </AvatarFallback>
                                   </Avatar>
                                   <div className="flex flex-col">
@@ -239,9 +242,7 @@ export function RoleUsersTab({
                               )}
                             </div>
                           </TableCell>
-                          <TableCell
-                            onClick={(e) => e.stopPropagation()}
-                          >
+                          <TableCell onClick={(e) => e.stopPropagation()}>
                             <div className="flex flex-col gap-1">
                               {userRole.reason && (
                                 <Tooltip delayDuration={200}>
@@ -257,14 +258,13 @@ export function RoleUsersTab({
                               )}
                               {userRole.createdAt && (
                                 <div className="text-xs text-muted-foreground">
-                                  {t("detail.assigned", "permissions")}: {formatDate(userRole.createdAt)}
+                                  {t("detail.assigned", "permissions")}:{" "}
+                                  {formatDate(userRole.createdAt)}
                                 </div>
                               )}
                             </div>
                           </TableCell>
-                          <TableCell
-                            onClick={(e) => e.stopPropagation()}
-                          >
+                          <TableCell onClick={(e) => e.stopPropagation()}>
                             <div className="flex flex-col gap-1">
                               {userRole.isTemporary && (
                                 <Badge variant="outline" className="w-fit">
@@ -275,7 +275,9 @@ export function RoleUsersTab({
                                 <Tooltip delayDuration={200}>
                                   <TooltipTrigger asChild>
                                     <div className="text-xs text-muted-foreground">
-                                      {t("detail.expires", "permissions")}: {formatRelativeDate(userRole.expiresAt) || formatDate(userRole.expiresAt)}
+                                      {t("detail.expires", "permissions")}:{" "}
+                                      {formatRelativeDate(userRole.expiresAt) ||
+                                        formatDate(userRole.expiresAt)}
                                     </div>
                                   </TooltipTrigger>
                                   <TooltipContent>
@@ -341,4 +343,3 @@ export function RoleUsersTab({
     </div>
   );
 }
-

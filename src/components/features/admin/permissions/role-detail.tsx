@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ArrowLeft,
-  Edit,
-  Info,
-  Trash2,
-  Users,
-} from "lucide-react";
+import { ArrowLeft, Edit, Info, Trash2, Users } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -29,9 +23,7 @@ import {
   CardTitle,
 } from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
-import {
-  useUserRoleMutations,
-} from "@/hooks/admin/usePermissions";
+import { useUserRoleMutations } from "@/hooks/admin/usePermissions";
 import type {
   Role,
   UpdateRoleDto,
@@ -206,8 +198,6 @@ export function RoleDetail({
           isLoading={isUpdating}
         />
       )}
-
     </div>
   );
 }
-
