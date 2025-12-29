@@ -886,7 +886,8 @@ export function SeriesDetail({
                                   {series.genres.map((genreItem) => {
                                     const genre = genreItem.genre || genreItem;
                                     const genreName =
-                                      typeof genre === "object" && "name" in genre
+                                      typeof genre === "object" &&
+                                      "name" in genre
                                         ? genre.name
                                         : typeof genre === "string"
                                           ? genre

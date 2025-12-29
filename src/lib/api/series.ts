@@ -104,7 +104,10 @@ export class SeriesAPI {
    * Requires authentication
    */
   static async createSeries(data: CreateSeriesDto): Promise<BackendSeries> {
-    const response = await http.post<ApiResponse<BackendSeries>>(this.BASE_URL, data);
+    const response = await http.post<ApiResponse<BackendSeries>>(
+      this.BASE_URL,
+      data,
+    );
     return response.data.data;
   }
 
@@ -162,9 +165,12 @@ export class SeriesAPI {
   static async getSeriesOffset(
     params?: Partial<QuerySeriesDto>,
   ): Promise<ApiResponseOffset<BackendSeries>> {
-    const response = await http.get<ApiResponseOffset<BackendSeries>>(this.BASE_URL, {
-      params,
-    });
+    const response = await http.get<ApiResponseOffset<BackendSeries>>(
+      this.BASE_URL,
+      {
+        params,
+      },
+    );
     return response.data;
   }
 

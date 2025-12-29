@@ -119,7 +119,8 @@ export function SeriesForm({
       isRecommendationBlocked: series?.isRecommendationBlocked ?? false,
       isReviewBlocked: series?.isReviewBlocked ?? false,
       notes: series?.notes ?? "",
-      releasingStatus: (series?.releasingStatus as FormData["releasingStatus"]) ?? undefined,
+      releasingStatus:
+        (series?.releasingStatus as FormData["releasingStatus"]) ?? undefined,
       externalLinks: series?.externalLinks ?? {},
       streamingEpisodes: series?.streamingEpisodes ?? {},
       metadata: series?.metadata ?? {},
@@ -194,7 +195,8 @@ export function SeriesForm({
         isRecommendationBlocked: series.isRecommendationBlocked ?? false,
         isReviewBlocked: series.isReviewBlocked ?? false,
         notes: series.notes ?? "",
-        releasingStatus: (series.releasingStatus as FormData["releasingStatus"]) ?? undefined,
+        releasingStatus:
+          (series.releasingStatus as FormData["releasingStatus"]) ?? undefined,
         externalLinks: series.externalLinks ?? {},
         streamingEpisodes: series.streamingEpisodes ?? {},
         metadata: series.metadata ?? {},
