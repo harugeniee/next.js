@@ -17,10 +17,7 @@ interface CacheStatsCardProps {
   isLoading: boolean;
 }
 
-export function CacheStatsCard({
-  data,
-  isLoading,
-}: CacheStatsCardProps) {
+export function CacheStatsCard({ data, isLoading }: CacheStatsCardProps) {
   const { t } = useI18n();
 
   return (
@@ -80,4 +77,3 @@ export function CacheStatsCard({
     </AnimatedSection>
   );
 }
-

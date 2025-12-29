@@ -20,7 +20,10 @@ import { PolicyTestDialog } from "./policy-test-dialog";
 
 interface PolicyActionsProps {
   readonly policy: RateLimitPolicy;
-  readonly onUpdate: (id: string, data: UpdateRateLimitPolicyDto) => Promise<void>;
+  readonly onUpdate: (
+    id: string,
+    data: UpdateRateLimitPolicyDto,
+  ) => Promise<void>;
   readonly onDelete: (id: string) => void;
   readonly onTestMatch?: (id: string) => void;
   readonly isUpdating?: boolean;
@@ -81,7 +84,9 @@ export function PolicyActions({
         open={showEditDialog}
         onOpenChange={setShowEditDialog}
         policy={policy}
-        onSubmit={(data) => onUpdate(policy.id, data as UpdateRateLimitPolicyDto)}
+        onSubmit={(data) =>
+          onUpdate(policy.id, data as UpdateRateLimitPolicyDto)
+        }
         isLoading={isUpdating}
       />
 
@@ -95,4 +100,3 @@ export function PolicyActions({
     </>
   );
 }
-

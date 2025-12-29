@@ -15,10 +15,7 @@ interface ApiKeyDisplayProps {
 /**
  * Component to display API keys securely with masking
  */
-export function ApiKeyDisplay({
-  apiKey,
-  showCopy = true,
-}: ApiKeyDisplayProps) {
+export function ApiKeyDisplay({ apiKey, showCopy = true }: ApiKeyDisplayProps) {
   const { t } = useI18n();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -32,7 +29,7 @@ export function ApiKeyDisplay({
     try {
       await navigator.clipboard.writeText(apiKey);
       toast.success(t("rateLimit.apiKeys.copySuccess", "admin"));
-    } catch (error) {
+    } catch {
       toast.error(t("rateLimit.apiKeys.copyError", "admin"));
     }
   };
@@ -69,4 +66,3 @@ export function ApiKeyDisplay({
     </div>
   );
 }
-

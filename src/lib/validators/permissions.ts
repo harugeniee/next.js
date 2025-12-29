@@ -19,10 +19,12 @@ const baseAssignRoleSchema = z.object({
  * Refinements for assign role validation
  * Applied to both form and API schemas
  */
-const assignRoleRefinements = <T extends z.ZodTypeAny>(schema: T) =>
+const assignRoleRefinements = <T extends z.ZodObject<z.ZodRawShape>>(
+  schema: T,
+) =>
   schema
     .refine(
-      (data: { isTemporary?: boolean; expiresAt?: string }) => {
+      (data) => {
         // If isTemporary is true, expiresAt must be provided
         if (data.isTemporary && !data.expiresAt) {
           return false;
@@ -35,9 +37,9 @@ const assignRoleRefinements = <T extends z.ZodTypeAny>(schema: T) =>
       },
     )
     .refine(
-      (data: { expiresAt?: string }) => {
+      (data) => {
         // If expiresAt is provided, it must be a valid future date
-        if (data.expiresAt) {
+        if (data.expiresAt && typeof data.expiresAt === "string") {
           const expiresDate = new Date(data.expiresAt);
           const now = new Date();
           if (isNaN(expiresDate.getTime()) || expiresDate <= now) {

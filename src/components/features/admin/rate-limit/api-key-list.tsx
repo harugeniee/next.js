@@ -114,68 +114,81 @@ export function ApiKeyList({
               if (data && data.length > 0) {
                 return (
                   <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t("rateLimit.apiKeys.key", "admin")}</TableHead>
-                    <TableHead>{t("rateLimit.apiKeys.name", "admin")}</TableHead>
-                    <TableHead>{t("rateLimit.apiKeys.plan", "admin")}</TableHead>
-                    <TableHead>
-                      {t("rateLimit.apiKeys.isWhitelist", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.apiKeys.expiresAt", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.apiKeys.status", "admin")}
-                    </TableHead>
-                    <TableHead className="text-right">
-                      {t("common.actions", "common")}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.map((apiKey) => (
-                    <TableRow key={apiKey.id}>
-                      <TableCell>
-                        <ApiKeyDisplay apiKey={apiKey.key} />
-                      </TableCell>
-                      <TableCell>{apiKey.name || "-"}</TableCell>
-                      <TableCell>
-                        {apiKey.plan?.name || apiKey.planId || "-"}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={apiKey.isWhitelist ? "default" : "secondary"}
-                        >
-                          {apiKey.isWhitelist
-                            ? t("common.yes", "common")
-                            : t("common.no", "common")}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        {apiKey.expiresAt
-                          ? new Date(apiKey.expiresAt).toLocaleDateString()
-                          : "-"}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant={apiKey.active ? "default" : "secondary"}>
-                          {apiKey.active
-                            ? t("rateLimit.apiKeys.status.active", "admin")
-                            : t("rateLimit.apiKeys.status.inactive", "admin")}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <ApiKeyActions
-                          apiKey={apiKey}
-                          onUpdate={onUpdate}
-                          onDelete={onDelete}
-                          isUpdating={isUpdating}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.key", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.name", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.plan", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.isWhitelist", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.expiresAt", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.apiKeys.status", "admin")}
+                        </TableHead>
+                        <TableHead className="text-right">
+                          {t("common.actions", "common")}
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {data.map((apiKey) => (
+                        <TableRow key={apiKey.id}>
+                          <TableCell>
+                            <ApiKeyDisplay apiKey={apiKey.key} />
+                          </TableCell>
+                          <TableCell>{apiKey.name || "-"}</TableCell>
+                          <TableCell>
+                            {apiKey.plan?.name || apiKey.planId || "-"}
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                apiKey.isWhitelist ? "default" : "secondary"
+                              }
+                            >
+                              {apiKey.isWhitelist
+                                ? t("common.yes", "common")
+                                : t("common.no", "common")}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            {apiKey.expiresAt
+                              ? new Date(apiKey.expiresAt).toLocaleDateString()
+                              : "-"}
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={apiKey.active ? "default" : "secondary"}
+                            >
+                              {apiKey.active
+                                ? t("rateLimit.apiKeys.status.active", "admin")
+                                : t(
+                                    "rateLimit.apiKeys.status.inactive",
+                                    "admin",
+                                  )}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <ApiKeyActions
+                              apiKey={apiKey}
+                              onUpdate={onUpdate}
+                              onDelete={onDelete}
+                              isUpdating={isUpdating}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 );
               }
 
@@ -199,4 +212,3 @@ export function ApiKeyList({
     </AnimatedSection>
   );
 }
-

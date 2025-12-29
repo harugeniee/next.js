@@ -45,8 +45,7 @@ export default function RateLimitPage() {
   // Fetch all data
   const { data: plans, isLoading: plansLoading } = usePlans();
   const { data: apiKeys, isLoading: apiKeysLoading } = useApiKeys();
-  const { data: ipWhitelist, isLoading: ipWhitelistLoading } =
-    useIpWhitelist();
+  const { data: ipWhitelist, isLoading: ipWhitelistLoading } = useIpWhitelist();
   const { data: policies, isLoading: policiesLoading } = usePolicies();
   const { data: cacheStats, isLoading: cacheStatsLoading } = useCacheStats();
 
@@ -54,7 +53,9 @@ export default function RateLimitPage() {
   const mutations = useRateLimitMutations();
 
   // Handlers
-  const handleCreatePlan = async (data: Parameters<typeof mutations.createPlan.mutateAsync>[0]) => {
+  const handleCreatePlan = async (
+    data: Parameters<typeof mutations.createPlan.mutateAsync>[0],
+  ) => {
     await mutations.createPlan.mutateAsync(data);
   };
 
@@ -224,13 +225,9 @@ export default function RateLimitPage() {
 
       {/* Cache Management */}
       <div className="space-y-4">
-        <CacheStatsCard
-          data={cacheStats}
-          isLoading={cacheStatsLoading}
-        />
+        <CacheStatsCard data={cacheStats} isLoading={cacheStatsLoading} />
         <CacheActions />
       </div>
     </div>
   );
 }
-

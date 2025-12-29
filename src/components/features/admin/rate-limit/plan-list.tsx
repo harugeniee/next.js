@@ -23,7 +23,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/core/table";
-import type { CreatePlanDto, Plan, UpdatePlanDto } from "@/lib/interface/rate-limit.interface";
+import type {
+  CreatePlanDto,
+  Plan,
+  UpdatePlanDto,
+} from "@/lib/interface/rate-limit.interface";
 import { PlanActions } from "./plan-actions";
 import { PlanFormDialog } from "./plan-form-dialog";
 
@@ -46,6 +50,28 @@ export function PlanList({
 }: PlanListProps) {
   const { t } = useI18n();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+
+  const handleCreate = async (
+    data: CreatePlanDto | UpdatePlanDto,
+  ): Promise<void> => {
+    // When creating, data must be CreatePlanDto (with name and limitPerMin)
+    if (
+      "name" in data &&
+      typeof data.name === "string" &&
+      data.name.length > 0 &&
+      "limitPerMin" in data &&
+      typeof data.limitPerMin === "number"
+    ) {
+      const createData: CreatePlanDto = {
+        name: data.name,
+        limitPerMin: data.limitPerMin,
+        ttlSec: data.ttlSec,
+        description: data.description,
+        displayOrder: data.displayOrder,
+      };
+      await onCreate(createData);
+    }
+  };
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">
@@ -80,57 +106,63 @@ export function PlanList({
               if (data && data.length > 0) {
                 return (
                   <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t("rateLimit.plans.name", "admin")}</TableHead>
-                    <TableHead>
-                      {t("rateLimit.plans.limitPerMin", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.plans.ttlSec", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.plans.descriptionLabel", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.plans.displayOrder", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.plans.status", "admin")}
-                    </TableHead>
-                    <TableHead className="text-right">
-                      {t("common.actions", "common")}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.map((plan) => (
-                    <TableRow key={plan.id}>
-                      <TableCell className="font-medium">{plan.name}</TableCell>
-                      <TableCell>{plan.limitPerMin}</TableCell>
-                      <TableCell>{plan.ttlSec}s</TableCell>
-                      <TableCell className="max-w-xs truncate">
-                        {plan.description || "-"}
-                      </TableCell>
-                      <TableCell>{plan.displayOrder}</TableCell>
-                      <TableCell>
-                        <Badge variant={plan.active ? "default" : "secondary"}>
-                          {plan.active
-                            ? t("rateLimit.plans.status.active", "admin")
-                            : t("rateLimit.plans.status.inactive", "admin")}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <PlanActions
-                          plan={plan}
-                          onUpdate={onUpdate}
-                          isUpdating={isUpdating}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>
+                          {t("rateLimit.plans.name", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.plans.limitPerMin", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.plans.ttlSec", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.plans.descriptionLabel", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.plans.displayOrder", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.plans.status", "admin")}
+                        </TableHead>
+                        <TableHead className="text-right">
+                          {t("common.actions", "common")}
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {data.map((plan) => (
+                        <TableRow key={plan.id}>
+                          <TableCell className="font-medium">
+                            {plan.name}
+                          </TableCell>
+                          <TableCell>{plan.limitPerMin}</TableCell>
+                          <TableCell>{plan.ttlSec}s</TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            {plan.description || "-"}
+                          </TableCell>
+                          <TableCell>{plan.displayOrder}</TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={plan.active ? "default" : "secondary"}
+                            >
+                              {plan.active
+                                ? t("rateLimit.plans.status.active", "admin")
+                                : t("rateLimit.plans.status.inactive", "admin")}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <PlanActions
+                              plan={plan}
+                              onUpdate={onUpdate}
+                              isUpdating={isUpdating}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 );
               }
 
@@ -147,10 +179,9 @@ export function PlanList({
       <PlanFormDialog
         open={showCreateDialog}
         onOpenChange={setShowCreateDialog}
-        onSubmit={onCreate}
+        onSubmit={handleCreate}
         isLoading={isCreating}
       />
     </AnimatedSection>
   );
 }
-

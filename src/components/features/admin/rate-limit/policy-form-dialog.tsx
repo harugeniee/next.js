@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useEffect } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -80,8 +80,8 @@ export function PolicyFormDialog({
     },
   });
 
-  const strategy = form.watch("strategy");
-  const scope = form.watch("scope");
+  const strategy = useWatch({ control: form.control, name: "strategy" });
+  const scope = useWatch({ control: form.control, name: "scope" });
 
   useEffect(() => {
     if (!isEditing) {
@@ -126,7 +126,10 @@ export function PolicyFormDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             {!isEditing && (
               <FormField
                 control={form.control}
@@ -189,10 +192,7 @@ export function PolicyFormDialog({
                       {t("rateLimit.policies.form.routePattern", "admin")}
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="^POST:/api/v1/messages$"
-                        {...field}
-                      />
+                      <Input placeholder="^POST:/api/v1/messages$" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -413,4 +413,3 @@ export function PolicyFormDialog({
     </Dialog>
   );
 }
-

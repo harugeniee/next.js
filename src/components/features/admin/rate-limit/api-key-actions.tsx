@@ -12,7 +12,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
 import { toast } from "sonner";
-import type { ApiKey, UpdateApiKeyDto } from "@/lib/interface/rate-limit.interface";
+import type {
+  ApiKey,
+  UpdateApiKeyDto,
+} from "@/lib/interface/rate-limit.interface";
 import { ApiKeyFormDialog } from "./api-key-form-dialog";
 
 interface ApiKeyActionsProps {
@@ -35,7 +38,7 @@ export function ApiKeyActions({
     try {
       await navigator.clipboard.writeText(apiKey.key);
       toast.success(t("rateLimit.apiKeys.copySuccess", "admin"));
-    } catch (error) {
+    } catch {
       toast.error(t("rateLimit.apiKeys.copyError", "admin"));
     }
   };
@@ -43,7 +46,9 @@ export function ApiKeyActions({
   const handleDelete = () => {
     if (
       confirm(
-        t("rateLimit.apiKeys.deleteConfirm", "admin", { name: apiKey.name || apiKey.key }),
+        t("rateLimit.apiKeys.deleteConfirm", "admin", {
+          name: apiKey.name || apiKey.key,
+        }),
       )
     ) {
       onDelete(apiKey.id);
@@ -88,4 +93,3 @@ export function ApiKeyActions({
     </>
   );
 }
-

@@ -78,10 +78,7 @@ export class RateLimitAPI {
   /**
    * Update a rate limit plan
    */
-  static async updatePlan(
-    name: string,
-    data: UpdatePlanDto,
-  ): Promise<Plan> {
+  static async updatePlan(name: string, data: UpdatePlanDto): Promise<Plan> {
     try {
       const response = await http.put<ApiResponse<Plan>>(
         `${this.BASE_URL}/plans/${name}`,
@@ -115,9 +112,7 @@ export class RateLimitAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to fetch API keys",
-        );
+        throw new Error(response.data.message || "Failed to fetch API keys");
       }
 
       return response.data.data;
@@ -357,9 +352,7 @@ export class RateLimitAPI {
    */
   static async deletePolicy(id: string): Promise<void> {
     try {
-      await http.delete<ApiResponse<void>>(
-        `${this.BASE_URL}/policies/${id}`,
-      );
+      await http.delete<ApiResponse<void>>(`${this.BASE_URL}/policies/${id}`);
     } catch (error) {
       console.error("Error deleting rate limit policy:", error);
       throw error;
@@ -402,9 +395,7 @@ export class RateLimitAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to test policy match",
-        );
+        throw new Error(response.data.message || "Failed to test policy match");
       }
 
       return response.data.data;
@@ -443,16 +434,17 @@ export class RateLimitAPI {
   /**
    * Invalidate cache across all instances
    */
-  static async invalidateCache(): Promise<{ message: string; timestamp: string }> {
+  static async invalidateCache(): Promise<{
+    message: string;
+    timestamp: string;
+  }> {
     try {
       const response = await http.post<
         ApiResponse<{ message: string; timestamp: string }>
       >(`${this.BASE_URL}/cache/invalidate`);
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to invalidate cache",
-        );
+        throw new Error(response.data.message || "Failed to invalidate cache");
       }
 
       return response.data.data;
@@ -472,9 +464,7 @@ export class RateLimitAPI {
       );
 
       if (!response.data.success) {
-        throw new Error(
-          response.data.message || "Failed to reset rate limit",
-        );
+        throw new Error(response.data.message || "Failed to reset rate limit");
       }
 
       return response.data.data;
@@ -506,4 +496,3 @@ export class RateLimitAPI {
     }
   }
 }
-

@@ -43,12 +43,11 @@ const ipAddressSchema = z
       const ipv6Regex =
         /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}(\/([0-9]|[1-9][0-9]|1[0-2][0-8]))?$/;
       // IPv6 compressed format
-      const ipv6CompressedRegex = /^::1$|^([0-9a-fA-F]{0,4}:)*::([0-9a-fA-F]{0,4}:)*[0-9a-fA-F]{0,4}(\/([0-9]|[1-9][0-9]|1[0-2][0-8]))?$/;
+      const ipv6CompressedRegex =
+        /^::1$|^([0-9a-fA-F]{0,4}:)*::([0-9a-fA-F]{0,4}:)*[0-9a-fA-F]{0,4}(\/([0-9]|[1-9][0-9]|1[0-2][0-8]))?$/;
 
       return (
-        ipv4Regex.test(ip) ||
-        ipv6Regex.test(ip) ||
-        ipv6CompressedRegex.test(ip)
+        ipv4Regex.test(ip) || ipv6Regex.test(ip) || ipv6CompressedRegex.test(ip)
       );
     },
     {
@@ -62,10 +61,7 @@ const ipAddressSchema = z
 export const createPlanSchema = z.object({
   name: z
     .string()
-    .min(
-      RATE_LIMIT_CONSTANTS.NAME_MIN_LENGTH,
-      "Plan name is required",
-    )
+    .min(RATE_LIMIT_CONSTANTS.NAME_MIN_LENGTH, "Plan name is required")
     .max(
       RATE_LIMIT_CONSTANTS.NAME_MAX_LENGTH,
       `Plan name must be less than ${RATE_LIMIT_CONSTANTS.NAME_MAX_LENGTH} characters`,
@@ -133,10 +129,7 @@ export const updatePlanSchema = z.object({
 export const createApiKeySchema = z.object({
   key: z
     .string()
-    .min(
-      RATE_LIMIT_CONSTANTS.API_KEY_MIN_LENGTH,
-      "API key is required",
-    )
+    .min(RATE_LIMIT_CONSTANTS.API_KEY_MIN_LENGTH, "API key is required")
     .max(
       RATE_LIMIT_CONSTANTS.API_KEY_MAX_LENGTH,
       `API key must be less than ${RATE_LIMIT_CONSTANTS.API_KEY_MAX_LENGTH} characters`,
@@ -220,10 +213,7 @@ export const updateIpWhitelistSchema = z.object({
 export const createPolicySchema = z.object({
   name: z
     .string()
-    .min(
-      RATE_LIMIT_CONSTANTS.NAME_MIN_LENGTH,
-      "Policy name is required",
-    )
+    .min(RATE_LIMIT_CONSTANTS.NAME_MIN_LENGTH, "Policy name is required")
     .max(
       RATE_LIMIT_CONSTANTS.NAME_MAX_LENGTH,
       `Policy name must be less than ${RATE_LIMIT_CONSTANTS.NAME_MAX_LENGTH} characters`,
@@ -242,7 +232,7 @@ export const createPolicySchema = z.object({
     )
     .optional(),
   scope: z.nativeEnum(RateLimitScope, {
-    errorMap: () => ({ message: "Scope is required" }),
+    message: "Scope is required",
   }),
   routePattern: z
     .string()
@@ -395,13 +385,8 @@ export type CreatePlanFormData = z.infer<typeof createPlanSchema>;
 export type UpdatePlanFormData = z.infer<typeof updatePlanSchema>;
 export type CreateApiKeyFormData = z.infer<typeof createApiKeySchema>;
 export type UpdateApiKeyFormData = z.infer<typeof updateApiKeySchema>;
-export type CreateIpWhitelistFormData = z.infer<
-  typeof createIpWhitelistSchema
->;
-export type UpdateIpWhitelistFormData = z.infer<
-  typeof updateIpWhitelistSchema
->;
+export type CreateIpWhitelistFormData = z.infer<typeof createIpWhitelistSchema>;
+export type UpdateIpWhitelistFormData = z.infer<typeof updateIpWhitelistSchema>;
 export type CreatePolicyFormData = z.infer<typeof createPolicySchema>;
 export type UpdatePolicyFormData = z.infer<typeof updatePolicySchema>;
 export type TestPolicyMatchFormData = z.infer<typeof testPolicyMatchSchema>;
-

@@ -53,15 +53,27 @@ export function IpWhitelistList({
   const { t } = useI18n();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
 
+  const handleCreate = async (
+    data: CreateIpWhitelistDto | UpdateIpWhitelistDto,
+  ): Promise<void> => {
+    // When creating, data must be CreateIpWhitelistDto (with ip)
+    if ("ip" in data && typeof data.ip === "string" && data.ip.length > 0) {
+      const createData: CreateIpWhitelistDto = {
+        ip: data.ip,
+        description: data.description,
+        reason: data.reason,
+      };
+      await onCreate(createData);
+    }
+  };
+
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>
-                {t("rateLimit.ipWhitelist.title", "admin")}
-              </CardTitle>
+              <CardTitle>{t("rateLimit.ipWhitelist.title", "admin")}</CardTitle>
               <CardDescription>
                 {t("rateLimit.ipWhitelist.description", "admin")}
               </CardDescription>
@@ -88,52 +100,64 @@ export function IpWhitelistList({
               if (data && data.length > 0) {
                 return (
                   <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t("rateLimit.ipWhitelist.ip", "admin")}</TableHead>
-                    <TableHead>
-                      {t("rateLimit.ipWhitelist.descriptionLabel", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.ipWhitelist.reason", "admin")}
-                    </TableHead>
-                    <TableHead>
-                      {t("rateLimit.ipWhitelist.status", "admin")}
-                    </TableHead>
-                    <TableHead className="text-right">
-                      {t("common.actions", "common")}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell className="font-mono">{entry.ip}</TableCell>
-                      <TableCell className="max-w-xs truncate">
-                        {entry.description || "-"}
-                      </TableCell>
-                      <TableCell className="max-w-xs truncate">
-                        {entry.reason || "-"}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant={entry.active ? "default" : "secondary"}>
-                          {entry.active
-                            ? t("rateLimit.ipWhitelist.status.active", "admin")
-                            : t("rateLimit.ipWhitelist.status.inactive", "admin")}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <IpWhitelistActions
-                          entry={entry}
-                          onUpdate={onUpdate}
-                          onDelete={onDelete}
-                          isUpdating={isUpdating}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>
+                          {t("rateLimit.ipWhitelist.ip", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.ipWhitelist.descriptionLabel", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.ipWhitelist.reason", "admin")}
+                        </TableHead>
+                        <TableHead>
+                          {t("rateLimit.ipWhitelist.status", "admin")}
+                        </TableHead>
+                        <TableHead className="text-right">
+                          {t("common.actions", "common")}
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {data.map((entry) => (
+                        <TableRow key={entry.id}>
+                          <TableCell className="font-mono">
+                            {entry.ip}
+                          </TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            {entry.description || "-"}
+                          </TableCell>
+                          <TableCell className="max-w-xs truncate">
+                            {entry.reason || "-"}
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={entry.active ? "default" : "secondary"}
+                            >
+                              {entry.active
+                                ? t(
+                                    "rateLimit.ipWhitelist.status.active",
+                                    "admin",
+                                  )
+                                : t(
+                                    "rateLimit.ipWhitelist.status.inactive",
+                                    "admin",
+                                  )}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <IpWhitelistActions
+                              entry={entry}
+                              onUpdate={onUpdate}
+                              onDelete={onDelete}
+                              isUpdating={isUpdating}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 );
               }
 
@@ -150,10 +174,9 @@ export function IpWhitelistList({
       <IpWhitelistFormDialog
         open={showCreateDialog}
         onOpenChange={setShowCreateDialog}
-        onSubmit={onCreate}
+        onSubmit={handleCreate}
         isLoading={isCreating}
       />
     </AnimatedSection>
   );
 }
-

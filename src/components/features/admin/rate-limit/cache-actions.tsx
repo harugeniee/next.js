@@ -21,9 +21,7 @@ export function CacheActions() {
   const [resetKey, setResetKey] = useState("");
 
   const handleInvalidateCache = async () => {
-    if (
-      confirm(t("rateLimit.cache.invalidateConfirm", "admin"))
-    ) {
+    if (confirm(t("rateLimit.cache.invalidateConfirm", "admin"))) {
       await invalidateCache.mutateAsync();
     }
   };
@@ -33,9 +31,7 @@ export function CacheActions() {
       return;
     }
     if (
-      confirm(
-        t("rateLimit.cache.resetConfirm", "admin", { key: resetKey }),
-      )
+      confirm(t("rateLimit.cache.resetConfirm", "admin", { key: resetKey }))
     ) {
       await resetRateLimit.mutateAsync(resetKey);
       setResetKey("");
@@ -85,4 +81,3 @@ export function CacheActions() {
     </Card>
   );
 }
-

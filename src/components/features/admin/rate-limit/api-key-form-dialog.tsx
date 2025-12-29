@@ -97,7 +97,10 @@ export function ApiKeyFormDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             {!isEditing && (
               <FormField
                 control={form.control}
@@ -236,7 +239,9 @@ export function ApiKeyFormDialog({
                       }
                       onChange={(e) =>
                         field.onChange(
-                          e.target.value ? new Date(e.target.value).toISOString() : "",
+                          e.target.value
+                            ? new Date(e.target.value).toISOString()
+                            : "",
                         )
                       }
                     />
@@ -289,4 +294,3 @@ export function ApiKeyFormDialog({
     </Dialog>
   );
 }
-

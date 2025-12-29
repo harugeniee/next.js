@@ -115,9 +115,7 @@ export function useRateLimitMutations() {
       toast.success(t("rateLimit.plans.createSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.plans.createError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.plans.createError", "admin"));
     },
   });
 
@@ -132,9 +130,7 @@ export function useRateLimitMutations() {
       toast.success(t("rateLimit.plans.updateSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.plans.updateError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.plans.updateError", "admin"));
     },
   });
 
@@ -148,9 +144,7 @@ export function useRateLimitMutations() {
       toast.success(t("rateLimit.apiKeys.createSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.apiKeys.createError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.apiKeys.createError", "admin"));
     },
   });
 
@@ -167,9 +161,7 @@ export function useRateLimitMutations() {
       toast.success(t("rateLimit.apiKeys.updateSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.apiKeys.updateError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.apiKeys.updateError", "admin"));
     },
   });
 
@@ -182,9 +174,7 @@ export function useRateLimitMutations() {
       toast.success(t("rateLimit.apiKeys.deleteSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.apiKeys.deleteError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.apiKeys.deleteError", "admin"));
     },
   });
 
@@ -355,9 +345,7 @@ export function useCacheMutations() {
       toast.success(t("rateLimit.cache.resetSuccess", "admin"));
     },
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.cache.resetError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.cache.resetError", "admin"));
     },
   });
 
@@ -373,13 +361,14 @@ export function useCacheMutations() {
 export function useTestPolicyMatch() {
   const { t } = useI18n();
 
-  return useMutation<PolicyMatchResponse, Error, { id: string; context: TestPolicyMatchDto }>({
+  return useMutation<
+    PolicyMatchResponse,
+    Error,
+    { id: string; context: TestPolicyMatchDto }
+  >({
     mutationFn: ({ id, context }) => RateLimitAPI.testPolicyMatch(id, context),
     onError: (error) => {
-      toast.error(
-        error.message || t("rateLimit.policies.testError", "admin"),
-      );
+      toast.error(error.message || t("rateLimit.policies.testError", "admin"));
     },
   });
 }
-

@@ -22,7 +22,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/layout/form";
-import { testPolicyMatchSchema, type TestPolicyMatchFormData } from "@/lib/validators/rate-limit.validator";
+import {
+  testPolicyMatchSchema,
+  type TestPolicyMatchFormData,
+} from "@/lib/validators/rate-limit.validator";
 import { useTestPolicyMatch } from "@/hooks/admin/useRateLimit";
 import { Badge } from "@/components/ui/core/badge";
 
@@ -52,7 +55,7 @@ export function PolicyTestDialog({
   });
 
   const handleSubmit = async (data: TestPolicyMatchFormData) => {
-    const result = await testMutation.mutateAsync({
+    await testMutation.mutateAsync({
       id: policyId,
       context: data,
     });
@@ -71,7 +74,10 @@ export function PolicyTestDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="userId"
@@ -154,7 +160,9 @@ export function PolicyTestDialog({
                     {t("rateLimit.policies.test.result", "admin")}:
                   </span>
                   <Badge
-                    variant={testMutation.data.matches ? "default" : "secondary"}
+                    variant={
+                      testMutation.data.matches ? "default" : "secondary"
+                    }
                   >
                     {testMutation.data.matches
                       ? t("rateLimit.policies.test.matches", "admin")
@@ -183,4 +191,3 @@ export function PolicyTestDialog({
     </Dialog>
   );
 }
-

@@ -34,9 +34,7 @@ interface PlanFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   plan?: Plan;
-  onSubmit: (
-    data: CreatePlanFormData | UpdatePlanFormData,
-  ) => Promise<void>;
+  onSubmit: (data: CreatePlanFormData | UpdatePlanFormData) => Promise<void>;
   isLoading?: boolean;
 }
 
@@ -85,7 +83,10 @@ export function PlanFormDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             {!isEditing && (
               <FormField
                 control={form.control}
@@ -240,4 +241,3 @@ export function PlanFormDialog({
     </Dialog>
   );
 }
-
