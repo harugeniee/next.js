@@ -2,15 +2,7 @@
 
 import { Plus } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/animate-ui/components/radix/tooltip";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
@@ -67,7 +59,6 @@ export function SeriesList({
   data,
   isLoading,
   page,
-  limit,
   onPageChange,
   onCreate,
   onEdit,

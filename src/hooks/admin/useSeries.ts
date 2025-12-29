@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { SeriesAPI } from "@/lib/api/series";
 import type { BackendSeries } from "@/lib/interface/series.interface";
-import type { ApiResponseOffset, AdvancedQueryParams } from "@/lib/types";
+import type { ApiResponseOffset } from "@/lib/types";
 import type {
   CreateSeriesDto,
   UpdateSeriesDto,

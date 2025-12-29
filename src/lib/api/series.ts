@@ -7,7 +7,7 @@ import type {
   SeriesType,
 } from "@/lib/constants/series.constants";
 import { http } from "@/lib/http";
-import type { Series } from "@/lib/interface/series.interface";
+import type { BackendSeries } from "@/lib/interface/series.interface";
 import type {
   AdvancedQueryParams,
   ApiResponse,
@@ -103,16 +103,16 @@ export class SeriesAPI {
    * Create a new series
    * Requires authentication
    */
-  static async createSeries(data: CreateSeriesDto): Promise<Series> {
-    const response = await http.post<ApiResponse<Series>>(this.BASE_URL, data);
+  static async createSeries(data: CreateSeriesDto): Promise<BackendSeries> {
+    const response = await http.post<ApiResponse<BackendSeries>>(this.BASE_URL, data);
     return response.data.data;
   }
 
   /**
    * Get series by ID
    */
-  static async getSeries(id: string): Promise<Series> {
-    const response = await http.get<ApiResponse<Series>>(
+  static async getSeries(id: string): Promise<BackendSeries> {
+    const response = await http.get<ApiResponse<BackendSeries>>(
       `${this.BASE_URL}/${id}`,
     );
     return response.data.data;
@@ -124,9 +124,9 @@ export class SeriesAPI {
   static async getSeriesWithReactions(
     id: string,
     kinds?: string[],
-  ): Promise<Series> {
+  ): Promise<BackendSeries> {
     const params = kinds && kinds.length > 0 ? { kinds: kinds.join(",") } : {};
-    const response = await http.get<ApiResponse<Series>>(
+    const response = await http.get<ApiResponse<BackendSeries>>(
       `${this.BASE_URL}/${id}/reactions`,
       { params },
     );
@@ -140,8 +140,8 @@ export class SeriesAPI {
   static async updateSeries(
     id: string,
     data: UpdateSeriesDto,
-  ): Promise<Series> {
-    const response = await http.patch<ApiResponse<Series>>(
+  ): Promise<BackendSeries> {
+    const response = await http.patch<ApiResponse<BackendSeries>>(
       `${this.BASE_URL}/${id}`,
       data,
     );
@@ -161,8 +161,8 @@ export class SeriesAPI {
    */
   static async getSeriesOffset(
     params?: Partial<QuerySeriesDto>,
-  ): Promise<ApiResponseOffset<Series>> {
-    const response = await http.get<ApiResponseOffset<Series>>(this.BASE_URL, {
+  ): Promise<ApiResponseOffset<BackendSeries>> {
+    const response = await http.get<ApiResponseOffset<BackendSeries>>(this.BASE_URL, {
       params,
     });
     return response.data;
@@ -173,8 +173,8 @@ export class SeriesAPI {
    */
   static async getSeriesCursor(
     params?: QueryParamsWithCursor & QuerySeriesDto,
-  ): Promise<ApiResponseCursor<Series>> {
-    const response = await http.get<ApiResponseCursor<Series>>(
+  ): Promise<ApiResponseCursor<BackendSeries>> {
+    const response = await http.get<ApiResponseCursor<BackendSeries>>(
       `${this.BASE_URL}/cursor`,
       { params },
     );
@@ -194,7 +194,7 @@ export class SeriesAPI {
     fields: string = "title:jsonb",
     limit: number = 10,
     cursor?: string,
-  ): Promise<ApiResponseCursor<Series>> {
+  ): Promise<ApiResponseCursor<BackendSeries>> {
     const params: Record<string, string> = {
       fields,
       query,
@@ -203,7 +203,7 @@ export class SeriesAPI {
     if (cursor) {
       params.cursor = cursor;
     }
-    const response = await http.get<ApiResponseCursor<Series>>(
+    const response = await http.get<ApiResponseCursor<BackendSeries>>(
       `${this.BASE_URL}/cursor`,
       { params },
     );
@@ -245,8 +245,8 @@ export class SeriesAPI {
    */
   static async saveAniListMediaById(
     anilistId: number,
-  ): Promise<ApiResponse<Series>> {
-    const response = await http.get<ApiResponse<Series>>(
+  ): Promise<ApiResponse<BackendSeries>> {
+    const response = await http.get<ApiResponse<BackendSeries>>(
       `${this.BASE_URL}/anilist/${anilistId}/save`,
     );
     return response.data;

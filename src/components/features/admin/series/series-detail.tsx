@@ -16,12 +16,7 @@ import {
   Lock,
   FileText,
   Info,
-  Tag,
-  BarChart3,
-  Settings,
-  Database,
   X,
-  Save,
   List,
   Users,
 } from "lucide-react";
@@ -891,9 +886,11 @@ export function SeriesDetail({
                                   {series.genres.map((genreItem) => {
                                     const genre = genreItem.genre || genreItem;
                                     const genreName =
-                                      typeof genre === "object"
+                                      typeof genre === "object" && "name" in genre
                                         ? genre.name
-                                        : genre;
+                                        : typeof genre === "string"
+                                          ? genre
+                                          : "Unknown";
                                     return (
                                       <Badge
                                         key={genreItem.id || genreName}

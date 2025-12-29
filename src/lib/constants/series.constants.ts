@@ -5,6 +5,12 @@
  */
 
 export const SERIES_CONSTANTS = {
+  // Field length limits
+  TITLE_MAX_LENGTH: 255,
+  DESCRIPTION_MAX_LENGTH: 10000,
+  MOD_NOTES_MAX_LENGTH: 2000,
+  COUNTRY_CODE_LENGTH: 2,
+
   // Media types (Anime or Manga)
   TYPE: {
     ANIME: "anime",

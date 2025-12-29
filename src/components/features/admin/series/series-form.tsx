@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
@@ -76,21 +76,25 @@ export function SeriesForm({
             native: "",
             userPreferred: "",
           },
-      type: series?.type ?? (SERIES_CONSTANTS.TYPE.ANIME as FormData["type"]),
-      format: series?.format ?? "",
-      status: series?.status ?? "",
+      type: (series?.type as FormData["type"]) ?? SERIES_CONSTANTS.TYPE.ANIME,
+      format: (series?.format as FormData["format"]) ?? undefined,
+      status: (series?.status as FormData["status"]) ?? undefined,
       description: series?.description ?? "",
       startDate: series?.startDate
         ? typeof series.startDate === "string"
-          ? series.startDate
-          : new Date(series.startDate).toISOString().split("T")[0]
+          ? new Date(series.startDate)
+          : series.startDate instanceof Date
+            ? series.startDate
+            : new Date(series.startDate)
         : undefined,
       endDate: series?.endDate
         ? typeof series.endDate === "string"
-          ? series.endDate
-          : new Date(series.endDate).toISOString().split("T")[0]
+          ? new Date(series.endDate)
+          : series.endDate instanceof Date
+            ? series.endDate
+            : new Date(series.endDate)
         : undefined,
-      season: series?.season ?? "",
+      season: (series?.season as FormData["season"]) ?? undefined,
       seasonYear: series?.seasonYear ?? undefined,
       seasonInt: series?.seasonInt ?? undefined,
       episodes: series?.episodes ?? undefined,
@@ -99,7 +103,7 @@ export function SeriesForm({
       volumes: series?.volumes ?? undefined,
       countryOfOrigin: series?.countryOfOrigin ?? "",
       isLicensed: series?.isLicensed ?? false,
-      source: series?.source ?? "",
+      source: (series?.source as FormData["source"]) ?? undefined,
       coverImageId: series?.coverImageId ?? "",
       bannerImageId: series?.bannerImageId ?? "",
       genreIds: series?.genres?.map((g) => g.genre?.id || g.id) ?? [],
@@ -115,14 +119,18 @@ export function SeriesForm({
       isRecommendationBlocked: series?.isRecommendationBlocked ?? false,
       isReviewBlocked: series?.isReviewBlocked ?? false,
       notes: series?.notes ?? "",
-      releasingStatus: series?.releasingStatus ?? "",
+      releasingStatus: (series?.releasingStatus as FormData["releasingStatus"]) ?? undefined,
       externalLinks: series?.externalLinks ?? {},
       streamingEpisodes: series?.streamingEpisodes ?? {},
       metadata: series?.metadata ?? {},
     },
   });
 
-  const seriesType = form.watch("type");
+  // Watch series type to conditionally render anime/manga specific fields
+  const seriesType = useWatch({
+    control: form.control,
+    name: "type",
+  });
 
   // Update form when series changes
   useEffect(() => {
@@ -143,21 +151,25 @@ export function SeriesForm({
               native: "",
               userPreferred: "",
             },
-        type: series.type ?? (SERIES_CONSTANTS.TYPE.ANIME as FormData["type"]),
-        format: series.format ?? "",
-        status: series.status ?? "",
+        type: (series.type as FormData["type"]) ?? SERIES_CONSTANTS.TYPE.ANIME,
+        format: (series.format as FormData["format"]) ?? undefined,
+        status: (series.status as FormData["status"]) ?? undefined,
         description: series.description ?? "",
         startDate: series.startDate
           ? typeof series.startDate === "string"
-            ? series.startDate
-            : new Date(series.startDate).toISOString().split("T")[0]
+            ? new Date(series.startDate)
+            : series.startDate instanceof Date
+              ? series.startDate
+              : new Date(series.startDate)
           : undefined,
         endDate: series.endDate
           ? typeof series.endDate === "string"
-            ? series.endDate
-            : new Date(series.endDate).toISOString().split("T")[0]
+            ? new Date(series.endDate)
+            : series.endDate instanceof Date
+              ? series.endDate
+              : new Date(series.endDate)
           : undefined,
-        season: series.season ?? "",
+        season: (series.season as FormData["season"]) ?? undefined,
         seasonYear: series.seasonYear ?? undefined,
         seasonInt: series.seasonInt ?? undefined,
         episodes: series.episodes ?? undefined,
@@ -166,7 +178,7 @@ export function SeriesForm({
         volumes: series.volumes ?? undefined,
         countryOfOrigin: series.countryOfOrigin ?? "",
         isLicensed: series.isLicensed ?? false,
-        source: series.source ?? "",
+        source: (series.source as FormData["source"]) ?? undefined,
         coverImageId: series.coverImageId ?? "",
         bannerImageId: series.bannerImageId ?? "",
         genreIds: series.genres?.map((g) => g.genre?.id || g.id) ?? [],
@@ -182,7 +194,7 @@ export function SeriesForm({
         isRecommendationBlocked: series.isRecommendationBlocked ?? false,
         isReviewBlocked: series.isReviewBlocked ?? false,
         notes: series.notes ?? "",
-        releasingStatus: series.releasingStatus ?? "",
+        releasingStatus: (series.releasingStatus as FormData["releasingStatus"]) ?? undefined,
         externalLinks: series.externalLinks ?? {},
         streamingEpisodes: series.streamingEpisodes ?? {},
         metadata: series.metadata ?? {},
@@ -552,7 +564,19 @@ export function SeriesForm({
                 <FormItem>
                   <FormLabel>{t("form.startDate", "series")}</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} value={field.value || ""} />
+                    <Input
+                      type="date"
+                      {...field}
+                      value={
+                        field.value instanceof Date
+                          ? field.value.toISOString().split("T")[0]
+                          : field.value || ""
+                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value ? new Date(value) : undefined);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -566,7 +590,19 @@ export function SeriesForm({
                 <FormItem>
                   <FormLabel>{t("form.endDate", "series")}</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} value={field.value || ""} />
+                    <Input
+                      type="date"
+                      {...field}
+                      value={
+                        field.value instanceof Date
+                          ? field.value.toISOString().split("T")[0]
+                          : field.value || ""
+                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(value ? new Date(value) : undefined);
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

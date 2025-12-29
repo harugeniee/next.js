@@ -1,7 +1,6 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -24,7 +23,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/core/table";
-import { Skeleton } from "@/components/ui/core/skeleton";
 import {
   Pagination,
   PaginationContent,
@@ -55,7 +53,6 @@ export function SeriesCharacterList({
   data,
   isLoading,
   page,
-  limit,
   onPageChange,
   onCreate,
 }: SeriesCharacterListProps) {
@@ -93,7 +90,7 @@ export function SeriesCharacterList({
     const pages: number[] = [];
     const maxPages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
-    let endPage = Math.min(totalPages, startPage + maxPages - 1);
+    const endPage = Math.min(totalPages, startPage + maxPages - 1);
 
     if (endPage - startPage < maxPages - 1) {
       startPage = Math.max(1, endPage - maxPages + 1);

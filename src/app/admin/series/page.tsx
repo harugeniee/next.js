@@ -24,7 +24,7 @@ import {
 } from "@/hooks/admin/useSeries";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type { BackendSeries } from "@/lib/interface/series.interface";
-import type { QuerySeriesDto } from "@/lib/api/series";
+import type { CreateSeriesDto, QuerySeriesDto } from "@/lib/api/series";
 import type { UpdateSeriesFormData } from "@/lib/validators/series";
 
 /**
@@ -88,7 +88,16 @@ export default function SeriesPage() {
           data,
         });
       } else {
-        await createSeriesMutation.mutateAsync(data as UpdateSeriesFormData);
+        // Convert UpdateSeriesFormData to CreateSeriesDto
+        // type is required for creation
+        if (!data.type) {
+          throw new Error("Series type is required");
+        }
+        const createData: CreateSeriesDto = {
+          ...data,
+          type: data.type,
+        };
+        await createSeriesMutation.mutateAsync(createData);
       }
       setSeriesFormOpen(false);
       setSelectedSeries(undefined);
