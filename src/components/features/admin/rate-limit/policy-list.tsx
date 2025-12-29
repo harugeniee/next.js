@@ -131,7 +131,7 @@ export function PolicyList({
                           {t("rateLimit.policies.priority", "admin")}
                         </TableHead>
                         <TableHead>
-                          {t("rateLimit.policies.status", "admin")}
+                          {t("rateLimit.policies.statusLabel", "admin")}
                         </TableHead>
                         <TableHead>
                           {t("rateLimit.policies.descriptionLabel", "admin")}

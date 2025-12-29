@@ -112,7 +112,7 @@ export function IpWhitelistList({
                           {t("rateLimit.ipWhitelist.reason", "admin")}
                         </TableHead>
                         <TableHead>
-                          {t("rateLimit.ipWhitelist.status", "admin")}
+                          {t("rateLimit.ipWhitelist.statusLabel", "admin")}
                         </TableHead>
                         <TableHead className="text-right">
                           {t("common.actions", "common")}

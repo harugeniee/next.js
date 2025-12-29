@@ -124,7 +124,7 @@ export function PlanList({
                           {t("rateLimit.plans.displayOrder", "admin")}
                         </TableHead>
                         <TableHead>
-                          {t("rateLimit.plans.status", "admin")}
+                          {t("rateLimit.plans.statusLabel", "admin")}
                         </TableHead>
                         <TableHead className="text-right">
                           {t("common.actions", "common")}

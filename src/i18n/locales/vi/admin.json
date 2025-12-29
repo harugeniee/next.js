@@ -651,7 +651,7 @@
       "limitPerMin": "Giới hạn/phút",
       "ttlSec": "TTL (giây)",
       "displayOrder": "Thứ tự hiển thị",
-      "status": "Trạng thái",
+      "statusLabel": "Trạng thái",
       "empty": "Không tìm thấy gói nào",
       "status": {
         "active": "Kích hoạt",
@@ -684,13 +684,14 @@
     "apiKeys": {
       "title": "API Keys",
       "description": "Quản lý API keys và gói liên quan",
+      "descriptionLabel": "Mô tả",
       "create": "Tạo API Key",
       "key": "API Key",
       "name": "Tên",
       "plan": "Gói",
       "isWhitelist": "Danh sách trắng",
       "expiresAt": "Hết hạn",
-      "status": "Trạng thái",
+      "statusLabel": "Trạng thái",
       "empty": "Không tìm thấy API key nào",
       "status": {
         "active": "Kích hoạt",
@@ -733,9 +734,8 @@
       "description": "Quản lý địa chỉ IP bỏ qua giới hạn tốc độ",
       "create": "Thêm IP",
       "ip": "Địa chỉ IP",
-      "description": "Mô tả",
       "reason": "Lý do",
-      "status": "Trạng thái",
+      "statusLabel": "Trạng thái",
       "empty": "Không tìm thấy mục nào trong danh sách IP trắng",
       "status": {
         "active": "Kích hoạt",
@@ -775,8 +775,7 @@
       "scope": "Phạm vi",
       "strategy": "Chiến lược",
       "priority": "Ưu tiên",
-      "status": "Trạng thái",
-      "description": "Mô tả",
+      "statusLabel": "Trạng thái",
       "empty": "Không tìm thấy chính sách nào",
       "status": {
         "active": "Kích hoạt",

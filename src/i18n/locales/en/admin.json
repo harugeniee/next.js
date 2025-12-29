@@ -651,7 +651,7 @@
       "limitPerMin": "Limit/Min",
       "ttlSec": "TTL (sec)",
       "displayOrder": "Display Order",
-      "status": "Status",
+      "statusLabel": "Status",
       "empty": "No plans found",
       "status": {
         "active": "Active",
@@ -690,7 +690,7 @@
       "plan": "Plan",
       "isWhitelist": "Whitelisted",
       "expiresAt": "Expires At",
-      "status": "Status",
+      "statusLabel": "Status",
       "empty": "No API keys found",
       "status": {
         "active": "Active",
@@ -734,7 +734,7 @@
       "create": "Add IP",
       "ip": "IP Address",
       "reason": "Reason",
-      "status": "Status",
+      "statusLabel": "Status",
       "empty": "No IP whitelist entries found",
       "status": {
         "active": "Active",
@@ -773,7 +773,7 @@
       "scope": "Scope",
       "strategy": "Strategy",
       "priority": "Priority",
-      "status": "Status",
+      "statusLabel": "Status",
       "empty": "No policies found",
       "status": {
         "active": "Active",
@@ -829,6 +829,7 @@
     "cache": {
       "title": "Cache Statistics",
       "description": "View rate limit cache statistics",
+      "descriptionLabel": "Description",
       "planCount": "Plans",
       "ipWhitelistCount": "IP Whitelist",
       "apiKeyCount": "API Keys",
