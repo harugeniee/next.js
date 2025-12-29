@@ -21,6 +21,7 @@ import {
   SquareTerminal,
   UserCircle,
   Users,
+  BookMarked,
 } from "lucide-react";
 import * as React from "react";
 
@@ -174,6 +175,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.media.management", "admin"),
               url: "/admin/media",
+            },
+          ],
+        },
+        {
+          title: t("nav.series.title", "admin"),
+          url: "/admin/series",
+          icon: BookMarked,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.series.management", "admin"),
+              url: "/admin/series",
             },
           ],
         },

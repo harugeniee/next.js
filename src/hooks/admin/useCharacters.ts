@@ -128,3 +128,21 @@ export function useDeleteCharacter() {
     },
   });
 }
+
+/**
+ * Hook for fetching characters of a specific series
+ */
+export function useSeriesCharacters(
+  seriesId: string,
+  params?: Partial<GetCharacterDto>,
+) {
+  return useQuery<CharacterListResponse, Error>({
+    queryKey: queryKeys.series.admin.characters(seriesId, params),
+    queryFn: () => CharactersAPI.getCharacters({ ...params, seriesId }),
+    staleTime: STALE_TIME_5_MIN,
+    gcTime: GC_TIME_10_MIN,
+    enabled: !!seriesId,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+  });
+}

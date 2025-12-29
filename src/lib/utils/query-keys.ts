@@ -100,6 +100,17 @@ export const queryKeys = {
       detail: (seriesId: string, segmentId: string) =>
         ["series", seriesId, "segments", segmentId] as const,
     },
+    admin: {
+      all: () => ["series", "admin"] as const,
+      lists: (params?: unknown) =>
+        ["series", "admin", "lists", params] as const,
+      detail: (id: string) => ["series", "admin", "detail", id] as const,
+      statistics: () => ["series", "admin", "statistics"] as const,
+      segments: (seriesId: string, params?: unknown) =>
+        ["series", "admin", seriesId, "segments", params] as const,
+      characters: (seriesId: string, params?: unknown) =>
+        ["series", "admin", seriesId, "characters", params] as const,
+    },
   },
 
   // Segments related queries (standalone, not tied to series)

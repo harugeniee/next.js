@@ -278,14 +278,14 @@ export function ApiKeyFormDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                {t("common.cancel", "common")}
+                {t("actions.cancel", "common")}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading
-                  ? t("common.saving", "common")
+                  ? t("actions.saving", "common")
                   : isEditing
-                    ? t("common.save", "common")
-                    : t("common.create", "common")}
+                    ? t("actions.save", "common")
+                    : t("actions.create", "common")}
               </Button>
             </DialogFooter>
           </form>

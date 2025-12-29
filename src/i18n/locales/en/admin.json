@@ -38,6 +38,10 @@
       "title": "Media",
       "management": "Management"
     },
+    "series": {
+      "title": "Series",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",

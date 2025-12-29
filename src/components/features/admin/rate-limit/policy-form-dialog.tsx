@@ -110,6 +110,17 @@ export function PolicyFormDialog({
     form.reset();
   };
 
+  // Determine button text based on loading and editing state
+  const getButtonText = () => {
+    if (isLoading) {
+      return t("actions.saving", "common");
+    }
+    if (isEditing) {
+      return t("actions.save", "common");
+    }
+    return t("actions.create", "common");
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
@@ -397,14 +408,10 @@ export function PolicyFormDialog({
                 variant="outline"
                 onClick={() => onOpenChange(false)}
               >
-                {t("common.cancel", "common")}
+                {t("actions.cancel", "common")}
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading
-                  ? t("common.saving", "common")
-                  : isEditing
-                    ? t("common.save", "common")
-                    : t("common.create", "common")}
+                {getButtonText()}
               </Button>
             </DialogFooter>
           </form>

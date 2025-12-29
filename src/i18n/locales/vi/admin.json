@@ -38,6 +38,10 @@
       "title": "Media",
       "management": "Quản lý"
     },
+    "series": {
+      "title": "Series",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",
