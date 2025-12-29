@@ -63,6 +63,10 @@
       "team": "Nhóm",
       "billing": "Thanh toán",
       "limits": "Giới hạn"
+    },
+    "rateLimit": {
+      "title": "Giới hạn tốc độ",
+      "management": "Quản lý"
     }
   },
   "projects": {
@@ -629,5 +633,222 @@
     "updateError": "Không thể cập nhật tổ chức",
     "deleteSuccess": "Xóa tổ chức thành công",
     "deleteError": "Không thể xóa tổ chức"
+  },
+  "rateLimit": {
+    "title": "Giới hạn tốc độ",
+    "description": "Quản lý gói giới hạn tốc độ, API keys, danh sách IP trắng và chính sách",
+    "tabs": {
+      "plans": "Gói",
+      "apiKeys": "API Keys",
+      "ipWhitelist": "Danh sách IP trắng",
+      "policies": "Chính sách"
+    },
+    "plans": {
+      "title": "Gói giới hạn tốc độ",
+      "description": "Quản lý các gói giới hạn tốc độ và cấu hình của chúng",
+      "create": "Tạo gói",
+      "name": "Tên",
+      "limitPerMin": "Giới hạn/phút",
+      "ttlSec": "TTL (giây)",
+      "displayOrder": "Thứ tự hiển thị",
+      "status": "Trạng thái",
+      "empty": "Không tìm thấy gói nào",
+      "status": {
+        "active": "Kích hoạt",
+        "inactive": "Không kích hoạt"
+      },
+      "createDialog": {
+        "title": "Tạo gói",
+        "description": "Tạo gói giới hạn tốc độ mới"
+      },
+      "edit": {
+        "title": "Chỉnh sửa gói",
+        "description": "Cập nhật cấu hình gói"
+      },
+      "form": {
+        "name": "Tên gói",
+        "namePlaceholder": "ví dụ: free, pro, enterprise",
+        "limitPerMin": "Giới hạn mỗi phút",
+        "ttlSec": "Thời gian sống (giây)",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Mô tả gói",
+        "displayOrder": "Thứ tự hiển thị",
+        "active": "Kích hoạt"
+      },
+      "descriptionLabel": "Mô tả",
+      "createSuccess": "Tạo gói thành công",
+      "createError": "Không thể tạo gói",
+      "updateSuccess": "Cập nhật gói thành công",
+      "updateError": "Không thể cập nhật gói"
+    },
+    "apiKeys": {
+      "title": "API Keys",
+      "description": "Quản lý API keys và gói liên quan",
+      "create": "Tạo API Key",
+      "key": "API Key",
+      "name": "Tên",
+      "plan": "Gói",
+      "isWhitelist": "Danh sách trắng",
+      "expiresAt": "Hết hạn",
+      "status": "Trạng thái",
+      "empty": "Không tìm thấy API key nào",
+      "status": {
+        "active": "Kích hoạt",
+        "inactive": "Không kích hoạt"
+      },
+      "copy": "Sao chép Key",
+      "copySuccess": "Đã sao chép API key vào clipboard",
+      "copyError": "Không thể sao chép API key",
+      "createDialog": {
+        "title": "Tạo API Key",
+        "description": "Tạo API key mới"
+      },
+      "edit": {
+        "title": "Chỉnh sửa API Key",
+        "description": "Cập nhật cấu hình API key"
+      },
+      "form": {
+        "key": "API Key",
+        "keyPlaceholder": "ak_1234567890abcdef",
+        "plan": "Gói",
+        "planPlaceholder": "Chọn gói",
+        "name": "Tên",
+        "namePlaceholder": "Tên API key",
+        "ownerId": "ID chủ sở hữu",
+        "ownerIdPlaceholder": "ID người dùng hoặc tổ chức",
+        "isWhitelist": "Bỏ qua giới hạn tốc độ",
+        "expiresAt": "Ngày hết hạn",
+        "active": "Kích hoạt"
+      },
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa API key \"{name}\"?",
+      "createSuccess": "Tạo API key thành công",
+      "createError": "Không thể tạo API key",
+      "updateSuccess": "Cập nhật API key thành công",
+      "updateError": "Không thể cập nhật API key",
+      "deleteSuccess": "Xóa API key thành công",
+      "deleteError": "Không thể xóa API key"
+    },
+    "ipWhitelist": {
+      "title": "Danh sách IP trắng",
+      "description": "Quản lý địa chỉ IP bỏ qua giới hạn tốc độ",
+      "create": "Thêm IP",
+      "ip": "Địa chỉ IP",
+      "description": "Mô tả",
+      "reason": "Lý do",
+      "status": "Trạng thái",
+      "empty": "Không tìm thấy mục nào trong danh sách IP trắng",
+      "status": {
+        "active": "Kích hoạt",
+        "inactive": "Không kích hoạt"
+      },
+      "descriptionLabel": "Mô tả",
+      "createDialog": {
+        "title": "Thêm IP vào danh sách trắng",
+        "description": "Thêm địa chỉ IP mới vào danh sách trắng"
+      },
+      "edit": {
+        "title": "Chỉnh sửa mục danh sách IP trắng",
+        "description": "Cập nhật mục danh sách IP trắng"
+      },
+      "form": {
+        "ip": "Địa chỉ IP",
+        "ipPlaceholder": "192.168.1.1 hoặc 10.0.0.0/8",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Mô tả IP",
+        "reason": "Lý do",
+        "reasonPlaceholder": "Lý do đưa vào danh sách trắng",
+        "active": "Kích hoạt"
+      },
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa IP \"{ip}\" khỏi danh sách trắng?",
+      "createSuccess": "Thêm IP vào danh sách trắng thành công",
+      "createError": "Không thể thêm IP vào danh sách trắng",
+      "updateSuccess": "Cập nhật mục danh sách IP trắng thành công",
+      "updateError": "Không thể cập nhật mục danh sách IP trắng",
+      "deleteSuccess": "Xóa IP khỏi danh sách trắng thành công",
+      "deleteError": "Không thể xóa IP khỏi danh sách trắng"
+    },
+    "policies": {
+      "title": "Chính sách giới hạn tốc độ",
+      "description": "Quản lý các chính sách giới hạn tốc độ nâng cao",
+      "create": "Tạo chính sách",
+      "name": "Tên",
+      "scope": "Phạm vi",
+      "strategy": "Chiến lược",
+      "priority": "Ưu tiên",
+      "status": "Trạng thái",
+      "description": "Mô tả",
+      "empty": "Không tìm thấy chính sách nào",
+      "status": {
+        "active": "Kích hoạt",
+        "inactive": "Không kích hoạt"
+      },
+      "testMatch": "Kiểm tra khớp",
+      "createDialog": {
+        "title": "Tạo chính sách",
+        "description": "Tạo chính sách giới hạn tốc độ mới"
+      },
+      "edit": {
+        "title": "Chỉnh sửa chính sách",
+        "description": "Cập nhật cấu hình chính sách"
+      },
+      "form": {
+        "name": "Tên chính sách",
+        "namePlaceholder": "ví dụ: api-read-policy",
+        "scope": "Phạm vi",
+        "routePattern": "Mẫu route",
+        "strategy": "Chiến lược",
+        "limit": "Giới hạn",
+        "windowSec": "Cửa sổ (giây)",
+        "burst": "Dung lượng burst",
+        "refillPerSec": "Tốc độ làm đầy (mỗi giây)",
+        "priority": "Ưu tiên",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Mô tả chính sách",
+        "enabled": "Kích hoạt"
+      },
+      "descriptionLabel": "Mô tả",
+      "test": {
+        "title": "Kiểm tra khớp chính sách",
+        "description": "Kiểm tra xem chính sách có khớp với ngữ cảnh đã cho không",
+        "userId": "ID người dùng",
+        "orgId": "ID tổ chức",
+        "ip": "Địa chỉ IP",
+        "routeKey": "Route Key",
+        "apiKey": "API Key",
+        "test": "Kiểm tra",
+        "result": "Kết quả",
+        "matches": "Khớp",
+        "noMatch": "Không khớp"
+      },
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa chính sách \"{name}\"?",
+      "createSuccess": "Tạo chính sách thành công",
+      "createError": "Không thể tạo chính sách",
+      "updateSuccess": "Cập nhật chính sách thành công",
+      "updateError": "Không thể cập nhật chính sách",
+      "deleteSuccess": "Xóa chính sách thành công",
+      "deleteError": "Không thể xóa chính sách",
+      "testError": "Không thể kiểm tra khớp chính sách"
+    },
+    "cache": {
+      "title": "Thống kê cache",
+      "description": "Xem thống kê cache giới hạn tốc độ",
+      "planCount": "Gói",
+      "ipWhitelistCount": "Danh sách IP trắng",
+      "apiKeyCount": "API Keys",
+      "policyCount": "Chính sách",
+      "actions": {
+        "title": "Hành động cache",
+        "description": "Quản lý cache giới hạn tốc độ"
+      },
+      "invalidate": "Vô hiệu hóa cache",
+      "invalidateConfirm": "Bạn có chắc chắn muốn vô hiệu hóa tất cả cache giới hạn tốc độ?",
+      "invalidateSuccess": "Vô hiệu hóa cache thành công",
+      "invalidateError": "Không thể vô hiệu hóa cache",
+      "reset": "Đặt lại giới hạn tốc độ",
+      "resetKeyPlaceholder": "Nhập key giới hạn tốc độ để đặt lại",
+      "resetConfirm": "Bạn có chắc chắn muốn đặt lại giới hạn tốc độ cho key \"{key}\"?",
+      "resetSuccess": "Đặt lại giới hạn tốc độ thành công",
+      "resetError": "Không thể đặt lại giới hạn tốc độ"
+    }
   }
 }

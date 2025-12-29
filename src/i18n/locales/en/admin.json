@@ -63,6 +63,10 @@
       "team": "Team",
       "billing": "Billing",
       "limits": "Limits"
+    },
+    "rateLimit": {
+      "title": "Rate Limits",
+      "management": "Management"
     }
   },
   "projects": {
@@ -629,5 +633,219 @@
     "updateError": "Failed to update organization",
     "deleteSuccess": "Organization deleted successfully",
     "deleteError": "Failed to delete organization"
+  },
+  "rateLimit": {
+    "title": "Rate Limits",
+    "description": "Manage rate limit plans, API keys, IP whitelist, and policies",
+    "tabs": {
+      "plans": "Plans",
+      "apiKeys": "API Keys",
+      "ipWhitelist": "IP Whitelist",
+      "policies": "Policies"
+    },
+    "plans": {
+      "title": "Rate Limit Plans",
+      "description": "Manage rate limiting plans and their configurations",
+      "create": "Create Plan",
+      "name": "Name",
+      "limitPerMin": "Limit/Min",
+      "ttlSec": "TTL (sec)",
+      "displayOrder": "Display Order",
+      "status": "Status",
+      "empty": "No plans found",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "createDialog": {
+        "title": "Create Plan",
+        "description": "Create a new rate limit plan"
+      },
+      "edit": {
+        "title": "Edit Plan",
+        "description": "Update plan configuration"
+      },
+      "form": {
+        "name": "Plan Name",
+        "namePlaceholder": "e.g., free, pro, enterprise",
+        "limitPerMin": "Limit Per Minute",
+        "ttlSec": "Time To Live (seconds)",
+        "description": "Description",
+        "descriptionPlaceholder": "Plan description",
+        "displayOrder": "Display Order",
+        "active": "Active"
+      },
+      "descriptionLabel": "Description",
+      "createSuccess": "Plan created successfully",
+      "createError": "Failed to create plan",
+      "updateSuccess": "Plan updated successfully",
+      "updateError": "Failed to update plan"
+    },
+    "apiKeys": {
+      "title": "API Keys",
+      "description": "Manage API keys and their associated plans",
+      "create": "Create API Key",
+      "key": "API Key",
+      "name": "Name",
+      "plan": "Plan",
+      "isWhitelist": "Whitelisted",
+      "expiresAt": "Expires At",
+      "status": "Status",
+      "empty": "No API keys found",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "copy": "Copy Key",
+      "copySuccess": "API key copied to clipboard",
+      "copyError": "Failed to copy API key",
+      "createDialog": {
+        "title": "Create API Key",
+        "description": "Create a new API key"
+      },
+      "edit": {
+        "title": "Edit API Key",
+        "description": "Update API key configuration"
+      },
+      "form": {
+        "key": "API Key",
+        "keyPlaceholder": "ak_1234567890abcdef",
+        "plan": "Plan",
+        "planPlaceholder": "Select a plan",
+        "name": "Name",
+        "namePlaceholder": "API key name",
+        "ownerId": "Owner ID",
+        "ownerIdPlaceholder": "User or organization ID",
+        "isWhitelist": "Bypass Rate Limits",
+        "expiresAt": "Expiration Date",
+        "active": "Active"
+      },
+      "deleteConfirm": "Are you sure you want to delete API key \"{name}\"?",
+      "createSuccess": "API key created successfully",
+      "createError": "Failed to create API key",
+      "updateSuccess": "API key updated successfully",
+      "updateError": "Failed to update API key",
+      "deleteSuccess": "API key deleted successfully",
+      "deleteError": "Failed to delete API key"
+    },
+    "ipWhitelist": {
+      "title": "IP Whitelist",
+      "description": "Manage IP addresses that bypass rate limits",
+      "create": "Add IP",
+      "ip": "IP Address",
+      "reason": "Reason",
+      "status": "Status",
+      "empty": "No IP whitelist entries found",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "createDialog": {
+        "title": "Add IP to Whitelist",
+        "description": "Add a new IP address to the whitelist"
+      },
+      "edit": {
+        "title": "Edit IP Whitelist Entry",
+        "description": "Update IP whitelist entry"
+      },
+      "form": {
+        "ip": "IP Address",
+        "ipPlaceholder": "192.168.1.1 or 10.0.0.0/8",
+        "description": "Description",
+        "descriptionPlaceholder": "IP description",
+        "reason": "Reason",
+        "reasonPlaceholder": "Reason for whitelisting",
+        "active": "Active"
+      },
+      "deleteConfirm": "Are you sure you want to remove IP \"{ip}\" from whitelist?",
+      "createSuccess": "IP added to whitelist successfully",
+      "createError": "Failed to add IP to whitelist",
+      "updateSuccess": "IP whitelist entry updated successfully",
+      "updateError": "Failed to update IP whitelist entry",
+      "deleteSuccess": "IP removed from whitelist successfully",
+      "deleteError": "Failed to remove IP from whitelist"
+    },
+    "policies": {
+      "title": "Rate Limit Policies",
+      "description": "Manage advanced rate limiting policies",
+      "create": "Create Policy",
+      "name": "Name",
+      "scope": "Scope",
+      "strategy": "Strategy",
+      "priority": "Priority",
+      "status": "Status",
+      "empty": "No policies found",
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "testMatch": "Test Match",
+      "createDialog": {
+        "title": "Create Policy",
+        "description": "Create a new rate limit policy"
+      },
+      "edit": {
+        "title": "Edit Policy",
+        "description": "Update policy configuration"
+      },
+      "form": {
+        "name": "Policy Name",
+        "namePlaceholder": "e.g., api-read-policy",
+        "scope": "Scope",
+        "routePattern": "Route Pattern",
+        "strategy": "Strategy",
+        "limit": "Limit",
+        "windowSec": "Window (seconds)",
+        "burst": "Burst Capacity",
+        "refillPerSec": "Refill Rate (per second)",
+        "priority": "Priority",
+        "description": "Description",
+        "descriptionPlaceholder": "Policy description",
+        "enabled": "Enabled"
+      },
+      "descriptionLabel": "Description",
+      "test": {
+        "title": "Test Policy Match",
+        "description": "Test if a policy matches a given context",
+        "userId": "User ID",
+        "orgId": "Organization ID",
+        "ip": "IP Address",
+        "routeKey": "Route Key",
+        "apiKey": "API Key",
+        "test": "Test",
+        "result": "Result",
+        "matches": "Matches",
+        "noMatch": "No Match"
+      },
+      "deleteConfirm": "Are you sure you want to delete policy \"{name}\"?",
+      "createSuccess": "Policy created successfully",
+      "createError": "Failed to create policy",
+      "updateSuccess": "Policy updated successfully",
+      "updateError": "Failed to update policy",
+      "deleteSuccess": "Policy deleted successfully",
+      "deleteError": "Failed to delete policy",
+      "testError": "Failed to test policy match"
+    },
+    "cache": {
+      "title": "Cache Statistics",
+      "description": "View rate limit cache statistics",
+      "planCount": "Plans",
+      "ipWhitelistCount": "IP Whitelist",
+      "apiKeyCount": "API Keys",
+      "policyCount": "Policies",
+      "actions": {
+        "title": "Cache Actions",
+        "description": "Manage rate limit cache"
+      },
+      "invalidate": "Invalidate Cache",
+      "invalidateConfirm": "Are you sure you want to invalidate all rate limit cache?",
+      "invalidateSuccess": "Cache invalidated successfully",
+      "invalidateError": "Failed to invalidate cache",
+      "reset": "Reset Rate Limit",
+      "resetKeyPlaceholder": "Enter rate limit key to reset",
+      "resetConfirm": "Are you sure you want to reset rate limit for key \"{key}\"?",
+      "resetSuccess": "Rate limit reset successfully",
+      "resetError": "Failed to reset rate limit"
+    }
   }
 }

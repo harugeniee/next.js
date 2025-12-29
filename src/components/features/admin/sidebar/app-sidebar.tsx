@@ -12,6 +12,7 @@ import {
   FileImage,
   Frame,
   GalleryVerticalEnd,
+  Gauge,
   Key,
   Map,
   MessageSquare,
@@ -125,6 +126,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.title", "permissions"),
               url: "/admin/permissions",
+            },
+          ],
+        },
+        {
+          title: t("nav.rateLimit.title", "admin"),
+          url: "/admin/rate-limit",
+          icon: Gauge,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.rateLimit.management", "admin"),
+              url: "/admin/rate-limit",
             },
           ],
         },

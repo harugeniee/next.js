@@ -308,6 +308,15 @@ export const queryKeys = {
     myOwned: () => ["organizations", "my", "owned"] as const,
     myMemberships: () => ["organizations", "my", "memberships"] as const,
   },
+
+  // Rate limit related queries
+  rateLimit: {
+    plans: () => ["rateLimit", "plans"] as const,
+    apiKeys: () => ["rateLimit", "apiKeys"] as const,
+    ipWhitelist: () => ["rateLimit", "ipWhitelist"] as const,
+    policies: () => ["rateLimit", "policies"] as const,
+    cacheStats: () => ["rateLimit", "cacheStats"] as const,
+  },
 } as const;
 
 /**
