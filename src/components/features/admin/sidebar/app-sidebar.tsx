@@ -2,9 +2,10 @@
 
 import { useAtom } from "jotai";
 import {
-  Award,
   AudioWaveform,
+  Award,
   BarChart3,
+  BookMarked,
   BookOpen,
   Bot,
   Building2,
@@ -19,9 +20,9 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Tag,
   UserCircle,
   Users,
-  BookMarked,
 } from "lucide-react";
 import * as React from "react";
 
@@ -187,6 +188,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.series.management", "admin"),
               url: "/admin/series",
+            },
+          ],
+        },
+        {
+          title: t("nav.genres.title", "admin"),
+          url: "/admin/genres",
+          icon: Tag,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.genres.management", "admin"),
+              url: "/admin/genres",
             },
           ],
         },

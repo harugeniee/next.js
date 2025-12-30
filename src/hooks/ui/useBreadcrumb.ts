@@ -136,5 +136,10 @@ function matchRoute(
     return BreadcrumbRoutes.user.profile(userId, dynamicParams?.username);
   }
 
+  // Admin routes
+  if (pathname === "/admin/genres") {
+    return BreadcrumbRoutes.admin.genres();
+  }
+
   return null;
 }

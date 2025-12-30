@@ -42,6 +42,10 @@
       "title": "Series",
       "management": "Management"
     },
+    "genres": {
+      "title": "Genres",
+      "management": "Management"
+    },
     "playground": {
       "title": "Playground",
       "history": "History",
@@ -852,5 +856,65 @@
       "resetSuccess": "Rate limit reset successfully",
       "resetError": "Failed to reset rate limit"
     }
+  },
+  "genres": {
+    "title": "Genres Management",
+    "description": "Manage genres and genre categories for articles and series",
+    "welcomeMessage": "Welcome to the Admin Genres page. Here you can manage all the genres available in the application.",
+    "management": {
+      "title": "Genre Management",
+      "description": "Create, edit, and organize genre categories to help users find content more easily."
+    },
+    "filters": {
+      "searchPlaceholder": "Search genres by name or slug..."
+    },
+    "list": {
+      "create": "Create New Genre",
+      "table": {
+        "name": "Name",
+        "slug": "Slug",
+        "description": "Description",
+        "isNsfw": "NSFW",
+        "sortOrder": "Sort Order",
+        "createdAt": "Created At",
+        "actions": "Actions"
+      },
+      "noRecords": "No genres found."
+    },
+    "form": {
+      "createTitle": "Create Genre",
+      "editTitle": "Edit Genre",
+      "createDescription": "Create a new genre with custom settings.",
+      "editDescription": "Update genre information and settings.",
+      "name": "Genre Name",
+      "namePlaceholder": "Enter genre name",
+      "slug": "Genre Slug",
+      "slugPlaceholder": "Enter genre slug (e.g., action, romance)",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter genre description",
+      "icon": "Icon",
+      "iconPlaceholder": "Enter icon identifier or URL",
+      "color": "Color",
+      "colorPlaceholder": "Enter color code (hex, RGB, or name)",
+      "sortOrder": "Sort Order",
+      "sortOrderPlaceholder": "Enter sort order (lower numbers appear first)",
+      "isNsfw": "NSFW Content",
+      "isNsfwDescription": "Mark this genre as containing adult/18+ content",
+      "cancel": "Cancel",
+      "create": "Create",
+      "update": "Update",
+      "saving": "Saving..."
+    },
+    "status": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "deleteConfirm": "Are you sure you want to delete genre \"{name}\"?",
+    "createSuccess": "Genre created successfully!",
+    "createError": "Failed to create genre.",
+    "updateSuccess": "Genre updated successfully!",
+    "updateError": "Failed to update genre.",
+    "deleteSuccess": "Genre deleted successfully!",
+    "deleteError": "Failed to delete genre."
   }
 }

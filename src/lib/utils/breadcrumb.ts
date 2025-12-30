@@ -217,4 +217,15 @@ export const BreadcrumbRoutes = {
       },
     ],
   },
+
+  /**
+   * Admin routes
+   */
+  admin: {
+    genres: (): BreadcrumbItem[] => [
+      { label: "nav.breadcrumb.home", href: "/" },
+      { label: "nav.breadcrumb.admin", href: "/admin" },
+      { label: "nav.breadcrumb.genres", isActive: true },
+    ],
+  },
 };

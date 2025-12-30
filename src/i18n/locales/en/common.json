@@ -837,7 +837,9 @@
       "settings": "Settings",
       "register": "Register",
       "uploadSegment": "Upload Segment",
-      "segment": "Segment"
+      "segment": "Segment",
+      "admin": "Admin",
+      "genres": "Genres"
     },
     "write": "Write",
     "profile": "Profile",

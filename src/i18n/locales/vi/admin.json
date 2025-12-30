@@ -42,6 +42,10 @@
       "title": "Series",
       "management": "Quản lý"
     },
+    "genres": {
+      "title": "Thể loại",
+      "management": "Quản lý"
+    },
     "playground": {
       "title": "Sân chơi",
       "history": "Lịch sử",
@@ -853,5 +857,65 @@
       "resetSuccess": "Đặt lại giới hạn tốc độ thành công",
       "resetError": "Không thể đặt lại giới hạn tốc độ"
     }
+  },
+  "genres": {
+    "title": "Quản lý thể loại",
+    "description": "Quản lý thể loại và danh mục thể loại cho bài viết và series",
+    "welcomeMessage": "Chào mừng đến trang Quản lý Thể loại của Admin. Tại đây bạn có thể quản lý tất cả các thể loại có sẵn trong ứng dụng.",
+    "management": {
+      "title": "Quản lý thể loại",
+      "description": "Tạo, chỉnh sửa và tổ chức các danh mục thể loại để giúp người dùng tìm nội dung dễ dàng hơn."
+    },
+    "filters": {
+      "searchPlaceholder": "Tìm kiếm thể loại theo tên hoặc slug..."
+    },
+    "list": {
+      "create": "Tạo thể loại mới",
+      "table": {
+        "name": "Tên",
+        "slug": "Slug",
+        "description": "Mô tả",
+        "isNsfw": "NSFW",
+        "sortOrder": "Thứ tự sắp xếp",
+        "createdAt": "Ngày tạo",
+        "actions": "Hành động"
+      },
+      "noRecords": "Không tìm thấy thể loại nào."
+    },
+    "form": {
+      "createTitle": "Tạo thể loại",
+      "editTitle": "Chỉnh sửa thể loại",
+      "createDescription": "Tạo một thể loại mới với các cài đặt tùy chỉnh.",
+      "editDescription": "Cập nhật thông tin và cài đặt thể loại.",
+      "name": "Tên thể loại",
+      "namePlaceholder": "Nhập tên thể loại",
+      "slug": "Slug thể loại",
+      "slugPlaceholder": "Nhập slug thể loại (vd: action, romance)",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập mô tả thể loại",
+      "icon": "Biểu tượng",
+      "iconPlaceholder": "Nhập mã biểu tượng hoặc URL",
+      "color": "Màu sắc",
+      "colorPlaceholder": "Nhập mã màu (hex, RGB, hoặc tên)",
+      "sortOrder": "Thứ tự sắp xếp",
+      "sortOrderPlaceholder": "Nhập thứ tự sắp xếp (số thấp hơn hiển thị trước)",
+      "isNsfw": "Nội dung NSFW",
+      "isNsfwDescription": "Đánh dấu thể loại này chứa nội dung người lớn/18+",
+      "cancel": "Hủy",
+      "create": "Tạo",
+      "update": "Cập nhật",
+      "saving": "Đang lưu..."
+    },
+    "status": {
+      "yes": "Có",
+      "no": "Không"
+    },
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa thể loại \"{name}\" không?",
+    "createSuccess": "Tạo thể loại thành công!",
+    "createError": "Tạo thể loại thất bại.",
+    "updateSuccess": "Cập nhật thể loại thành công!",
+    "updateError": "Cập nhật thể loại thất bại.",
+    "deleteSuccess": "Xóa thể loại thành công!",
+    "deleteError": "Xóa thể loại thất bại."
   }
 }

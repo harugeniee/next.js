@@ -837,7 +837,9 @@
       "settings": "Cài đặt",
       "register": "Đăng ký",
       "uploadSegment": "Tải lên chương",
-      "segment": "Chương"
+      "segment": "Chương",
+      "admin": "Quản trị",
+      "genres": "Thể loại"
     },
     "write": "Viết",
     "profile": "Hồ sơ",
