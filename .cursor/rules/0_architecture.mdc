@@ -67,10 +67,15 @@ yarn dlx shadcn add button card input
 ```
 Always commit `yarn.lock`.
 
+// NOTE: This project uses turbopack and runs dev on a non-default port as shown in `package.json`:
+// dev: "cross-env PORT=3001 next dev --turbopack"
+// build: "next build --turbopack"
+// start: "cross-env PORT=3001 next start"
+
 ## Environment & Tooling
 - Next.js 16+ (App Router), TypeScript strict
 - Node.js 20.9+ required
-- Yarn v3+/Berry (no npm/pnpm)
+- Yarn v4+ (modern Yarn). Project `package.json` sets `packageManager: "yarn@4.12.0"`.
 - shadcn/ui + TailwindCSS
 - Jest + @testing-library/react
 - ESLint + Prettier
