@@ -25,4 +25,3 @@ export type OrganizationStatus =
   (typeof ORGANIZATION_CONSTANTS.STATUS)[keyof typeof ORGANIZATION_CONSTANTS.STATUS];
 export type OrganizationVisibility =
   (typeof ORGANIZATION_CONSTANTS.VISIBILITY)[keyof typeof ORGANIZATION_CONSTANTS.VISIBILITY];
-
