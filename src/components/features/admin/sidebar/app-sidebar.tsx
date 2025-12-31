@@ -10,6 +10,7 @@ import {
   Bot,
   Building2,
   Command,
+  Database,
   FileImage,
   Frame,
   GalleryVerticalEnd,
@@ -140,6 +141,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.rateLimit.management", "admin"),
               url: "/admin/rate-limit",
+            },
+          ],
+        },
+        {
+          title: t("nav.keyValue.title", "admin"),
+          url: "/admin/key-value",
+          icon: Database,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.keyValue.management", "admin"),
+              url: "/admin/key-value",
             },
           ],
         },

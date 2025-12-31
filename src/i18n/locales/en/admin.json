@@ -87,6 +87,10 @@
     "tags": {
       "title": "Tags",
       "management": "Management"
+    },
+    "keyValue": {
+      "title": "Key-Value Store",
+      "management": "Management"
     }
   },
   "projects": {
@@ -1069,5 +1073,81 @@
       "idCopied": "Studio ID copied to clipboard",
       "idCopyError": "Failed to copy Studio ID"
     }
+  },
+  "keyValue": {
+    "title": "Key-Value Store",
+    "description": "Manage key-value pairs with namespacing, TTL, and flexible storage",
+    "list": {
+      "title": "Key-Value Pairs",
+      "description": "Manage and organize key-value storage entries",
+      "create": "Create Key-Value",
+      "key": "Key",
+      "value": "Value",
+      "namespace": "Namespace",
+      "contentType": "Content Type",
+      "status": "Status",
+      "expiresAt": "Expires At",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "empty": "No key-value pairs found",
+      "deleteConfirm": "Are you sure you want to delete key-value pair \"{key}\"?"
+    },
+    "form": {
+      "createTitle": "Create New Key-Value Pair",
+      "createDescription": "Add a new key-value storage entry",
+      "editTitle": "Edit Key-Value Pair",
+      "editDescription": "Update key-value pair information",
+      "key": "Key",
+      "keyPlaceholder": "e.g., user:settings:theme",
+      "value": "Value",
+      "valuePlaceholder": "Enter JSON-serializable value",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "e.g., user:preferences",
+      "expiresAt": "Expiration Date",
+      "expiresAtPlaceholder": "Select expiration date (optional)",
+      "metadata": "Metadata",
+      "metadataPlaceholder": "Enter JSON metadata (optional)",
+      "contentType": "Content Type",
+      "selectContentType": "Select content type",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "filters": {
+      "title": "Filters",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "Filter by namespace",
+      "keyPattern": "Key Pattern",
+      "keyPatternPlaceholder": "e.g., user:settings:%",
+      "contentType": "Content Type",
+      "selectContentType": "All Types",
+      "status": "Status",
+      "selectStatus": "All Statuses",
+      "includeExpired": "Include Expired",
+      "reset": "Reset Filters"
+    },
+    "contentType": {
+      "string": "String",
+      "number": "Number",
+      "boolean": "Boolean",
+      "object": "Object",
+      "array": "Array"
+    },
+    "status": {
+      "active": "Active",
+      "expired": "Expired",
+      "deleted": "Deleted",
+      "all": "All"
+    },
+    "actions": {
+      "cleanupExpired": "Cleanup Expired",
+      "cleanupSuccess": "Cleaned up {count} expired entries",
+      "cleanupError": "Failed to cleanup expired entries"
+    },
+    "createSuccess": "Key-value pair created successfully",
+    "createError": "Failed to create key-value pair",
+    "updateSuccess": "Key-value pair updated successfully",
+    "updateError": "Failed to update key-value pair",
+    "deleteSuccess": "Key-value pair deleted successfully",
+    "deleteError": "Failed to delete key-value pair"
   }
 }

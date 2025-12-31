@@ -87,6 +87,10 @@
     "tags": {
       "title": "Thẻ",
       "management": "Quản lý"
+    },
+    "keyValue": {
+      "title": "Kho lưu trữ Key-Value",
+      "management": "Quản lý"
     }
   },
   "projects": {
@@ -1070,5 +1074,81 @@
       "idCopied": "Đã sao chép ID Studio vào clipboard",
       "idCopyError": "Không thể sao chép ID Studio"
     }
+  },
+  "keyValue": {
+    "title": "Kho lưu trữ Key-Value",
+    "description": "Quản lý các cặp key-value với namespace, TTL và lưu trữ linh hoạt",
+    "list": {
+      "title": "Các cặp Key-Value",
+      "description": "Quản lý và tổ chức các mục lưu trữ key-value",
+      "create": "Tạo Key-Value",
+      "key": "Khóa",
+      "value": "Giá trị",
+      "namespace": "Namespace",
+      "contentType": "Loại nội dung",
+      "status": "Trạng thái",
+      "expiresAt": "Hết hạn",
+      "createdAt": "Đã tạo",
+      "updatedAt": "Đã cập nhật",
+      "empty": "Không tìm thấy cặp key-value nào",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa cặp key-value \"{key}\"?"
+    },
+    "form": {
+      "createTitle": "Tạo cặp Key-Value mới",
+      "createDescription": "Thêm mục lưu trữ key-value mới",
+      "editTitle": "Chỉnh sửa cặp Key-Value",
+      "editDescription": "Cập nhật thông tin cặp key-value",
+      "key": "Khóa",
+      "keyPlaceholder": "vd: user:settings:theme",
+      "value": "Giá trị",
+      "valuePlaceholder": "Nhập giá trị có thể serialize JSON",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "vd: user:preferences",
+      "expiresAt": "Ngày hết hạn",
+      "expiresAtPlaceholder": "Chọn ngày hết hạn (tùy chọn)",
+      "metadata": "Metadata",
+      "metadataPlaceholder": "Nhập metadata JSON (tùy chọn)",
+      "contentType": "Loại nội dung",
+      "selectContentType": "Chọn loại nội dung",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    },
+    "filters": {
+      "title": "Bộ lọc",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "Lọc theo namespace",
+      "keyPattern": "Mẫu khóa",
+      "keyPatternPlaceholder": "vd: user:settings:%",
+      "contentType": "Loại nội dung",
+      "selectContentType": "Tất cả các loại",
+      "status": "Trạng thái",
+      "selectStatus": "Tất cả trạng thái",
+      "includeExpired": "Bao gồm đã hết hạn",
+      "reset": "Đặt lại bộ lọc"
+    },
+    "contentType": {
+      "string": "Chuỗi",
+      "number": "Số",
+      "boolean": "Boolean",
+      "object": "Đối tượng",
+      "array": "Mảng"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "expired": "Đã hết hạn",
+      "deleted": "Đã xóa",
+      "all": "Tất cả"
+    },
+    "actions": {
+      "cleanupExpired": "Dọn dẹp đã hết hạn",
+      "cleanupSuccess": "Đã dọn dẹp {count} mục đã hết hạn",
+      "cleanupError": "Không thể dọn dẹp các mục đã hết hạn"
+    },
+    "createSuccess": "Đã tạo cặp key-value thành công",
+    "createError": "Không thể tạo cặp key-value",
+    "updateSuccess": "Đã cập nhật cặp key-value thành công",
+    "updateError": "Không thể cập nhật cặp key-value",
+    "deleteSuccess": "Đã xóa cặp key-value thành công",
+    "deleteError": "Không thể xóa cặp key-value"
   }
 }
