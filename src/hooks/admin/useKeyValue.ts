@@ -100,13 +100,7 @@ export function useKeyValueMutations() {
   });
 
   const updateKeyValue = useMutation({
-    mutationFn: async ({
-      id,
-      dto,
-    }: {
-      id: string;
-      dto: UpdateKeyValueDto;
-    }) => {
+    mutationFn: async ({ id, dto }: { id: string; dto: UpdateKeyValueDto }) => {
       return await KeyValueAPI.updateKeyValue(id, dto);
     },
     onSuccess() {
@@ -141,4 +135,3 @@ export function useKeyValueMutations() {
 }
 
 export default useKeyValues;
-

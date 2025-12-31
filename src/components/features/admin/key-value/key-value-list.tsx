@@ -71,9 +71,13 @@ export function KeyValueList({
 }: KeyValueListProps) {
   const { t } = useI18n();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [editingKeyValue, setEditingKeyValue] = useState<KeyValue | undefined>();
+  const [editingKeyValue, setEditingKeyValue] = useState<
+    KeyValue | undefined
+  >();
 
-  const handleCreate = async (formData: CreateKeyValueDto | UpdateKeyValueDto) => {
+  const handleCreate = async (
+    formData: CreateKeyValueDto | UpdateKeyValueDto,
+  ) => {
     await onCreate(formData as CreateKeyValueDto);
     setShowCreateDialog(false);
   };
@@ -82,7 +86,9 @@ export function KeyValueList({
     setEditingKeyValue(keyValue);
   };
 
-  const handleUpdate = async (formData: CreateKeyValueDto | UpdateKeyValueDto) => {
+  const handleUpdate = async (
+    formData: CreateKeyValueDto | UpdateKeyValueDto,
+  ) => {
     if (editingKeyValue) {
       await onUpdate(editingKeyValue.id, formData as UpdateKeyValueDto);
       setEditingKeyValue(undefined);
@@ -95,7 +101,8 @@ export function KeyValueList({
 
   const formatValue = (value: unknown): string => {
     if (value === null || value === undefined) return "null";
-    if (typeof value === "string") return value.length > 50 ? `${value.substring(0, 50)}...` : value;
+    if (typeof value === "string")
+      return value.length > 50 ? `${value.substring(0, 50)}...` : value;
     if (typeof value === "object") {
       const str = JSON.stringify(value);
       return str.length > 50 ? `${str.substring(0, 50)}...` : str;
@@ -137,11 +144,21 @@ export function KeyValueList({
                     <TableRow>
                       <TableHead>{t("keyValue.list.key", "admin")}</TableHead>
                       <TableHead>{t("keyValue.list.value", "admin")}</TableHead>
-                      <TableHead>{t("keyValue.list.namespace", "admin")}</TableHead>
-                      <TableHead>{t("keyValue.list.contentType", "admin")}</TableHead>
-                      <TableHead>{t("keyValue.list.status", "admin")}</TableHead>
-                      <TableHead>{t("keyValue.list.expiresAt", "admin")}</TableHead>
-                      <TableHead>{t("keyValue.list.createdAt", "admin")}</TableHead>
+                      <TableHead>
+                        {t("keyValue.list.namespace", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("keyValue.list.contentType", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("keyValue.list.status", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("keyValue.list.expiresAt", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("keyValue.list.createdAt", "admin")}
+                      </TableHead>
                       <TableHead className="text-right">
                         {t("common.actions", "common")}
                       </TableHead>
@@ -182,20 +199,26 @@ export function KeyValueList({
                         <TableCell>
                           <Badge
                             variant={
-                              isExpired(keyValue) || keyValue.status !== "active"
+                              isExpired(keyValue) ||
+                              keyValue.status !== "active"
                                 ? "destructive"
                                 : "default"
                             }
                           >
                             {isExpired(keyValue)
                               ? t("keyValue.status.expired", "admin")
-                              : t(`keyValue.status.${keyValue.status}`, "admin")}
+                              : t(
+                                  `keyValue.status.${keyValue.status}`,
+                                  "admin",
+                                )}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm text-muted-foreground">
                             {keyValue.expiresAt
-                              ? new Date(keyValue.expiresAt).toLocaleDateString()
+                              ? new Date(
+                                  keyValue.expiresAt,
+                                ).toLocaleDateString()
                               : "-"}
                           </span>
                         </TableCell>
@@ -304,4 +327,3 @@ export function KeyValueList({
     </AnimatedSection>
   );
 }
-

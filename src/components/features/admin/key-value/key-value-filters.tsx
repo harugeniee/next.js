@@ -23,7 +23,13 @@ interface KeyValueFiltersProps {
   className?: string;
 }
 
-const CONTENT_TYPES = ["string", "number", "boolean", "object", "array"] as const;
+const CONTENT_TYPES = [
+  "string",
+  "number",
+  "boolean",
+  "object",
+  "array",
+] as const;
 const STATUS_OPTIONS = ["active", "expired", "all"] as const;
 
 export function KeyValueFilters({
@@ -68,7 +74,8 @@ export function KeyValueFilters({
   const handleContentTypeChange = (value: string) => {
     onFiltersChange({
       ...filters,
-      contentType: value === "all" ? undefined : (value as typeof CONTENT_TYPES[number]),
+      contentType:
+        value === "all" ? undefined : (value as (typeof CONTENT_TYPES)[number]),
       page: 1,
     });
   };
@@ -76,7 +83,10 @@ export function KeyValueFilters({
   const handleStatusChange = (value: string) => {
     onFiltersChange({
       ...filters,
-      kvStatus: value === "all" ? undefined : (value as typeof STATUS_OPTIONS[number]),
+      kvStatus:
+        value === "all"
+          ? undefined
+          : (value as (typeof STATUS_OPTIONS)[number]),
       page: 1,
     });
   };
@@ -228,4 +238,3 @@ export function KeyValueFilters({
     </div>
   );
 }
-

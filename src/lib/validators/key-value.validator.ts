@@ -244,4 +244,3 @@ export const queryKeyValueSchema = z.object({
 export type CreateKeyValueFormData = z.infer<typeof createKeyValueSchema>;
 export type UpdateKeyValueFormData = z.infer<typeof updateKeyValueSchema>;
 export type QueryKeyValueFormData = z.infer<typeof queryKeyValueSchema>;
-

@@ -27,12 +27,9 @@ export class KeyValueAPI {
     params?: QueryKeyValueDto,
   ): Promise<KeyValueListResponse> {
     try {
-      const response = await http.get<KeyValueApiResponse>(
-        this.BASE_URL,
-        {
-          params,
-        },
-      );
+      const response = await http.get<KeyValueApiResponse>(this.BASE_URL, {
+        params,
+      });
 
       if (!response.data.success) {
         throw new Error(
@@ -300,7 +297,8 @@ export class KeyValueAPI {
 
       if (!response.data.success) {
         throw new Error(
-          response.data.message || "Failed to fetch key-value pairs by namespace",
+          response.data.message ||
+            "Failed to fetch key-value pairs by namespace",
         );
       }
 
@@ -342,10 +340,7 @@ export class KeyValueAPI {
   /**
    * Check if a key exists
    */
-  static async exists(
-    key: string,
-    namespace?: string,
-  ): Promise<boolean> {
+  static async exists(key: string, namespace?: string): Promise<boolean> {
     try {
       const response = await http.get<ApiResponse<{ exists: boolean }>>(
         `${this.BASE_URL}/${key}/exists`,
@@ -389,4 +384,3 @@ export class KeyValueAPI {
     }
   }
 }
-

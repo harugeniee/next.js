@@ -84,9 +84,7 @@ export default function KeyValuePage() {
 
   const handleDeleteKeyValue = async (keyValue: KeyValue) => {
     if (
-      confirm(
-        t("keyValue.list.deleteConfirm", "admin", { key: keyValue.key }),
-      )
+      confirm(t("keyValue.list.deleteConfirm", "admin", { key: keyValue.key }))
     ) {
       await removeKeyValue.mutateAsync(keyValue.id);
     }
@@ -147,4 +145,3 @@ export default function KeyValuePage() {
     </div>
   );
 }
-

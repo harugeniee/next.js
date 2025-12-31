@@ -5,12 +5,7 @@ import type { ApiResponseOffset } from "@/lib/types/response";
 /**
  * Content type for key-value pairs
  */
-export type ContentType =
-  | "string"
-  | "number"
-  | "boolean"
-  | "object"
-  | "array";
+export type ContentType = "string" | "number" | "boolean" | "object" | "array";
 
 /**
  * Key-value status
@@ -174,4 +169,3 @@ export interface KeyValueListResponse {
  * Response type for key-value API calls
  */
 export type KeyValueApiResponse = ApiResponseOffset<KeyValue>;
-

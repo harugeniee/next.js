@@ -43,15 +43,19 @@ import type {
   ContentType,
 } from "@/lib/interface/key-value.interface";
 
-const CONTENT_TYPES = ["string", "number", "boolean", "object", "array"] as const;
+const CONTENT_TYPES = [
+  "string",
+  "number",
+  "boolean",
+  "object",
+  "array",
+] as const;
 
 interface KeyValueFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   keyValue?: KeyValue;
-  onSubmit: (
-    data: CreateKeyValueDto | UpdateKeyValueDto,
-  ) => Promise<void>;
+  onSubmit: (data: CreateKeyValueDto | UpdateKeyValueDto) => Promise<void>;
   isLoading?: boolean;
 }
 
@@ -400,4 +404,3 @@ export function KeyValueFormDialog({
     </Dialog>
   );
 }
-
