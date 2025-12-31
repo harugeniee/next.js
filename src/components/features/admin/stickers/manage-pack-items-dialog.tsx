@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { http } from "@/lib/http/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
+import type { Sticker } from "@/lib/interface";
 
 export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({
   packId,

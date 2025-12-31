@@ -23,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
+import type { CreateStickerDto, UpdateStickerDto } from "@/lib/interface";
 import type { Sticker } from "@/lib/interface/sticker.interface";
 import { CreateStickerFormDialog } from "./create-sticker-form-dialog";
 import { EditStickerFormDialog } from "./edit-sticker-form-dialog";
@@ -205,15 +206,19 @@ export function StickersList({
           </Skeletonize>
 
           {/* Pagination */}
-          {stickers && stickers.length > 0 && onPageChange && metaData?.totalPages && metaData.totalPages > 1 && (
-            <div className="mt-4">
-              <Pagination
-                currentPage={page}
-                totalPages={metaData.totalPages}
-                onPageChange={handlePageChange}
-              />
-            </div>
-          )}
+          {stickers &&
+            stickers.length > 0 &&
+            onPageChange &&
+            metaData?.totalPages &&
+            metaData.totalPages > 1 && (
+              <div className="mt-4">
+                <Pagination
+                  currentPage={page}
+                  totalPages={metaData.totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
         </CardContent>
       </Card>
 

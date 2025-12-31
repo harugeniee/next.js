@@ -1,5 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { http } from "@/lib/http/client";
+import type {
+  CreateStickerDto,
+  UpdateStickerDto,
+  StickerQueryDto,
+} from "@/lib/interface";
 
 export const STICKERS_QUERY_KEY = ["admin", "stickers"];
 

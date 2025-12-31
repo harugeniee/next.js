@@ -7,6 +7,10 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { Button } from "@/components/ui/core/button";
+import type {
+  CreateStickerPackDto,
+  UpdateStickerPackDto,
+} from "@/lib/interface";
 import {
   Card,
   CardContent,
@@ -208,15 +212,19 @@ export function StickerPacksList({
           </Skeletonize>
 
           {/* Pagination */}
-          {packs && packs.length > 0 && onPageChange && metaData?.totalPages && metaData.totalPages > 1 && (
-            <div className="mt-4">
-              <Pagination
-                currentPage={page}
-                totalPages={metaData.totalPages}
-                onPageChange={handlePageChange}
-              />
-            </div>
-          )}
+          {packs &&
+            packs.length > 0 &&
+            onPageChange &&
+            metaData?.totalPages &&
+            metaData.totalPages > 1 && (
+              <div className="mt-4">
+                <Pagination
+                  currentPage={page}
+                  totalPages={metaData.totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
         </CardContent>
       </Card>
 

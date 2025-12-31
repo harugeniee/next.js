@@ -40,7 +40,7 @@ const stickerSchema = z.object({
     ),
   mediaId: z.string().min(1, "Media ID is required"),
   tags: z.string().optional(),
-  isAnimated: z.boolean().optional().default(false),
+  isAnimated: z.boolean(),
 });
 
 type StickerFormValues = z.infer<typeof stickerSchema>;
@@ -62,7 +62,7 @@ export function EditStickerFormDialog({
 }: EditStickerFormDialogProps) {
   const { t } = useI18n();
 
-  const form = useForm<StickerFormValues>({
+  const form = useForm({
     resolver: zodResolver(stickerSchema),
     defaultValues: {
       name: sticker?.name || "",
@@ -90,7 +90,7 @@ export function EditStickerFormDialog({
       tags: data.tags
         ? data.tags
             .split(",")
-            .map((tag) => tag.trim())
+            .map((tag: string) => tag.trim())
             .filter(Boolean)
         : undefined,
     };

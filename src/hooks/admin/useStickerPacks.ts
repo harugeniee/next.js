@@ -1,5 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { http } from "@/lib/http/client";
+import type {
+  CreateStickerPackDto,
+  StickerPackItemDto,
+  StickerPackQueryDto,
+  UpdateStickerPackDto,
+} from "@/lib/interface";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const STICKER_PACKS_QUERY_KEY = ["admin", "stickerPacks"];
 
@@ -25,7 +31,13 @@ export function useStickerPacks(query?: StickerPackQueryDto) {
   });
 
   const update = useMutation({
-    mutationFn: async ({ id, dto }: { id: string; dto: UpdateStickerPackDto }) => {
+    mutationFn: async ({
+      id,
+      dto,
+    }: {
+      id: string;
+      dto: UpdateStickerPackDto;
+    }) => {
       const res = await http.patch(`/sticker-packs/${id}`, dto);
       return res.data;
     },
@@ -45,7 +57,13 @@ export function useStickerPacks(query?: StickerPackQueryDto) {
   });
 
   const addItem = useMutation({
-    mutationFn: async ({ packId, dto }: { packId: string; dto: StickerPackItemDto }) => {
+    mutationFn: async ({
+      packId,
+      dto,
+    }: {
+      packId: string;
+      dto: StickerPackItemDto;
+    }) => {
       const res = await http.post(`/sticker-packs/${packId}/items`, dto);
       return res.data;
     },

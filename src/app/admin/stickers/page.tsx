@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-import { StickersList, StickerPacksList } from "@/components/features/admin";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/animate-ui/components/radix/tabs";
+import { StickerPacksList, StickersList } from "@/components/features/admin";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import {
@@ -13,15 +19,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/navigation/breadcrumb";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/animate-ui/components/radix/tabs";
-import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
-import { useStickers } from "@/hooks/admin/useStickers";
 import { useStickerPacks } from "@/hooks/admin/useStickerPacks";
+import { useStickers } from "@/hooks/admin/useStickers";
+import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type { Sticker, StickerPack } from "@/lib/interface/sticker.interface";
 
 /**
@@ -50,10 +50,14 @@ export default function AdminStickersPage() {
   });
 
   // Fetch stickers data
-  const { data: stickersData, isLoading: stickersLoading } = useStickers(stickersFilters);
+  const { listQuery: stickersQuery } = useStickers(stickersFilters);
+  const stickersData = stickersQuery.data;
+  const stickersLoading = stickersQuery.isLoading;
 
   // Fetch sticker packs data
-  const { data: packsData, isLoading: packsLoading } = useStickerPacks(packsFilters);
+  const { listQuery: packsQuery } = useStickerPacks(packsFilters);
+  const packsData = packsQuery.data;
+  const packsLoading = packsQuery.isLoading;
 
   // Mutations
   const {
@@ -92,12 +96,17 @@ export default function AdminStickersPage() {
   };
 
   // CRUD handlers
-  const handleCreateSticker = async (data: Parameters<typeof createSticker.mutateAsync>[0]) => {
+  const handleCreateSticker = async (
+    data: Parameters<typeof createSticker.mutateAsync>[0],
+  ) => {
     await createSticker.mutateAsync(data);
   };
 
-  const handleUpdateSticker = async (id: string, data: Parameters<typeof updateSticker.mutateAsync>[0]['data']) => {
-    await updateSticker.mutateAsync({ id, data });
+  const handleUpdateSticker = async (
+    id: string,
+    data: Parameters<typeof updateSticker.mutateAsync>[0]["dto"],
+  ) => {
+    await updateSticker.mutateAsync({ id, dto: data });
   };
 
   const handleDeleteSticker = async (sticker: Sticker) => {
@@ -108,12 +117,17 @@ export default function AdminStickersPage() {
     }
   };
 
-  const handleCreatePack = async (data: Parameters<typeof createPack.mutateAsync>[0]) => {
+  const handleCreatePack = async (
+    data: Parameters<typeof createPack.mutateAsync>[0],
+  ) => {
     await createPack.mutateAsync(data);
   };
 
-  const handleUpdatePack = async (id: string, data: Parameters<typeof updatePack.mutateAsync>[0]['data']) => {
-    await updatePack.mutateAsync({ id, data });
+  const handleUpdatePack = async (
+    id: string,
+    data: Parameters<typeof updatePack.mutateAsync>[0]["dto"],
+  ) => {
+    await updatePack.mutateAsync({ id, dto: data });
   };
 
   const handleDeletePack = async (pack: StickerPack) => {

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { http } from "@/lib/http/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
+import type { Sticker } from "@/lib/interface";
 
 export const EditStickerForm: React.FC<{
   sticker: Sticker;
@@ -23,7 +24,7 @@ export const EditStickerForm: React.FC<{
         mediaId,
         tags: tags
           .split(",")
-          .map((s) => s.trim())
+          .map((s: string) => s.trim())
           .filter(Boolean),
         isAnimated,
       };
