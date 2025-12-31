@@ -216,6 +216,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
+          title: t("nav.tags.title", "admin"),
+          url: "/admin/tags",
+          icon: Tag,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.tags.management", "admin"),
+              url: "/admin/tags",
+            },
+          ],
+        },
+        {
           title: t("nav.studios.title", "admin"),
           url: "/admin/studios",
           icon: Building2,

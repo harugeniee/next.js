@@ -44,7 +44,11 @@ export interface UpdateTagDto {
   description?: string;
   color?: string;
   icon?: string;
+  isActive?: boolean;
   isFeatured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  metadata?: Record<string, unknown>;
 }
 
 export interface QueryTagsDto extends AdvancedQueryParams {
@@ -59,14 +63,19 @@ export interface QueryTagsDto extends AdvancedQueryParams {
 }
 
 export interface TagStatsDto {
-  total: number;
-  featured: number;
-  popular: number;
-  trending: number;
-  byCategory: Array<{
-    category: string;
-    count: number;
-  }>;
+  totalTags: number;
+  activeTags: number;
+  inactiveTags: number;
+  featuredTags: number;
+  popularTags: number;
+  trendingTags: number;
+  totalUsageCount: number;
+  averageUsageCount: number;
+  mostUsedTag: string;
+  mostUsedTagCount: number;
+  tagsByCategory: Record<string, number>;
+  tagsByColor: Record<string, number>;
+  recentTrends: Array<{ date: string; count: number }>;
 }
 
 /**

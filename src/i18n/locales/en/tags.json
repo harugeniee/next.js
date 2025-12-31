@@ -1,0 +1,74 @@
+{
+  "pageTitle": "Tags",
+  "pageDescription": "Manage content tags",
+  "list": {
+    "title": "Tags List",
+    "description": "View and manage all tags",
+    "create": "Create Tag",
+    "name": "Name",
+    "slug": "Slug",
+    "description": "Description",
+    "usageCount": "Usage",
+    "status": "Status",
+    "featured": "Featured",
+    "createdAt": "Created At",
+    "deleteConfirm": "Are you sure you want to delete tag \"{name}\"?"
+  },
+  "form": {
+    "createTitle": "Create Tag",
+    "createDescription": "Add a new tag to the system",
+    "editTitle": "Edit Tag",
+    "editDescription": "Update tag information",
+    "name": "Tag Name",
+    "slug": "Slug",
+    "description": "Description",
+    "color": "Color",
+    "icon": "Icon",
+    "isActive": "Active",
+    "isFeatured": "Featured",
+    "metaTitle": "Meta Title",
+    "metaDescription": "Meta Description"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "featured": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "filters": {
+    "searchPlaceholder": "Search tags by name or description...",
+    "category": "Category",
+    "minUsage": "Min Usage",
+    "maxUsage": "Max Usage",
+    "categories": {
+      "technology": "Technology",
+      "lifestyle": "Lifestyle",
+      "business": "Business",
+      "education": "Education",
+      "entertainment": "Entertainment",
+      "news": "News",
+      "tutorial": "Tutorial",
+      "review": "Review",
+      "opinion": "Opinion",
+      "other": "Other"
+    }
+  },
+  "detail": {
+    "title": "Tag: {name}",
+    "description": "View and manage tag details",
+    "information": "Tag Information",
+    "informationDescription": "Basic information about the tag",
+    "tagId": "Tag ID",
+    "copyId": "Copy Tag ID",
+    "idCopied": "Tag ID copied to clipboard",
+    "idCopyError": "Failed to copy Tag ID",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "error": "Failed to load tag",
+    "seo": "SEO Information",
+    "metadata": "Metadata"
+  }
+}
+

@@ -83,6 +83,10 @@
     "studios": {
       "title": "Studios",
       "management": "Management"
+    },
+    "tags": {
+      "title": "Tags",
+      "management": "Management"
     }
   },
   "projects": {

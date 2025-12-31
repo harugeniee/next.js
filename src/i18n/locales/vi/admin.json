@@ -83,6 +83,10 @@
     "studios": {
       "title": "Studios",
       "management": "Quản lý"
+    },
+    "tags": {
+      "title": "Thẻ",
+      "management": "Quản lý"
     }
   },
   "projects": {

@@ -1,0 +1,74 @@
+{
+  "pageTitle": "Thẻ",
+  "pageDescription": "Quản lý thẻ nội dung",
+  "list": {
+    "title": "Danh sách thẻ",
+    "description": "Xem và quản lý tất cả thẻ",
+    "create": "Tạo thẻ",
+    "name": "Tên",
+    "slug": "Slug",
+    "description": "Mô tả",
+    "usageCount": "Sử dụng",
+    "status": "Trạng thái",
+    "featured": "Nổi bật",
+    "createdAt": "Ngày tạo",
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa thẻ \"{name}\"?"
+  },
+  "form": {
+    "createTitle": "Tạo thẻ",
+    "createDescription": "Thêm thẻ mới vào hệ thống",
+    "editTitle": "Chỉnh sửa thẻ",
+    "editDescription": "Cập nhật thông tin thẻ",
+    "name": "Tên thẻ",
+    "slug": "Slug",
+    "description": "Mô tả",
+    "color": "Màu sắc",
+    "icon": "Biểu tượng",
+    "isActive": "Hoạt động",
+    "isFeatured": "Nổi bật",
+    "metaTitle": "Tiêu đề Meta",
+    "metaDescription": "Mô tả Meta"
+  },
+  "status": {
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động"
+  },
+  "featured": {
+    "yes": "Có",
+    "no": "Không"
+  },
+  "filters": {
+    "searchPlaceholder": "Tìm kiếm thẻ theo tên hoặc mô tả...",
+    "category": "Danh mục",
+    "minUsage": "Sử dụng tối thiểu",
+    "maxUsage": "Sử dụng tối đa",
+    "categories": {
+      "technology": "Công nghệ",
+      "lifestyle": "Lối sống",
+      "business": "Kinh doanh",
+      "education": "Giáo dục",
+      "entertainment": "Giải trí",
+      "news": "Tin tức",
+      "tutorial": "Hướng dẫn",
+      "review": "Đánh giá",
+      "opinion": "Ý kiến",
+      "other": "Khác"
+    }
+  },
+  "detail": {
+    "title": "Thẻ: {name}",
+    "description": "Xem và quản lý thông tin chi tiết thẻ",
+    "information": "Thông tin Thẻ",
+    "informationDescription": "Thông tin cơ bản về thẻ",
+    "tagId": "ID Thẻ",
+    "copyId": "Sao chép ID Thẻ",
+    "idCopied": "Đã sao chép ID Thẻ vào clipboard",
+    "idCopyError": "Không thể sao chép ID Thẻ",
+    "createdAt": "Ngày tạo",
+    "updatedAt": "Ngày cập nhật",
+    "error": "Không thể tải thông tin thẻ",
+    "seo": "Thông tin SEO",
+    "metadata": "Metadata"
+  }
+}
+
