@@ -75,6 +75,10 @@
     "rateLimit": {
       "title": "Rate Limits",
       "management": "Management"
+    },
+    "stickers": {
+      "title": "Stickers",
+      "management": "Management"
     }
   },
   "projects": {
@@ -917,4 +921,81 @@
     "deleteSuccess": "Genre deleted successfully!",
     "deleteError": "Failed to delete genre."
   }
+,
+  "stickers": {
+    "pageTitle": "Sticker Management",
+    "pageDescription": "Manage stickers and sticker packs",
+    "heading": "Sticker Management",
+    "tabs": {
+      "stickers": "Stickers",
+      "stickerPacks": "Sticker Packs"
+    },
+      "filters": {
+        "searchPlaceholder": "Search stickers..."
+      },
+    "list": {
+      "title": "Stickers",
+      "description": "Manage and organize your sticker collection",
+      "create": "Create Sticker",
+      "loading": "Loading stickers...",
+      "noStickersFound": "No stickers found.",
+        "name": "Name",
+        "format": "Format",
+        "animated": "Animated",
+        "size": "Size",
+        "actions": "Actions",
+        "deleteConfirm": "Are you sure you want to delete sticker \"{name}\"?",
+      "packListTitle": "Sticker Packs",
+      "packListDescription": "Organize stickers into themed packs",
+      "createPack": "Create Pack",
+        "packName": "Pack Name",
+        "description": "Description",
+        "stickerCount": "Stickers",
+        "createdAt": "Created",
+        "deletePackConfirm": "Are you sure you want to delete sticker pack \"{name}\"?",
+      "noStickerPacksFound": "No sticker packs found.",
+      "managePackItems": "Manage Pack Items",
+      "packItems": "Pack Items",
+        "noPackItems": "No items in pack.",
+        "addToPack": "Add",
+        "remove": "Remove"
+    },
+    "form": {
+        "createSticker": "Create Sticker",
+        "createStickerPack": "Create Sticker Pack",
+      "createTitle": "Create New Sticker",
+      "createDescription": "Add a new sticker to your collection",
+      "editTitle": "Edit Sticker",
+      "editDescription": "Update sticker information",
+      "createPackTitle": "Create New Sticker Pack",
+      "createPackDescription": "Create a new pack to organize your stickers",
+      "editPackTitle": "Edit Sticker Pack",
+      "editPackDescription": "Update pack information and settings",
+      "name": "Sticker Name",
+      "mediaId": "Media ID",
+      "tags": "Tags (comma-separated)",
+      "format": "Format",
+      "isAnimated": "Is Animated?",
+      "packName": "Sticker Pack Name",
+      "packDescription": "Description",
+      "packCoverMediaId": "Cover Media ID",
+      "save": "Save",
+      "cancel": "Cancel",
+      "errors": {
+        "nameRequired": "Sticker name is required.",
+        "mediaIdRequired": "Media ID is required."
+      }
+    }
+  }
+    ,
+    "form": {
+      "createTitle": "Create Sticker",
+      "createDescription": "Create a new sticker from existing media",
+      "editTitle": "Edit Sticker",
+      "editDescription": "Update sticker details",
+      "createPackTitle": "Create Sticker Pack",
+      "createPackDescription": "Create a new sticker pack",
+      "editPackTitle": "Edit Sticker Pack",
+      "editPackDescription": "Update sticker pack details"
+    }
 }

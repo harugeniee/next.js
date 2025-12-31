@@ -180,6 +180,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
+          title: t("stickers.list.title", "admin"),
+          url: "/admin/stickers",
+          icon: FileImage,
+          isActive: false,
+          items: [
+            {
+              title: t("stickers.list.title", "admin"),
+              url: "/admin/stickers",
+            },
+          ],
+        },
+        {
           title: t("nav.series.title", "admin"),
           url: "/admin/series",
           icon: BookMarked,
