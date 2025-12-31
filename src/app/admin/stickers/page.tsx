@@ -50,14 +50,10 @@ export default function AdminStickersPage() {
   });
 
   // Fetch stickers data
-  const { data: stickersData, isLoading: stickersLoading } =
-    useStickers(stickersFilters);
-  const stickers = stickersData?.result ?? [];
+  const { data: stickersData, isLoading: stickersLoading } = useStickers(stickersFilters);
 
   // Fetch sticker packs data
-  const { data: packsData, isLoading: packsLoading } =
-    useStickerPacks(packsFilters);
-  const packs = packsData?.result ?? [];
+  const { data: packsData, isLoading: packsLoading } = useStickerPacks(packsFilters);
 
   // Mutations
   const {
@@ -71,20 +67,20 @@ export default function AdminStickersPage() {
     remove: removePack,
   } = useStickerPacks(packsFilters);
 
-  // Filter handlers
-  const handleStickersFiltersChange = (newFilters: typeof stickersFilters) => {
-    setStickersFilters({
-      ...newFilters,
-      page: 1, // Reset to page 1 when filters change
-    });
-  };
+  // Filter handlers (for future use)
+  // const handleStickersFiltersChange = (newFilters: typeof stickersFilters) => {
+  //   setStickersFilters({
+  //     ...newFilters,
+  //     page: 1, // Reset to page 1 when filters change
+  //   });
+  // };
 
-  const handlePacksFiltersChange = (newFilters: typeof packsFilters) => {
-    setPacksFilters({
-      ...newFilters,
-      page: 1, // Reset to page 1 when filters change
-    });
-  };
+  // const handlePacksFiltersChange = (newFilters: typeof packsFilters) => {
+  //   setPacksFilters({
+  //     ...newFilters,
+  //     page: 1, // Reset to page 1 when filters change
+  //   });
+  // };
 
   // Pagination handlers
   const handleStickersPageChange = (page: number) => {
@@ -96,11 +92,11 @@ export default function AdminStickersPage() {
   };
 
   // CRUD handlers
-  const handleCreateSticker = async (data: any) => {
+  const handleCreateSticker = async (data: Parameters<typeof createSticker.mutateAsync>[0]) => {
     await createSticker.mutateAsync(data);
   };
 
-  const handleUpdateSticker = async (id: string, data: any) => {
+  const handleUpdateSticker = async (id: string, data: Parameters<typeof updateSticker.mutateAsync>[0]['data']) => {
     await updateSticker.mutateAsync({ id, data });
   };
 
@@ -112,11 +108,11 @@ export default function AdminStickersPage() {
     }
   };
 
-  const handleCreatePack = async (data: any) => {
+  const handleCreatePack = async (data: Parameters<typeof createPack.mutateAsync>[0]) => {
     await createPack.mutateAsync(data);
   };
 
-  const handleUpdatePack = async (id: string, data: any) => {
+  const handleUpdatePack = async (id: string, data: Parameters<typeof updatePack.mutateAsync>[0]['data']) => {
     await updatePack.mutateAsync({ id, data });
   };
 
@@ -185,7 +181,7 @@ export default function AdminStickersPage() {
 
           {/* Stickers List */}
           <StickersList
-            data={stickers}
+            data={stickersData}
             isLoading={stickersLoading}
             page={stickersFilters.page}
             limit={stickersFilters.limit}
@@ -209,7 +205,7 @@ export default function AdminStickersPage() {
 
           {/* Sticker Packs List */}
           <StickerPacksList
-            data={packs}
+            data={packsData}
             isLoading={packsLoading}
             page={packsFilters.page}
             limit={packsFilters.limit}

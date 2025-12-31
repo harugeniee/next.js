@@ -28,13 +28,20 @@ import { CreateStickerFormDialog } from "./create-sticker-form-dialog";
 import { EditStickerFormDialog } from "./edit-sticker-form-dialog";
 
 interface StickersListProps {
-  data?: Sticker[];
+  data?: {
+    result: Sticker[];
+    metaData: {
+      currentPage?: number;
+      totalPages?: number;
+      totalRecords?: number;
+    };
+  };
   isLoading: boolean;
   page?: number;
   limit?: number;
   onPageChange?: (page: number) => void;
-  onCreate: (data: any) => Promise<void>;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onCreate: (data: CreateStickerDto) => Promise<void>;
+  onUpdate: (id: string, data: UpdateStickerDto) => Promise<void>;
   onDelete: (sticker: Sticker) => void;
   isCreating?: boolean;
   isUpdating?: boolean;
@@ -44,7 +51,7 @@ export function StickersList({
   data,
   isLoading,
   page = 1,
-  limit = 20,
+  limit: _limit = 20, // eslint-disable-line @typescript-eslint/no-unused-vars
   onPageChange,
   onCreate,
   onUpdate,
@@ -60,12 +67,12 @@ export function StickersList({
     setEditingSticker(sticker);
   };
 
-  const handleCreate = async (formData: any) => {
+  const handleCreate = async (formData: CreateStickerDto) => {
     await onCreate(formData);
     setShowCreateDialog(false);
   };
 
-  const handleUpdate = async (formData: any) => {
+  const handleUpdate = async (formData: UpdateStickerDto) => {
     if (editingSticker) {
       await onUpdate(editingSticker.id, formData);
       setEditingSticker(undefined);
@@ -76,8 +83,11 @@ export function StickersList({
     onPageChange?.(newPage);
   };
 
+  const stickers = data?.result ?? [];
+  const metaData = data?.metaData;
+
   return (
-    <AnimatedSection loading={isLoading} data={data} className="w-full">
+    <AnimatedSection loading={isLoading} data={stickers} className="w-full">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -95,7 +105,7 @@ export function StickersList({
         </CardHeader>
         <CardContent>
           <Skeletonize loading={isLoading}>
-            {data && data.length > 0 ? (
+            {stickers && stickers.length > 0 ? (
               <div className="rounded-md border">
                 <Table>
                   <TableHeader>
@@ -114,7 +124,7 @@ export function StickersList({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {data.map((sticker) => (
+                    {stickers.map((sticker) => (
                       <TableRow
                         key={sticker.id}
                         className="cursor-pointer hover:bg-muted/50 transition-colors"
@@ -195,11 +205,11 @@ export function StickersList({
           </Skeletonize>
 
           {/* Pagination */}
-          {data && data.length > 0 && onPageChange && (
+          {stickers && stickers.length > 0 && onPageChange && metaData?.totalPages && metaData.totalPages > 1 && (
             <div className="mt-4">
               <Pagination
                 currentPage={page}
-                totalPages={Math.ceil((data.length || 0) / limit)} // This should come from API metadata
+                totalPages={metaData.totalPages}
                 onPageChange={handlePageChange}
               />
             </div>

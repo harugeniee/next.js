@@ -6,6 +6,5 @@ export { CreateStickerPackFormDialog } from "@/components/features/admin/sticker
 export { EditStickerPackFormDialog } from "@/components/features/admin/stickers/edit-sticker-pack-form-dialog";
 export { ManagePackItemsDialog } from "@/components/features/admin/stickers/manage-pack-items-dialog";
 export { CreateStickerForm } from "@/components/features/admin/stickers/create-sticker-form";
-export { EditStickerForm } from "@/components/features/admin/stickers/edit-sticker-form";
 export { CreateStickerPackForm } from "@/components/features/admin/stickers/create-sticker-pack-form";
 export { EditStickerPackForm } from "@/components/features/admin/stickers/edit-sticker-pack-form";

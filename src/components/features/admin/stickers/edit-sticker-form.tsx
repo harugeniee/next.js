@@ -1,27 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { http } from "@/lib/http/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 export const EditStickerForm: React.FC<{
-  sticker: any;
+  sticker: Sticker;
   onSaved?: () => void;
 }> = ({ sticker, onSaved }) => {
   const { t } = useI18n();
   const qc = useQueryClient();
-  const [name, setName] = useState(sticker?.name ?? "");
-  const [mediaId, setMediaId] = useState(sticker?.mediaId ?? "");
-  const [tags, setTags] = useState((sticker?.tags || []).join(", "));
-  const [isAnimated, setIsAnimated] = useState(!!sticker?.isAnimated);
-
-  useEffect(() => {
-    setName(sticker?.name ?? "");
-    setMediaId(sticker?.mediaId ?? "");
-    setTags((sticker?.tags || []).join(", "));
-    setIsAnimated(!!sticker?.isAnimated);
-  }, [sticker]);
+  const [name, setName] = useState(sticker.name);
+  const [mediaId, setMediaId] = useState(sticker.mediaId);
+  const [tags, setTags] = useState((sticker.tags || []).join(", "));
+  const [isAnimated, setIsAnimated] = useState(!!sticker.isAnimated);
 
   const updateMutation = useMutation({
     mutationFn: async () => {

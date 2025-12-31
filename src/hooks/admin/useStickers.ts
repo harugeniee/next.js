@@ -3,7 +3,7 @@ import { http } from "@/lib/http/client";
 
 export const STICKERS_QUERY_KEY = ["admin", "stickers"];
 
-export function useStickers(query?: Record<string, any>) {
+export function useStickers(query?: StickerQueryDto) {
   const qc = useQueryClient();
 
   const listQuery = useQuery({
@@ -15,7 +15,7 @@ export function useStickers(query?: Record<string, any>) {
   });
 
   const create = useMutation({
-    mutationFn: async (dto: any) => {
+    mutationFn: async (dto: CreateStickerDto) => {
       const res = await http.post("/stickers", dto);
       return res.data;
     },
@@ -25,7 +25,7 @@ export function useStickers(query?: Record<string, any>) {
   });
 
   const update = useMutation({
-    mutationFn: async ({ id, dto }: { id: string; dto: any }) => {
+    mutationFn: async ({ id, dto }: { id: string; dto: UpdateStickerDto }) => {
       const res = await http.patch(`/stickers/${id}`, dto);
       return res.data;
     },

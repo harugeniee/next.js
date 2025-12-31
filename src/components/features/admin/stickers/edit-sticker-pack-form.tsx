@@ -1,25 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { http } from "@/lib/http/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 export const EditStickerPackForm: React.FC<{
-  pack: any;
+  pack: StickerPack;
   onSaved?: () => void;
 }> = ({ pack, onSaved }) => {
   const { t } = useI18n();
   const qc = useQueryClient();
-  const [name, setName] = useState(pack?.name ?? "");
-  const [description, setDescription] = useState(pack?.description ?? "");
-  const [coverMediaId, setCoverMediaId] = useState(pack?.coverMediaId ?? "");
-
-  useEffect(() => {
-    setName(pack?.name ?? "");
-    setDescription(pack?.description ?? "");
-    setCoverMediaId(pack?.coverMediaId ?? "");
-  }, [pack]);
+  const [name, setName] = useState(pack.name);
+  const [description, setDescription] = useState(pack.description ?? "");
+  const [coverMediaId, setCoverMediaId] = useState(pack.coverMediaId ?? "");
 
   const updateMutation = useMutation({
     mutationFn: async () => {

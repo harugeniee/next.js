@@ -3,7 +3,7 @@ import { http } from "@/lib/http/client";
 
 export const STICKER_PACKS_QUERY_KEY = ["admin", "stickerPacks"];
 
-export function useStickerPacks(query?: Record<string, any>) {
+export function useStickerPacks(query?: StickerPackQueryDto) {
   const qc = useQueryClient();
 
   const listQuery = useQuery({
@@ -15,7 +15,7 @@ export function useStickerPacks(query?: Record<string, any>) {
   });
 
   const create = useMutation({
-    mutationFn: async (dto: any) => {
+    mutationFn: async (dto: CreateStickerPackDto) => {
       const res = await http.post("/sticker-packs", dto);
       return res.data;
     },
@@ -25,7 +25,7 @@ export function useStickerPacks(query?: Record<string, any>) {
   });
 
   const update = useMutation({
-    mutationFn: async ({ id, dto }: { id: string; dto: any }) => {
+    mutationFn: async ({ id, dto }: { id: string; dto: UpdateStickerPackDto }) => {
       const res = await http.patch(`/sticker-packs/${id}`, dto);
       return res.data;
     },
@@ -45,13 +45,13 @@ export function useStickerPacks(query?: Record<string, any>) {
   });
 
   const addItem = useMutation({
-    mutationFn: async ({ packId, dto }: { packId: string; dto: any }) => {
+    mutationFn: async ({ packId, dto }: { packId: string; dto: StickerPackItemDto }) => {
       const res = await http.post(`/sticker-packs/${packId}/items`, dto);
       return res.data;
     },
     onSuccess(_, vars) {
       qc.invalidateQueries({
-        queryKey: ["admin", "stickerPack", (vars as any)?.packId],
+        queryKey: ["admin", "stickerPack", vars?.packId],
       });
       qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
     },
@@ -72,7 +72,7 @@ export function useStickerPacks(query?: Record<string, any>) {
     },
     onSuccess(_, vars) {
       qc.invalidateQueries({
-        queryKey: ["admin", "stickerPack", (vars as any)?.packId],
+        queryKey: ["admin", "stickerPack", vars?.packId],
       });
       qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
     },

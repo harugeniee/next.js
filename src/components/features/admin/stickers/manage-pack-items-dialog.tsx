@@ -82,7 +82,7 @@ export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({
               {t("stickers.list.noPackItems", "admin") ?? "No items in pack."}
             </li>
           ) : (
-            items.map((it: any) => (
+            items.map((it: Sticker) => (
               <li key={it.id} className="flex items-center justify-between">
                 <span>{it.name ?? it.id}</span>
                 <button

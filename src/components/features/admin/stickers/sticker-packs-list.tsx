@@ -28,13 +28,20 @@ import { CreateStickerPackFormDialog } from "./create-sticker-pack-form-dialog";
 import { EditStickerPackFormDialog } from "./edit-sticker-pack-form-dialog";
 
 interface StickerPacksListProps {
-  data?: StickerPack[];
+  data?: {
+    result: StickerPack[];
+    metaData: {
+      currentPage?: number;
+      totalPages?: number;
+      totalRecords?: number;
+    };
+  };
   isLoading: boolean;
   page?: number;
   limit?: number;
   onPageChange?: (page: number) => void;
-  onCreate: (data: any) => Promise<void>;
-  onUpdate: (id: string, data: any) => Promise<void>;
+  onCreate: (data: CreateStickerPackDto) => Promise<void>;
+  onUpdate: (id: string, data: UpdateStickerPackDto) => Promise<void>;
   onDelete: (pack: StickerPack) => void;
   isCreating?: boolean;
   isUpdating?: boolean;
@@ -44,7 +51,7 @@ export function StickerPacksList({
   data,
   isLoading,
   page = 1,
-  limit = 20,
+  limit: _limit = 20, // eslint-disable-line @typescript-eslint/no-unused-vars
   onPageChange,
   onCreate,
   onUpdate,
@@ -60,12 +67,12 @@ export function StickerPacksList({
     setEditingPack(pack);
   };
 
-  const handleCreate = async (formData: any) => {
+  const handleCreate = async (formData: CreateStickerPackDto) => {
     await onCreate(formData);
     setShowCreateDialog(false);
   };
 
-  const handleUpdate = async (formData: any) => {
+  const handleUpdate = async (formData: UpdateStickerPackDto) => {
     if (editingPack) {
       await onUpdate(editingPack.id, formData);
       setEditingPack(undefined);
@@ -76,8 +83,11 @@ export function StickerPacksList({
     onPageChange?.(newPage);
   };
 
+  const packs = data?.result ?? [];
+  const metaData = data?.metaData;
+
   return (
-    <AnimatedSection loading={isLoading} data={data} className="w-full">
+    <AnimatedSection loading={isLoading} data={packs} className="w-full">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -95,7 +105,7 @@ export function StickerPacksList({
         </CardHeader>
         <CardContent>
           <Skeletonize loading={isLoading}>
-            {data && data.length > 0 ? (
+            {packs && packs.length > 0 ? (
               <div className="rounded-md border">
                 <Table>
                   <TableHeader>
@@ -118,7 +128,7 @@ export function StickerPacksList({
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {data.map((pack) => (
+                    {packs.map((pack) => (
                       <TableRow
                         key={pack.id}
                         className="cursor-pointer hover:bg-muted/50 transition-colors"
@@ -198,11 +208,11 @@ export function StickerPacksList({
           </Skeletonize>
 
           {/* Pagination */}
-          {data && data.length > 0 && onPageChange && (
+          {packs && packs.length > 0 && onPageChange && metaData?.totalPages && metaData.totalPages > 1 && (
             <div className="mt-4">
               <Pagination
                 currentPage={page}
-                totalPages={Math.ceil((data.length || 0) / limit)} // This should come from API metadata
+                totalPages={metaData.totalPages}
                 onPageChange={handlePageChange}
               />
             </div>
