@@ -8,19 +8,19 @@ import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { Button } from "@/components/ui/core/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/core/card";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
 import type { CreateStickerDto, UpdateStickerDto } from "@/lib/interface";

@@ -75,4 +75,3 @@ export function useStudio(id: string) {
 }
 
 export default useStudios;
-

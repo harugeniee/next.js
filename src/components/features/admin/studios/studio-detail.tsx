@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowLeft, Edit, Trash2, Calendar, Link as LinkIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  Edit,
+  Trash2,
+  Calendar,
+  Link as LinkIcon,
+} from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -113,7 +119,9 @@ export function StudioDetail({
                       <label className="text-sm font-medium text-muted-foreground">
                         {t("studios.list.name", "admin")}
                       </label>
-                      <p className="mt-1 text-lg font-semibold">{studio.name}</p>
+                      <p className="mt-1 text-lg font-semibold">
+                        {studio.name}
+                      </p>
                     </div>
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">
@@ -205,16 +213,17 @@ export function StudioDetail({
                   )}
 
                   {/* Metadata */}
-                  {studio.metadata && Object.keys(studio.metadata).length > 0 && (
-                    <div className="border-t pt-4">
-                      <h3 className="mb-4 text-sm font-medium">
-                        {t("studios.detail.metadata", "admin")}
-                      </h3>
-                      <pre className="rounded-md bg-muted p-4 text-xs">
-                        {JSON.stringify(studio.metadata, null, 2)}
-                      </pre>
-                    </div>
-                  )}
+                  {studio.metadata &&
+                    Object.keys(studio.metadata).length > 0 && (
+                      <div className="border-t pt-4">
+                        <h3 className="mb-4 text-sm font-medium">
+                          {t("studios.detail.metadata", "admin")}
+                        </h3>
+                        <pre className="rounded-md bg-muted p-4 text-xs">
+                          {JSON.stringify(studio.metadata, null, 2)}
+                        </pre>
+                      </div>
+                    )}
 
                   {/* Timestamps */}
                   <div className="border-t pt-4">
@@ -267,4 +276,3 @@ export function StudioDetail({
     </div>
   );
 }
-

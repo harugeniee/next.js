@@ -103,9 +103,7 @@ export function StudiosList({
                     <TableRow>
                       <TableHead>{t("studios.list.name", "admin")}</TableHead>
                       <TableHead>{t("studios.list.type", "admin")}</TableHead>
-                      <TableHead>
-                        {t("studios.list.status", "admin")}
-                      </TableHead>
+                      <TableHead>{t("studios.list.status", "admin")}</TableHead>
                       <TableHead>
                         {t("studios.list.siteUrl", "admin")}
                       </TableHead>
@@ -122,7 +120,9 @@ export function StudiosList({
                       <TableRow
                         key={studio.id}
                         className="cursor-pointer hover:bg-muted/50 transition-colors"
-                        onClick={() => router.push(`/admin/studios/${studio.id}`)}
+                        onClick={() =>
+                          router.push(`/admin/studios/${studio.id}`)
+                        }
                       >
                         <TableCell>
                           <div className="flex items-center gap-2">
@@ -243,4 +243,3 @@ export function StudiosList({
 }
 
 export default StudiosList;
-

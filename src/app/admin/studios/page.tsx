@@ -89,9 +89,7 @@ export default function AdminStudiosPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>
-                {t("studios.pageTitle", "admin")}
-              </BreadcrumbPage>
+              <BreadcrumbPage>{t("studios.pageTitle", "admin")}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -125,4 +123,3 @@ export default function AdminStudiosPage() {
     </div>
   );
 }
-

@@ -32,10 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { STUDIO_CONSTANTS } from "@/lib/constants/studio.constants";
-import type {
-  Studio,
-  UpdateStudioDto,
-} from "@/lib/interface/studio.interface";
+import type { Studio, UpdateStudioDto } from "@/lib/interface/studio.interface";
 
 const studioSchema = z.object({
   name: z
@@ -164,20 +161,23 @@ export function EditStudioFormDialog({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t("studios.form.type", "admin")}</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("studios.form.selectType", "admin")} />
+                        <SelectValue
+                          placeholder={t("studios.form.selectType", "admin")}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value={STUDIO_CONSTANTS.TYPES.ANIMATION_STUDIO}>
+                      <SelectItem
+                        value={STUDIO_CONSTANTS.TYPES.ANIMATION_STUDIO}
+                      >
                         {t("studios.types.animation_studio", "admin")}
                       </SelectItem>
-                      <SelectItem value={STUDIO_CONSTANTS.TYPES.PRODUCTION_COMPANY}>
+                      <SelectItem
+                        value={STUDIO_CONSTANTS.TYPES.PRODUCTION_COMPANY}
+                      >
                         {t("studios.types.production_company", "admin")}
                       </SelectItem>
                     </SelectContent>
@@ -192,13 +192,12 @@ export function EditStudioFormDialog({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t("studios.form.status", "admin")}</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    value={field.value}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={t("studios.form.selectStatus", "admin")} />
+                        <SelectValue
+                          placeholder={t("studios.form.selectStatus", "admin")}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -286,4 +285,3 @@ export function EditStudioFormDialog({
     </Dialog>
   );
 }
-

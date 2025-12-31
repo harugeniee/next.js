@@ -54,9 +54,7 @@ export default function StudioDetailPage() {
 
   const handleDelete = async (studio: Studio) => {
     if (
-      !confirm(
-        t("studios.list.deleteConfirm", "admin", { name: studio.name }),
-      )
+      !confirm(t("studios.list.deleteConfirm", "admin", { name: studio.name }))
     ) {
       return;
     }
@@ -135,4 +133,3 @@ export default function StudioDetailPage() {
     </div>
   );
 }
-

@@ -11,10 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
-import type {
-  Studio,
-  UpdateStudioDto,
-} from "@/lib/interface/studio.interface";
+import type { Studio, UpdateStudioDto } from "@/lib/interface/studio.interface";
 import { EditStudioFormDialog } from "./edit-studio-form-dialog";
 
 interface StudioActionsProps {
@@ -77,4 +74,3 @@ export function StudioActions({
     </>
   );
 }
-
