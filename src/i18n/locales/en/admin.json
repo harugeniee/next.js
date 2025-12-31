@@ -1048,7 +1048,22 @@
       "metadata": "Metadata",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
-      "error": "Failed to load studio"
+      "error": "Failed to load studio",
+      "tabs": {
+        "detail": "Detail",
+        "series": "Series"
+      },
+      "series": {
+        "title": "Series",
+        "description": "Anime and series that this studio has worked on",
+        "seriesName": "Series Name",
+        "role": "Role",
+        "noSeries": "No series found for this studio"
+      },
+      "studioId": "Studio ID",
+      "copyId": "Copy Studio ID",
+      "idCopied": "Studio ID copied to clipboard",
+      "idCopyError": "Failed to copy Studio ID"
     }
   }
 }

@@ -16,8 +16,17 @@ export interface Studio {
   updatedAt: string;
   seriesRoles?: Array<{
     id: string;
-    role: string;
+    role: string | null;
     seriesId: string;
+    series?: {
+      id: string;
+      title?: {
+        native?: string;
+        romaji?: string;
+        english?: string | null;
+        userPreferred?: string;
+      };
+    };
   }>;
 }
 

@@ -1049,7 +1049,22 @@
       "metadata": "Metadata",
       "createdAt": "Ngày tạo",
       "updatedAt": "Ngày cập nhật",
-      "error": "Không thể tải thông tin studio"
+      "error": "Không thể tải thông tin studio",
+      "tabs": {
+        "detail": "Chi tiết",
+        "series": "Series"
+      },
+      "series": {
+        "title": "Series",
+        "description": "Anime và series mà studio này đã tham gia",
+        "seriesName": "Tên Series",
+        "role": "Vai trò",
+        "noSeries": "Không tìm thấy series nào cho studio này"
+      },
+      "studioId": "ID Studio",
+      "copyId": "Sao chép ID Studio",
+      "idCopied": "Đã sao chép ID Studio vào clipboard",
+      "idCopyError": "Không thể sao chép ID Studio"
     }
   }
 }
