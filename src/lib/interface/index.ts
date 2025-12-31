@@ -9,5 +9,6 @@ export * from "./rate-limit.interface";
 export * from "./series.interface";
 export * from "./reaction.interface";
 export * from "./sticker.interface";
+export * from "./studio.interface";
 export * from "./tag.interface";
 export * from "./user.interface";

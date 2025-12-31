@@ -79,6 +79,10 @@
     "stickers": {
       "title": "Stickers",
       "management": "Management"
+    },
+    "studios": {
+      "title": "Studios",
+      "management": "Management"
     }
   },
   "projects": {
@@ -995,5 +999,56 @@
     "createPackDescription": "Create a new sticker pack",
     "editPackTitle": "Edit Sticker Pack",
     "editPackDescription": "Update sticker pack details"
+  },
+  "studios": {
+    "pageTitle": "Studio Management",
+    "pageDescription": "Manage animation studios and production companies",
+    "list": {
+      "title": "Studios",
+      "description": "Manage and organize animation studios and production companies",
+      "create": "Create Studio",
+      "name": "Name",
+      "type": "Type",
+      "status": "Status",
+      "siteUrl": "Site URL",
+      "createdAt": "Created",
+      "deleteConfirm": "Are you sure you want to delete studio \"{name}\"?"
+    },
+    "form": {
+      "createTitle": "Create New Studio",
+      "createDescription": "Add a new animation studio or production company",
+      "editTitle": "Edit Studio",
+      "editDescription": "Update studio information",
+      "name": "Studio Name",
+      "type": "Type",
+      "selectType": "Select type",
+      "status": "Status",
+      "selectStatus": "Select status",
+      "myAnimeListId": "MyAnimeList ID",
+      "aniListId": "AniList ID",
+      "siteUrl": "Site URL",
+      "save": "Save"
+    },
+    "types": {
+      "animation_studio": "Animation Studio",
+      "production_company": "Production Company"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "archived": "Archived"
+    },
+    "detail": {
+      "title": "Studio: {name}",
+      "description": "View and manage studio details",
+      "information": "Studio Information",
+      "informationDescription": "Basic information about the studio",
+      "externalIds": "External IDs",
+      "metadata": "Metadata",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "error": "Failed to load studio"
+    }
   }
 }

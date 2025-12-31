@@ -7,10 +7,6 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { Button } from "@/components/ui/core/button";
-import type {
-  CreateStickerPackDto,
-  UpdateStickerPackDto,
-} from "@/lib/interface";
 import {
   Card,
   CardContent,
@@ -27,6 +23,10 @@ import {
   TableRow,
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
+import type {
+  CreateStickerPackDto,
+  UpdateStickerPackDto,
+} from "@/lib/interface";
 import type { StickerPack } from "@/lib/interface/sticker.interface";
 import { CreateStickerPackFormDialog } from "./create-sticker-pack-form-dialog";
 import { EditStickerPackFormDialog } from "./edit-sticker-pack-form-dialog";
@@ -174,7 +174,7 @@ export function StickerPacksList({
                               onClick={() => handleEdit(pack)}
                               disabled={isUpdating}
                             >
-                              {t("common.edit", "common")}
+                              {t("actions.edit", "common")}
                             </Button>
                             <Button
                               variant="ghost"
@@ -182,7 +182,7 @@ export function StickerPacksList({
                               onClick={() => onDelete(pack)}
                               disabled={isUpdating}
                             >
-                              {t("common.delete", "common")}
+                              {t("actions.delete", "common")}
                             </Button>
                           </div>
                         </TableCell>

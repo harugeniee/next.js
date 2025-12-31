@@ -2,35 +2,36 @@
 
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
 import { Button } from "@/components/ui/core/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/core/card";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
-import type { CreateStickerDto, UpdateStickerDto } from "@/lib/interface";
-import type { Sticker } from "@/lib/interface/sticker.interface";
-import { CreateStickerFormDialog } from "./create-sticker-form-dialog";
-import { EditStickerFormDialog } from "./edit-sticker-form-dialog";
+import type { CreateStudioDto, UpdateStudioDto } from "@/lib/interface";
+import type { Studio } from "@/lib/interface/studio.interface";
+import { CreateStudioFormDialog } from "./create-studio-form-dialog";
+import { StudioActions } from "./studio-actions";
 
-interface StickersListProps {
+interface StudiosListProps {
   data?: {
-    result: Sticker[];
+    result: Studio[];
     metaData: {
       currentPage?: number;
       totalPages?: number;
@@ -41,14 +42,14 @@ interface StickersListProps {
   page?: number;
   limit?: number;
   onPageChange?: (page: number) => void;
-  onCreate: (data: CreateStickerDto) => Promise<void>;
-  onUpdate: (id: string, data: UpdateStickerDto) => Promise<void>;
-  onDelete: (sticker: Sticker) => void;
+  onCreate: (data: CreateStudioDto) => Promise<void>;
+  onUpdate: (id: string, data: UpdateStudioDto) => Promise<void>;
+  onDelete: (studio: Studio) => void;
   isCreating?: boolean;
   isUpdating?: boolean;
 }
 
-export function StickersList({
+export function StudiosList({
   data,
   isLoading,
   page = 1,
@@ -59,99 +60,118 @@ export function StickersList({
   onDelete,
   isCreating,
   isUpdating,
-}: StickersListProps) {
+}: StudiosListProps) {
   const { t } = useI18n();
+  const router = useRouter();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [editingSticker, setEditingSticker] = useState<Sticker | undefined>();
 
-  const handleEdit = (sticker: Sticker) => {
-    setEditingSticker(sticker);
-  };
-
-  const handleCreate = async (formData: CreateStickerDto) => {
+  const handleCreate = async (formData: CreateStudioDto) => {
     await onCreate(formData);
     setShowCreateDialog(false);
-  };
-
-  const handleUpdate = async (formData: UpdateStickerDto) => {
-    if (editingSticker) {
-      await onUpdate(editingSticker.id, formData);
-      setEditingSticker(undefined);
-    }
   };
 
   const handlePageChange = (newPage: number) => {
     onPageChange?.(newPage);
   };
 
-  const stickers = data?.result ?? [];
+  const studios = data?.result ?? [];
   const metaData = data?.metaData;
 
   return (
-    <AnimatedSection loading={isLoading} data={stickers} className="w-full">
+    <AnimatedSection loading={isLoading} data={studios} className="w-full">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>{t("stickers.list.title", "admin")}</CardTitle>
+              <CardTitle>{t("studios.list.title", "admin")}</CardTitle>
               <CardDescription>
-                {t("stickers.list.description", "admin")}
+                {t("studios.list.description", "admin")}
               </CardDescription>
             </div>
             <Button size="sm" onClick={() => setShowCreateDialog(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              {t("stickers.list.create", "admin")}
+              {t("studios.list.create", "admin")}
             </Button>
           </div>
         </CardHeader>
         <CardContent>
           <Skeletonize loading={isLoading}>
-            {stickers && stickers.length > 0 ? (
+            {studios && studios.length > 0 ? (
               <div className="rounded-md border">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t("stickers.list.name", "admin")}</TableHead>
+                      <TableHead>{t("studios.list.name", "admin")}</TableHead>
+                      <TableHead>{t("studios.list.type", "admin")}</TableHead>
                       <TableHead>
-                        {t("stickers.list.format", "admin")}
+                        {t("studios.list.status", "admin")}
                       </TableHead>
                       <TableHead>
-                        {t("stickers.list.animated", "admin")}
+                        {t("studios.list.siteUrl", "admin")}
                       </TableHead>
-                      <TableHead>{t("stickers.list.size", "admin")}</TableHead>
+                      <TableHead>
+                        {t("studios.list.createdAt", "admin")}
+                      </TableHead>
                       <TableHead className="text-right">
                         {t("common.actions", "common")}
                       </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {stickers.map((sticker) => (
+                    {studios.map((studio) => (
                       <TableRow
-                        key={sticker.id}
+                        key={studio.id}
                         className="cursor-pointer hover:bg-muted/50 transition-colors"
+                        onClick={() => router.push(`/admin/studios/${studio.id}`)}
                       >
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium">{sticker.name}</span>
+                            <span className="font-medium">{studio.name}</span>
                           </div>
                         </TableCell>
                         <TableCell>
                           <span className="text-sm text-muted-foreground">
-                            {sticker.format}
+                            {studio.type
+                              ? t(
+                                  `studios.types.${studio.type}`,
+                                  "admin",
+                                  {},
+                                  studio.type,
+                                )
+                              : "-"}
                           </span>
                         </TableCell>
                         <TableCell>
-                          {sticker.isAnimated ? (
-                            <span className="text-green-600 text-sm">✓</span>
+                          <span className="text-sm text-muted-foreground">
+                            {studio.status
+                              ? t(
+                                  `studios.status.${studio.status}`,
+                                  "admin",
+                                  {},
+                                  studio.status,
+                                )
+                              : "-"}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          {studio.siteUrl ? (
+                            <a
+                              href={studio.siteUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm text-primary hover:underline"
+                            >
+                              {studio.siteUrl}
+                            </a>
                           ) : (
-                            <span className="text-muted-foreground text-sm">
+                            <span className="text-sm text-muted-foreground">
                               -
                             </span>
                           )}
                         </TableCell>
                         <TableCell>
                           <span className="text-sm text-muted-foreground">
-                            {sticker.size} KB
+                            {new Date(studio.createdAt).toLocaleDateString()}
                           </span>
                         </TableCell>
                         <TableCell
@@ -161,23 +181,13 @@ export function StickersList({
                             e.stopPropagation();
                           }}
                         >
-                          <div className="flex items-center justify-end gap-1">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleEdit(sticker)}
-                              disabled={isUpdating}
-                            >
-                              {t("actions.edit", "common")}
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => onDelete(sticker)}
-                              disabled={isUpdating}
-                            >
-                              {t("actions.delete", "common")}
-                            </Button>
+                          <div className="flex items-center justify-end">
+                            <StudioActions
+                              studio={studio}
+                              onDelete={onDelete}
+                              onUpdate={onUpdate}
+                              isUpdating={isUpdating}
+                            />
                           </div>
                         </TableCell>
                       </TableRow>
@@ -206,8 +216,8 @@ export function StickersList({
           </Skeletonize>
 
           {/* Pagination */}
-          {stickers &&
-            stickers.length > 0 &&
+          {studios &&
+            studios.length > 0 &&
             onPageChange &&
             metaData?.totalPages &&
             metaData.totalPages > 1 && (
@@ -222,26 +232,15 @@ export function StickersList({
         </CardContent>
       </Card>
 
-      <CreateStickerFormDialog
+      <CreateStudioFormDialog
         open={showCreateDialog}
         onOpenChange={setShowCreateDialog}
         onSubmit={handleCreate}
         isLoading={isCreating}
       />
-
-      <EditStickerFormDialog
-        open={!!editingSticker}
-        onOpenChange={(open) => {
-          if (!open) {
-            setEditingSticker(undefined);
-          }
-        }}
-        sticker={editingSticker}
-        onSubmit={handleUpdate}
-        isLoading={isUpdating}
-      />
     </AnimatedSection>
   );
 }
 
-export default StickersList;
+export default StudiosList;
+

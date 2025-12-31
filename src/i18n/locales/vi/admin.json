@@ -79,6 +79,10 @@
     "stickers": {
       "title": "Nhãn dán",
       "management": "Quản lý"
+    },
+    "studios": {
+      "title": "Studios",
+      "management": "Quản lý"
     }
   },
   "projects": {
@@ -996,5 +1000,56 @@
     "createPackDescription": "Tạo bộ nhãn mới",
     "editPackTitle": "Chỉnh sửa Bộ Nhãn",
     "editPackDescription": "Cập nhật thông tin bộ nhãn"
+  },
+  "studios": {
+    "pageTitle": "Quản lý Studio",
+    "pageDescription": "Quản lý các studio animation và công ty sản xuất",
+    "list": {
+      "title": "Studios",
+      "description": "Quản lý và tổ chức các studio animation và công ty sản xuất",
+      "create": "Tạo Studio",
+      "name": "Tên",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "siteUrl": "URL Trang web",
+      "createdAt": "Ngày tạo",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa studio \"{name}\"?"
+    },
+    "form": {
+      "createTitle": "Tạo Studio Mới",
+      "createDescription": "Thêm studio animation hoặc công ty sản xuất mới",
+      "editTitle": "Chỉnh sửa Studio",
+      "editDescription": "Cập nhật thông tin studio",
+      "name": "Tên Studio",
+      "type": "Loại",
+      "selectType": "Chọn loại",
+      "status": "Trạng thái",
+      "selectStatus": "Chọn trạng thái",
+      "myAnimeListId": "MyAnimeList ID",
+      "aniListId": "AniList ID",
+      "siteUrl": "URL Trang web",
+      "save": "Lưu"
+    },
+    "types": {
+      "animation_studio": "Studio Animation",
+      "production_company": "Công ty Sản xuất"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "pending": "Đang chờ",
+      "archived": "Đã lưu trữ"
+    },
+    "detail": {
+      "title": "Studio: {name}",
+      "description": "Xem và quản lý thông tin chi tiết studio",
+      "information": "Thông tin Studio",
+      "informationDescription": "Thông tin cơ bản về studio",
+      "externalIds": "ID Bên ngoài",
+      "metadata": "Metadata",
+      "createdAt": "Ngày tạo",
+      "updatedAt": "Ngày cập nhật",
+      "error": "Không thể tải thông tin studio"
+    }
   }
 }

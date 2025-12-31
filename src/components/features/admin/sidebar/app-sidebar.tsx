@@ -216,6 +216,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
+          title: t("nav.studios.title", "admin"),
+          url: "/admin/studios",
+          icon: Building2,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.studios.management", "admin"),
+              url: "/admin/studios",
+            },
+          ],
+        },
+        {
           title: t("nav.playground.title", "admin"),
           url: "#",
           icon: SquareTerminal,

@@ -8,3 +8,4 @@ export { ManagePackItemsDialog } from "@/components/features/admin/stickers/mana
 export { CreateStickerForm } from "@/components/features/admin/stickers/create-sticker-form";
 export { CreateStickerPackForm } from "@/components/features/admin/stickers/create-sticker-pack-form";
 export { EditStickerPackForm } from "@/components/features/admin/stickers/edit-sticker-pack-form";
+export * from "@/components/features/admin/studios";
