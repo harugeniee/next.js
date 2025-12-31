@@ -169,7 +169,10 @@ export function StudioDetail({
                                   size="sm"
                                   className="h-6 w-6 p-0"
                                   onClick={handleCopyId}
-                                  aria-label={t("studios.detail.copyId", "admin")}
+                                  aria-label={t(
+                                    "studios.detail.copyId",
+                                    "admin",
+                                  )}
                                 >
                                   <Copy className="h-3 w-3" />
                                 </Button>
@@ -262,9 +265,7 @@ export function StudioDetail({
                                   <label className="text-sm font-medium text-muted-foreground">
                                     {t("studios.form.myAnimeListId", "admin")}
                                   </label>
-                                  <p className="mt-1">
-                                    {studio.myAnimeListId}
-                                  </p>
+                                  <p className="mt-1">{studio.myAnimeListId}</p>
                                 </div>
                               )}
                               {studio.aniListId && (

@@ -5,12 +5,9 @@ import {
   Edit,
   Trash2,
   Calendar,
-  Info,
   Copy,
   Tag as TagIcon,
-  Hash,
   TrendingUp,
-  Star,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -132,9 +129,7 @@ export function TagDetail({
                   <div className="space-y-6">
                     {/* Tag Header */}
                     <div className="flex items-center gap-3 pb-4 border-b">
-                      {tag.icon && (
-                        <span className="text-3xl">{tag.icon}</span>
-                      )}
+                      {tag.icon && <span className="text-3xl">{tag.icon}</span>}
                       {tag.color && (
                         <div
                           className="h-8 w-8 rounded-full border-2 border-border"
@@ -292,17 +287,16 @@ export function TagDetail({
                     )}
 
                     {/* Metadata */}
-                    {tag.metadata &&
-                      Object.keys(tag.metadata).length > 0 && (
-                        <div className="border-t pt-4">
-                          <h3 className="mb-4 text-sm font-medium">
-                            {t("detail.metadata", "tags")}
-                          </h3>
-                          <pre className="rounded-md bg-muted p-4 text-xs overflow-auto">
-                            {JSON.stringify(tag.metadata, null, 2)}
-                          </pre>
-                        </div>
-                      )}
+                    {tag.metadata && Object.keys(tag.metadata).length > 0 && (
+                      <div className="border-t pt-4">
+                        <h3 className="mb-4 text-sm font-medium">
+                          {t("detail.metadata", "tags")}
+                        </h3>
+                        <pre className="rounded-md bg-muted p-4 text-xs overflow-auto">
+                          {JSON.stringify(tag.metadata, null, 2)}
+                        </pre>
+                      </div>
+                    )}
 
                     {/* Timestamps */}
                     <div className="border-t pt-4">
@@ -374,4 +368,3 @@ export function TagDetail({
     </div>
   );
 }
-

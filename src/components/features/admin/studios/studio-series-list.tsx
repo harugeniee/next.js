@@ -22,7 +22,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/core/table";
-import { Skeleton } from "@/components/ui/core/skeleton";
 import type { Studio } from "@/lib/interface/studio.interface";
 
 interface StudioSeriesListProps {
@@ -34,10 +33,7 @@ interface StudioSeriesListProps {
  * Studio Series List Component
  * Displays series that the studio has worked on
  */
-export function StudioSeriesList({
-  studio,
-  isLoading,
-}: StudioSeriesListProps) {
+export function StudioSeriesList({ studio, isLoading }: StudioSeriesListProps) {
   const { t } = useI18n();
   const router = useRouter();
 
@@ -111,7 +107,15 @@ export function StudioSeriesList({
                           <div className="flex items-center gap-2">
                             <BookOpen className="h-4 w-4 text-muted-foreground" />
                             <span className="font-medium">
-                              {getSeriesTitle(series)}
+                              {getSeriesTitle({
+                                title: series.title
+                                  ? {
+                                      ...series.title,
+                                      english:
+                                        series.title.english || undefined,
+                                    }
+                                  : undefined,
+                              })}
                             </span>
                           </div>
                         </TableCell>
@@ -154,4 +158,3 @@ export function StudioSeriesList({
     </AnimatedSection>
   );
 }
-

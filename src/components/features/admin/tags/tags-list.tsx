@@ -84,9 +84,7 @@ export function TagsList({
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>{t("list.title", "tags")}</CardTitle>
-              <CardDescription>
-                {t("list.description", "tags")}
-              </CardDescription>
+              <CardDescription>{t("list.description", "tags")}</CardDescription>
             </div>
             <Button size="sm" onClick={() => setShowCreateDialog(true)}>
               <Plus className="mr-2 h-4 w-4" />
@@ -147,15 +145,11 @@ export function TagsList({
                           </span>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm">
-                            {tag.usageCount ?? 0}
-                          </span>
+                          <span className="text-sm">{tag.usageCount ?? 0}</span>
                         </TableCell>
                         <TableCell>
                           <Badge
-                            variant={
-                              tag.isActive ? "default" : "secondary"
-                            }
+                            variant={tag.isActive ? "default" : "secondary"}
                           >
                             {tag.isActive
                               ? t("status.active", "tags")
@@ -249,4 +243,3 @@ export function TagsList({
 }
 
 export default TagsList;
-

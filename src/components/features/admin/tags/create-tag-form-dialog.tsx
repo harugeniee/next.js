@@ -217,11 +217,7 @@ export function CreateTagFormDialog({
                   <FormItem>
                     <FormLabel>{t("form.color", "tags")}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="#3B82F6"
-                        {...field}
-                      />
+                      <Input type="text" placeholder="#3B82F6" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -249,7 +245,9 @@ export function CreateTagFormDialog({
                   <FormItem>
                     <FormLabel>{t("form.isActive", "tags")}</FormLabel>
                     <Select
-                      onValueChange={(value) => field.onChange(value === "true")}
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      }
                       value={field.value ? "true" : "false"}
                     >
                       <FormControl>
@@ -277,7 +275,9 @@ export function CreateTagFormDialog({
                   <FormItem>
                     <FormLabel>{t("form.isFeatured", "tags")}</FormLabel>
                     <Select
-                      onValueChange={(value) => field.onChange(value === "true")}
+                      onValueChange={(value) =>
+                        field.onChange(value === "true")
+                      }
                       value={field.value ? "true" : "false"}
                     >
                       <FormControl>
@@ -286,8 +286,12 @@ export function CreateTagFormDialog({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="true">{t("featured.yes", "tags")}</SelectItem>
-                        <SelectItem value="false">{t("featured.no", "tags")}</SelectItem>
+                        <SelectItem value="true">
+                          {t("featured.yes", "tags")}
+                        </SelectItem>
+                        <SelectItem value="false">
+                          {t("featured.no", "tags")}
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -346,4 +350,3 @@ export function CreateTagFormDialog({
     </Dialog>
   );
 }
-

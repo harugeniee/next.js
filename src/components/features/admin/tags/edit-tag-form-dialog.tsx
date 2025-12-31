@@ -216,8 +216,12 @@ export function EditTagFormDialog({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="true">{t("featured.yes", "tags")}</SelectItem>
-                      <SelectItem value="false">{t("featured.no", "tags")}</SelectItem>
+                      <SelectItem value="true">
+                        {t("featured.yes", "tags")}
+                      </SelectItem>
+                      <SelectItem value="false">
+                        {t("featured.no", "tags")}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -245,4 +249,3 @@ export function EditTagFormDialog({
     </Dialog>
   );
 }
-

@@ -53,9 +53,7 @@ export default function TagDetailPage() {
   };
 
   const handleDelete = async (tag: Tag) => {
-    if (
-      !confirm(t("list.deleteConfirm", "tags", { name: tag.name }))
-    ) {
+    if (!confirm(t("list.deleteConfirm", "tags", { name: tag.name }))) {
       return;
     }
 
@@ -133,4 +131,3 @@ export default function TagDetailPage() {
     </div>
   );
 }
-

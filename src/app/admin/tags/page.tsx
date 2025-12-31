@@ -77,9 +77,7 @@ export default function AdminTagsPage() {
   };
 
   const handleDeleteTag = async (tag: Tag) => {
-    if (
-      confirm(t("list.deleteConfirm", "tags", { name: tag.name }))
-    ) {
+    if (confirm(t("list.deleteConfirm", "tags", { name: tag.name }))) {
       await removeTag.mutateAsync(tag.id);
     }
   };
@@ -136,4 +134,3 @@ export default function AdminTagsPage() {
     </div>
   );
 }
-
