@@ -1,4 +1,7 @@
-import type { StudioStatus, StudioType } from "@/lib/constants/studio.constants";
+import type {
+  StudioStatus,
+  StudioType,
+} from "@/lib/constants/studio.constants";
 
 export interface Studio {
   id: string;
@@ -45,4 +48,3 @@ export interface StudioQueryDto {
   type?: StudioType;
   status?: StudioStatus;
 }
-

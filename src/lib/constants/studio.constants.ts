@@ -30,4 +30,3 @@ export type StudioType =
   (typeof STUDIO_CONSTANTS.TYPES)[keyof typeof STUDIO_CONSTANTS.TYPES];
 export type StudioStatus =
   (typeof STUDIO_CONSTANTS.STATUS)[keyof typeof STUDIO_CONSTANTS.STATUS];
-
