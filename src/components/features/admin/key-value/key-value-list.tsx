@@ -73,8 +73,8 @@ export function KeyValueList({
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [editingKeyValue, setEditingKeyValue] = useState<KeyValue | undefined>();
 
-  const handleCreate = async (formData: CreateKeyValueDto) => {
-    await onCreate(formData);
+  const handleCreate = async (formData: CreateKeyValueDto | UpdateKeyValueDto) => {
+    await onCreate(formData as CreateKeyValueDto);
     setShowCreateDialog(false);
   };
 
@@ -93,7 +93,7 @@ export function KeyValueList({
     onPageChange?.(newPage);
   };
 
-  const formatValue = (value: any): string => {
+  const formatValue = (value: unknown): string => {
     if (value === null || value === undefined) return "null";
     if (typeof value === "string") return value.length > 50 ? `${value.substring(0, 50)}...` : value;
     if (typeof value === "object") {

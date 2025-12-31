@@ -166,7 +166,7 @@ export class KeyValueAPI {
    * Set multiple key-value pairs
    */
   static async setMultiple(
-    entries: Record<string, any>,
+    entries: Record<string, unknown>,
     namespace?: string,
   ): Promise<KeyValue[]> {
     try {
@@ -197,9 +197,9 @@ export class KeyValueAPI {
   static async getMultiple(
     keys: string[],
     namespace?: string,
-  ): Promise<Record<string, any>> {
+  ): Promise<Record<string, unknown>> {
     try {
-      const response = await http.get<ApiResponse<Record<string, any>>>(
+      const response = await http.get<ApiResponse<Record<string, unknown>>>(
         `${this.BASE_URL}/batch`,
         {
           params: {
@@ -261,7 +261,7 @@ export class KeyValueAPI {
    */
   static async setWithTTL(
     key: string,
-    value: any,
+    value: unknown,
     ttlSeconds: number,
     namespace?: string,
   ): Promise<KeyValue> {

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
@@ -40,6 +40,7 @@ import type {
   CreateKeyValueDto,
   UpdateKeyValueDto,
   KeyValue,
+  ContentType,
 } from "@/lib/interface/key-value.interface";
 
 const CONTENT_TYPES = ["string", "number", "boolean", "object", "array"] as const;
@@ -70,9 +71,8 @@ export function KeyValueFormDialog({
   const form = useForm<CreateKeyValueFormData | UpdateKeyValueFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      key: "",
+      ...(isEditMode ? {} : { key: "", namespace: "" }),
       value: "",
-      namespace: "",
       expiresAt: "",
       metadata: "",
       contentType: undefined,
@@ -112,7 +112,7 @@ export function KeyValueFormDialog({
   ) => {
     try {
       // Parse JSON values
-      let parsedValue: any;
+      let parsedValue: unknown;
       try {
         parsedValue = JSON.parse(data.value as string);
       } catch {
@@ -128,7 +128,7 @@ export function KeyValueFormDialog({
         }
       }
 
-      let parsedMetadata: Record<string, any> | undefined;
+      let parsedMetadata: Record<string, unknown> | undefined;
       if (data.metadata && (data.metadata as string).trim()) {
         try {
           parsedMetadata = JSON.parse(data.metadata as string);
@@ -147,14 +147,14 @@ export function KeyValueFormDialog({
             metadata: parsedMetadata,
             contentType:
               data.contentType && (data.contentType as string).trim()
-                ? (data.contentType as string)
+                ? (data.contentType as string as ContentType)
                 : undefined,
           }
         : {
-            key: data.key as string,
+            key: (data as CreateKeyValueFormData).key,
             value: parsedValue,
             namespace:
-              (data.namespace as string)?.trim() || undefined,
+              (data as CreateKeyValueFormData).namespace?.trim() || undefined,
             expiresAt:
               data.expiresAt && (data.expiresAt as string).trim()
                 ? (data.expiresAt as string)
@@ -162,7 +162,7 @@ export function KeyValueFormDialog({
             metadata: parsedMetadata,
             contentType:
               data.contentType && (data.contentType as string).trim()
-                ? (data.contentType as string)
+                ? (data.contentType as string as ContentType)
                 : undefined,
           };
 

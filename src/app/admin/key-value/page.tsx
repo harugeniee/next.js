@@ -19,8 +19,6 @@ import {
 import { useKeyValues } from "@/hooks/admin/useKeyValue";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type {
-  CreateKeyValueDto,
-  UpdateKeyValueDto,
   QueryKeyValueDto,
   KeyValue,
 } from "@/lib/interface/key-value.interface";

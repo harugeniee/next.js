@@ -32,7 +32,7 @@ export interface KeyValue extends BaseEntityCustom {
    * Flexible value storage
    * Can store any JSON-serializable data
    */
-  value: any;
+  value: unknown;
 
   /**
    * Optional namespace for grouping keys
@@ -50,7 +50,7 @@ export interface KeyValue extends BaseEntityCustom {
    * Additional metadata for the key-value pair
    * Can store tags, version info, or other contextual data
    */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 
   /**
    * Content type hint for the value
@@ -77,7 +77,7 @@ export interface CreateKeyValueDto {
   /**
    * Value to store (any JSON-serializable data)
    */
-  value: any;
+  value: unknown;
 
   /**
    * Optional namespace for grouping keys
@@ -92,7 +92,7 @@ export interface CreateKeyValueDto {
   /**
    * Additional metadata for the key-value pair
    */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 
   /**
    * Content type hint for the value
@@ -107,7 +107,7 @@ export interface UpdateKeyValueDto {
   /**
    * New value to store (any JSON-serializable data)
    */
-  value?: any;
+  value?: unknown;
 
   /**
    * New expiration timestamp (ISO 8601)
@@ -117,7 +117,7 @@ export interface UpdateKeyValueDto {
   /**
    * Updated metadata for the key-value pair
    */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 
   /**
    * Updated content type hint
