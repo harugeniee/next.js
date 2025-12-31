@@ -25,14 +25,25 @@ import {
   FormMessage,
 } from "@/components/ui/layout/form";
 import { STICKER_CONSTANTS } from "@/lib/constants/sticker.constants";
-import type { StickerPack, UpdateStickerPackDto } from "@/lib/interface/sticker.interface";
+import type {
+  StickerPack,
+  UpdateStickerPackDto,
+} from "@/lib/interface/sticker.interface";
 
 const stickerPackSchema = z.object({
-  name: z.string()
+  name: z
+    .string()
     .min(1, "Name is required")
-    .max(STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH, `Name must be less than ${STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH} characters`),
-  description: z.string()
-    .max(STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH, `Description must be less than ${STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH} characters`)
+    .max(
+      STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH,
+      `Name must be less than ${STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH} characters`,
+    ),
+  description: z
+    .string()
+    .max(
+      STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH,
+      `Description must be less than ${STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH} characters`,
+    )
     .optional(),
   coverMediaId: z.string().optional(),
 });
@@ -113,7 +124,9 @@ export function EditStickerPackFormDialog({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("stickers.form.packDescription", "admin")}</FormLabel>
+                  <FormLabel>
+                    {t("stickers.form.packDescription", "admin")}
+                  </FormLabel>
                   <FormControl>
                     <textarea
                       placeholder="A collection of fun stickers..."
@@ -132,7 +145,9 @@ export function EditStickerPackFormDialog({
               name="coverMediaId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("stickers.form.packCoverMediaId", "admin")}</FormLabel>
+                  <FormLabel>
+                    {t("stickers.form.packCoverMediaId", "admin")}
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="media_123 (optional)" {...field} />
                   </FormControl>

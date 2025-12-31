@@ -5,7 +5,9 @@ import { http } from "@/lib/http/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
 
-export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({ onCreated }) => {
+export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({
+  onCreated,
+}) => {
   const { t } = useI18n();
   const qc = useQueryClient();
   const [name, setName] = useState("");
@@ -18,7 +20,10 @@ export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({ onCrea
       const dto = {
         name,
         mediaId,
-        tags: tags.split(",").map((s) => s.trim()).filter(Boolean),
+        tags: tags
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
         isAnimated,
       };
       const res = await http.post("/stickers", dto);
@@ -39,19 +44,42 @@ export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({ onCrea
       className="space-y-3"
     >
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.name", "admin") ?? "Name"}</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.name", "admin") ?? "Name"}
+        </label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.mediaId", "admin") ?? "Media ID"}</label>
-        <input value={mediaId} onChange={(e) => setMediaId(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.mediaId", "admin") ?? "Media ID"}
+        </label>
+        <input
+          value={mediaId}
+          onChange={(e) => setMediaId(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.tags", "admin") ?? "Tags"}</label>
-        <input value={tags} onChange={(e) => setTags(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.tags", "admin") ?? "Tags"}
+        </label>
+        <input
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div className="flex items-center gap-2">
-        <input id="isAnimated" type="checkbox" checked={isAnimated} onChange={(e) => setIsAnimated(e.target.checked)} />
+        <input
+          id="isAnimated"
+          type="checkbox"
+          checked={isAnimated}
+          onChange={(e) => setIsAnimated(e.target.checked)}
+        />
         <label htmlFor="isAnimated" className="text-sm">
           {t("stickers.form.isAnimated", "admin") ?? "Is Animated?"}
         </label>
@@ -60,7 +88,16 @@ export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({ onCrea
         <button type="submit" className="btn btn-primary">
           {t("stickers.form.save", "admin") ?? "Save"}
         </button>
-        <button type="button" className="btn btn-ghost" onClick={() => { setName(""); setMediaId(""); setTags(""); setIsAnimated(false); }}>
+        <button
+          type="button"
+          className="btn btn-ghost"
+          onClick={() => {
+            setName("");
+            setMediaId("");
+            setTags("");
+            setIsAnimated(false);
+          }}
+        >
           {t("stickers.form.cancel", "admin") ?? "Cancel"}
         </button>
       </div>
@@ -69,5 +106,3 @@ export const CreateStickerForm: React.FC<{ onCreated?: () => void }> = ({ onCrea
 };
 
 export default CreateStickerForm;
-
-

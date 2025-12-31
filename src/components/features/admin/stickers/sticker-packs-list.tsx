@@ -1,19 +1,19 @@
- "use client";
+"use client";
 
- import { Plus } from "lucide-react";
- import { useState } from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 
- import { useI18n } from "@/components/providers/i18n-provider";
- import { AnimatedSection } from "@/components/shared/animated-section";
- import { Skeletonize } from "@/components/shared/skeletonize";
- import { Button } from "@/components/ui/core/button";
- import {
-   Card,
-   CardContent,
-   CardDescription,
-   CardHeader,
-   CardTitle,
- } from "@/components/ui/core/card";
+import { useI18n } from "@/components/providers/i18n-provider";
+import { AnimatedSection } from "@/components/shared/animated-section";
+import { Skeletonize } from "@/components/shared/skeletonize";
+import { Button } from "@/components/ui/core/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import {
   Table,
   TableBody,
@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
 import type { StickerPack } from "@/lib/interface/sticker.interface";
- import { CreateStickerPackFormDialog } from "./create-sticker-pack-form-dialog";
- import { EditStickerPackFormDialog } from "./edit-sticker-pack-form-dialog";
+import { CreateStickerPackFormDialog } from "./create-sticker-pack-form-dialog";
+import { EditStickerPackFormDialog } from "./edit-sticker-pack-form-dialog";
 
 interface StickerPacksListProps {
   data?: StickerPack[];
@@ -75,7 +75,7 @@ export function StickerPacksList({
   const handlePageChange = (newPage: number) => {
     onPageChange?.(newPage);
   };
- 
+
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">
       <Card>
@@ -100,10 +100,18 @@ export function StickerPacksList({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>{t("stickers.list.packName", "admin")}</TableHead>
-                      <TableHead>{t("stickers.list.description", "admin")}</TableHead>
-                      <TableHead>{t("stickers.list.stickerCount", "admin")}</TableHead>
-                      <TableHead>{t("stickers.list.createdAt", "admin")}</TableHead>
+                      <TableHead>
+                        {t("stickers.list.packName", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("stickers.list.description", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("stickers.list.stickerCount", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("stickers.list.createdAt", "admin")}
+                      </TableHead>
                       <TableHead className="text-right">
                         {t("common.actions", "common")}
                       </TableHead>
@@ -121,7 +129,10 @@ export function StickerPacksList({
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className="text-sm text-muted-foreground max-w-xs truncate" title={pack.description}>
+                          <span
+                            className="text-sm text-muted-foreground max-w-xs truncate"
+                            title={pack.description}
+                          >
                             {pack.description || "-"}
                           </span>
                         </TableCell>
@@ -219,8 +230,6 @@ export function StickerPacksList({
       />
     </AnimatedSection>
   );
- };
- 
- export default StickerPacksList;
+}
 
-
+export default StickerPacksList;

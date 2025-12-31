@@ -27,11 +27,19 @@ import { STICKER_CONSTANTS } from "@/lib/constants/sticker.constants";
 import type { CreateStickerPackDto } from "@/lib/interface/sticker.interface";
 
 const stickerPackSchema = z.object({
-  name: z.string()
+  name: z
+    .string()
     .min(1, "Name is required")
-    .max(STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH, `Name must be less than ${STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH} characters`),
-  description: z.string()
-    .max(STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH, `Description must be less than ${STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH} characters`)
+    .max(
+      STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH,
+      `Name must be less than ${STICKER_CONSTANTS.PACK_NAME_MAX_LENGTH} characters`,
+    ),
+  description: z
+    .string()
+    .max(
+      STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH,
+      `Description must be less than ${STICKER_CONSTANTS.PACK_DESCRIPTION_MAX_LENGTH} characters`,
+    )
     .optional(),
   coverMediaId: z.string().optional(),
 });
@@ -72,7 +80,9 @@ export function CreateStickerPackFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{t("stickers.form.createPackTitle", "admin")}</DialogTitle>
+          <DialogTitle>
+            {t("stickers.form.createPackTitle", "admin")}
+          </DialogTitle>
           <DialogDescription>
             {t("stickers.form.createPackDescription", "admin")}
           </DialogDescription>
@@ -100,7 +110,9 @@ export function CreateStickerPackFormDialog({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("stickers.form.packDescription", "admin")}</FormLabel>
+                  <FormLabel>
+                    {t("stickers.form.packDescription", "admin")}
+                  </FormLabel>
                   <FormControl>
                     <textarea
                       placeholder="A collection of fun stickers..."
@@ -119,7 +131,9 @@ export function CreateStickerPackFormDialog({
               name="coverMediaId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("stickers.form.packCoverMediaId", "admin")}</FormLabel>
+                  <FormLabel>
+                    {t("stickers.form.packCoverMediaId", "admin")}
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="media_123 (optional)" {...field} />
                   </FormControl>

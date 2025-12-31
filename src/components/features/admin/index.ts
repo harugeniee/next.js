@@ -9,5 +9,3 @@ export { CreateStickerForm } from "@/components/features/admin/stickers/create-s
 export { EditStickerForm } from "@/components/features/admin/stickers/edit-sticker-form";
 export { CreateStickerPackForm } from "@/components/features/admin/stickers/create-sticker-pack-form";
 export { EditStickerPackForm } from "@/components/features/admin/stickers/edit-sticker-pack-form";
-
-

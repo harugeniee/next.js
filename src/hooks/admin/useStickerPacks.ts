@@ -19,7 +19,9 @@ export function useStickerPacks(query?: Record<string, any>) {
       const res = await http.post("/sticker-packs", dto);
       return res.data;
     },
-    onSuccess() { qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY }); }
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
   });
 
   const update = useMutation({
@@ -27,7 +29,9 @@ export function useStickerPacks(query?: Record<string, any>) {
       const res = await http.patch(`/sticker-packs/${id}`, dto);
       return res.data;
     },
-    onSuccess() { qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY }); }
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
   });
 
   const remove = useMutation({
@@ -35,7 +39,9 @@ export function useStickerPacks(query?: Record<string, any>) {
       const res = await http.delete(`/sticker-packs/${id}`);
       return res.data;
     },
-    onSuccess() { qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY }); }
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
   });
 
   const addItem = useMutation({
@@ -44,20 +50,32 @@ export function useStickerPacks(query?: Record<string, any>) {
       return res.data;
     },
     onSuccess(_, vars) {
-      qc.invalidateQueries({ queryKey: ["admin", "stickerPack", (vars as any)?.packId] });
+      qc.invalidateQueries({
+        queryKey: ["admin", "stickerPack", (vars as any)?.packId],
+      });
       qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
-    }
+    },
   });
 
   const removeItem = useMutation({
-    mutationFn: async ({ packId, stickerId }: { packId: string; stickerId: string }) => {
-      const res = await http.delete(`/sticker-packs/${packId}/items/${stickerId}`);
+    mutationFn: async ({
+      packId,
+      stickerId,
+    }: {
+      packId: string;
+      stickerId: string;
+    }) => {
+      const res = await http.delete(
+        `/sticker-packs/${packId}/items/${stickerId}`,
+      );
       return res.data;
     },
     onSuccess(_, vars) {
-      qc.invalidateQueries({ queryKey: ["admin", "stickerPack", (vars as any)?.packId] });
+      qc.invalidateQueries({
+        queryKey: ["admin", "stickerPack", (vars as any)?.packId],
+      });
       qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
-    }
+    },
   });
 
   return {
@@ -71,5 +89,3 @@ export function useStickerPacks(query?: Record<string, any>) {
 }
 
 export default useStickerPacks;
-
-

@@ -25,12 +25,19 @@ import {
   FormMessage,
 } from "@/components/ui/layout/form";
 import { STICKER_CONSTANTS } from "@/lib/constants/sticker.constants";
-import type { Sticker, UpdateStickerDto } from "@/lib/interface/sticker.interface";
+import type {
+  Sticker,
+  UpdateStickerDto,
+} from "@/lib/interface/sticker.interface";
 
 const stickerSchema = z.object({
-  name: z.string()
+  name: z
+    .string()
     .min(1, "Name is required")
-    .max(STICKER_CONSTANTS.NAME_MAX_LENGTH, `Name must be less than ${STICKER_CONSTANTS.NAME_MAX_LENGTH} characters`),
+    .max(
+      STICKER_CONSTANTS.NAME_MAX_LENGTH,
+      `Name must be less than ${STICKER_CONSTANTS.NAME_MAX_LENGTH} characters`,
+    ),
   mediaId: z.string().min(1, "Media ID is required"),
   tags: z.string().optional(),
   isAnimated: z.boolean().optional().default(false),
@@ -80,7 +87,12 @@ export function EditStickerFormDialog({
   const handleSubmit = async (data: StickerFormValues) => {
     const submitData: UpdateStickerDto = {
       ...data,
-      tags: data.tags ? data.tags.split(",").map(tag => tag.trim()).filter(Boolean) : undefined,
+      tags: data.tags
+        ? data.tags
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter(Boolean)
+        : undefined,
     };
     await onSubmit(submitData);
     onOpenChange(false);

@@ -5,7 +5,10 @@ import { http } from "@/lib/http/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
 
-export const EditStickerPackForm: React.FC<{ pack: any; onSaved?: () => void }> = ({ pack, onSaved }) => {
+export const EditStickerPackForm: React.FC<{
+  pack: any;
+  onSaved?: () => void;
+}> = ({ pack, onSaved }) => {
   const { t } = useI18n();
   const qc = useQueryClient();
   const [name, setName] = useState(pack?.name ?? "");
@@ -41,16 +44,34 @@ export const EditStickerPackForm: React.FC<{ pack: any; onSaved?: () => void }> 
       className="space-y-3"
     >
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.packName", "admin") ?? "Pack Name"}</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.packName", "admin") ?? "Pack Name"}
+        </label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.packDescription", "admin") ?? "Description"}</label>
-        <input value={description} onChange={(e) => setDescription(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.packDescription", "admin") ?? "Description"}
+        </label>
+        <input
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div>
-        <label className="block text-sm font-medium">{t("stickers.form.packCoverMediaId", "admin") ?? "Cover Media ID"}</label>
-        <input value={coverMediaId} onChange={(e) => setCoverMediaId(e.target.value)} className="input w-full" />
+        <label className="block text-sm font-medium">
+          {t("stickers.form.packCoverMediaId", "admin") ?? "Cover Media ID"}
+        </label>
+        <input
+          value={coverMediaId}
+          onChange={(e) => setCoverMediaId(e.target.value)}
+          className="input w-full"
+        />
       </div>
       <div className="flex gap-2">
         <button type="submit" className="btn btn-primary">
@@ -65,5 +86,3 @@ export const EditStickerPackForm: React.FC<{ pack: any; onSaved?: () => void }> 
 };
 
 export default EditStickerPackForm;
-
-

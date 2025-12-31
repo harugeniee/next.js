@@ -5,7 +5,9 @@ import { http } from "@/lib/http/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useI18n } from "@/components/providers/i18n-provider";
 
-export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({ packId }) => {
+export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({
+  packId,
+}) => {
   const { t } = useI18n();
   const qc = useQueryClient();
   const { data, isLoading } = useQuery({
@@ -39,13 +41,16 @@ export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({ packId }) 
 
   const [newStickerId, setNewStickerId] = useState("");
 
-  if (isLoading) return <div>{t("stickers.list.loading", "admin") ?? "Loading..."}</div>;
+  if (isLoading)
+    return <div>{t("stickers.list.loading", "admin") ?? "Loading..."}</div>;
 
   const items = data?.items ?? [];
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-medium">{t("stickers.list.managePackItems", "admin") ?? "Manage Pack Items"}</h3>
+      <h3 className="text-sm font-medium">
+        {t("stickers.list.managePackItems", "admin") ?? "Manage Pack Items"}
+      </h3>
       <div>
         <input
           placeholder={t("stickers.form.mediaId", "admin") ?? "Sticker ID"}
@@ -68,10 +73,14 @@ export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({ packId }) 
       </div>
 
       <div>
-        <h4 className="text-sm font-medium">{t("stickers.list.packItems", "admin") ?? "Pack Items"}</h4>
+        <h4 className="text-sm font-medium">
+          {t("stickers.list.packItems", "admin") ?? "Pack Items"}
+        </h4>
         <ul className="mt-2 space-y-2">
           {items.length === 0 ? (
-            <li className="text-muted-foreground">{t("stickers.list.noPackItems", "admin") ?? "No items in pack."}</li>
+            <li className="text-muted-foreground">
+              {t("stickers.list.noPackItems", "admin") ?? "No items in pack."}
+            </li>
           ) : (
             items.map((it: any) => (
               <li key={it.id} className="flex items-center justify-between">
@@ -95,5 +104,3 @@ export const ManagePackItemsDialog: React.FC<{ packId: string }> = ({ packId }) 
 };
 
 export default ManagePackItemsDialog;
-
-

@@ -50,16 +50,26 @@ export default function AdminStickersPage() {
   });
 
   // Fetch stickers data
-  const { data: stickersData, isLoading: stickersLoading } = useStickers(stickersFilters);
+  const { data: stickersData, isLoading: stickersLoading } =
+    useStickers(stickersFilters);
   const stickers = stickersData?.result ?? [];
 
   // Fetch sticker packs data
-  const { data: packsData, isLoading: packsLoading } = useStickerPacks(packsFilters);
+  const { data: packsData, isLoading: packsLoading } =
+    useStickerPacks(packsFilters);
   const packs = packsData?.result ?? [];
 
   // Mutations
-  const { create: createSticker, update: updateSticker, remove: removeSticker } = useStickers(stickersFilters);
-  const { create: createPack, update: updatePack, remove: removePack } = useStickerPacks(packsFilters);
+  const {
+    create: createSticker,
+    update: updateSticker,
+    remove: removeSticker,
+  } = useStickers(stickersFilters);
+  const {
+    create: createPack,
+    update: updatePack,
+    remove: removePack,
+  } = useStickerPacks(packsFilters);
 
   // Filter handlers
   const handleStickersFiltersChange = (newFilters: typeof stickersFilters) => {
@@ -95,7 +105,9 @@ export default function AdminStickersPage() {
   };
 
   const handleDeleteSticker = async (sticker: Sticker) => {
-    if (confirm(t("stickers.list.deleteConfirm", "admin", { name: sticker.name }))) {
+    if (
+      confirm(t("stickers.list.deleteConfirm", "admin", { name: sticker.name }))
+    ) {
       await removeSticker.mutateAsync(sticker.id);
     }
   };
@@ -109,12 +121,16 @@ export default function AdminStickersPage() {
   };
 
   const handleDeletePack = async (pack: StickerPack) => {
-    if (confirm(t("stickers.list.deletePackConfirm", "admin", { name: pack.name }))) {
+    if (
+      confirm(
+        t("stickers.list.deletePackConfirm", "admin", { name: pack.name }),
+      )
+    ) {
       await removePack.mutateAsync(pack.id);
     }
   };
 
-   return (
+  return (
     <div className="space-y-6">
       {/* Breadcrumb Navigation */}
       <AnimatedSection loading={false} data={true}>
@@ -127,7 +143,9 @@ export default function AdminStickersPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>{t("stickers.pageTitle", "admin")}</BreadcrumbPage>
+              <BreadcrumbPage>
+                {t("stickers.pageTitle", "admin")}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -148,8 +166,12 @@ export default function AdminStickersPage() {
       {/* Tabs */}
       <Tabs defaultValue="stickers" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="stickers">{t("stickers.tabs.stickers", "admin")}</TabsTrigger>
-          <TabsTrigger value="stickerPacks">{t("stickers.tabs.stickerPacks", "admin")}</TabsTrigger>
+          <TabsTrigger value="stickers">
+            {t("stickers.tabs.stickers", "admin")}
+          </TabsTrigger>
+          <TabsTrigger value="stickerPacks">
+            {t("stickers.tabs.stickerPacks", "admin")}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="stickers" className="mt-6 space-y-6">
@@ -202,6 +224,4 @@ export default function AdminStickersPage() {
       </Tabs>
     </div>
   );
- }
-
-
+}

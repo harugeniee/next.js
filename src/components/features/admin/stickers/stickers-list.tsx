@@ -1,19 +1,19 @@
- "use client";
+"use client";
 
- import { Plus } from "lucide-react";
- import { useState } from "react";
+import { Plus } from "lucide-react";
+import { useState } from "react";
 
- import { useI18n } from "@/components/providers/i18n-provider";
- import { AnimatedSection } from "@/components/shared/animated-section";
- import { Skeletonize } from "@/components/shared/skeletonize";
- import { Button } from "@/components/ui/core/button";
- import {
-   Card,
-   CardContent,
-   CardDescription,
-   CardHeader,
-   CardTitle,
- } from "@/components/ui/core/card";
+import { useI18n } from "@/components/providers/i18n-provider";
+import { AnimatedSection } from "@/components/shared/animated-section";
+import { Skeletonize } from "@/components/shared/skeletonize";
+import { Button } from "@/components/ui/core/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import {
   Table,
   TableBody,
@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
 import type { Sticker } from "@/lib/interface/sticker.interface";
- import { CreateStickerFormDialog } from "./create-sticker-form-dialog";
- import { EditStickerFormDialog } from "./edit-sticker-form-dialog";
+import { CreateStickerFormDialog } from "./create-sticker-form-dialog";
+import { EditStickerFormDialog } from "./edit-sticker-form-dialog";
 
 interface StickersListProps {
   data?: Sticker[];
@@ -75,8 +75,8 @@ export function StickersList({
   const handlePageChange = (newPage: number) => {
     onPageChange?.(newPage);
   };
- 
-   return (
+
+  return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">
       <Card>
         <CardHeader>
@@ -101,8 +101,12 @@ export function StickersList({
                   <TableHeader>
                     <TableRow>
                       <TableHead>{t("stickers.list.name", "admin")}</TableHead>
-                      <TableHead>{t("stickers.list.format", "admin")}</TableHead>
-                      <TableHead>{t("stickers.list.animated", "admin")}</TableHead>
+                      <TableHead>
+                        {t("stickers.list.format", "admin")}
+                      </TableHead>
+                      <TableHead>
+                        {t("stickers.list.animated", "admin")}
+                      </TableHead>
                       <TableHead>{t("stickers.list.size", "admin")}</TableHead>
                       <TableHead className="text-right">
                         {t("common.actions", "common")}
@@ -129,7 +133,9 @@ export function StickersList({
                           {sticker.isAnimated ? (
                             <span className="text-green-600 text-sm">✓</span>
                           ) : (
-                            <span className="text-muted-foreground text-sm">-</span>
+                            <span className="text-muted-foreground text-sm">
+                              -
+                            </span>
                           )}
                         </TableCell>
                         <TableCell>
@@ -221,8 +227,6 @@ export function StickersList({
       />
     </AnimatedSection>
   );
- };
- 
- export default StickersList;
+}
 
-
+export default StickersList;

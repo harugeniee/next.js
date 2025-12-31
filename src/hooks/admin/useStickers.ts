@@ -53,5 +53,3 @@ export function useStickers(query?: Record<string, any>) {
 }
 
 export default useStickers;
-
-

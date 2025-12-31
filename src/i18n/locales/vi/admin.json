@@ -921,8 +921,7 @@
     "updateError": "Cập nhật thể loại thất bại.",
     "deleteSuccess": "Xóa thể loại thành công!",
     "deleteError": "Xóa thể loại thất bại."
-  }
-,
+  },
   "stickers": {
     "pageTitle": "Quản lý Nhãn dán",
     "pageDescription": "Quản lý nhãn dán và bộ nhãn dán",
@@ -931,39 +930,39 @@
       "stickers": "Nhãn dán",
       "stickerPacks": "Bộ Nhãn"
     },
-      "filters": {
-        "searchPlaceholder": "Tìm kiếm nhãn dán..."
-      },
+    "filters": {
+      "searchPlaceholder": "Tìm kiếm nhãn dán..."
+    },
     "list": {
       "title": "Nhãn dán",
       "description": "Quản lý và tổ chức bộ sưu tập nhãn dán của bạn",
       "create": "Tạo Nhãn dán",
       "loading": "Đang tải nhãn dán...",
       "noStickersFound": "Không tìm thấy nhãn dán.",
-        "name": "Tên",
-        "format": "Định dạng",
-        "animated": "Hoạt hình",
-        "size": "Kích thước",
-        "actions": "Hành động",
-        "deleteConfirm": "Bạn có chắc chắn muốn xóa nhãn dán \"{name}\"?",
+      "name": "Tên",
+      "format": "Định dạng",
+      "animated": "Hoạt hình",
+      "size": "Kích thước",
+      "actions": "Hành động",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa nhãn dán \"{name}\"?",
       "packListTitle": "Bộ Nhãn",
       "packListDescription": "Tổ chức nhãn dán thành các bộ theo chủ đề",
       "createPack": "Tạo Bộ",
-        "packName": "Tên Bộ",
-        "description": "Mô tả",
-        "stickerCount": "Nhãn dán",
-        "createdAt": "Được tạo",
-        "deletePackConfirm": "Bạn có chắc chắn muốn xóa bộ nhãn \"{name}\"?",
+      "packName": "Tên Bộ",
+      "description": "Mô tả",
+      "stickerCount": "Nhãn dán",
+      "createdAt": "Được tạo",
+      "deletePackConfirm": "Bạn có chắc chắn muốn xóa bộ nhãn \"{name}\"?",
       "noStickerPacksFound": "Không tìm thấy bộ nhãn nào.",
-        "managePackItems": "Quản lý mục bộ nhãn",
-        "packItems": "Mục trong bộ",
-        "noPackItems": "Không có mục nào trong bộ.",
-        "addToPack": "Thêm",
-        "remove": "Xóa"
+      "managePackItems": "Quản lý mục bộ nhãn",
+      "packItems": "Mục trong bộ",
+      "noPackItems": "Không có mục nào trong bộ.",
+      "addToPack": "Thêm",
+      "remove": "Xóa"
     },
     "form": {
-        "createSticker": "Tạo Nhãn dán",
-        "createStickerPack": "Tạo Bộ Nhãn",
+      "createSticker": "Tạo Nhãn dán",
+      "createStickerPack": "Tạo Bộ Nhãn",
       "createTitle": "Tạo Nhãn dán Mới",
       "createDescription": "Thêm nhãn dán mới vào bộ sưu tập của bạn",
       "editTitle": "Chỉnh sửa Nhãn dán",
@@ -987,16 +986,15 @@
         "mediaIdRequired": "Media ID là bắt buộc."
       }
     }
+  },
+  "form": {
+    "createTitle": "Tạo Nhãn dán",
+    "createDescription": "Tạo nhãn dán mới từ media hiện có",
+    "editTitle": "Chỉnh sửa Nhãn dán",
+    "editDescription": "Cập nhật thông tin nhãn dán",
+    "createPackTitle": "Tạo Bộ Nhãn",
+    "createPackDescription": "Tạo bộ nhãn mới",
+    "editPackTitle": "Chỉnh sửa Bộ Nhãn",
+    "editPackDescription": "Cập nhật thông tin bộ nhãn"
   }
-    ,
-    "form": {
-      "createTitle": "Tạo Nhãn dán",
-      "createDescription": "Tạo nhãn dán mới từ media hiện có",
-      "editTitle": "Chỉnh sửa Nhãn dán",
-      "editDescription": "Cập nhật thông tin nhãn dán",
-      "createPackTitle": "Tạo Bộ Nhãn",
-      "createPackDescription": "Tạo bộ nhãn mới",
-      "editPackTitle": "Chỉnh sửa Bộ Nhãn",
-      "editPackDescription": "Cập nhật thông tin bộ nhãn"
-    }
 }
