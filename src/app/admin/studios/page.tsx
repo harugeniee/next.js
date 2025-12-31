@@ -16,7 +16,6 @@ import {
 import { useStudios } from "@/hooks/admin/useStudios";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type { Studio } from "@/lib/interface/studio.interface";
-import type { CreateStudioDto, UpdateStudioDto } from "@/lib/interface";
 
 /**
  * Studios Management Page
