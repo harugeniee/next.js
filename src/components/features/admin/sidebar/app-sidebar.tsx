@@ -10,6 +10,7 @@ import {
   Bot,
   Building2,
   Command,
+  Database,
   FileImage,
   Frame,
   GalleryVerticalEnd,
@@ -144,6 +145,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
+          title: t("nav.keyValue.title", "admin"),
+          url: "/admin/key-value",
+          icon: Database,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.keyValue.management", "admin"),
+              url: "/admin/key-value",
+            },
+          ],
+        },
+        {
           title: t("nav.characters.title", "admin"),
           url: "/admin/characters",
           icon: UserCircle,
@@ -180,6 +193,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ],
         },
         {
+          title: t("stickers.list.title", "admin"),
+          url: "/admin/stickers",
+          icon: FileImage,
+          isActive: false,
+          items: [
+            {
+              title: t("stickers.list.title", "admin"),
+              url: "/admin/stickers",
+            },
+          ],
+        },
+        {
           title: t("nav.series.title", "admin"),
           url: "/admin/series",
           icon: BookMarked,
@@ -200,6 +225,30 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {
               title: t("nav.genres.management", "admin"),
               url: "/admin/genres",
+            },
+          ],
+        },
+        {
+          title: t("nav.tags.title", "admin"),
+          url: "/admin/tags",
+          icon: Tag,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.tags.management", "admin"),
+              url: "/admin/tags",
+            },
+          ],
+        },
+        {
+          title: t("nav.studios.title", "admin"),
+          url: "/admin/studios",
+          icon: Building2,
+          isActive: false,
+          items: [
+            {
+              title: t("nav.studios.management", "admin"),
+              url: "/admin/studios",
             },
           ],
         },

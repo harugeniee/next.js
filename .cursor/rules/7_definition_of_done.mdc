@@ -34,8 +34,12 @@ alwaysApply: true
 ### Internationalization
 - ✅ No hard-coded text in components
 - ✅ i18n keys present for both EN & VI
-- ✅ Uses `useTranslations()` or `useI18n()` hooks
+- ✅ Uses `useI18n()` hook (not `useTranslations()`)
 - ✅ All user-facing text properly translated
+- ✅ **Translation keys verified**: Keys exist in JSON structure
+- ✅ **Namespace correct**: `common` for actions, domain namespace for domain content
+- ✅ **Key paths correct**: Matches actual JSON structure (e.g., `actions.view` not `common.view`)
+- ✅ **Both locales updated**: EN and VI translations added
 
 ### Accessibility
 - ✅ Proper semantic HTML and ARIA labels

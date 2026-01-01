@@ -12,6 +12,7 @@ import permissions from "./vi/permissions.json";
 import series from "./vi/series.json";
 import profile from "./vi/profile.json";
 import settings from "./vi/settings.json";
+import tags from "./vi/tags.json";
 import toast from "./vi/toast.json";
 import user from "./vi/user.json";
 import write from "./vi/write.json";
@@ -34,6 +35,7 @@ const viMessages = {
   characters,
   media,
   permissions,
+  tags,
 };
 
 export default viMessages;

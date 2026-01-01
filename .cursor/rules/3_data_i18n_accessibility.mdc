@@ -28,10 +28,149 @@ fetch(url, { next: { revalidate: 60, tags: ['posts'] } })
 - Respect mobile ergonomics (spacing, label click area)
 
 ## i18n
+
+### Basic Usage
 - All text in `src/i18n/locales/{en,vi}/*.json`
-- **9 namespaces**: `auth`, `article`, `common`, `demo`, `home`, `profile`, `toast`, `user`, `write`
-- Use `useTranslations('namespace')`
+- **Namespaces**: `auth`, `article`, `common`, `demo`, `home`, `profile`, `toast`, `user`, `write`, `admin`
+- Use `useI18n()` hook: `const { t } = useI18n();`
+- **Function signature**: `t(key: string, namespace?: string, variables?: Record<string, unknown>, fallback?: string)`
 - **Language switching** with dynamic locale switching
+
+### Translation Function Usage
+
+**✅ CORRECT Patterns:**
+```tsx
+// Basic usage with namespace
+t("actions.edit", "common")           // ✅ Correct: actions.edit exists in common.json
+t("actions.view", "common")          // ✅ Correct: actions.view exists in common.json
+t("actions.delete", "common")        // ✅ Correct: actions.delete exists in common.json
+t("common.actions", "common")        // ✅ Correct: common.actions exists in common.json (nested object)
+
+// Admin namespace
+t("studios.detail.title", "admin")    // ✅ Correct: studios.detail.title exists in admin.json
+t("studios.list.name", "admin")      // ✅ Correct: studios.list.name exists in admin.json
+
+// With variables
+t("studios.detail.title", "admin", { name: studio.name })
+```
+
+**❌ WRONG Patterns (Common Mistakes):**
+```tsx
+// ❌ WRONG: Key doesn't exist in common.json structure
+t("common.view", "common")           // ❌ Should be: t("actions.view", "common")
+t("common.edit", "common")           // ❌ Should be: t("actions.edit", "common")
+t("common.delete", "common")         // ❌ Should be: t("actions.delete", "common")
+
+// ❌ WRONG: Missing namespace
+t("actions.edit")                    // ❌ Always specify namespace as second parameter
+
+// ❌ WRONG: Wrong namespace
+t("actions.edit", "admin")           // ❌ actions.edit is in "common" namespace, not "admin"
+```
+
+### Common.json Key Structure
+
+**Important:** Understand the structure of `common.json`:
+
+```json
+{
+  "actions": {
+    "edit": "Edit",
+    "view": "View",
+    "delete": "Delete",
+    "save": "Save",
+    // ... all action verbs
+  },
+  "common": {
+    "actions": "Actions"  // This is a label, not the actions object
+  },
+  "viewDetails": "View Details",
+  // ... other root-level keys
+}
+```
+
+**Key Rules:**
+1. **Action verbs** are in `actions.*` → Use `t("actions.{verb}", "common")`
+   - Examples: `actions.edit`, `actions.view`, `actions.delete`, `actions.save`, `actions.cancel`
+2. **Labels** like "Actions" are in `common.*` → Use `t("common.{label}", "common")`
+   - Example: `common.actions` (the label "Actions")
+3. **Root-level keys** → Use `t("{key}", "common")`
+   - Examples: `viewDetails`, `admin`, `create`
+
+### Namespace Selection Rules
+
+1. **`common` namespace**: Use for generic UI elements, actions, and shared text
+   - Action buttons: `actions.edit`, `actions.delete`, `actions.view`, etc.
+   - Common labels: `common.actions`, `viewDetails`
+   - Generic messages: `all`, `clearFilters`, etc.
+
+2. **`admin` namespace**: Use for admin-specific content
+   - Admin pages: `studios.*`, `users.*`, `characters.*`, etc.
+   - Admin-specific labels and messages
+
+3. **Domain namespaces**: Use for domain-specific content
+   - `auth.*` for authentication
+   - `article.*` for articles
+   - `user.*` for user profiles
+   - etc.
+
+### Best Practices
+
+1. **Always specify namespace explicitly**:
+   ```tsx
+   // ✅ Good
+   t("actions.edit", "common")
+   
+   // ❌ Bad (relies on default, unclear)
+   t("actions.edit")
+   ```
+
+2. **Use consistent key patterns**:
+   - Actions: `actions.{verb}`
+   - Labels: `{domain}.{section}.{field}` (e.g., `studios.detail.title`)
+   - Messages: `{domain}.{type}.{message}` (e.g., `studios.list.deleteConfirm`)
+
+3. **Check key existence before using**:
+   - Verify the key exists in the JSON file
+   - Use TypeScript autocomplete when possible
+   - Check both `en` and `vi` locales
+
+4. **Use variables for dynamic content**:
+   ```tsx
+   t("studios.detail.title", "admin", { name: studio.name })
+   t("studios.list.deleteConfirm", "admin", { name: studio.name })
+   ```
+
+5. **Provide fallback for missing keys** (optional but recommended):
+   ```tsx
+   t("actions.edit", "common", {}, "Edit")
+   ```
+
+### Common Mistakes to Avoid
+
+1. **❌ Confusing `common.actions` with `actions.*`**:
+   - `common.actions` = The label "Actions" (string)
+   - `actions.*` = Action verbs (edit, delete, view, etc.)
+
+2. **❌ Using wrong namespace**:
+   - Action verbs are in `common`, not `admin`
+   - Domain-specific content is in domain namespace, not `common`
+
+3. **❌ Missing namespace parameter**:
+   - Always provide namespace as second parameter
+
+4. **❌ Incorrect key path**:
+   - Check the actual JSON structure before using keys
+   - Use dot notation for nested keys: `studios.detail.series.title`
+
+### Verification Checklist
+
+Before using a translation key, verify:
+- [ ] Key exists in the JSON file structure
+- [ ] Namespace is correct (`common` vs `admin` vs domain namespace)
+- [ ] Key path matches the JSON structure (check nesting)
+- [ ] Both `en` and `vi` locales have the key
+- [ ] Variables are provided if the key requires them
 
 ## Accessibility
 - AA contrast in both themes

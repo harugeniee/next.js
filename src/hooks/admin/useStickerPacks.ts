@@ -1,0 +1,109 @@
+import { http } from "@/lib/http/client";
+import type {
+  CreateStickerPackDto,
+  StickerPackItemDto,
+  StickerPackQueryDto,
+  UpdateStickerPackDto,
+} from "@/lib/interface";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+export const STICKER_PACKS_QUERY_KEY = ["admin", "stickerPacks"];
+
+export function useStickerPacks(query?: StickerPackQueryDto) {
+  const qc = useQueryClient();
+
+  const listQuery = useQuery({
+    queryKey: [...STICKER_PACKS_QUERY_KEY, query ?? {}],
+    queryFn: async () => {
+      const res = await http.get("/sticker-packs/admin", { params: query });
+      return res.data;
+    },
+  });
+
+  const create = useMutation({
+    mutationFn: async (dto: CreateStickerPackDto) => {
+      const res = await http.post("/sticker-packs", dto);
+      return res.data;
+    },
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
+  });
+
+  const update = useMutation({
+    mutationFn: async ({
+      id,
+      dto,
+    }: {
+      id: string;
+      dto: UpdateStickerPackDto;
+    }) => {
+      const res = await http.patch(`/sticker-packs/${id}`, dto);
+      return res.data;
+    },
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
+  });
+
+  const remove = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await http.delete(`/sticker-packs/${id}`);
+      return res.data;
+    },
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
+  });
+
+  const addItem = useMutation({
+    mutationFn: async ({
+      packId,
+      dto,
+    }: {
+      packId: string;
+      dto: StickerPackItemDto;
+    }) => {
+      const res = await http.post(`/sticker-packs/${packId}/items`, dto);
+      return res.data;
+    },
+    onSuccess(_, vars) {
+      qc.invalidateQueries({
+        queryKey: ["admin", "stickerPack", vars?.packId],
+      });
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
+  });
+
+  const removeItem = useMutation({
+    mutationFn: async ({
+      packId,
+      stickerId,
+    }: {
+      packId: string;
+      stickerId: string;
+    }) => {
+      const res = await http.delete(
+        `/sticker-packs/${packId}/items/${stickerId}`,
+      );
+      return res.data;
+    },
+    onSuccess(_, vars) {
+      qc.invalidateQueries({
+        queryKey: ["admin", "stickerPack", vars?.packId],
+      });
+      qc.invalidateQueries({ queryKey: STICKER_PACKS_QUERY_KEY });
+    },
+  });
+
+  return {
+    listQuery,
+    create,
+    update,
+    remove,
+    addItem,
+    removeItem,
+  };
+}
+
+export default useStickerPacks;

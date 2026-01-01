@@ -75,6 +75,22 @@
     "rateLimit": {
       "title": "Giới hạn tốc độ",
       "management": "Quản lý"
+    },
+    "stickers": {
+      "title": "Nhãn dán",
+      "management": "Quản lý"
+    },
+    "studios": {
+      "title": "Studios",
+      "management": "Quản lý"
+    },
+    "tags": {
+      "title": "Thẻ",
+      "management": "Quản lý"
+    },
+    "keyValue": {
+      "title": "Kho lưu trữ Key-Value",
+      "management": "Quản lý"
     }
   },
   "projects": {
@@ -917,5 +933,222 @@
     "updateError": "Cập nhật thể loại thất bại.",
     "deleteSuccess": "Xóa thể loại thành công!",
     "deleteError": "Xóa thể loại thất bại."
+  },
+  "stickers": {
+    "pageTitle": "Quản lý Nhãn dán",
+    "pageDescription": "Quản lý nhãn dán và bộ nhãn dán",
+    "heading": "Quản lý Nhãn dán",
+    "tabs": {
+      "stickers": "Nhãn dán",
+      "stickerPacks": "Bộ Nhãn"
+    },
+    "filters": {
+      "searchPlaceholder": "Tìm kiếm nhãn dán..."
+    },
+    "list": {
+      "title": "Nhãn dán",
+      "description": "Quản lý và tổ chức bộ sưu tập nhãn dán của bạn",
+      "create": "Tạo Nhãn dán",
+      "loading": "Đang tải nhãn dán...",
+      "noStickersFound": "Không tìm thấy nhãn dán.",
+      "name": "Tên",
+      "format": "Định dạng",
+      "animated": "Hoạt hình",
+      "size": "Kích thước",
+      "actions": "Hành động",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa nhãn dán \"{name}\"?",
+      "packListTitle": "Bộ Nhãn",
+      "packListDescription": "Tổ chức nhãn dán thành các bộ theo chủ đề",
+      "createPack": "Tạo Bộ",
+      "packName": "Tên Bộ",
+      "description": "Mô tả",
+      "stickerCount": "Nhãn dán",
+      "createdAt": "Được tạo",
+      "deletePackConfirm": "Bạn có chắc chắn muốn xóa bộ nhãn \"{name}\"?",
+      "noStickerPacksFound": "Không tìm thấy bộ nhãn nào.",
+      "managePackItems": "Quản lý mục bộ nhãn",
+      "packItems": "Mục trong bộ",
+      "noPackItems": "Không có mục nào trong bộ.",
+      "addToPack": "Thêm",
+      "remove": "Xóa"
+    },
+    "form": {
+      "createSticker": "Tạo Nhãn dán",
+      "createStickerPack": "Tạo Bộ Nhãn",
+      "createTitle": "Tạo Nhãn dán Mới",
+      "createDescription": "Thêm nhãn dán mới vào bộ sưu tập của bạn",
+      "editTitle": "Chỉnh sửa Nhãn dán",
+      "editDescription": "Cập nhật thông tin nhãn dán",
+      "createPackTitle": "Tạo Bộ Nhãn Mới",
+      "createPackDescription": "Tạo bộ mới để tổ chức nhãn dán của bạn",
+      "editPackTitle": "Chỉnh sửa Bộ Nhãn",
+      "editPackDescription": "Cập nhật thông tin và cài đặt bộ nhãn",
+      "name": "Tên Nhãn dán",
+      "mediaId": "Media ID",
+      "tags": "Tags (phân cách dấu phẩy)",
+      "format": "Định dạng",
+      "isAnimated": "Có hoạt hình?",
+      "packName": "Tên Bộ Nhãn",
+      "packDescription": "Mô tả",
+      "packCoverMediaId": "Cover Media ID",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "errors": {
+        "nameRequired": "Tên nhãn dán là bắt buộc.",
+        "mediaIdRequired": "Media ID là bắt buộc."
+      }
+    }
+  },
+  "form": {
+    "createTitle": "Tạo Nhãn dán",
+    "createDescription": "Tạo nhãn dán mới từ media hiện có",
+    "editTitle": "Chỉnh sửa Nhãn dán",
+    "editDescription": "Cập nhật thông tin nhãn dán",
+    "createPackTitle": "Tạo Bộ Nhãn",
+    "createPackDescription": "Tạo bộ nhãn mới",
+    "editPackTitle": "Chỉnh sửa Bộ Nhãn",
+    "editPackDescription": "Cập nhật thông tin bộ nhãn"
+  },
+  "studios": {
+    "pageTitle": "Quản lý Studio",
+    "pageDescription": "Quản lý các studio animation và công ty sản xuất",
+    "list": {
+      "title": "Studios",
+      "description": "Quản lý và tổ chức các studio animation và công ty sản xuất",
+      "create": "Tạo Studio",
+      "name": "Tên",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "siteUrl": "URL Trang web",
+      "createdAt": "Ngày tạo",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa studio \"{name}\"?"
+    },
+    "form": {
+      "createTitle": "Tạo Studio Mới",
+      "createDescription": "Thêm studio animation hoặc công ty sản xuất mới",
+      "editTitle": "Chỉnh sửa Studio",
+      "editDescription": "Cập nhật thông tin studio",
+      "name": "Tên Studio",
+      "type": "Loại",
+      "selectType": "Chọn loại",
+      "status": "Trạng thái",
+      "selectStatus": "Chọn trạng thái",
+      "myAnimeListId": "MyAnimeList ID",
+      "aniListId": "AniList ID",
+      "siteUrl": "URL Trang web",
+      "save": "Lưu"
+    },
+    "types": {
+      "animation_studio": "Studio Animation",
+      "production_company": "Công ty Sản xuất"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "pending": "Đang chờ",
+      "archived": "Đã lưu trữ"
+    },
+    "detail": {
+      "title": "Studio: {name}",
+      "description": "Xem và quản lý thông tin chi tiết studio",
+      "information": "Thông tin Studio",
+      "informationDescription": "Thông tin cơ bản về studio",
+      "externalIds": "ID Bên ngoài",
+      "metadata": "Metadata",
+      "createdAt": "Ngày tạo",
+      "updatedAt": "Ngày cập nhật",
+      "error": "Không thể tải thông tin studio",
+      "tabs": {
+        "detail": "Chi tiết",
+        "series": "Series"
+      },
+      "series": {
+        "title": "Series",
+        "description": "Anime và series mà studio này đã tham gia",
+        "seriesName": "Tên Series",
+        "role": "Vai trò",
+        "noSeries": "Không tìm thấy series nào cho studio này"
+      },
+      "studioId": "ID Studio",
+      "copyId": "Sao chép ID Studio",
+      "idCopied": "Đã sao chép ID Studio vào clipboard",
+      "idCopyError": "Không thể sao chép ID Studio"
+    }
+  },
+  "keyValue": {
+    "title": "Kho lưu trữ Key-Value",
+    "description": "Quản lý các cặp key-value với namespace, TTL và lưu trữ linh hoạt",
+    "list": {
+      "title": "Các cặp Key-Value",
+      "description": "Quản lý và tổ chức các mục lưu trữ key-value",
+      "create": "Tạo Key-Value",
+      "key": "Khóa",
+      "value": "Giá trị",
+      "namespace": "Namespace",
+      "contentType": "Loại nội dung",
+      "status": "Trạng thái",
+      "expiresAt": "Hết hạn",
+      "createdAt": "Đã tạo",
+      "updatedAt": "Đã cập nhật",
+      "empty": "Không tìm thấy cặp key-value nào",
+      "deleteConfirm": "Bạn có chắc chắn muốn xóa cặp key-value \"{key}\"?"
+    },
+    "form": {
+      "createTitle": "Tạo cặp Key-Value mới",
+      "createDescription": "Thêm mục lưu trữ key-value mới",
+      "editTitle": "Chỉnh sửa cặp Key-Value",
+      "editDescription": "Cập nhật thông tin cặp key-value",
+      "key": "Khóa",
+      "keyPlaceholder": "vd: user:settings:theme",
+      "value": "Giá trị",
+      "valuePlaceholder": "Nhập giá trị có thể serialize JSON",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "vd: user:preferences",
+      "expiresAt": "Ngày hết hạn",
+      "expiresAtPlaceholder": "Chọn ngày hết hạn (tùy chọn)",
+      "metadata": "Metadata",
+      "metadataPlaceholder": "Nhập metadata JSON (tùy chọn)",
+      "contentType": "Loại nội dung",
+      "selectContentType": "Chọn loại nội dung",
+      "save": "Lưu",
+      "cancel": "Hủy"
+    },
+    "filters": {
+      "title": "Bộ lọc",
+      "namespace": "Namespace",
+      "namespacePlaceholder": "Lọc theo namespace",
+      "keyPattern": "Mẫu khóa",
+      "keyPatternPlaceholder": "vd: user:settings:%",
+      "contentType": "Loại nội dung",
+      "selectContentType": "Tất cả các loại",
+      "status": "Trạng thái",
+      "selectStatus": "Tất cả trạng thái",
+      "includeExpired": "Bao gồm đã hết hạn",
+      "reset": "Đặt lại bộ lọc"
+    },
+    "contentType": {
+      "string": "Chuỗi",
+      "number": "Số",
+      "boolean": "Boolean",
+      "object": "Đối tượng",
+      "array": "Mảng"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "expired": "Đã hết hạn",
+      "deleted": "Đã xóa",
+      "all": "Tất cả"
+    },
+    "actions": {
+      "cleanupExpired": "Dọn dẹp đã hết hạn",
+      "cleanupSuccess": "Đã dọn dẹp {count} mục đã hết hạn",
+      "cleanupError": "Không thể dọn dẹp các mục đã hết hạn"
+    },
+    "createSuccess": "Đã tạo cặp key-value thành công",
+    "createError": "Không thể tạo cặp key-value",
+    "updateSuccess": "Đã cập nhật cặp key-value thành công",
+    "updateError": "Không thể cập nhật cặp key-value",
+    "deleteSuccess": "Đã xóa cặp key-value thành công",
+    "deleteError": "Không thể xóa cặp key-value"
   }
 }

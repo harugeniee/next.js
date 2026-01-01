@@ -328,6 +328,19 @@ export const queryKeys = {
     policies: () => ["rateLimit", "policies"] as const,
     cacheStats: () => ["rateLimit", "cacheStats"] as const,
   },
+
+  // Key-Value related queries
+  keyValue: {
+    all: () => ["key-value"] as const,
+    lists: (params?: unknown) => ["key-value", "list", params] as const,
+    detail: (id: string) => ["key-value", "detail", id] as const,
+    byKey: (key: string, namespace?: string) =>
+      ["key-value", "key", key, namespace] as const,
+    byNamespace: (namespace: string) =>
+      ["key-value", "namespace", namespace] as const,
+    byPattern: (pattern: string, namespace?: string) =>
+      ["key-value", "pattern", pattern, namespace] as const,
+  },
 } as const;
 
 /**
