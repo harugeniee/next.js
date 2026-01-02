@@ -1,11 +1,12 @@
-# Cursor Rules — Next.js 15+ Frontend-Only Project
+# Cursor Rules — Next.js 16+ Frontend-Only Project
 
 **⚙️ This project uses structured rules in `.cursor/rules/` folder**
 
 All detailed rules are organized in `.cursor/rules/*.mdc` files:
+- `00_first_rule.mdc` - Mobile-first responsive design (MANDATORY)
 - `0_architecture.mdc` - Project structure, stack, environment
 - `1_theming.mdc` - Dark/light modes, color themes
-- `2_responsive.mdc` - Mobile-first breakpoints & layouts  
+- `2_responsive.mdc` - Mobile-first breakpoints & layouts
 - `3_data_i18n_accessibility.mdc` - API, forms, i18n, a11y
 - `4_testing_naming.mdc` - Testing, naming conventions, performance
 - `5_cursor_scaffolding.mdc` - Code generation templates
@@ -15,8 +16,16 @@ All detailed rules are organized in `.cursor/rules/*.mdc` files:
 
 ## 🚀 Quick Reference
 
+### Project Details
+- **Name**: MangaSBS (msbs)
+- **Tech Stack**: Next.js 16.0.8, React 19.2.1, TypeScript 5, TailwindCSS 4, shadcn/ui
+- **Package Manager**: Yarn 4.12.0
+- **Dev Server**: PORT 3001 with Turbopack
+- **Build**: Turbopack production builds
+- **Testing**: Jest + Testing Library (80% coverage threshold)
+
 ### Core Stack
-Next.js 15+, React 19, TypeScript 5, TailwindCSS 4, shadcn/ui, Jotai, TanStack Query, Firebase Auth, next-intl
+Next.js 16+, React 19, TypeScript 5, TailwindCSS 4, shadcn/ui, Jotai, Zod, RHF, next-intl, Jest, ESLint, Prettier, TipTap, Firebase Auth, Axios, Sonner, Mermaid, TanStack Query, framer-motion.
 
 ### Frontend-Only Rules (CRITICAL)
 - ❌ **NO** Server Actions (`"use server"`)
@@ -27,37 +36,186 @@ Next.js 15+, React 19, TypeScript 5, TailwindCSS 4, shadcn/ui, Jotai, TanStack Q
 
 ### Quick Commands
 ```bash
-yarn dev          # Start dev server
-yarn build        # Build for production
-yarn lint         # Run linter
-yarn format       # Format code
-yarn test         # Run tests
+yarn dev          # Start dev server (PORT=3001 with turbopack)
+yarn build        # Build for production with turbopack
+yarn start        # Start production server (PORT=3001)
+yarn lint         # Run linter (ESLint)
+yarn format       # Format code (Prettier)
+yarn type-check   # TypeScript type checking
+yarn test         # Run tests (Jest + RTL, ≥80% coverage)
+yarn test:watch   # Run tests in watch mode
+yarn test:coverage # Run tests with coverage report
 ```
 
 ### Key Principles
 1. **MCP Tools First** ⚠️ MANDATORY - Always use MCP tools when available (see `8_mcp_tools.mdc`)
-2. **Mobile-first** - Base styles for mobile, scale up with `sm`/`md`/`lg`/`xl`/`2xl`
-3. **Theme-aware** - Use shadcn tokens, no hardcoded colors
-4. **i18n-first** - All text from `src/i18n/locales/{en,vi}/*.json`
+2. **Mobile-first** - Base styles for mobile (< 640px), scale up with `sm`/`md`/`lg`/`xl`/`2xl`
+3. **Theme-aware** - Use shadcn tokens, no hardcoded colors (13 themes: Neutral, Stone, Zinc, Gray, Slate, Red, Rose, Orange, Green, Blue, Yellow, Violet, Dracula)
+4. **i18n-first** - All text from `src/i18n/locales/{en,vi}/*.json` (18 namespaces: admin, article, auth, characters, comments, common, demo, home, media, organizations, permissions, profile, series, settings, tags, toast, user, write)
 5. **Type-safe** - TypeScript strict mode, Zod validation
 6. **Accessible** - AA contrast, keyboard nav, ARIA labels
+
+### Breakpoints (Mobile-First)
+- `sm`: ≥ 640px (small tablets, large phones)
+- `md`: ≥ 768px (tablets)
+- `lg`: ≥ 1024px (small laptops, desktops)
+- `xl`: ≥ 1280px (large desktops)
+- `2xl`: ≥ 1536px (extra large screens)
 
 ### File Structure
 ```
 src/
-├── app/                    # Next.js App Router pages
+├── app/ (App Router pages)
+│   ├── admin/ (Admin panel - 15+ management sections)
+│   │   ├── analytics/ (Analytics dashboard)
+│   │   ├── badges/ (Badge management)
+│   │   ├── characters/ (Character management)
+│   │   ├── comments/ (Comment moderation)
+│   │   ├── content/ (Content management)
+│   │   ├── genres/ (Genre management)
+│   │   ├── key-value/ (Key-value storage)
+│   │   ├── layout.tsx (Admin layout)
+│   │   ├── media/ (Media management)
+│   │   ├── organizations/ (Organization management)
+│   │   ├── permissions/ (Permission management)
+│   │   ├── rate-limit/ (Rate limit management)
+│   │   ├── reports/ (Report management)
+│   │   ├── segments/ (Segment management)
+│   │   ├── series/ (Series management)
+│   │   ├── stickers/ (Sticker management)
+│   │   ├── studios/ (Studio management)
+│   │   ├── tags/ (Tag management)
+│   │   ├── users/ (User management)
+│   │   └── page.tsx (Admin dashboard)
+│   ├── article/ (Article viewing pages)
+│   ├── auth/ (Authentication - login/register/callback)
+│   ├── organizations/ (Organization pages)
+│   ├── segments/ (Segment pages)
+│   ├── series/ (Series pages)
+│   ├── settings/ (User settings)
+│   ├── user/ (User profiles)
+│   ├── write/ (Article writing)
+│   └── theme-*/ (Theme testing pages)
 ├── components/
-│   ├── ui/                 # shadcn primitives
-│   ├── features/           # Domain components
-│   ├── providers/          # Context providers
-│   └── shared/             # Reusable utilities
-├── hooks/                  # Custom React hooks
-├── lib/
-│   ├── api/                # API wrappers
-│   ├── http/               # HTTP client
-│   └── utils/              # Utilities
-└── i18n/                   # Translations
+│   ├── animate-ui/ (Animated UI components)
+│   │   ├── components/ (Radix components with animations)
+│   │   └── primitives/ (Animated primitives)
+│   ├── features/ (Business logic components)
+│   │   ├── admin/ (129 admin components across all sections)
+│   │   ├── article/ (Article components)
+│   │   ├── auth/ (Authentication components)
+│   │   ├── comments/ (Comment components)
+│   │   ├── genres/ (Genre components)
+│   │   ├── media/ (Media handling components)
+│   │   ├── navigation/ (Site navigation)
+│   │   ├── reactions/ (Like/reaction components)
+│   │   ├── segments/ (Segment components)
+│   │   ├── series/ (Series management components)
+│   │   ├── settings/ (Settings components)
+│   │   ├── stickers/ (Sticker components)
+│   │   ├── text-editor/ (TipTap editor components)
+│   │   └── write/ (Writing components)
+│   ├── providers/ (Context providers)
+│   │   ├── auth-provider.tsx (Firebase Auth)
+│   │   ├── font-provider.tsx (Google Fonts)
+│   │   ├── google-one-tap-provider.tsx (Google One Tap)
+│   │   ├── i18n-provider.tsx (next-intl)
+│   │   ├── loading-provider.tsx (Loading states)
+│   │   ├── no-ssr.tsx (No SSR wrapper)
+│   │   ├── rate-limit-provider.tsx (Rate limiting)
+│   │   ├── react-query-provider.tsx (TanStack Query)
+│   │   └── theme-provider.tsx (Theme management)
+│   ├── shared/ (Reusable utilities)
+│   │   ├── animated-grid.tsx (Animated grid)
+│   │   ├── animated-header.tsx (Animated header)
+│   │   ├── animated-section.tsx (Animated section)
+│   │   ├── skeletonize.tsx (Skeleton loading)
+│   │   └── translated-text.tsx (i18n wrapper)
+│   └── ui/ (shadcn/ui components - 16+ core components)
+│       ├── core/ (15+ core UI primitives)
+│       ├── layout/ (Dialogs, forms, navigation)
+│       ├── navigation/ (Breadcrumb, sidebar, nav)
+│       ├── theme/ (Theme switchers, color pickers)
+│       ├── utilities/ (Utility components)
+│       └── dracula/ (Dracula theme variants)
+├── hooks/ (Custom React hooks - 30+ hooks)
+│   ├── admin/ (Admin-specific hooks - 16 hooks)
+│   ├── article/ (Article hooks)
+│   ├── auth/ (Auth hooks)
+│   ├── bookmarks/ (Bookmark hooks)
+│   ├── characters/ (Character hooks)
+│   ├── comments/ (Comment hooks)
+│   ├── content/ (Content rendering hooks)
+│   ├── follow/ (Follow hooks)
+│   ├── genres/ (Genre hooks)
+│   ├── media/ (Media handling hooks)
+│   ├── notifications/ (Notification hooks)
+│   ├── organizations/ (Organization hooks)
+│   ├── permissions/ (Permission hooks)
+│   ├── reactions/ (Reaction hooks)
+│   ├── reports/ (Report hooks)
+│   ├── segments/ (Segment hooks)
+│   ├── series/ (Series hooks)
+│   ├── settings/ (Settings hooks)
+│   ├── share/ (Share hooks)
+│   ├── tags/ (Tag hooks)
+│   ├── ui/ (UI hooks - page metadata, breadcrumbs)
+│   └── users/ (User hooks)
+├── i18n/ (Internationalization)
+│   └── locales/ (Translation files)
+│       ├── en/ (18 JSON files)
+│       └── vi/ (18 JSON files)
+├── lib/ (Utilities, API, stores)
+│   ├── api/ (API wrappers - 23 files)
+│   ├── auth/ (Firebase Auth config)
+│   ├── config/ (Configuration files)
+│   ├── constants/ (App constants)
+│   ├── http/ (HTTP client + interceptors)
+│   ├── interface/ (TypeScript interfaces - 19 files)
+│   ├── mocks/ (Mock data)
+│   ├── rate-limit/ (Rate limiting utilities)
+│   ├── types/ (TypeScript types - 9 files)
+│   ├── utils/ (Utility functions - 14 files)
+│   │   └── animations.ts (Animation utilities)
+│   └── validators/ (Zod schemas - 13 files)
+└── __tests__/ (Jest + RTL tests)
+    ├── admin/ (Admin tests)
+    │   ├── genres/ (Genre tests)
+    │   └── genres.spec.tsx
+    └── features/ (Feature tests)
+        └── stickers/ (Sticker tests)
 ```
+
+### Theme Tokens (Never Hardcode Colors)
+| Use | Token |
+|-----|--------|
+| Background | `bg-background` |
+| Text | `text-foreground` |
+| Card | `bg-card text-card-foreground` |
+| Border | `border-border` |
+| Muted | `text-muted-foreground` |
+| Hover | `hover:bg-accent hover:text-accent-foreground` |
+| Focus Ring | `focus-visible:ring-ring` |
+
+### Data & i18n Patterns
+- **TanStack Query** for all client-side data fetching (5min staleTime, 10min gcTime, 3 retries, exponential backoff)
+- **Query Keys**: Structured keys like `["article", articleId]`, `["settings", userId]`
+- **HTTP Client**: Axios with interceptors, base URL from `NEXT_PUBLIC_API_BASE_URL`
+- **Forms**: RHF + Zod + shadcn `<Form />` primitives
+- **i18n**: `useI18n()` hook, `t(key: string, namespace?: string, variables?, fallback?)`
+- **Error Handling**: Automatic retry with toast notifications via Sonner
+
+### Animation System
+- **Global Animation System** with framer-motion (AnimatedSection, AnimatedGrid, AnimatedHeader)
+- **Skeleton Loading** with Skeletonize component and CSS shimmer animations
+- **Animation variants** keep `opacity: 1` in hidden state for skeleton visibility
+
+### Build & Development
+- **Turbopack**: Used for both development and production builds
+- **Standalone Output**: Next.js configured for containerized deployment
+- **Image Optimization**: Configured with AniList CDN patterns and WebP/AVIF support
+- **Font Optimization**: 10+ Google fonts loaded with Next.js font optimization
+- **DevTools**: TanStack Query devtools enabled in development
 
 ---
 
