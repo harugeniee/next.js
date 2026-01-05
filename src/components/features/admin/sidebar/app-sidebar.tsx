@@ -371,6 +371,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     [t],
   );
 
+  const renderUserSection = () => {
+    if (isLoading) {
+      return (
+        <div className="flex items-center gap-2 p-2">
+          <Skeleton className="h-8 w-8 rounded-lg" />
+          <div className="flex-1 space-y-1">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-3 w-32" />
+          </div>
+        </div>
+      );
+    }
+
+    if (user?.id) {
+      return <NavUser user={user} />;
+    }
+
+    return null;
+  };
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -383,17 +403,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarSettings />
         <SidebarSeparator />
-        {isLoading ? (
-          <div className="flex items-center gap-2 p-2">
-            <Skeleton className="h-8 w-8 rounded-lg" />
-            <div className="flex-1 space-y-1">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-3 w-32" />
-            </div>
-          </div>
-        ) : user?.id ? (
-          <NavUser user={user} />
-        ) : null}
+        {renderUserSection()}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
