@@ -2,7 +2,6 @@
 
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
@@ -26,11 +25,7 @@ import {
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
 import type { Staff } from "@/lib/interface/staff.interface";
-import type {
-  CreateStaffFormData,
-  StaffListResponse,
-  UpdateStaffFormData,
-} from "@/lib/types/staffs";
+import type { StaffListResponse } from "@/lib/types/staffs";
 import { StaffActions } from "./staff-actions";
 import { StaffDisplay } from "./staff-display";
 
@@ -50,7 +45,7 @@ export function StaffList({
   data,
   isLoading,
   page = 1,
-  limit: _limit = 20,
+  // limit = 20, // unused parameter kept for API consistency
   onPageChange,
   onCreate,
   onEdit,
@@ -73,10 +68,10 @@ export function StaffList({
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-            <CardTitle>{t("list.title", "staff")}</CardTitle>
-            <CardDescription>
-              {t("list.description", "staff")}
-            </CardDescription>
+              <CardTitle>{t("list.title", "staff")}</CardTitle>
+              <CardDescription>
+                {t("list.description", "staff")}
+              </CardDescription>
             </div>
             <Button size="sm" onClick={onCreate}>
               <Plus className="mr-2 h-4 w-4" />
@@ -91,13 +86,11 @@ export function StaffList({
                 <Table>
                   <TableHeader>
                     <TableRow>
-                    <TableHead>{t("list.name", "staff")}</TableHead>
-                    <TableHead>{t("list.language", "staff")}</TableHead>
-                    <TableHead>{t("list.gender", "staff")}</TableHead>
-                    <TableHead>
-                      {t("list.occupation", "staff")}
-                    </TableHead>
-                    <TableHead>{t("list.status", "staff")}</TableHead>
+                      <TableHead>{t("list.name", "staff")}</TableHead>
+                      <TableHead>{t("list.language", "staff")}</TableHead>
+                      <TableHead>{t("list.gender", "staff")}</TableHead>
+                      <TableHead>{t("list.occupation", "staff")}</TableHead>
+                      <TableHead>{t("list.status", "staff")}</TableHead>
                       <TableHead className="text-right">
                         {t("common.actions", "common")}
                       </TableHead>
@@ -127,11 +120,17 @@ export function StaffList({
                           {staff.primaryOccupations &&
                           staff.primaryOccupations.length > 0 ? (
                             <div className="flex flex-wrap gap-1">
-                              {staff.primaryOccupations.slice(0, 2).map((occ, idx) => (
-                                <Badge key={idx} variant="secondary" className="text-xs">
-                                  {occ}
-                                </Badge>
-                              ))}
+                              {staff.primaryOccupations
+                                .slice(0, 2)
+                                .map((occ, idx) => (
+                                  <Badge
+                                    key={idx}
+                                    variant="secondary"
+                                    className="text-xs"
+                                  >
+                                    {occ}
+                                  </Badge>
+                                ))}
                               {staff.primaryOccupations.length > 2 && (
                                 <Badge variant="outline" className="text-xs">
                                   +{staff.primaryOccupations.length - 2}
@@ -139,13 +138,17 @@ export function StaffList({
                               )}
                             </div>
                           ) : (
-                            <span className="text-sm text-muted-foreground">-</span>
+                            <span className="text-sm text-muted-foreground">
+                              -
+                            </span>
                           )}
                         </TableCell>
                         <TableCell>
                           <Badge
                             variant={
-                              staff.status === "active" ? "default" : "secondary"
+                              staff.status === "active"
+                                ? "default"
+                                : "secondary"
                             }
                             className="text-xs"
                           >
@@ -204,4 +207,3 @@ export function StaffList({
     </AnimatedSection>
   );
 }
-

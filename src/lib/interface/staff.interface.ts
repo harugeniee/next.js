@@ -95,4 +95,3 @@ export interface StaffSeries extends BaseEntityCustom {
   notes?: string;
   sortOrder: number;
 }
-

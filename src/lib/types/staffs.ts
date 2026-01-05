@@ -149,8 +149,9 @@ export interface CreateStaffFormData {
 
 /**
  * Form data for updating staff (client-side)
+ * Alias type for CreateStaffFormData
  */
-export interface UpdateStaffFormData extends CreateStaffFormData {}
+export type UpdateStaffFormData = CreateStaffFormData;
 
 /**
  * DTO for updating a character role for a staff member
@@ -161,4 +162,3 @@ export interface UpdateCharacterRoleDto {
   sortOrder?: number;
   notes?: string;
 }
-

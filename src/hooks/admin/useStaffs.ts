@@ -5,13 +5,13 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { StaffsAPI } from "@/lib/api/staffs";
 import type { Staff } from "@/lib/interface/staff.interface";
 import type {
-    CreateStaffDto,
-    GetStaffDto,
-    LinkCharactersDto,
-    StaffListResponse,
-    StaffStatistics,
-    UpdateCharacterRoleDto,
-    UpdateStaffDto,
+  CreateStaffDto,
+  GetStaffDto,
+  LinkCharactersDto,
+  StaffListResponse,
+  StaffStatistics,
+  UpdateCharacterRoleDto,
+  UpdateStaffDto,
 } from "@/lib/types/staffs";
 import { queryKeys } from "@/lib/utils/query-keys";
 
@@ -135,8 +135,13 @@ export function useLinkCharacters() {
   const { t } = useI18n();
 
   return useMutation({
-    mutationFn: ({ staffId, data }: { staffId: string; data: LinkCharactersDto }) =>
-      StaffsAPI.linkCharacters(staffId, data),
+    mutationFn: ({
+      staffId,
+      data,
+    }: {
+      staffId: string;
+      data: LinkCharactersDto;
+    }) => StaffsAPI.linkCharacters(staffId, data),
     onSuccess: (_, variables) => {
       toast.success(t("linkCharactersSuccess", "staff"));
       queryClient.invalidateQueries({
@@ -149,7 +154,7 @@ export function useLinkCharacters() {
         queryKey: queryKeys.staffs.admin.lists({}),
       });
     },
-    onError: (error) => {
+    onError: () => {
       toast.error(t("linkCharactersError", "staff"));
     },
   });
@@ -192,7 +197,9 @@ export function useUpdateCharacterRole() {
     }) => StaffsAPI.updateCharacterRole(staffId, characterStaffId, data),
     onSuccess: (_, variables) => {
       toast.success(t("updateSuccess", "staff"));
-      queryClient.invalidateQueries({ queryKey: queryKeys.staffs.admin.detail(variables.staffId) });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.staffs.admin.detail(variables.staffId),
+      });
     },
     onError: () => {
       toast.error(t("updateError", "staff"));
@@ -217,11 +224,12 @@ export function useRemoveCharacterRole() {
     }) => StaffsAPI.removeCharacterRole(staffId, characterStaffId),
     onSuccess: (_, variables) => {
       toast.success(t("deleteSuccess", "staff"));
-      queryClient.invalidateQueries({ queryKey: queryKeys.staffs.admin.detail(variables.staffId) });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.staffs.admin.detail(variables.staffId),
+      });
     },
     onError: () => {
       toast.error(t("deleteError", "staff"));
     },
   });
 }
-

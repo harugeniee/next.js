@@ -106,9 +106,7 @@ export default function AdminStaffsPage() {
       `${staff.name?.first || ""} ${staff.name?.last || ""}`.trim() ||
       "Unknown Staff";
 
-    if (
-      !confirm(t("list.deleteConfirm", "staff", { name: staffName }))
-    ) {
+    if (!confirm(t("list.deleteConfirm", "staff", { name: staffName }))) {
       return;
     }
 
@@ -131,9 +129,9 @@ export default function AdminStaffsPage() {
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{t("pageTitle", "staff")}</BreadcrumbPage>
-                </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbPage>{t("pageTitle", "staff")}</BreadcrumbPage>
+            </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </AnimatedSection>
@@ -168,7 +166,9 @@ export default function AdminStaffsPage() {
         onCreate={handleCreateStaff}
         onEdit={handleStaffEdit}
         onDelete={handleStaffDelete}
-        isUpdating={updateStaffMutation.isPending || deleteStaffMutation.isPending}
+        isUpdating={
+          updateStaffMutation.isPending || deleteStaffMutation.isPending
+        }
       />
 
       {/* Staff Form Dialog */}
@@ -184,4 +184,3 @@ export default function AdminStaffsPage() {
     </div>
   );
 }
-

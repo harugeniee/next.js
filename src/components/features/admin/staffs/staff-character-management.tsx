@@ -58,7 +58,9 @@ export function StaffCharacterManagement({
 }: StaffCharacterManagementProps) {
   const { t } = useI18n();
   const [editingRole, setEditingRole] = useState<CharacterStaff | undefined>();
-  const [deletingRole, setDeletingRole] = useState<CharacterStaff | undefined>();
+  const [deletingRole, setDeletingRole] = useState<
+    CharacterStaff | undefined
+  >();
   const [showLinkDialog, setShowLinkDialog] = useState(false);
 
   const linkCharactersMutation = useLinkCharacters();
@@ -100,7 +102,9 @@ export function StaffCharacterManagement({
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>{t("detail.characterManagement", "staff")}</CardTitle>
+                <CardTitle>
+                  {t("detail.characterManagement", "staff")}
+                </CardTitle>
                 <CardDescription>
                   {t("detail.characterRolesDescription", "staff")}
                 </CardDescription>
@@ -118,11 +122,21 @@ export function StaffCharacterManagement({
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>{t("characterRole.character", "staff")}</TableHead>
-                        <TableHead>{t("characterRole.language", "staff")}</TableHead>
-                        <TableHead>{t("characterRole.isPrimary", "staff")}</TableHead>
-                        <TableHead>{t("characterRole.sortOrder", "staff")}</TableHead>
-                        <TableHead>{t("characterRole.notes", "staff")}</TableHead>
+                        <TableHead>
+                          {t("characterRole.character", "staff")}
+                        </TableHead>
+                        <TableHead>
+                          {t("characterRole.language", "staff")}
+                        </TableHead>
+                        <TableHead>
+                          {t("characterRole.isPrimary", "staff")}
+                        </TableHead>
+                        <TableHead>
+                          {t("characterRole.sortOrder", "staff")}
+                        </TableHead>
+                        <TableHead>
+                          {t("characterRole.notes", "staff")}
+                        </TableHead>
                         <TableHead className="text-right">
                           {t("common.actions", "common")}
                         </TableHead>
@@ -152,7 +166,9 @@ export function StaffCharacterManagement({
                                     <User className="size-5 text-muted-foreground" />
                                   </div>
                                 )}
-                                <span className="font-medium">{characterName}</span>
+                                <span className="font-medium">
+                                  {characterName}
+                                </span>
                               </div>
                             </TableCell>
                             <TableCell>{role.language || "-"}</TableCell>
@@ -165,7 +181,10 @@ export function StaffCharacterManagement({
                             </TableCell>
                             <TableCell>{role.sortOrder}</TableCell>
                             <TableCell>
-                              <div className="max-w-xs truncate" title={role.notes}>
+                              <div
+                                className="max-w-xs truncate"
+                                title={role.notes}
+                              >
                                 {role.notes || "-"}
                               </div>
                             </TableCell>
@@ -247,7 +266,9 @@ export function StaffCharacterManagement({
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("detail.removeCharacterRole", "staff")}</DialogTitle>
+            <DialogTitle>
+              {t("detail.removeCharacterRole", "staff")}
+            </DialogTitle>
             <DialogDescription>
               {t("detail.removeCharacterConfirm", "staff")}
             </DialogDescription>
@@ -274,4 +295,3 @@ export function StaffCharacterManagement({
     </>
   );
 }
-

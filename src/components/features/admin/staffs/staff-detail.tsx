@@ -168,7 +168,9 @@ export function StaffDetail({
           <Card>
             <CardHeader>
               <CardTitle>{t("form.editTitle", "staff")}</CardTitle>
-              <CardDescription>{t("form.editDescription", "staff")}</CardDescription>
+              <CardDescription>
+                {t("form.editDescription", "staff")}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <StaffForm
@@ -255,7 +257,9 @@ export function StaffDetail({
                                   <label className="text-sm font-medium text-muted-foreground">
                                     {t("form.nameUserPreferred", "staff")}
                                   </label>
-                                  <p className="mt-1">{staff.name.userPreferred}</p>
+                                  <p className="mt-1">
+                                    {staff.name.userPreferred}
+                                  </p>
                                 </div>
                               )}
                               {staff.name?.alternative &&
@@ -265,11 +269,13 @@ export function StaffDetail({
                                       {t("form.nameAlternative", "staff")}
                                     </label>
                                     <div className="mt-2 flex flex-wrap gap-2">
-                                      {staff.name.alternative.map((name, idx) => (
-                                        <Badge key={idx} variant="outline">
-                                          {name}
-                                        </Badge>
-                                      ))}
+                                      {staff.name.alternative.map(
+                                        (name, idx) => (
+                                          <Badge key={idx} variant="outline">
+                                            {name}
+                                          </Badge>
+                                        ),
+                                      )}
                                     </div>
                                   </div>
                                 )}
@@ -297,7 +303,9 @@ export function StaffDetail({
                                   <label className="text-sm font-medium text-muted-foreground">
                                     {t("form.language", "staff")}
                                   </label>
-                                  <p className="mt-1">{staff.language || "-"}</p>
+                                  <p className="mt-1">
+                                    {staff.language || "-"}
+                                  </p>
                                 </div>
                               </div>
 
@@ -307,7 +315,9 @@ export function StaffDetail({
                                     <Calendar className="h-3 w-3" />
                                     {t("detail.dateOfBirth", "staff")}
                                   </label>
-                                  <p className="mt-1">{formatDate(staff.dateOfBirth)}</p>
+                                  <p className="mt-1">
+                                    {formatDate(staff.dateOfBirth)}
+                                  </p>
                                 </div>
                                 <div>
                                   <label className="text-sm font-medium text-muted-foreground">
@@ -322,13 +332,17 @@ export function StaffDetail({
                                   <label className="text-sm font-medium text-muted-foreground">
                                     {t("detail.homeTown", "staff")}
                                   </label>
-                                  <p className="mt-1">{staff.homeTown || "-"}</p>
+                                  <p className="mt-1">
+                                    {staff.homeTown || "-"}
+                                  </p>
                                 </div>
                                 <div>
                                   <label className="text-sm font-medium text-muted-foreground">
                                     {t("detail.bloodType", "staff")}
                                   </label>
-                                  <p className="mt-1">{staff.bloodType || "-"}</p>
+                                  <p className="mt-1">
+                                    {staff.bloodType || "-"}
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -349,7 +363,9 @@ export function StaffDetail({
                 <AnimatedSection loading={isLoading} data={staff}>
                   <Card>
                     <CardHeader>
-                      <CardTitle>{t("detail.professionalInfo", "staff")}</CardTitle>
+                      <CardTitle>
+                        {t("detail.professionalInfo", "staff")}
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <Skeletonize loading={isLoading}>
@@ -363,11 +379,13 @@ export function StaffDetail({
                                     {t("form.primaryOccupations", "staff")}
                                   </label>
                                   <div className="mt-2 flex flex-wrap gap-2">
-                                    {staff.primaryOccupations.map((occupation, index) => (
-                                      <Badge key={index} variant="default">
-                                        {occupation}
-                                      </Badge>
-                                    ))}
+                                    {staff.primaryOccupations.map(
+                                      (occupation, index) => (
+                                        <Badge key={index} variant="default">
+                                          {occupation}
+                                        </Badge>
+                                      ),
+                                    )}
                                   </div>
                                 </div>
                               )}
@@ -380,7 +398,9 @@ export function StaffDetail({
                               <div className="mt-2">
                                 <Badge
                                   variant={
-                                    staff.status === "active" ? "default" : "secondary"
+                                    staff.status === "active"
+                                      ? "default"
+                                      : "secondary"
                                   }
                                 >
                                   {staff.status
@@ -402,7 +422,9 @@ export function StaffDetail({
                                   <Calendar className="h-3 w-3" />
                                   {t("detail.debutDate", "staff")}
                                 </label>
-                                <p className="mt-1">{formatDate(staff.debutDate)}</p>
+                                <p className="mt-1">
+                                  {formatDate(staff.debutDate)}
+                                </p>
                               </div>
                             )}
 
@@ -434,9 +456,7 @@ export function StaffDetail({
 
               {/* External IDs & Links */}
               {staff &&
-                (staff.myAnimeListId ||
-                  staff.aniListId ||
-                  staff.siteUrl) && (
+                (staff.myAnimeListId || staff.aniListId || staff.siteUrl) && (
                   <AnimatedSection loading={isLoading} data={staff}>
                     <Card>
                       <CardHeader>
@@ -462,7 +482,9 @@ export function StaffDetail({
                               <label className="text-sm font-medium text-muted-foreground">
                                 {t("form.aniListId", "staff")}
                               </label>
-                              <p className="mt-1 font-mono text-sm">{staff.aniListId}</p>
+                              <p className="mt-1 font-mono text-sm">
+                                {staff.aniListId}
+                              </p>
                             </div>
                           )}
                           {staff.siteUrl && (
@@ -502,13 +524,17 @@ export function StaffDetail({
                           <label className="text-sm font-medium text-muted-foreground">
                             {t("detail.createdAt", "staff")}
                           </label>
-                          <p className="mt-1 text-sm">{formatDate(staff.createdAt)}</p>
+                          <p className="mt-1 text-sm">
+                            {formatDate(staff.createdAt)}
+                          </p>
                         </div>
                         <div>
                           <label className="text-sm font-medium text-muted-foreground">
                             {t("detail.updatedAt", "staff")}
                           </label>
-                          <p className="mt-1 text-sm">{formatDate(staff.updatedAt)}</p>
+                          <p className="mt-1 text-sm">
+                            {formatDate(staff.updatedAt)}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -532,4 +558,3 @@ export function StaffDetail({
     </div>
   );
 }
-

@@ -95,4 +95,3 @@ export function StaffSeriesList({ staff, isLoading }: StaffSeriesListProps) {
     </Card>
   );
 }
-

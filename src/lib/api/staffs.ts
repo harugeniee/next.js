@@ -91,7 +91,8 @@ export class StaffsAPI {
         queryParams.characterIds = params.characterIds;
       }
       if (params?.seriesId) queryParams.seriesId = params.seriesId;
-      if (params?.myAnimeListId) queryParams.myAnimeListId = params.myAnimeListId;
+      if (params?.myAnimeListId)
+        queryParams.myAnimeListId = params.myAnimeListId;
       if (params?.aniListId) queryParams.aniListId = params.aniListId;
 
       const response = await http.get<ApiResponseOffset<Staff>>(this.BASE_URL, {
@@ -297,4 +298,3 @@ export class StaffsAPI {
     }
   }
 }
-

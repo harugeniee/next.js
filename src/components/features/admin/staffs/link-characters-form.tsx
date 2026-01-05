@@ -23,7 +23,9 @@ import { characterRoleSchema } from "@/lib/validators/staffs";
 
 // Schema for the form (array of character roles)
 const linkCharactersFormSchema = z.object({
-  characters: z.array(characterRoleSchema).min(1, "At least one character is required"),
+  characters: z
+    .array(characterRoleSchema)
+    .min(1, "At least one character is required"),
 });
 
 type LinkCharactersFormData = z.infer<typeof linkCharactersFormSchema>;
@@ -102,10 +104,7 @@ export function LinkCharactersForm({
                       {t("characterRole.character", "staff")} ID *
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter character ID"
-                        {...field}
-                      />
+                      <Input placeholder="Enter character ID" {...field} />
                     </FormControl>
                     <FormDescription>
                       The ID of the character to link
@@ -165,9 +164,7 @@ export function LinkCharactersForm({
         <Button
           type="button"
           variant="outline"
-          onClick={() =>
-            append({ characterId: "", notes: "", dubGroup: "" })
-          }
+          onClick={() => append({ characterId: "", notes: "", dubGroup: "" })}
           className="w-full"
         >
           <Plus className="mr-2 h-4 w-4" />
@@ -189,4 +186,3 @@ export function LinkCharactersForm({
     </Form>
   );
 }
-

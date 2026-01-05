@@ -294,7 +294,7 @@ export function StaffForm({
           <FormField
             control={form.control}
             name="language"
-            render={({ field}) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("form.language", "staff")}</FormLabel>
                 <Select value={field.value} onValueChange={field.onChange}>
@@ -434,7 +434,10 @@ export function StaffForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("form.bloodType", "staff")}</FormLabel>
-                <Select value={field.value ?? undefined} onValueChange={field.onChange}>
+                <Select
+                  value={field.value ?? undefined}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder={t("none", "common")} />
@@ -535,4 +538,3 @@ export function StaffForm({
     </Form>
   );
 }
-

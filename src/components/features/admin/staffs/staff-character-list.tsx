@@ -76,7 +76,10 @@ export function StaffCharacterList({
                         </Badge>
                       )}
                       {role.isPrimary && (
-                        <Badge variant="secondary" className="mt-1 ml-1 text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="mt-1 ml-1 text-xs"
+                        >
                           {t("detail.primaryRole", "staff")}
                         </Badge>
                       )}
@@ -102,4 +105,3 @@ export function StaffCharacterList({
     </Card>
   );
 }
-

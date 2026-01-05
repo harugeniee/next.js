@@ -81,10 +81,7 @@ export function StaffFilters({
   };
 
   const hasActiveFilters =
-    searchValue ||
-    filters.gender ||
-    filters.language ||
-    filters.occupation;
+    searchValue || filters.gender || filters.language || filters.occupation;
 
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
@@ -186,4 +183,3 @@ export function StaffFilters({
     </div>
   );
 }
-

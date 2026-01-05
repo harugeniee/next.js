@@ -103,7 +103,9 @@ export const createStaffSchema = z.object({
     .optional(),
   primaryOccupations: z
     .array(
-      z.string().max(STAFF_CONSTANTS.OCCUPATION_MAX_LENGTH, "Occupation too long"),
+      z
+        .string()
+        .max(STAFF_CONSTANTS.OCCUPATION_MAX_LENGTH, "Occupation too long"),
     )
     .optional(),
   gender: z
@@ -231,8 +233,9 @@ export const UpdateCharacterRoleSchema = z.object({
 
 export type CreateStaffFormData = z.infer<typeof createStaffSchema>;
 export type UpdateStaffFormData = z.infer<typeof updateStaffSchema>;
-export type UpdateCharacterRoleFormData = z.infer<typeof UpdateCharacterRoleSchema>;
+export type UpdateCharacterRoleFormData = z.infer<
+  typeof UpdateCharacterRoleSchema
+>;
 
 // Export constants for use in components
 export { STAFF_CONSTANTS };
-

@@ -11,4 +11,3 @@ export { StaffCharacterManagement } from "./staff-character-management";
 export { CharacterRoleForm } from "./character-role-form";
 export { CharacterRoleFormDialog } from "./character-role-form-dialog";
 export { LinkCharactersForm } from "./link-characters-form";
-
