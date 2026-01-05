@@ -8,28 +8,28 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
 import { Input } from "@/components/ui/core/input";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/layout/form";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import type { Staff } from "@/lib/interface/staff.interface";
 import {
-    createStaffSchema,
-    STAFF_CONSTANTS,
-    updateStaffSchema,
-    type CreateStaffFormData,
-    type UpdateStaffFormData,
+  createStaffSchema,
+  STAFF_CONSTANTS,
+  updateStaffSchema,
+  type CreateStaffFormData,
+  type UpdateStaffFormData,
 } from "@/lib/validators/staffs";
 
 interface StaffFormProps {
