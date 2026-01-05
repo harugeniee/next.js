@@ -12,6 +12,7 @@ import permissions from "./en/permissions.json";
 import series from "./en/series.json";
 import profile from "./en/profile.json";
 import settings from "./en/settings.json";
+import staff from "./en/staff.json";
 import tags from "./en/tags.json";
 import toast from "./en/toast.json";
 import user from "./en/user.json";
@@ -35,6 +36,7 @@ const enMessages = {
   characters,
   media,
   permissions,
+  staff,
   tags,
 };
 

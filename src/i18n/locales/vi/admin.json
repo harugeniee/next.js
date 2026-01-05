@@ -76,6 +76,10 @@
       "title": "Giới hạn tốc độ",
       "management": "Quản lý"
     },
+    "staffs": {
+      "title": "Nhân viên",
+      "management": "Quản lý"
+    },
     "stickers": {
       "title": "Nhãn dán",
       "management": "Quản lý"

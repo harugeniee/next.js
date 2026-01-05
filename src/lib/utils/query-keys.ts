@@ -341,6 +341,17 @@ export const queryKeys = {
     byPattern: (pattern: string, namespace?: string) =>
       ["key-value", "pattern", pattern, namespace] as const,
   },
+
+  // Staffs related queries
+  staffs: {
+    all: () => ["staffs"] as const,
+    admin: {
+      all: () => ["staffs", "admin"] as const,
+      lists: (params?: unknown) => ["staffs", "admin", "list", params] as const,
+      detail: (id: string) => ["staffs", "admin", "detail", id] as const,
+      statistics: () => ["staffs", "admin", "statistics"] as const,
+    },
+  },
 } as const;
 
 /**
