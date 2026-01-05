@@ -7,29 +7,29 @@ import { useForm } from "react-hook-form";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
 import { Input } from "@/components/ui/core/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/layout/form";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import type { Staff } from "@/lib/interface/staff.interface";
 import {
-  createStaffSchema,
-  updateStaffSchema,
-  STAFF_CONSTANTS,
-  type CreateStaffFormData,
-  type UpdateStaffFormData,
+    createStaffSchema,
+    STAFF_CONSTANTS,
+    updateStaffSchema,
+    type CreateStaffFormData,
+    type UpdateStaffFormData,
 } from "@/lib/validators/staffs";
 
 interface StaffFormProps {
@@ -86,7 +86,14 @@ export function StaffForm({
       imageId: staff?.imageId ?? "",
       description: staff?.description ?? "",
       primaryOccupations: staff?.primaryOccupations ?? [],
-      gender: (staff?.gender as "" | "male" | "female" | "non_binary" | "other" | undefined) ?? "",
+      gender:
+        (staff?.gender as
+          | ""
+          | "male"
+          | "female"
+          | "non_binary"
+          | "other"
+          | undefined) ?? "",
       dateOfBirth: (() => {
         if (!staff?.dateOfBirth) return undefined;
         if (typeof staff.dateOfBirth === "string") {
@@ -111,11 +118,19 @@ export function StaffForm({
         return new Date(staff.debutDate).toISOString().split("T")[0];
       })(),
       homeTown: staff?.homeTown ?? "",
-      bloodType: (staff?.bloodType as "" | "A" | "B" | "AB" | "O" | null | undefined) ?? "",
+      bloodType:
+        (staff?.bloodType as "A" | "B" | "AB" | "O" | undefined) ?? undefined,
       siteUrl: staff?.siteUrl ?? "",
       notes: staff?.notes ?? "",
-      status: (staff?.status as "" | "active" | "inactive" | "pending" | "archived" | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
-      metadata: staff?.metadata ?? null,
+      status:
+        (staff?.status as
+          | ""
+          | "active"
+          | "inactive"
+          | "pending"
+          | "archived"
+          | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
+      metadata: staff?.metadata ?? undefined,
     },
   });
 
@@ -148,7 +163,14 @@ export function StaffForm({
         imageId: staff.imageId ?? "",
         description: staff.description ?? "",
         primaryOccupations: staff.primaryOccupations ?? [],
-        gender: (staff.gender as "" | "male" | "female" | "non_binary" | "other" | undefined) ?? "",
+        gender:
+          (staff.gender as
+            | ""
+            | "male"
+            | "female"
+            | "non_binary"
+            | "other"
+            | undefined) ?? "",
         dateOfBirth: (() => {
           if (!staff.dateOfBirth) return undefined;
           if (typeof staff.dateOfBirth === "string") {
@@ -172,11 +194,19 @@ export function StaffForm({
           return new Date(staff.debutDate).toISOString().split("T")[0];
         })(),
         homeTown: staff.homeTown ?? "",
-        bloodType: (staff.bloodType as "" | "A" | "B" | "AB" | "O" | null | undefined) ?? "",
+        bloodType:
+          (staff.bloodType as "A" | "B" | "AB" | "O" | undefined) ?? undefined,
         siteUrl: staff.siteUrl ?? "",
         notes: staff.notes ?? "",
-        status: (staff.status as "" | "active" | "inactive" | "pending" | "archived" | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
-        metadata: staff.metadata ?? null,
+        status:
+          (staff.status as
+            | ""
+            | "active"
+            | "inactive"
+            | "pending"
+            | "archived"
+            | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
+        metadata: staff.metadata ?? undefined,
       });
     }
   }, [staff, form]);

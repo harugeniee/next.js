@@ -172,15 +172,18 @@ export const createStaffSchema = z.object({
     .optional()
     .or(z.literal("")),
   bloodType: z
-    .enum([
-      STAFF_CONSTANTS.BLOOD_TYPES.A,
-      STAFF_CONSTANTS.BLOOD_TYPES.B,
-      STAFF_CONSTANTS.BLOOD_TYPES.AB,
-      STAFF_CONSTANTS.BLOOD_TYPES.O,
+    .union([
+      z.enum([
+        STAFF_CONSTANTS.BLOOD_TYPES.A,
+        STAFF_CONSTANTS.BLOOD_TYPES.B,
+        STAFF_CONSTANTS.BLOOD_TYPES.AB,
+        STAFF_CONSTANTS.BLOOD_TYPES.O,
+      ]),
+      z.null(),
+      z.literal(""),
     ])
     .optional()
-    .nullable()
-    .or(z.literal("")),
+    .transform((val) => (val === null || val === "" ? undefined : val)),
   siteUrl: z
     .string()
     .url("Site URL must be a valid URL")
@@ -207,7 +210,10 @@ export const createStaffSchema = z.object({
     .optional()
     .or(z.literal("")),
   characters: z.array(characterRoleSchema).optional(),
-  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
+  metadata: z
+    .union([z.record(z.string(), z.unknown()), z.null()])
+    .optional()
+    .transform((val) => (val === null ? undefined : val)),
 });
 
 /**
