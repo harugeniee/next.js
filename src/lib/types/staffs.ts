@@ -4,7 +4,7 @@
  */
 
 import type { Staff, StaffName } from "@/lib/interface/staff.interface";
-import type { QueryParams } from "./index";
+import type { AdvancedQueryParams } from "./query";
 
 /**
  * Pagination metadata for staff list responses
@@ -27,7 +27,7 @@ export interface StaffListResponse {
 /**
  * Query parameters for fetching staff list
  */
-export interface GetStaffDto extends QueryParams {
+export interface GetStaffDto extends AdvancedQueryParams {
   gender?: string;
   language?: string;
   occupation?: string;
@@ -60,10 +60,10 @@ export interface CreateStaffDto {
   gender?: string;
   dateOfBirth?: Date | string;
   dateOfDeath?: Date | string | null;
-  age?: number;
+  age?: number | null;
   debutDate?: Date | string | null;
   homeTown?: string;
-  bloodType?: string;
+  bloodType?: string | null;
   siteUrl?: string;
   notes?: string;
   status?: string;
@@ -85,10 +85,10 @@ export interface UpdateStaffDto {
   gender?: string;
   dateOfBirth?: Date | string;
   dateOfDeath?: Date | string | null;
-  age?: number;
+  age?: number | null;
   debutDate?: Date | string | null;
   homeTown?: string;
-  bloodType?: string;
+  bloodType?: string | null;
   siteUrl?: string;
   notes?: string;
   status?: string;
@@ -136,10 +136,10 @@ export interface CreateStaffFormData {
   gender?: string;
   dateOfBirth?: string;
   dateOfDeath?: string;
-  age?: number;
+  age?: number | null;
   debutDate?: string;
   homeTown?: string;
-  bloodType?: string;
+  bloodType?: string | null;
   siteUrl?: string;
   notes?: string;
   status?: string;

@@ -86,7 +86,7 @@ export function StaffForm({
       imageId: staff?.imageId ?? "",
       description: staff?.description ?? "",
       primaryOccupations: staff?.primaryOccupations ?? [],
-      gender: staff?.gender ?? "",
+      gender: (staff?.gender as "" | "male" | "female" | "non_binary" | "other" | undefined) ?? "",
       dateOfBirth: (() => {
         if (!staff?.dateOfBirth) return undefined;
         if (typeof staff.dateOfBirth === "string") {
@@ -111,10 +111,10 @@ export function StaffForm({
         return new Date(staff.debutDate).toISOString().split("T")[0];
       })(),
       homeTown: staff?.homeTown ?? "",
-      bloodType: staff?.bloodType ?? "",
+      bloodType: (staff?.bloodType as "" | "A" | "B" | "AB" | "O" | null | undefined) ?? "",
       siteUrl: staff?.siteUrl ?? "",
       notes: staff?.notes ?? "",
-      status: staff?.status ?? STAFF_CONSTANTS.STATUS.ACTIVE,
+      status: (staff?.status as "" | "active" | "inactive" | "pending" | "archived" | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
       metadata: staff?.metadata ?? null,
     },
   });
@@ -148,7 +148,7 @@ export function StaffForm({
         imageId: staff.imageId ?? "",
         description: staff.description ?? "",
         primaryOccupations: staff.primaryOccupations ?? [],
-        gender: staff.gender ?? "",
+        gender: (staff.gender as "" | "male" | "female" | "non_binary" | "other" | undefined) ?? "",
         dateOfBirth: (() => {
           if (!staff.dateOfBirth) return undefined;
           if (typeof staff.dateOfBirth === "string") {
@@ -172,10 +172,10 @@ export function StaffForm({
           return new Date(staff.debutDate).toISOString().split("T")[0];
         })(),
         homeTown: staff.homeTown ?? "",
-        bloodType: staff.bloodType ?? "",
+        bloodType: (staff.bloodType as "" | "A" | "B" | "AB" | "O" | null | undefined) ?? "",
         siteUrl: staff.siteUrl ?? "",
         notes: staff.notes ?? "",
-        status: staff.status ?? STAFF_CONSTANTS.STATUS.ACTIVE,
+        status: (staff.status as "" | "active" | "inactive" | "pending" | "archived" | undefined) ?? STAFF_CONSTANTS.STATUS.ACTIVE,
         metadata: staff.metadata ?? null,
       });
     }

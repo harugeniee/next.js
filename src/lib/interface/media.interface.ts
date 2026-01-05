@@ -29,6 +29,8 @@ export interface Media extends BaseEntityCustom {
   originalName: string;
   thumbnailUrl: string;
   previewUrl: string;
+  large?: string; // Large image URL for thumbnails/covers
+  medium?: string; // Medium image URL
   userId?: string;
   user?: User;
   metadata: string; // JSON string for additional media metadata
