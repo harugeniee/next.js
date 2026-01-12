@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { ChevronRight, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import {
@@ -20,20 +20,20 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
+interface NavMainProps {
+  readonly items: readonly {
+    readonly title: string;
+    readonly url: string;
+    readonly icon?: LucideIcon;
+    readonly isActive?: boolean;
+    readonly items?: readonly {
+      readonly title: string;
+      readonly url: string;
     }[];
   }[];
-}) {
+}
+
+export function NavMain({ items }: NavMainProps) {
   const { t } = useI18n();
 
   return (
