@@ -1,20 +1,19 @@
 "use client";
 
+import { format } from "date-fns";
 import {
   ArrowLeft,
-  Edit,
-  Trash2,
+  Award,
   Calendar,
   Copy,
-  Shield,
-  Award,
-  Users,
+  Edit,
   Info,
-  BookOpen,
+  Shield,
+  Trash2,
+  Users,
 } from "lucide-react";
-import { useState } from "react";
 import Link from "next/link";
-import { format } from "date-fns";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import {
@@ -41,13 +40,13 @@ import type {
   BadgeAssignment,
   UpdateBadgeDto,
 } from "@/lib/types/badges";
-import { BadgeDisplay } from "./badge-display";
-import { BadgeAssignmentsTable } from "./badge-assignments-table";
-import { BadgeFormDialog } from "./badge-form-dialog";
 import type {
   CreateBadgeFormData,
   UpdateBadgeFormData,
 } from "@/lib/validators/badges";
+import { BadgeAssignmentsTable } from "./badge-assignments-table";
+import { BadgeDisplay } from "./badge-display";
+import { BadgeFormDialog } from "./badge-form-dialog";
 
 interface BadgeDetailProps {
   readonly badge?: Badge;
