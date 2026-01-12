@@ -1135,7 +1135,11 @@
       "number": "Số",
       "boolean": "Boolean",
       "object": "Đối tượng",
-      "array": "Mảng"
+      "array": "Mảng",
+      "json": "JSON",
+      "xml": "XML",
+      "html": "HTML",
+      "markdown": "Markdown"
     },
     "status": {
       "active": "Hoạt động",

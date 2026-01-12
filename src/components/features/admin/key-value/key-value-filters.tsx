@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { QueryKeyValueDto } from "@/lib/interface/key-value.interface";
+import { CONTENT_TYPES, type ContentType } from "@/lib/constants/key-value.constants";
 
 interface KeyValueFiltersProps {
   filters: QueryKeyValueDto;
@@ -23,13 +24,6 @@ interface KeyValueFiltersProps {
   className?: string;
 }
 
-const CONTENT_TYPES = [
-  "string",
-  "number",
-  "boolean",
-  "object",
-  "array",
-] as const;
 const STATUS_OPTIONS = ["active", "expired", "all"] as const;
 
 export function KeyValueFilters({
@@ -75,7 +69,7 @@ export function KeyValueFilters({
     onFiltersChange({
       ...filters,
       contentType:
-        value === "all" ? undefined : (value as (typeof CONTENT_TYPES)[number]),
+        value === "all" ? undefined : (value as ContentType),
       page: 1,
     });
   };

@@ -1,16 +1,11 @@
-import type { BaseEntityCustom } from "./base.interface";
+import type { ContentType, KeyValueStatus } from "@/lib/constants/key-value.constants";
 import type { AdvancedQueryParams } from "@/lib/types";
 import type { ApiResponseOffset } from "@/lib/types/response";
+import type { BaseEntityCustom } from "./base.interface";
 
-/**
- * Content type for key-value pairs
- */
-export type ContentType = "string" | "number" | "boolean" | "object" | "array";
+// Re-export types for convenience (imported above for use in this file)
+export type { ContentType, KeyValueStatus } from "@/lib/constants/key-value.constants";
 
-/**
- * Key-value status
- */
-export type KeyValueStatus = "active" | "expired" | "deleted";
 
 /**
  * Key-Value entity interface

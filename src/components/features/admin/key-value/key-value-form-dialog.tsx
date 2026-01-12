@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
@@ -30,33 +30,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CONTENT_TYPES } from "@/lib/constants/key-value.constants";
+import type {
+  ContentType,
+  CreateKeyValueDto,
+  KeyValue,
+  UpdateKeyValueDto,
+} from "@/lib/interface/key-value.interface";
 import {
   createKeyValueSchema,
   updateKeyValueSchema,
   type CreateKeyValueFormData,
   type UpdateKeyValueFormData,
 } from "@/lib/validators/key-value.validator";
-import type {
-  CreateKeyValueDto,
-  UpdateKeyValueDto,
-  KeyValue,
-  ContentType,
-} from "@/lib/interface/key-value.interface";
-
-const CONTENT_TYPES = [
-  "string",
-  "number",
-  "boolean",
-  "object",
-  "array",
-] as const;
 
 interface KeyValueFormDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  keyValue?: KeyValue;
-  onSubmit: (data: CreateKeyValueDto | UpdateKeyValueDto) => Promise<void>;
-  isLoading?: boolean;
+  readonly open: boolean;
+  readonly onOpenChange: (open: boolean) => void;
+  readonly keyValue?: KeyValue;
+  readonly onSubmit: (data: CreateKeyValueDto | UpdateKeyValueDto) => Promise<void>;
+  readonly isLoading?: boolean;
 }
 
 export function KeyValueFormDialog({

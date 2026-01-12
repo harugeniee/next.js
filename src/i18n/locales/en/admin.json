@@ -1134,7 +1134,11 @@
       "number": "Number",
       "boolean": "Boolean",
       "object": "Object",
-      "array": "Array"
+      "array": "Array",
+      "json": "JSON",
+      "xml": "XML",
+      "html": "HTML",
+      "markdown": "Markdown"
     },
     "status": {
       "active": "Active",
