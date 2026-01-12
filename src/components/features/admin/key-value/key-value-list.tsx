@@ -1,11 +1,12 @@
 "use client";
 
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Edit, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
 import { Skeletonize } from "@/components/shared/skeletonize";
+import { Badge } from "@/components/ui/core/badge";
 import { Button } from "@/components/ui/core/button";
 import {
   Card,
@@ -28,13 +29,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/layout/dropdown-menu";
-import { Badge } from "@/components/ui/core/badge";
 import { Pagination } from "@/components/ui/pagination";
 import type {
   CreateKeyValueDto,
-  UpdateKeyValueDto,
   KeyValue,
+  UpdateKeyValueDto,
 } from "@/lib/interface/key-value.interface";
+import { useRouter } from "next/navigation";
 import { KeyValueFormDialog } from "./key-value-form-dialog";
 
 interface KeyValueListProps {
@@ -70,13 +71,14 @@ export function KeyValueList({
   isUpdating,
 }: KeyValueListProps) {
   const { t } = useI18n();
+  const router = useRouter();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [editingKeyValue, setEditingKeyValue] = useState<
     KeyValue | undefined
   >();
 
   const handleCreate = async (
-    formData: CreateKeyValueDto | UpdateKeyValueDto,
+    formData: CreateKeyValueDto | UpdateKeyValueDto
   ) => {
     await onCreate(formData as CreateKeyValueDto);
     setShowCreateDialog(false);
@@ -87,7 +89,7 @@ export function KeyValueList({
   };
 
   const handleUpdate = async (
-    formData: CreateKeyValueDto | UpdateKeyValueDto,
+    formData: CreateKeyValueDto | UpdateKeyValueDto
   ) => {
     if (editingKeyValue) {
       await onUpdate(editingKeyValue.id, formData as UpdateKeyValueDto);
@@ -166,7 +168,13 @@ export function KeyValueList({
                   </TableHeader>
                   <TableBody>
                     {keyValues.map((keyValue) => (
-                      <TableRow key={keyValue.id}>
+                      <TableRow
+                        key={keyValue.id}
+                        className="cursor-pointer hover:bg-muted/50 transition-colors"
+                        onClick={() =>
+                          router.push(`/admin/key-value/${keyValue.id}`)
+                        }
+                      >
                         <TableCell>
                           <div className="flex items-center gap-2">
                             <span className="font-medium font-mono text-sm">
@@ -189,7 +197,7 @@ export function KeyValueList({
                             <Badge variant="outline">
                               {t(
                                 `keyValue.contentType.${keyValue.contentType}`,
-                                "admin",
+                                "admin"
                               )}
                             </Badge>
                           ) : (
@@ -209,7 +217,7 @@ export function KeyValueList({
                               ? t("keyValue.status.expired", "admin")
                               : t(
                                   `keyValue.status.${keyValue.status}`,
-                                  "admin",
+                                  "admin"
                                 )}
                           </Badge>
                         </TableCell>
@@ -217,7 +225,7 @@ export function KeyValueList({
                           <span className="text-sm text-muted-foreground">
                             {keyValue.expiresAt
                               ? new Date(
-                                  keyValue.expiresAt,
+                                  keyValue.expiresAt
                                 ).toLocaleDateString()
                               : "-"}
                           </span>

@@ -1,3 +1,4 @@
-export { KeyValueList } from "./key-value-list";
-export { KeyValueFormDialog } from "./key-value-form-dialog";
+export { KeyValueDetail } from "./key-value-detail";
 export { KeyValueFilters } from "./key-value-filters";
+export { KeyValueFormDialog } from "./key-value-form-dialog";
+export { KeyValueList } from "./key-value-list";

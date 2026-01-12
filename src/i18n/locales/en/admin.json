@@ -1085,6 +1085,7 @@
       "title": "Key-Value Pairs",
       "description": "Manage and organize key-value storage entries",
       "create": "Create Key-Value",
+      "id": "ID",
       "key": "Key",
       "value": "Value",
       "namespace": "Namespace",
@@ -1156,6 +1157,16 @@
     "updateSuccess": "Key-value pair updated successfully",
     "updateError": "Failed to update key-value pair",
     "deleteSuccess": "Key-value pair deleted successfully",
-    "deleteError": "Failed to delete key-value pair"
+    "deleteError": "Failed to delete key-value pair",
+    "detail": {
+      "title": "Key-Value: {key}",
+      "description": "View and manage key-value pair details",
+      "error": "Failed to load key-value details",
+      "info": "Information",
+      "infoDescription": "Basic information about the key-value pair",
+      "metadata": "Metadata",
+      "metadataDescription": "System metadata",
+      "valueDescription": "The value stored in this pair"
+    }
   }
 }

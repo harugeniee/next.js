@@ -1086,6 +1086,7 @@
       "title": "Các cặp Key-Value",
       "description": "Quản lý và tổ chức các mục lưu trữ key-value",
       "create": "Tạo Key-Value",
+      "id": "ID",
       "key": "Khóa",
       "value": "Giá trị",
       "namespace": "Namespace",
@@ -1157,6 +1158,16 @@
     "updateSuccess": "Đã cập nhật cặp key-value thành công",
     "updateError": "Không thể cập nhật cặp key-value",
     "deleteSuccess": "Đã xóa cặp key-value thành công",
-    "deleteError": "Không thể xóa cặp key-value"
+    "deleteError": "Không thể xóa cặp key-value",
+    "detail": {
+      "title": "Key-Value: {key}",
+      "description": "Xem và quản lý chi tiết cặp key-value",
+      "error": "Không thể tải chi tiết key-value",
+      "info": "Thông tin",
+      "infoDescription": "Thông tin cơ bản về cặp key-value",
+      "metadata": "Metadata",
+      "metadataDescription": "Dữ liệu hệ thống",
+      "valueDescription": "Giá trị được lưu trữ"
+    }
   }
 }
