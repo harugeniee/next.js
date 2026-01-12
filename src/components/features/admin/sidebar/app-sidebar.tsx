@@ -2,28 +2,19 @@
 
 import { useAtom } from "jotai";
 import {
-  AudioWaveform,
   Award,
   BarChart3,
   BookMarked,
-  BookOpen,
-  Bot,
   Building2,
-  Command,
   Database,
   FileImage,
-  Frame,
   GalleryVerticalEnd,
   Gauge,
   Key,
-  Map,
   MessageSquare,
-  PieChart,
-  Settings2,
-  SquareTerminal,
   Tag,
   UserCircle,
-  Users,
+  Users
 } from "lucide-react";
 import * as React from "react";
 
@@ -40,7 +31,6 @@ import {
 import { useCurrentUser } from "@/hooks/auth";
 import { currentUserAtom } from "@/lib/auth";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
 import { SidebarSettings } from "./sidebar-settings";
 import { TeamSwitcher } from "./team-switcher";
@@ -59,314 +49,108 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           name: t("teams.acmeInc", "admin"),
           logo: GalleryVerticalEnd,
           plan: t("plans.enterprise", "admin"),
-        },
-        {
-          name: t("teams.acmeCorp", "admin"),
-          logo: AudioWaveform,
-          plan: t("plans.startup", "admin"),
-        },
-        {
-          name: t("teams.evilCorp", "admin"),
-          logo: Command,
-          plan: t("plans.free", "admin"),
-        },
+        }
       ],
       navMain: [
         {
           title: t("nav.analytics.title", "admin"),
           url: "/admin/analytics",
           icon: BarChart3,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.analytics.dashboard", "admin"),
-              url: "/admin/analytics",
-            },
-          ],
+          isActive: true,
         },
         {
           title: t("nav.badges.title", "admin"),
           url: "/admin/badges",
           icon: Award,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.badges.management", "admin"),
-              url: "/admin/badges",
-            },
-          ],
         },
         {
           title: t("nav.users.title", "admin"),
           url: "/admin/users",
           icon: Users,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.users.management", "admin"),
-              url: "/admin/users",
-            },
-          ],
         },
         {
           title: t("nav.organizations.title", "admin"),
           url: "/admin/organizations",
           icon: Building2,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.organizations.management", "admin"),
-              url: "/admin/organizations",
-            },
-          ],
         },
         {
           title: t("nav.title", "permissions"),
           url: "/admin/permissions",
           icon: Key,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.title", "permissions"),
-              url: "/admin/permissions",
-            },
-          ],
         },
         {
           title: t("nav.rateLimit.title", "admin"),
           url: "/admin/rate-limit",
           icon: Gauge,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.rateLimit.management", "admin"),
-              url: "/admin/rate-limit",
-            },
-          ],
         },
         {
           title: t("nav.keyValue.title", "admin"),
           url: "/admin/key-value",
           icon: Database,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.keyValue.management", "admin"),
-              url: "/admin/key-value",
-            },
-          ],
         },
         {
           title: t("nav.characters.title", "admin"),
           url: "/admin/characters",
           icon: UserCircle,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.characters.management", "admin"),
-              url: "/admin/characters",
-            },
-          ],
         },
         {
           title: t("nav.comments.title", "admin"),
           url: "/admin/comments",
           icon: MessageSquare,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.comments.management", "admin"),
-              url: "/admin/comments",
-            },
-          ],
         },
         {
           title: t("nav.media.title", "admin"),
           url: "/admin/media",
           icon: FileImage,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.media.management", "admin"),
-              url: "/admin/media",
-            },
-          ],
         },
         {
           title: t("stickers.list.title", "admin"),
           url: "/admin/stickers",
           icon: FileImage,
-          isActive: false,
-          items: [
-            {
-              title: t("stickers.list.title", "admin"),
-              url: "/admin/stickers",
-            },
-          ],
         },
         {
           title: t("nav.series.title", "admin"),
           url: "/admin/series",
           icon: BookMarked,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.series.management", "admin"),
-              url: "/admin/series",
-            },
-          ],
         },
         {
           title: t("nav.genres.title", "admin"),
           url: "/admin/genres",
           icon: Tag,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.genres.management", "admin"),
-              url: "/admin/genres",
-            },
-          ],
         },
         {
           title: t("nav.tags.title", "admin"),
           url: "/admin/tags",
           icon: Tag,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.tags.management", "admin"),
-              url: "/admin/tags",
-            },
-          ],
         },
         {
           title: t("nav.staffs.title", "admin"),
           url: "/admin/staffs",
           icon: Users,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.staffs.management", "admin"),
-              url: "/admin/staffs",
-            },
-          ],
         },
         {
           title: t("nav.studios.title", "admin"),
           url: "/admin/studios",
           icon: Building2,
-          isActive: false,
-          items: [
-            {
-              title: t("nav.studios.management", "admin"),
-              url: "/admin/studios",
-            },
-          ],
-        },
-        {
-          title: t("nav.playground.title", "admin"),
-          url: "#",
-          icon: SquareTerminal,
-          isActive: true,
-          items: [
-            {
-              title: t("nav.playground.history", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.playground.starred", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.playground.settings", "admin"),
-              url: "#",
-            },
-          ],
-        },
-        {
-          title: t("nav.models.title", "admin"),
-          url: "#",
-          icon: Bot,
-          items: [
-            {
-              title: t("nav.models.genesis", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.models.explorer", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.models.quantum", "admin"),
-              url: "#",
-            },
-          ],
-        },
-        {
-          title: t("nav.documentation.title", "admin"),
-          url: "#",
-          icon: BookOpen,
-          items: [
-            {
-              title: t("nav.documentation.introduction", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.documentation.getStarted", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.documentation.tutorials", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.documentation.changelog", "admin"),
-              url: "#",
-            },
-          ],
-        },
-        {
-          title: t("nav.settings.title", "admin"),
-          url: "#",
-          icon: Settings2,
-          items: [
-            {
-              title: t("nav.settings.general", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.settings.team", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.settings.billing", "admin"),
-              url: "#",
-            },
-            {
-              title: t("nav.settings.limits", "admin"),
-              url: "#",
-            },
-          ],
         },
       ],
-      projects: [
-        {
-          name: t("projects.designEngineering", "admin"),
-          url: "#",
-          icon: Frame,
-        },
-        {
-          name: t("projects.salesMarketing", "admin"),
-          url: "#",
-          icon: PieChart,
-        },
-        {
-          name: t("projects.travel", "admin"),
-          url: "#",
-          icon: Map,
-        },
-      ],
+      // projects: [
+      //   {
+      //     name: t("projects.designEngineering", "admin"),
+      //     url: "#",
+      //     icon: Frame,
+      //   },
+      //   {
+      //     name: t("projects.salesMarketing", "admin"),
+      //     url: "#",
+      //     icon: PieChart,
+      //   },
+      //   {
+      //     name: t("projects.travel", "admin"),
+      //     url: "#",
+      //     icon: Map,
+      //   },
+      // ],
     }),
     [t],
   );
@@ -398,7 +182,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={sampleData.navMain} />
-        <NavProjects projects={sampleData.projects} />
+        {/* <NavProjects projects={sampleData.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <SidebarSettings />
