@@ -145,7 +145,7 @@ export function KeyValueDetail({
                       <Badge variant="outline">
                         {t(
                           `keyValue.contentType.${keyValue.contentType}`,
-                          "admin"
+                          "admin",
                         )}
                       </Badge>
                     ) : (

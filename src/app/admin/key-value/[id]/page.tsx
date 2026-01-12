@@ -60,7 +60,7 @@ export default function KeyValueDetailPage() {
       confirm(
         t("keyValue.list.deleteConfirm", "admin", {
           key: kv.key,
-        })
+        }),
       )
     ) {
       try {

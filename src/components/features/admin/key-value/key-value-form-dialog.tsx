@@ -48,7 +48,9 @@ interface KeyValueFormDialogProps {
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
   readonly keyValue?: KeyValue;
-  readonly onSubmit: (data: CreateKeyValueDto | UpdateKeyValueDto) => Promise<void>;
+  readonly onSubmit: (
+    data: CreateKeyValueDto | UpdateKeyValueDto,
+  ) => Promise<void>;
   readonly isLoading?: boolean;
 }
 
@@ -112,17 +114,17 @@ export function KeyValueFormDialog({
     } catch {
       // If JSON parsing fails, try to parse as primitive
       const trimmed = value.trim();
-      
+
       if (trimmed === "true") return true;
       if (trimmed === "false") return false;
       if (trimmed === "null") return null;
-      
+
       // Try to parse as number
       const numValue = Number(trimmed);
       if (!Number.isNaN(numValue) && trimmed !== "") {
         return numValue;
       }
-      
+
       // Fallback to original value as string
       return value;
     }
@@ -201,7 +203,7 @@ export function KeyValueFormDialog({
 
       await onSubmit(submitData);
       onOpenChange(false);
-      
+
       if (!isEditMode) {
         form.reset();
       }

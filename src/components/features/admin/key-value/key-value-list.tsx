@@ -78,7 +78,7 @@ export function KeyValueList({
   >();
 
   const handleCreate = async (
-    formData: CreateKeyValueDto | UpdateKeyValueDto
+    formData: CreateKeyValueDto | UpdateKeyValueDto,
   ) => {
     await onCreate(formData as CreateKeyValueDto);
     setShowCreateDialog(false);
@@ -89,7 +89,7 @@ export function KeyValueList({
   };
 
   const handleUpdate = async (
-    formData: CreateKeyValueDto | UpdateKeyValueDto
+    formData: CreateKeyValueDto | UpdateKeyValueDto,
   ) => {
     if (editingKeyValue) {
       await onUpdate(editingKeyValue.id, formData as UpdateKeyValueDto);
@@ -197,7 +197,7 @@ export function KeyValueList({
                             <Badge variant="outline">
                               {t(
                                 `keyValue.contentType.${keyValue.contentType}`,
-                                "admin"
+                                "admin",
                               )}
                             </Badge>
                           ) : (
@@ -217,7 +217,7 @@ export function KeyValueList({
                               ? t("keyValue.status.expired", "admin")
                               : t(
                                   `keyValue.status.${keyValue.status}`,
-                                  "admin"
+                                  "admin",
                                 )}
                           </Badge>
                         </TableCell>
@@ -225,7 +225,7 @@ export function KeyValueList({
                           <span className="text-sm text-muted-foreground">
                             {keyValue.expiresAt
                               ? new Date(
-                                  keyValue.expiresAt
+                                  keyValue.expiresAt,
                                 ).toLocaleDateString()
                               : "-"}
                           </span>

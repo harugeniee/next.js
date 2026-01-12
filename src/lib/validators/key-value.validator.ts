@@ -15,7 +15,9 @@ const KEY_VALUE_CONSTANTS = {
  * Content type enum for validation
  * Uses the shared CONTENT_TYPES constant to ensure consistency
  */
-const contentTypeEnum = z.enum(CONTENT_TYPES as unknown as [string, ...string[]]);
+const contentTypeEnum = z.enum(
+  CONTENT_TYPES as unknown as [string, ...string[]],
+);
 
 /**
  * Key validation regex - allows alphanumeric, hyphens, underscores, and colons

@@ -172,21 +172,11 @@ export function BadgeDetail({
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="detail">
               <Info className="mr-2 h-4 w-4" />
-              {t(
-                "badges.detail.tabs.detail",
-                "admin",
-                {},
-                "Badge Information",
-              )}
+              {t("badges.detail.tabs.detail", "admin", {}, "Badge Information")}
             </TabsTrigger>
             <TabsTrigger value="assignments">
               <Users className="mr-2 h-4 w-4" />
-              {t(
-                "badges.detail.tabs.assignments",
-                "admin",
-                {},
-                "Assignments",
-              )}
+              {t("badges.detail.tabs.assignments", "admin", {}, "Assignments")}
             </TabsTrigger>
           </TabsList>
 
@@ -399,7 +389,9 @@ export function BadgeDetail({
                               </label>
                               <div className="mt-1">
                                 <BadgeUI
-                                  variant={badge.isVisible ? "default" : "outline"}
+                                  variant={
+                                    badge.isVisible ? "default" : "outline"
+                                  }
                                 >
                                   {badge.isVisible
                                     ? t("badges.filters.visible", "admin")
@@ -439,10 +431,7 @@ export function BadgeDetail({
                             </div>
                             <div>
                               <label className="text-sm font-medium text-muted-foreground">
-                                {t(
-                                  "badges.form.isManuallyAssignable",
-                                  "admin",
-                                )}
+                                {t("badges.form.isManuallyAssignable", "admin")}
                               </label>
                               <div className="mt-1">
                                 <BadgeUI
@@ -594,7 +583,10 @@ export function BadgeDetail({
                 onRevoke={onRevokeAssignment}
               />
             ) : (
-              <AnimatedSection loading={assignmentsLoading} data={!assignmentsLoading}>
+              <AnimatedSection
+                loading={assignmentsLoading}
+                data={!assignmentsLoading}
+              >
                 <Card>
                   <CardHeader>
                     <CardTitle>

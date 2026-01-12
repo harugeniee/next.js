@@ -16,7 +16,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { QueryKeyValueDto } from "@/lib/interface/key-value.interface";
-import { CONTENT_TYPES, type ContentType } from "@/lib/constants/key-value.constants";
+import {
+  CONTENT_TYPES,
+  type ContentType,
+} from "@/lib/constants/key-value.constants";
 
 interface KeyValueFiltersProps {
   filters: QueryKeyValueDto;
@@ -68,8 +71,7 @@ export function KeyValueFilters({
   const handleContentTypeChange = (value: string) => {
     onFiltersChange({
       ...filters,
-      contentType:
-        value === "all" ? undefined : (value as ContentType),
+      contentType: value === "all" ? undefined : (value as ContentType),
       page: 1,
     });
   };

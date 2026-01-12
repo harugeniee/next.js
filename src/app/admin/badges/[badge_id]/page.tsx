@@ -89,9 +89,7 @@ export default function BadgeDetailPage() {
 
   const handleDelete = async (badge: Badge) => {
     if (
-      !confirm(
-        t("badges.list.deleteConfirm", "admin", { name: badge.name }),
-      )
+      !confirm(t("badges.list.deleteConfirm", "admin", { name: badge.name }))
     ) {
       return;
     }
@@ -126,9 +124,7 @@ export default function BadgeDetailPage() {
   };
 
   const handleRevokeAssignment = async (assignment: BadgeAssignment) => {
-    if (
-      !confirm(t("badges.assignments.revokeConfirm", "admin"))
-    ) {
+    if (!confirm(t("badges.assignments.revokeConfirm", "admin"))) {
       return;
     }
 
@@ -183,7 +179,12 @@ export default function BadgeDetailPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             {badge
-              ? t("badges.detail.title", "admin", { name: badge.name }, badge.name)
+              ? t(
+                  "badges.detail.title",
+                  "admin",
+                  { name: badge.name },
+                  badge.name,
+                )
               : t("badges.detail.title", "admin", {}, "Badge Detail")}
           </h1>
           <p className="text-muted-foreground mt-2">

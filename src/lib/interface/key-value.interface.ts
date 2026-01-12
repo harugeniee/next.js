@@ -1,11 +1,16 @@
-import type { ContentType, KeyValueStatus } from "@/lib/constants/key-value.constants";
+import type {
+  ContentType,
+  KeyValueStatus,
+} from "@/lib/constants/key-value.constants";
 import type { AdvancedQueryParams } from "@/lib/types";
 import type { ApiResponseOffset } from "@/lib/types/response";
 import type { BaseEntityCustom } from "./base.interface";
 
 // Re-export types for convenience (imported above for use in this file)
-export type { ContentType, KeyValueStatus } from "@/lib/constants/key-value.constants";
-
+export type {
+  ContentType,
+  KeyValueStatus,
+} from "@/lib/constants/key-value.constants";
 
 /**
  * Key-Value entity interface
