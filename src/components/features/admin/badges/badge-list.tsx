@@ -1,6 +1,7 @@
 "use client";
 
 import { Edit, MoreHorizontal, Plus, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection } from "@/components/shared/animated-section";
@@ -45,6 +46,7 @@ export function BadgeList({
   onAssign,
 }: BadgeListProps) {
   const { t } = useI18n();
+  const router = useRouter();
 
   return (
     <AnimatedSection loading={isLoading} data={data} className="w-full">
@@ -72,7 +74,8 @@ export function BadgeList({
                 {data.result.map((badge) => (
                   <div
                     key={badge.id}
-                    className="flex items-center justify-between rounded-lg border p-4 hover:bg-accent transition-colors"
+                    className="flex items-center justify-between rounded-lg border p-4 hover:bg-accent transition-colors cursor-pointer"
+                    onClick={() => router.push(`/admin/badges/${badge.id}`)}
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
                       <BadgeDisplay badge={badge} size="md" />
@@ -105,7 +108,10 @@ export function BadgeList({
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div
+                      className="flex items-center gap-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="sm">

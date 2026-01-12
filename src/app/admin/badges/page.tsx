@@ -29,6 +29,7 @@ import {
   useRevokeBadge,
   useUpdateBadge,
 } from "@/hooks/admin/useBadges";
+import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type {
   Badge,
   BadgeAssignment,
@@ -54,6 +55,12 @@ export default function BadgesPage() {
   const [assignmentFilters] = useState<GetBadgeAssignmentDto>({
     page: 1,
     limit: 20,
+  });
+
+  // Update page metadata
+  usePageMetadata({
+    title: t("badges.title", "admin"),
+    description: t("badges.description", "admin"),
   });
 
   // Dialog state
