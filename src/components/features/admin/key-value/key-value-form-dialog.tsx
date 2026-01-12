@@ -104,67 +104,104 @@ export function KeyValueFormDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyValue, open]);
 
+  // Helper function to parse value field with fallback to primitives
+  const parseValue = (value: string): unknown => {
+    // Try to parse as JSON first
+    try {
+      return JSON.parse(value);
+    } catch {
+      // If JSON parsing fails, try to parse as primitive
+      const trimmed = value.trim();
+      
+      if (trimmed === "true") return true;
+      if (trimmed === "false") return false;
+      if (trimmed === "null") return null;
+      
+      // Try to parse as number
+      const numValue = Number(trimmed);
+      if (!Number.isNaN(numValue) && trimmed !== "") {
+        return numValue;
+      }
+      
+      // Fallback to original value as string
+      return value;
+    }
+  };
+
+  // Helper function to parse metadata field (must be valid JSON)
+  const parseMetadata = (
+    metadata: string,
+  ): Record<string, unknown> | undefined => {
+    const metadataStr = metadata.trim();
+    if (!metadataStr) return undefined;
+
+    try {
+      const parsed = JSON.parse(metadataStr);
+      if (typeof parsed === "object" && parsed !== null) {
+        return parsed as Record<string, unknown>;
+      }
+      throw new Error("Metadata must be a valid JSON object");
+    } catch {
+      throw new Error("Invalid JSON in metadata field");
+    }
+  };
+
+  // Helper function to normalize expiresAt field
+  const normalizeExpiresAt = (
+    expiresAt: string | undefined,
+  ): string | undefined => {
+    if (!expiresAt) return undefined;
+    const expiresAtStr = expiresAt.trim();
+    return expiresAtStr || undefined;
+  };
+
+  // Helper function to normalize contentType field
+  const normalizeContentType = (
+    contentType: string | undefined,
+  ): ContentType | undefined => {
+    if (!contentType) return undefined;
+    const contentTypeStr = contentType.trim();
+    return contentTypeStr ? (contentTypeStr as ContentType) : undefined;
+  };
+
+  // Helper function to build submit data based on mode
+  const buildSubmitData = (
+    data: CreateKeyValueFormData | UpdateKeyValueFormData,
+    parsedValue: unknown,
+    parsedMetadata: Record<string, unknown> | undefined,
+  ): CreateKeyValueDto | UpdateKeyValueDto => {
+    const baseData = {
+      value: parsedValue,
+      expiresAt: normalizeExpiresAt(data.expiresAt),
+      metadata: parsedMetadata,
+      contentType: normalizeContentType(data.contentType),
+    };
+
+    if (isEditMode) {
+      return baseData as UpdateKeyValueDto;
+    }
+
+    const createData = data as CreateKeyValueFormData;
+    return {
+      ...baseData,
+      key: createData.key,
+      namespace: createData.namespace?.trim() || undefined,
+    } as CreateKeyValueDto;
+  };
+
   const handleSubmit = async (
     data: CreateKeyValueFormData | UpdateKeyValueFormData,
   ) => {
     try {
-      // Parse JSON values
-      let parsedValue: unknown;
-      try {
-        parsedValue = JSON.parse(data.value as string);
-      } catch {
-        // If parsing fails, try to parse as a primitive
-        const trimmed = (data.value as string).trim();
-        if (trimmed === "true") parsedValue = true;
-        else if (trimmed === "false") parsedValue = false;
-        else if (trimmed === "null") parsedValue = null;
-        else if (!isNaN(Number(trimmed)) && trimmed !== "") {
-          parsedValue = Number(trimmed);
-        } else {
-          parsedValue = data.value; // Use as string
-        }
-      }
-
-      let parsedMetadata: Record<string, unknown> | undefined;
-      if (data.metadata && (data.metadata as string).trim()) {
-        try {
-          parsedMetadata = JSON.parse(data.metadata as string);
-        } catch {
-          throw new Error("Invalid JSON in metadata field");
-        }
-      }
-
-      const submitData: CreateKeyValueDto | UpdateKeyValueDto = isEditMode
-        ? {
-            value: parsedValue,
-            expiresAt:
-              data.expiresAt && (data.expiresAt as string).trim()
-                ? (data.expiresAt as string)
-                : undefined,
-            metadata: parsedMetadata,
-            contentType:
-              data.contentType && (data.contentType as string).trim()
-                ? (data.contentType as string as ContentType)
-                : undefined,
-          }
-        : {
-            key: (data as CreateKeyValueFormData).key,
-            value: parsedValue,
-            namespace:
-              (data as CreateKeyValueFormData).namespace?.trim() || undefined,
-            expiresAt:
-              data.expiresAt && (data.expiresAt as string).trim()
-                ? (data.expiresAt as string)
-                : undefined,
-            metadata: parsedMetadata,
-            contentType:
-              data.contentType && (data.contentType as string).trim()
-                ? (data.contentType as string as ContentType)
-                : undefined,
-          };
+      const parsedValue = parseValue(String(data.value));
+      const parsedMetadata = data.metadata
+        ? parseMetadata(String(data.metadata))
+        : undefined;
+      const submitData = buildSubmitData(data, parsedValue, parsedMetadata);
 
       await onSubmit(submitData);
       onOpenChange(false);
+      
       if (!isEditMode) {
         form.reset();
       }
