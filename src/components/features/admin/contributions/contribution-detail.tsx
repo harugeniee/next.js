@@ -289,7 +289,9 @@ export function ContributionDetail({
                                   size="sm"
                                   className="h-6 w-6 p-0"
                                   onClick={() =>
-                                    handleCopyId(contribution.entityId || undefined)
+                                    handleCopyId(
+                                      contribution.entityId || undefined,
+                                    )
                                   }
                                   aria-label={t("actions.copy", "common")}
                                 >
