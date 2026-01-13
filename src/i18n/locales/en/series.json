@@ -763,5 +763,62 @@
         "other": "Other"
       }
     }
+  },
+  "contribute": {
+    "title": "Contribute Update",
+    "tabTitle": "Contributions",
+    "approvedTitle": "Approved Contributions",
+    "approvedDescription": "List of approved contribution requests for this series",
+    "by": "By",
+    "approvedAt": "Approved on",
+    "noApproved": "No approved contributions yet",
+    "noApprovedHint": "Be the first to contribute to this series!",
+    "fieldsUpdated": "Fields Updated",
+    "fieldsAdded": "Fields Added",
+    "more": "more",
+    "contributorNote": "Contributor Note",
+    "submittedOn": "Submitted on",
+    "description": "Suggest updates to this series",
+    "updateButton": "Update",
+    "steps": {
+      "selectCategories": "Select Categories",
+      "editFields": "Edit Fields",
+      "reviewSubmit": "Review & Submit"
+    },
+    "categories": {
+      "basicInfo": "Basic Information",
+      "media": "Media",
+      "content": "Content",
+      "releaseInfo": "Release Information",
+      "advanced": "Advanced"
+    },
+    "selectCategories": {
+      "description": "Select which sections you want to update",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "noSelection": "Please select at least one category to update"
+    },
+    "editFields": {
+      "description": "Edit the fields you selected",
+      "noCategories": "Please go back and select at least one category"
+    },
+    "review": {
+      "title": "Review Your Changes",
+      "description": "Review your changes before submitting",
+      "summary": "Summary",
+      "fieldsChanged": "{{count}} field(s) will be updated",
+      "changesPreview": "Changes Preview",
+      "noChanges": "No changes detected. Please go back and make some updates.",
+      "contributorNote": "Contributor Note",
+      "contributorNotePlaceholder": "Explain your changes (optional)",
+      "noteHint": "Optional: Explain your changes to help reviewers",
+      "submit": "Submit Contribution",
+      "submitting": "Submitting...",
+      "success": "Contribution submitted successfully!",
+      "error": "Failed to submit contribution"
+    },
+    "error": {
+      "loadSeries": "Failed to load series data"
+    }
   }
 }

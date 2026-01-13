@@ -95,6 +95,10 @@
     "keyValue": {
       "title": "Key-Value Store",
       "management": "Management"
+    },
+    "contributions": {
+      "title": "Contributions",
+      "management": "Management"
     }
   },
   "projects": {
@@ -1076,6 +1080,84 @@
       "copyId": "Copy Studio ID",
       "idCopied": "Studio ID copied to clipboard",
       "idCopyError": "Failed to copy Studio ID"
+    }
+  },
+  "contributions": {
+    "title": "Contributions",
+    "description": "Manage user contributions for entities",
+    "pageTitle": "Contributions Management",
+    "pageDescription": "Review and manage user contributions",
+    "breadcrumb": {
+      "admin": "Admin",
+      "contributions": "Contributions"
+    },
+    "list": {
+      "title": "Contributions",
+      "description": "List of all contributions",
+      "entityType": "Entity Type",
+      "action": "Action",
+      "status": "Status",
+      "contributor": "Contributor",
+      "reviewer": "Reviewer",
+      "createdAt": "Created At",
+      "reviewedAt": "Reviewed At",
+      "actions": "Actions"
+    },
+    "filters": {
+      "entityType": "Entity Type",
+      "action": "Action",
+      "status": "Status",
+      "all": "All",
+      "searchPlaceholder": "Search contributions..."
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "entityType": {
+      "series": "Series",
+      "segment": "Segment",
+      "character": "Character",
+      "staff": "Staff"
+    },
+    "action": {
+      "create": "Create",
+      "update": "Update"
+    },
+    "review": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "adminNotes": "Admin Notes",
+      "rejectionReason": "Rejection Reason",
+      "rejectionReasonRequired": "Rejection reason is required",
+      "rejectionReasonPlaceholder": "Enter the reason for rejection",
+      "adminNotesPlaceholder": "Optional internal notes",
+      "approveConfirm": "Are you sure you want to approve this contribution?",
+      "rejectConfirm": "Are you sure you want to reject this contribution?",
+      "approveDescription": "Approve this contribution and apply the changes",
+      "rejectDescription": "Reject this contribution. A reason is required."
+    },
+    "detail": {
+      "title": "Contribution Detail",
+      "description": "View and review contribution details",
+      "error": "Error loading contribution",
+      "id": "Contribution ID",
+      "entityId": "Entity ID",
+      "contributorNote": "Contributor Note",
+      "adminNotes": "Admin Notes",
+      "rejectionReason": "Rejection Reason",
+      "proposedData": "Proposed Data",
+      "proposedDataDesc": "Data that will be applied if approved",
+      "originalData": "Original Data",
+      "originalDataDesc": "Original data before changes",
+      "dataComparison": "Data Comparison",
+      "dataComparisonDesc": "Compare original and proposed changes",
+      "notFound": "Contribution not found",
+      "tabs": {
+        "detail": "Details",
+        "data": "Data"
+      }
     }
   },
   "keyValue": {

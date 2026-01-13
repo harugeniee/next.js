@@ -18,6 +18,7 @@ export {
   CardTitle,
 } from "./card";
 export { Carousel } from "./carousel";
+export { DatePicker } from "./date-picker";
 export { DateTimePicker } from "./date-time-picker";
 export { ImageCompressionSettings } from "./image-compression-settings";
 export { ImageCropDialog } from "./image-crop-dialog";

@@ -3,6 +3,7 @@
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Label } from "@/components/ui/core/label";
 import { Input } from "@/components/ui/core/input";
+import { DatePicker } from "@/components/ui/core/date-picker";
 import {
   Select,
   SelectContent,
@@ -13,6 +14,20 @@ import {
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import type { CreateSeriesDto } from "@/lib/api/series";
 import { cn } from "@/lib/utils";
+
+/**
+ * Convert SNAKE_CASE to camelCase for i18n key lookup
+ * Example: LIGHT_NOVEL -> lightNovel, VIDEO_GAME -> videoGame
+ */
+const snakeToCamel = (str: string): string => {
+  return str
+    .toLowerCase()
+    .split("_")
+    .map((word, index) =>
+      index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1),
+    )
+    .join("");
+};
 
 export interface StepReleaseInfoProps {
   formData: Partial<CreateSeriesDto>;
@@ -36,12 +51,12 @@ export function StepReleaseInfo({
   const isAnime = formData.type === SERIES_CONSTANTS.TYPE.ANIME;
   const isManga = formData.type === SERIES_CONSTANTS.TYPE.MANGA;
 
-  const handleStartDateChange = (value: string) => {
-    onChange({ startDate: value ? new Date(value) : undefined });
+  const handleStartDateChange = (date: Date | undefined) => {
+    onChange({ startDate: date });
   };
 
-  const handleEndDateChange = (value: string) => {
-    onChange({ endDate: value ? new Date(value) : undefined });
+  const handleEndDateChange = (date: Date | undefined) => {
+    onChange({ endDate: date });
   };
 
   const handleSeasonChange = (season: string) => {
@@ -101,41 +116,29 @@ export function StepReleaseInfo({
     }
   };
 
-  // Format date for input (YYYY-MM-DD)
-  const formatDateForInput = (date: Date | undefined) => {
-    if (!date) return "";
-    return new Date(date).toISOString().split("T")[0];
-  };
-
   return (
     <div className={cn("space-y-6", className)}>
       {/* Start Date */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">
-          {t("create.form.startDate", "series")}
-        </Label>
-        <Input
-          type="date"
-          value={formatDateForInput(formData.startDate)}
-          onChange={(e) => handleStartDateChange(e.target.value)}
-          className={errors?.startDate ? "border-destructive" : ""}
-        />
-        {errors?.startDate && (
-          <p className="text-sm text-destructive">{errors.startDate}</p>
-        )}
-      </div>
+      <DatePicker
+        value={formData.startDate}
+        onChange={handleStartDateChange}
+        placeholder={t("create.form.startDate", "series", {}, "Select start date")}
+        label={t("create.form.startDate", "series")}
+        maxDate={formData.endDate || new Date(2100, 11, 31)}
+      />
+      {errors?.startDate && (
+        <p className="text-sm text-destructive">{errors.startDate}</p>
+      )}
 
       {/* End Date */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">
-          {t("create.form.endDate", "series")}
-        </Label>
-        <Input
-          type="date"
-          value={formatDateForInput(formData.endDate)}
-          onChange={(e) => handleEndDateChange(e.target.value)}
-        />
-      </div>
+      <DatePicker
+        value={formData.endDate}
+        onChange={handleEndDateChange}
+        placeholder={t("create.form.endDate", "series", {}, "Select end date")}
+        label={t("create.form.endDate", "series")}
+        minDate={formData.startDate}
+        maxDate={new Date(2100, 11, 31)}
+      />
 
       {/* Season */}
       <div className="space-y-2">
@@ -154,7 +157,8 @@ export function StepReleaseInfo({
           <SelectContent>
             {Object.entries(SERIES_CONSTANTS.SEASON).map(([key, value]) => (
               <SelectItem key={value} value={value}>
-                {t(`season.${key.toLowerCase()}`, "series") ||
+                {t(`create.season.${key.toLowerCase()}`, "series") ||
+                  t(`seasons.${key.toLowerCase()}`, "series") ||
                   key.charAt(0) + key.slice(1).toLowerCase()}
               </SelectItem>
             ))}
@@ -210,7 +214,8 @@ export function StepReleaseInfo({
           <SelectContent>
             {Object.entries(SERIES_CONSTANTS.SOURCE).map(([key, value]) => (
               <SelectItem key={value} value={value}>
-                {t(`source.${key.toLowerCase()}`, "series") ||
+                {t(`create.source.${snakeToCamel(key)}`, "series") ||
+                  t(`source.${snakeToCamel(key)}`, "series") ||
                   key.replace(/_/g, " ").toLowerCase()}
               </SelectItem>
             ))}

@@ -471,17 +471,17 @@
     "source": {
       "original": "Gốc",
       "manga": "Manga",
-      "lightNovel": "Light Novel",
+      "lightNovel": "Tiểu Thuyết Nhẹ",
       "visualNovel": "Visual Novel",
-      "videoGame": "Video Game",
+      "videoGame": "Trò Chơi Điện Tử",
       "other": "Khác",
       "novel": "Tiểu Thuyết",
       "doujinshi": "Doujinshi",
       "anime": "Anime",
-      "webNovel": "Web Novel",
-      "liveAction": "Live Action",
-      "game": "Game",
-      "comic": "Comic",
+      "webNovel": "Tiểu Thuyết Web",
+      "liveAction": "Hành Động Thật",
+      "game": "Trò Chơi",
+      "comic": "Truyện Tranh",
       "multimediaProject": "Dự Án Đa Phương Tiện",
       "pictureBook": "Sách Tranh"
     },
@@ -762,6 +762,63 @@
         "non_binary": "Không xác định",
         "other": "Khác"
       }
+    }
+  },
+  "contribute": {
+    "title": "Đóng Góp Cập Nhật",
+    "description": "Đề xuất cập nhật cho series này",
+    "updateButton": "Cập Nhật",
+    "tabTitle": "Đóng Góp",
+    "approvedTitle": "Đóng Góp Đã Phê Duyệt",
+    "approvedDescription": "Danh sách các yêu cầu đóng góp đã được phê duyệt cho series này",
+    "by": "Bởi",
+    "approvedAt": "Phê duyệt vào",
+    "noApproved": "Chưa có đóng góp nào được phê duyệt",
+    "noApprovedHint": "Hãy là người đầu tiên đóng góp cho series này!",
+    "fieldsUpdated": "Các Trường Đã Cập Nhật",
+    "fieldsAdded": "Các Trường Đã Thêm",
+    "more": "thêm",
+    "contributorNote": "Ghi Chú Người Đóng Góp",
+    "submittedOn": "Đã gửi vào",
+    "steps": {
+      "selectCategories": "Chọn Danh Mục",
+      "editFields": "Chỉnh Sửa",
+      "reviewSubmit": "Xem Lại & Gửi"
+    },
+    "categories": {
+      "basicInfo": "Thông Tin Cơ Bản",
+      "media": "Media",
+      "content": "Nội Dung",
+      "releaseInfo": "Thông Tin Phát Hành",
+      "advanced": "Nâng Cao"
+    },
+    "selectCategories": {
+      "description": "Chọn các phần bạn muốn cập nhật",
+      "selectAll": "Chọn Tất Cả",
+      "deselectAll": "Bỏ Chọn Tất Cả",
+      "noSelection": "Vui lòng chọn ít nhất một danh mục để cập nhật"
+    },
+    "editFields": {
+      "description": "Chỉnh sửa các trường bạn đã chọn",
+      "noCategories": "Vui lòng quay lại và chọn ít nhất một danh mục"
+    },
+    "review": {
+      "title": "Xem Lại Thay Đổi",
+      "description": "Xem lại các thay đổi trước khi gửi",
+      "summary": "Tóm Tắt",
+      "fieldsChanged": "{{count}} trường sẽ được cập nhật",
+      "changesPreview": "Xem Trước Thay Đổi",
+      "noChanges": "Không phát hiện thay đổi nào. Vui lòng quay lại và thực hiện một số cập nhật.",
+      "contributorNote": "Ghi Chú Người Đóng Góp",
+      "contributorNotePlaceholder": "Giải thích các thay đổi của bạn (tùy chọn)",
+      "noteHint": "Tùy chọn: Giải thích các thay đổi để giúp người xem xét",
+      "submit": "Gửi Đóng Góp",
+      "submitting": "Đang gửi...",
+      "success": "Đóng góp đã được gửi thành công!",
+      "error": "Gửi đóng góp thất bại"
+    },
+    "error": {
+      "loadSeries": "Không thể tải dữ liệu series"
     }
   }
 }

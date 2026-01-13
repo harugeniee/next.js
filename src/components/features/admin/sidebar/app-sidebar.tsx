@@ -8,6 +8,7 @@ import {
   Building2,
   Database,
   FileImage,
+  FileText,
   GalleryVerticalEnd,
   Gauge,
   Key,
@@ -132,6 +133,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           title: t("nav.studios.title", "admin"),
           url: "/admin/studios",
           icon: Building2,
+        },
+        {
+          title: t("nav.contributions.title", "admin"),
+          url: "/admin/contributions",
+          icon: FileText,
         },
       ],
       // projects: [

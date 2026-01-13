@@ -13,6 +13,11 @@ export interface StepAdvancedProps {
   onChange: (data: Partial<CreateSeriesDto>) => void;
   errors?: Record<string, string>;
   className?: string;
+  /**
+   * If true, hides fields that should not be editable in contribution mode
+   * (e.g., notes, meanScore, isLocked, etc.)
+   */
+  isContributionMode?: boolean;
 }
 
 /**
@@ -23,6 +28,7 @@ export function StepAdvanced({
   formData,
   onChange,
   className,
+  isContributionMode = false,
 }: StepAdvancedProps) {
   const { t } = useI18n();
   const [showMetadata, setShowMetadata] = useState(false);
@@ -130,26 +136,28 @@ export function StepAdvanced({
         />
       </div>
 
-      {/* Notes */}
-      <div className="space-y-2">
-        <Label className="text-sm font-medium">
-          {t("create.form.notes", "series")}
-        </Label>
-        <textarea
-          value={formData.notes || ""}
-          onChange={(e) => handleNotesChange(e.target.value)}
-          placeholder={t("create.form.notesPlaceholder", "series")}
-          rows={4}
-          maxLength={1000}
-          className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring transition-shadow resize-none"
-        />
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>
-            {(formData.notes || "").length}/1000{" "}
-            {t("create.form.characters", "series")}
-          </span>
+      {/* Notes - Hidden in contribution mode */}
+      {!isContributionMode && (
+        <div className="space-y-2">
+          <Label className="text-sm font-medium">
+            {t("create.form.notes", "series")}
+          </Label>
+          <textarea
+            value={formData.notes || ""}
+            onChange={(e) => handleNotesChange(e.target.value)}
+            placeholder={t("create.form.notesPlaceholder", "series")}
+            rows={4}
+            maxLength={1000}
+            className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring transition-shadow resize-none"
+          />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>
+              {(formData.notes || "").length}/1000{" "}
+              {t("create.form.characters", "series")}
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Metadata (Advanced) */}
       <div className="space-y-2">

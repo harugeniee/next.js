@@ -95,6 +95,10 @@
     "keyValue": {
       "title": "Kho lưu trữ Key-Value",
       "management": "Quản lý"
+    },
+    "contributions": {
+      "title": "Đóng góp",
+      "management": "Quản lý"
     }
   },
   "projects": {
@@ -1077,6 +1081,84 @@
       "copyId": "Sao chép ID Studio",
       "idCopied": "Đã sao chép ID Studio vào clipboard",
       "idCopyError": "Không thể sao chép ID Studio"
+    }
+  },
+  "contributions": {
+    "title": "Đóng góp",
+    "description": "Quản lý các đóng góp của người dùng cho các thực thể",
+    "pageTitle": "Quản lý Đóng góp",
+    "pageDescription": "Xem xét và quản lý các đóng góp của người dùng",
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "contributions": "Đóng góp"
+    },
+    "list": {
+      "title": "Đóng góp",
+      "description": "Danh sách tất cả các đóng góp",
+      "entityType": "Loại thực thể",
+      "action": "Hành động",
+      "status": "Trạng thái",
+      "contributor": "Người đóng góp",
+      "reviewer": "Người xem xét",
+      "createdAt": "Ngày tạo",
+      "reviewedAt": "Ngày xem xét",
+      "actions": "Hành động"
+    },
+    "filters": {
+      "entityType": "Loại thực thể",
+      "action": "Hành động",
+      "status": "Trạng thái",
+      "all": "Tất cả",
+      "searchPlaceholder": "Tìm kiếm đóng góp..."
+    },
+    "status": {
+      "pending": "Đang chờ",
+      "approved": "Đã phê duyệt",
+      "rejected": "Đã từ chối"
+    },
+    "entityType": {
+      "series": "Series",
+      "segment": "Segment",
+      "character": "Nhân vật",
+      "staff": "Nhân viên"
+    },
+    "action": {
+      "create": "Tạo mới",
+      "update": "Cập nhật"
+    },
+    "review": {
+      "approve": "Phê duyệt",
+      "reject": "Từ chối",
+      "adminNotes": "Ghi chú quản trị",
+      "rejectionReason": "Lý do từ chối",
+      "rejectionReasonRequired": "Lý do từ chối là bắt buộc",
+      "rejectionReasonPlaceholder": "Nhập lý do từ chối",
+      "adminNotesPlaceholder": "Ghi chú nội bộ tùy chọn",
+      "approveConfirm": "Bạn có chắc chắn muốn phê duyệt đóng góp này?",
+      "rejectConfirm": "Bạn có chắc chắn muốn từ chối đóng góp này?",
+      "approveDescription": "Phê duyệt đóng góp này và áp dụng các thay đổi",
+      "rejectDescription": "Từ chối đóng góp này. Lý do là bắt buộc."
+    },
+    "detail": {
+      "title": "Chi tiết Đóng góp",
+      "description": "Xem và xem xét chi tiết đóng góp",
+      "error": "Lỗi khi tải đóng góp",
+      "id": "ID Đóng góp",
+      "entityId": "ID Thực thể",
+      "contributorNote": "Ghi chú người đóng góp",
+      "adminNotes": "Ghi chú quản trị",
+      "rejectionReason": "Lý do từ chối",
+      "proposedData": "Dữ liệu đề xuất",
+      "proposedDataDesc": "Dữ liệu sẽ được áp dụng nếu được phê duyệt",
+      "originalData": "Dữ liệu gốc",
+      "originalDataDesc": "Dữ liệu gốc trước khi thay đổi",
+      "dataComparison": "So sánh Dữ liệu",
+      "dataComparisonDesc": "So sánh dữ liệu gốc và đề xuất",
+      "notFound": "Không tìm thấy đóng góp",
+      "tabs": {
+        "detail": "Chi tiết",
+        "data": "Dữ liệu"
+      }
     }
   },
   "keyValue": {

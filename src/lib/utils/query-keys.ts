@@ -6,6 +6,7 @@
  */
 
 import type { GetBadgeAssignmentDto, GetBadgeDto } from "../types/badges";
+import type { QueryContributionDto } from "../types/contributions";
 import { AdvancedQueryParams } from "../types";
 
 export const queryKeys = {
@@ -305,6 +306,19 @@ export const queryKeys = {
     statistics: () => ["badges", "statistics"] as const,
     assignments: (filters?: GetBadgeAssignmentDto) =>
       ["badges", "assignments", filters] as const,
+  },
+
+  // Contributions related queries
+  contributions: {
+    all: () => ["contributions"] as const,
+    lists: () => ["contributions", "list"] as const,
+    list: (params?: QueryContributionDto) =>
+      ["contributions", "list", params] as const,
+    detail: (id: string) => ["contributions", "detail", id] as const,
+    pending: (params?: QueryContributionDto) =>
+      ["contributions", "pending", params] as const,
+    my: (params?: QueryContributionDto) =>
+      ["contributions", "my", params] as const,
   },
 
   // Organizations related queries
