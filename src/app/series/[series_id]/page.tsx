@@ -6,10 +6,11 @@ import {
   Edit,
   ExternalLink,
   FileText,
+  GitMerge,
   Heart,
   Share2,
   Star,
-  User,
+  User
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -791,7 +792,7 @@ export default function SeriesDetailPage() {
                               </span>
                             </TabsTrigger>
                             <TabsTrigger value="contribute">
-                              <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                              <GitMerge className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                               <span>
                                 {t("contribute.tabTitle", "series", {}, "Contributions")}
                               </span>
