@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -17,7 +17,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/navigation/breadcrumb";
-import { useBreadcrumb } from "@/hooks/ui/useBreadcrumb";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import { useSeriesFull } from "@/hooks/series";
 import { useContributionFormState } from "@/hooks/series/useContributionFormState";
@@ -27,7 +26,6 @@ import { ContributionStepper } from "@/components/features/series/contribute/con
 import { StepSelectCategories } from "@/components/features/series/contribute/step-select-categories";
 import { StepEditFields } from "@/components/features/series/contribute/step-edit-fields";
 import { StepReviewSubmit } from "@/components/features/series/contribute/step-review-submit";
-import { ContributionCategory } from "@/lib/validators/contribution-series";
 import type { CreateSeriesDto } from "@/lib/api/series";
 
 const TOTAL_STEPS = 3; // Step 0: Select Categories, Step 1: Edit Fields, Step 2: Review & Submit
@@ -39,7 +37,6 @@ const TOTAL_STEPS = 3; // Step 0: Select Categories, Step 1: Edit Fields, Step 2
  */
 export default function ContributePage() {
   const params = useParams();
-  const router = useRouter();
   const { t } = useI18n();
   const seriesId = params.series_id as string;
 
@@ -82,12 +79,6 @@ export default function ContributePage() {
 
   // Submit contribution hook
   const { submitContribution, isSubmitting } = useSubmitContribution();
-
-  // Breadcrumb
-  const breadcrumbItems = useBreadcrumb(undefined, {
-    series_id: seriesId,
-    series_title: seriesDisplay?.title,
-  });
 
   // Page metadata
   usePageMetadata({

@@ -37,10 +37,7 @@ import type {
   Contribution,
   ReviewContributionDto,
 } from "@/lib/types/contributions";
-import {
-  ContributionAction,
-  ContributionStatus,
-} from "@/lib/types/contributions";
+import { ContributionStatus } from "@/lib/types/contributions";
 import { ContributionReviewDialog } from "./contribution-review-dialog";
 import { JsonDiffViewer } from "@/components/shared/json-diff-viewer";
 

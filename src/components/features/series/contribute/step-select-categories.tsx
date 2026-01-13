@@ -10,10 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/core/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/core/label";
 import { ContributionCategory } from "@/lib/validators/contribution-series";
 import { cn } from "@/lib/utils";
-import { FileImage, Info, Link2, Calendar, Settings } from "lucide-react";
+import { FileImage, Info, Calendar, Settings } from "lucide-react";
 
 export interface StepSelectCategoriesProps {
   selectedCategories: ContributionCategory[];

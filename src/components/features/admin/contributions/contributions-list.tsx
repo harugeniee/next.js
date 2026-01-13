@@ -24,11 +24,7 @@ import {
 } from "@/components/ui/core/table";
 import { Pagination } from "@/components/ui/pagination";
 import type { Contribution } from "@/lib/types/contributions";
-import {
-  ContributionAction,
-  ContributionEntityType,
-  ContributionStatus,
-} from "@/lib/types/contributions";
+import { ContributionStatus } from "@/lib/types/contributions";
 
 interface ContributionsListProps {
   data?: {

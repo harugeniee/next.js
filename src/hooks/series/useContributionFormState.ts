@@ -64,6 +64,35 @@ function transformSeriesToDto(series: BackendSeries): Partial<CreateSeriesDto> {
 }
 
 /**
+ * Helper function to normalize values for comparison
+ * This is a pure function that recursively normalizes values for consistent comparison
+ */
+function normalizeValue(value: unknown): unknown {
+  if (value === null || value === undefined) return null;
+  if (value instanceof Date) {
+    // Normalize dates to ISO string for comparison
+    return value.toISOString().split("T")[0]; // YYYY-MM-DD format
+  }
+  if (Array.isArray(value)) {
+    // Sort arrays for consistent comparison
+    return [...value].sort();
+  }
+  if (typeof value === "object") {
+    // Sort object keys for consistent comparison
+    return Object.keys(value)
+      .sort()
+      .reduce(
+        (acc, k) => {
+          acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
+          return acc;
+        },
+        {} as Record<string, unknown>,
+      );
+  }
+  return value;
+}
+
+/**
  * Hook for managing contribution form state
  */
 export function useContributionFormState(originalSeries?: BackendSeries) {
@@ -117,32 +146,6 @@ export function useContributionFormState(originalSeries?: BackendSeries) {
   const deselectAllCategories = useCallback(() => {
     setSelectedCategories([]);
   }, []);
-
-  // Helper function to normalize values for comparison
-  const normalizeValue = (value: unknown): unknown => {
-    if (value === null || value === undefined) return null;
-    if (value instanceof Date) {
-      // Normalize dates to ISO string for comparison
-      return value.toISOString().split("T")[0]; // YYYY-MM-DD format
-    }
-    if (Array.isArray(value)) {
-      // Sort arrays for consistent comparison
-      return [...value].sort();
-    }
-    if (typeof value === "object") {
-      // Sort object keys for consistent comparison
-      return Object.keys(value)
-        .sort()
-        .reduce(
-          (acc, k) => {
-            acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
-            return acc;
-          },
-          {} as Record<string, unknown>,
-        );
-    }
-    return value;
-  };
 
   // Calculate diff between original and proposed data (excludes restricted fields)
   const getChanges = useMemo(() => {

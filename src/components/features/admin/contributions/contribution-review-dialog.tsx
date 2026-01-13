@@ -43,7 +43,6 @@ export function ContributionReviewDialog({
   open,
   onOpenChange,
   mode,
-  contributionId,
   onSubmit,
   isLoading = false,
 }: ContributionReviewDialogProps) {

@@ -6,7 +6,6 @@ import {
   ContributionEntityType,
   ContributionAction,
 } from "@/lib/types/contributions";
-import { useI18n } from "@/components/providers/i18n-provider";
 
 /**
  * Fields that should NOT be included in contribution submissions
@@ -41,7 +40,6 @@ function filterExcludedFields(
  */
 export function useSubmitContribution() {
   const router = useRouter();
-  const { t } = useI18n();
   const createContribution = useCreateContribution();
 
   const submitContribution = async (
