@@ -47,4 +47,6 @@ export const contributionFormSchema = z.object({
 });
 
 export type ContributionFormData = z.infer<typeof contributionFormSchema>;
-export type ContributionSeriesFormData = z.infer<typeof contributionSeriesSchema>;
+export type ContributionSeriesFormData = z.infer<
+  typeof contributionSeriesSchema
+>;

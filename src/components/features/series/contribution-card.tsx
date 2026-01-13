@@ -5,12 +5,13 @@ import { CheckCircle2, Edit, Plus, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 
 import { useI18n } from "@/components/providers/i18n-provider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/core/avatar";
-import { Badge } from "@/components/ui/core/badge";
 import {
-  Card,
-  CardContent
-} from "@/components/ui/core/card";
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/core/avatar";
+import { Badge } from "@/components/ui/core/badge";
+import { Card, CardContent } from "@/components/ui/core/card";
 import { Separator } from "@/components/ui/layout/separator";
 import type { Contribution } from "@/lib/types/contributions";
 import { ContributionAction } from "@/lib/types/contributions";
@@ -123,8 +124,18 @@ export function ContributionCard({
                   <UserIcon className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm font-medium text-muted-foreground">
                     {isCreateAction
-                      ? t("contribute.fieldsAdded", "series", {}, "Fields Added")
-                      : t("contribute.fieldsUpdated", "series", {}, "Fields Updated")}
+                      ? t(
+                          "contribute.fieldsAdded",
+                          "series",
+                          {},
+                          "Fields Added",
+                        )
+                      : t(
+                          "contribute.fieldsUpdated",
+                          "series",
+                          {},
+                          "Fields Updated",
+                        )}
                     :
                   </span>
                 </div>
@@ -140,7 +151,8 @@ export function ContributionCard({
                   ))}
                   {changedFields.length > 10 && (
                     <Badge variant="outline" className="text-xs">
-                      +{changedFields.length - 10} {t("contribute.more", "series", {}, "more")}
+                      +{changedFields.length - 10}{" "}
+                      {t("contribute.more", "series", {}, "more")}
                     </Badge>
                   )}
                 </div>
@@ -192,7 +204,12 @@ export function ContributionCard({
                   <Edit className="h-3 w-3" />
                 )}
                 <span>
-                  {t(`contributions.action.${contribution.action}`, "admin", {}, contribution.action)}
+                  {t(
+                    `contributions.action.${contribution.action}`,
+                    "admin",
+                    {},
+                    contribution.action,
+                  )}
                 </span>
                 {contribution.reviewedAt && (
                   <>
@@ -211,7 +228,13 @@ export function ContributionCard({
             <Separator className="my-4" />
             <div className="space-y-1">
               <p className="text-xs font-medium text-muted-foreground">
-                {t("contribute.contributorNote", "series", {}, "Contributor Note")}:
+                {t(
+                  "contribute.contributorNote",
+                  "series",
+                  {},
+                  "Contributor Note",
+                )}
+                :
               </p>
               <p className="text-sm text-foreground leading-relaxed">
                 {contribution.contributorNote}
@@ -225,14 +248,18 @@ export function ContributionCard({
           <div className="flex items-center gap-4 flex-wrap text-xs text-muted-foreground">
             <div>
               {t("contribute.submittedOn", "series", {}, "Submitted on")}{" "}
-              <span className="font-medium">{formatDate(contribution.createdAt)}</span>
+              <span className="font-medium">
+                {formatDate(contribution.createdAt)}
+              </span>
             </div>
             {contribution.reviewedAt && (
               <>
                 <span className="text-muted-foreground/50">•</span>
                 <div>
                   {t("contribute.approvedAt", "series", {}, "Approved on")}{" "}
-                  <span className="font-medium">{formatDate(contribution.reviewedAt)}</span>
+                  <span className="font-medium">
+                    {formatDate(contribution.reviewedAt)}
+                  </span>
                 </div>
               </>
             )}

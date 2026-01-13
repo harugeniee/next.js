@@ -70,41 +70,41 @@ export function ContributionsList({
     switch (status) {
       case ContributionStatus.PENDING:
         return (
-          <BadgeUI variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950 dark:text-yellow-300 dark:border-yellow-800">
+          <BadgeUI
+            variant="outline"
+            className="bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-950 dark:text-yellow-300 dark:border-yellow-800"
+          >
             <Clock className="mr-1 h-3 w-3" />
             {t("contributions.status.pending", "admin")}
           </BadgeUI>
         );
       case ContributionStatus.APPROVED:
         return (
-          <BadgeUI variant="outline" className="bg-green-50 text-green-700 border-green-200 dark:bg-green-950 dark:text-green-300 dark:border-green-800">
+          <BadgeUI
+            variant="outline"
+            className="bg-green-50 text-green-700 border-green-200 dark:bg-green-950 dark:text-green-300 dark:border-green-800"
+          >
             <CheckCircle2 className="mr-1 h-3 w-3" />
             {t("contributions.status.approved", "admin")}
           </BadgeUI>
         );
       case ContributionStatus.REJECTED:
         return (
-          <BadgeUI variant="outline" className="bg-red-50 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800">
+          <BadgeUI
+            variant="outline"
+            className="bg-red-50 text-red-700 border-red-200 dark:bg-red-950 dark:text-red-300 dark:border-red-800"
+          >
             <XCircle className="mr-1 h-3 w-3" />
             {t("contributions.status.rejected", "admin")}
           </BadgeUI>
         );
       default:
-        return (
-          <BadgeUI variant="outline">
-            {status}
-          </BadgeUI>
-        );
+        return <BadgeUI variant="outline">{status}</BadgeUI>;
     }
   };
 
   const getEntityTypeLabel = (entityType: string) => {
-    return t(
-      `contributions.entityType.${entityType}`,
-      "admin",
-      {},
-      entityType,
-    );
+    return t(`contributions.entityType.${entityType}`, "admin", {}, entityType);
   };
 
   const getActionLabel = (action: string) => {
@@ -112,7 +112,11 @@ export function ContributionsList({
   };
 
   return (
-    <AnimatedSection loading={isLoading} data={contributions} className="w-full">
+    <AnimatedSection
+      loading={isLoading}
+      data={contributions}
+      className="w-full"
+    >
       <Card>
         <CardHeader>
           <div>
@@ -181,7 +185,9 @@ export function ContributionsList({
                             {getActionLabel(contribution.action)}
                           </BadgeUI>
                         </TableCell>
-                        <TableCell>{getStatusBadge(contribution.status)}</TableCell>
+                        <TableCell>
+                          {getStatusBadge(contribution.status)}
+                        </TableCell>
                         <TableCell>
                           <div className="flex flex-col">
                             <span className="text-sm font-medium">
@@ -198,7 +204,9 @@ export function ContributionsList({
                         </TableCell>
                         <TableCell>
                           <span className="text-sm text-muted-foreground">
-                            {new Date(contribution.createdAt).toLocaleDateString()}
+                            {new Date(
+                              contribution.createdAt,
+                            ).toLocaleDateString()}
                           </span>
                         </TableCell>
                         <TableCell
@@ -218,13 +226,17 @@ export function ContributionsList({
                                 <Eye className="h-4 w-4" />
                               </button>
                             )}
-                            {contribution.status === ContributionStatus.PENDING && (
+                            {contribution.status ===
+                              ContributionStatus.PENDING && (
                               <>
                                 {onApprove && (
                                   <button
                                     onClick={() => onApprove(contribution)}
                                     className="p-1 hover:bg-green-50 dark:hover:bg-green-950 rounded text-green-600 dark:text-green-400"
-                                    title={t("contributions.review.approve", "admin")}
+                                    title={t(
+                                      "contributions.review.approve",
+                                      "admin",
+                                    )}
                                   >
                                     <CheckCircle2 className="h-4 w-4" />
                                   </button>
@@ -233,7 +245,10 @@ export function ContributionsList({
                                   <button
                                     onClick={() => onReject(contribution)}
                                     className="p-1 hover:bg-red-50 dark:hover:bg-red-950 rounded text-red-600 dark:text-red-400"
-                                    title={t("contributions.review.reject", "admin")}
+                                    title={t(
+                                      "contributions.review.reject",
+                                      "admin",
+                                    )}
                                   >
                                     <XCircle className="h-4 w-4" />
                                   </button>

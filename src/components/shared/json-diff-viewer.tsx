@@ -1,6 +1,11 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { cn } from "@/lib/utils";
 
 interface JsonDiffViewerProps {
@@ -26,10 +31,13 @@ function normalizeValue(value: unknown): unknown {
     // Sort object keys for consistent comparison
     return Object.keys(value)
       .sort()
-      .reduce((acc, k) => {
-        acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
-        return acc;
-      }, {} as Record<string, unknown>);
+      .reduce(
+        (acc, k) => {
+          acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
+          return acc;
+        },
+        {} as Record<string, unknown>,
+      );
   }
   return value;
 }
@@ -54,7 +62,7 @@ export function JsonDiffViewer({
 
   // Only get keys from newJson (proposedData) - these are the fields being changed
   const proposedKeys = Object.keys(newJson);
-  
+
   // Find which fields have actually changed
   // A field is considered changed if:
   // 1. It exists in newJson but not in oldJson (new field)
@@ -62,16 +70,16 @@ export function JsonDiffViewer({
   const changedKeys = proposedKeys.filter((key) => {
     const oldValue = oldJson[key];
     const newValue = newJson[key];
-    
+
     // If field doesn't exist in oldJson, it's a new field
     if (!(key in oldJson)) {
       return true;
     }
-    
+
     // Normalize values for comparison
     const normalizedOld = normalizeValue(oldValue);
     const normalizedNew = normalizeValue(newValue);
-    
+
     // Compare normalized values
     return JSON.stringify(normalizedOld) !== JSON.stringify(normalizedNew);
   });
@@ -99,10 +107,7 @@ export function JsonDiffViewer({
                 const oldValue = oldJson[key];
 
                 return (
-                  <div
-                    key={key}
-                    className="p-2 rounded border bg-muted/50"
-                  >
+                  <div key={key} className="p-2 rounded border bg-muted/50">
                     <div className="text-xs font-semibold text-muted-foreground mb-1">
                       {key}
                     </div>

@@ -117,7 +117,12 @@ export default function ContributionsPage() {
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
               <BreadcrumbPage>
-                {t("contributions.breadcrumb.contributions", "admin", {}, "Contributions")}
+                {t(
+                  "contributions.breadcrumb.contributions",
+                  "admin",
+                  {},
+                  "Contributions",
+                )}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>

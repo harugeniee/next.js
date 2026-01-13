@@ -107,7 +107,8 @@ export function useApproveContribution() {
     Error,
     { id: string; data?: ReviewContributionDto }
   >({
-    mutationFn: ({ id, data }) => ContributionsAPI.approveContribution(id, data),
+    mutationFn: ({ id, data }) =>
+      ContributionsAPI.approveContribution(id, data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.contributions.all(),

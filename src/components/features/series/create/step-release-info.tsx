@@ -122,7 +122,12 @@ export function StepReleaseInfo({
       <DatePicker
         value={formData.startDate}
         onChange={handleStartDateChange}
-        placeholder={t("create.form.startDate", "series", {}, "Select start date")}
+        placeholder={t(
+          "create.form.startDate",
+          "series",
+          {},
+          "Select start date",
+        )}
         label={t("create.form.startDate", "series")}
         maxDate={formData.endDate || new Date(2100, 11, 31)}
       />

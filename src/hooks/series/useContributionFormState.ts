@@ -49,7 +49,9 @@ function transformSeriesToDto(series: BackendSeries): Partial<CreateSeriesDto> {
     source: series.source as CreateSeriesDto["source"],
     coverImageId: series.coverImage?.id,
     bannerImageId: series.bannerImage?.id,
-    genreIds: series.genres?.map((g) => g.genre?.id).filter(Boolean) as string[],
+    genreIds: series.genres
+      ?.map((g) => g.genre?.id)
+      .filter(Boolean) as string[],
     tagIds: series.tags?.map((t) => t.tag?.id).filter(Boolean) as string[],
     synonyms: series.synonyms,
     averageScore: series.averageScore,
@@ -85,18 +87,16 @@ export function useContributionFormState(originalSeries?: BackendSeries) {
   }, [originalSeries]);
 
   // Update form data (excludes restricted fields)
-  const updateFormData = useCallback(
-    (updates: Partial<CreateSeriesDto>) => {
-      // Filter out excluded fields
-      const filteredUpdates = Object.fromEntries(
-        Object.entries(updates).filter(
-          ([key]) => !EXCLUDED_FIELDS.includes(key as typeof EXCLUDED_FIELDS[number]),
-        ),
-      );
-      setFormData((prev) => ({ ...prev, ...filteredUpdates }));
-    },
-    [],
-  );
+  const updateFormData = useCallback((updates: Partial<CreateSeriesDto>) => {
+    // Filter out excluded fields
+    const filteredUpdates = Object.fromEntries(
+      Object.entries(updates).filter(
+        ([key]) =>
+          !EXCLUDED_FIELDS.includes(key as (typeof EXCLUDED_FIELDS)[number]),
+      ),
+    );
+    setFormData((prev) => ({ ...prev, ...filteredUpdates }));
+  }, []);
 
   // Toggle category selection
   const toggleCategory = useCallback((category: ContributionCategory) => {
@@ -133,10 +133,13 @@ export function useContributionFormState(originalSeries?: BackendSeries) {
       // Sort object keys for consistent comparison
       return Object.keys(value)
         .sort()
-        .reduce((acc, k) => {
-          acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
-          return acc;
-        }, {} as Record<string, unknown>);
+        .reduce(
+          (acc, k) => {
+            acc[k] = normalizeValue((value as Record<string, unknown>)[k]);
+            return acc;
+          },
+          {} as Record<string, unknown>,
+        );
     }
     return value;
   };
@@ -159,7 +162,7 @@ export function useContributionFormState(originalSeries?: BackendSeries) {
     // Compare each field (excluding restricted fields)
     allKeys.forEach((key) => {
       // Skip excluded fields
-      if (EXCLUDED_FIELDS.includes(key as typeof EXCLUDED_FIELDS[number])) {
+      if (EXCLUDED_FIELDS.includes(key as (typeof EXCLUDED_FIELDS)[number])) {
         return;
       }
 
@@ -172,7 +175,8 @@ export function useContributionFormState(originalSeries?: BackendSeries) {
 
       // Compare normalized values
       if (
-        JSON.stringify(normalizedOriginal) !== JSON.stringify(normalizedProposed)
+        JSON.stringify(normalizedOriginal) !==
+        JSON.stringify(normalizedProposed)
       ) {
         changes[key] = {
           old: originalValue,

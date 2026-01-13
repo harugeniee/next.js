@@ -31,7 +31,8 @@ export class ContributionsAPI {
       if (params?.query) queryParams.query = params.query;
       if (params?.entityType) queryParams.entityType = params.entityType;
       if (params?.action) queryParams.action = params.action;
-      if (params?.contributorId) queryParams.contributorId = params.contributorId;
+      if (params?.contributorId)
+        queryParams.contributorId = params.contributorId;
       if (params?.entityId) queryParams.entityId = params.entityId;
       if (params?.status) queryParams.status = params.status;
 
@@ -75,7 +76,8 @@ export class ContributionsAPI {
       if (params?.query) queryParams.query = params.query;
       if (params?.entityType) queryParams.entityType = params.entityType;
       if (params?.action) queryParams.action = params.action;
-      if (params?.contributorId) queryParams.contributorId = params.contributorId;
+      if (params?.contributorId)
+        queryParams.contributorId = params.contributorId;
       if (params?.entityId) queryParams.entityId = params.entityId;
 
       const response = await http.get<ApiResponseOffset<Contribution>>(

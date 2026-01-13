@@ -140,7 +140,7 @@ export default function ContributePage() {
   const handleSubmit = async () => {
     const changes = getChanges;
     const changedFieldsCount = Object.keys(changes).length;
-    
+
     console.log("Submit attempt:", {
       hasChanges,
       changedFieldsCount,
@@ -160,10 +160,11 @@ export default function ContributePage() {
     try {
       // Only submit the changed fields, not all formData
       const changedData: Partial<CreateSeriesDto> = {};
-      
+
       // Extract only the new values from changes
       Object.keys(changes).forEach((key) => {
-        changedData[key as keyof CreateSeriesDto] = changes[key].new as CreateSeriesDto[keyof CreateSeriesDto];
+        changedData[key as keyof CreateSeriesDto] = changes[key]
+          .new as CreateSeriesDto[keyof CreateSeriesDto];
       });
 
       console.log("Submitting contribution with data:", changedData);
@@ -191,48 +192,62 @@ export default function ContributePage() {
         return (
           <StepEditFields
             selectedCategories={selectedCategories}
-            formData={formData as Partial<CreateSeriesDto> & {
-              coverImageFile?: File | null;
-              bannerImageFile?: File | null;
-            }}
+            formData={
+              formData as Partial<CreateSeriesDto> & {
+                coverImageFile?: File | null;
+                bannerImageFile?: File | null;
+              }
+            }
             onChange={updateFormData}
           />
         );
       case 2:
         return (
           <StepReviewSubmit
-            originalData={backendSeries ? (() => {
-              // Transform backend series to DTO format for comparison
-              const original: Partial<CreateSeriesDto> = {
-                myAnimeListId: backendSeries.myAnimeListId,
-                aniListId: backendSeries.aniListId,
-                title: backendSeries.title,
-                type: backendSeries.type as CreateSeriesDto["type"],
-                format: backendSeries.format as CreateSeriesDto["format"],
-                status: backendSeries.status as CreateSeriesDto["status"],
-                description: backendSeries.description,
-                startDate: backendSeries.startDate ? new Date(backendSeries.startDate) : undefined,
-                endDate: backendSeries.endDate ? new Date(backendSeries.endDate) : undefined,
-                season: backendSeries.season as CreateSeriesDto["season"],
-                seasonYear: backendSeries.seasonYear,
-                episodes: backendSeries.episodes,
-                chapters: backendSeries.chapters,
-                volumes: backendSeries.volumes,
-                countryOfOrigin: backendSeries.countryOfOrigin,
-                isLicensed: backendSeries.isLicensed,
-                source: backendSeries.source as CreateSeriesDto["source"],
-                coverImageId: backendSeries.coverImage?.id,
-                bannerImageId: backendSeries.bannerImage?.id,
-                genreIds: backendSeries.genres?.map((g) => g.genre?.id).filter(Boolean) as string[],
-                tagIds: backendSeries.tags?.map((t) => t.tag?.id).filter(Boolean) as string[],
-                synonyms: backendSeries.synonyms,
-                averageScore: backendSeries.averageScore,
-                popularity: backendSeries.popularity,
-                isNsfw: backendSeries.isNsfw,
-                externalLinks: backendSeries.externalLinks,
-              };
-              return original;
-            })() : {}}
+            originalData={
+              backendSeries
+                ? (() => {
+                    // Transform backend series to DTO format for comparison
+                    const original: Partial<CreateSeriesDto> = {
+                      myAnimeListId: backendSeries.myAnimeListId,
+                      aniListId: backendSeries.aniListId,
+                      title: backendSeries.title,
+                      type: backendSeries.type as CreateSeriesDto["type"],
+                      format: backendSeries.format as CreateSeriesDto["format"],
+                      status: backendSeries.status as CreateSeriesDto["status"],
+                      description: backendSeries.description,
+                      startDate: backendSeries.startDate
+                        ? new Date(backendSeries.startDate)
+                        : undefined,
+                      endDate: backendSeries.endDate
+                        ? new Date(backendSeries.endDate)
+                        : undefined,
+                      season: backendSeries.season as CreateSeriesDto["season"],
+                      seasonYear: backendSeries.seasonYear,
+                      episodes: backendSeries.episodes,
+                      chapters: backendSeries.chapters,
+                      volumes: backendSeries.volumes,
+                      countryOfOrigin: backendSeries.countryOfOrigin,
+                      isLicensed: backendSeries.isLicensed,
+                      source: backendSeries.source as CreateSeriesDto["source"],
+                      coverImageId: backendSeries.coverImage?.id,
+                      bannerImageId: backendSeries.bannerImage?.id,
+                      genreIds: backendSeries.genres
+                        ?.map((g) => g.genre?.id)
+                        .filter(Boolean) as string[],
+                      tagIds: backendSeries.tags
+                        ?.map((t) => t.tag?.id)
+                        .filter(Boolean) as string[],
+                      synonyms: backendSeries.synonyms,
+                      averageScore: backendSeries.averageScore,
+                      popularity: backendSeries.popularity,
+                      isNsfw: backendSeries.isNsfw,
+                      externalLinks: backendSeries.externalLinks,
+                    };
+                    return original;
+                  })()
+                : {}
+            }
             proposedData={formData}
             changedFields={Object.keys(getChanges)}
             contributorNote={contributorNote}
@@ -307,7 +322,12 @@ export default function ContributePage() {
               {seriesError && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/5 p-4">
                   <p className="text-sm text-destructive">
-                    {t("contribute.error.loadSeries", "series", {}, "Failed to load series data")}
+                    {t(
+                      "contribute.error.loadSeries",
+                      "series",
+                      {},
+                      "Failed to load series data",
+                    )}
                   </p>
                 </div>
               )}
@@ -322,11 +342,7 @@ export default function ContributePage() {
               )}
 
               {/* Step Content */}
-              {!seriesError && (
-                <div className="mt-8">
-                  {renderStep()}
-                </div>
-              )}
+              {!seriesError && <div className="mt-8">{renderStep()}</div>}
 
               {/* Navigation Buttons */}
               {!seriesError && (

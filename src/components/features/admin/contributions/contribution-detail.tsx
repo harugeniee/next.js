@@ -33,7 +33,10 @@ import {
   CardTitle,
 } from "@/components/ui/core/card";
 import { Separator } from "@/components/ui/layout/separator";
-import type { Contribution, ReviewContributionDto } from "@/lib/types/contributions";
+import type {
+  Contribution,
+  ReviewContributionDto,
+} from "@/lib/types/contributions";
 import {
   ContributionAction,
   ContributionStatus,
@@ -189,7 +192,11 @@ export function ContributionDetail({
                           `contributions.entityType.${contribution.entityType}`,
                           "admin",
                         )}{" "}
-                        - {t(`contributions.action.${contribution.action}`, "admin")}
+                        -{" "}
+                        {t(
+                          `contributions.action.${contribution.action}`,
+                          "admin",
+                        )}
                       </CardTitle>
                       <CardDescription className="mt-2">
                         {getStatusBadge(contribution.status)}
@@ -207,7 +214,12 @@ export function ContributionDetail({
                             <FileText className="h-4 w-4 text-muted-foreground" />
                             <div className="flex-1">
                               <div className="text-sm text-muted-foreground">
-                                {t("contributions.detail.id", "admin", {}, "Contribution ID")}
+                                {t(
+                                  "contributions.detail.id",
+                                  "admin",
+                                  {},
+                                  "Contribution ID",
+                                )}
                               </div>
                               <div className="flex items-center gap-2 mt-1">
                                 <code className="font-mono text-xs break-all">
@@ -250,14 +262,22 @@ export function ContributionDetail({
                             </label>
                             <div className="mt-1">
                               <BadgeUI variant="secondary">
-                                {t(`contributions.action.${contribution.action}`, "admin")}
+                                {t(
+                                  `contributions.action.${contribution.action}`,
+                                  "admin",
+                                )}
                               </BadgeUI>
                             </div>
                           </div>
                           {contribution.entityId && (
                             <div>
                               <label className="text-sm font-medium text-muted-foreground">
-                                {t("contributions.detail.entityId", "admin", {}, "Entity ID")}
+                                {t(
+                                  "contributions.detail.entityId",
+                                  "admin",
+                                  {},
+                                  "Entity ID",
+                                )}
                               </label>
                               <div className="mt-1 flex items-center gap-2">
                                 <code className="font-mono text-sm flex-1">
@@ -281,7 +301,9 @@ export function ContributionDetail({
                             <label className="text-sm font-medium text-muted-foreground">
                               {t("contributions.list.status", "admin")}
                             </label>
-                            <div className="mt-1">{getStatusBadge(contribution.status)}</div>
+                            <div className="mt-1">
+                              {getStatusBadge(contribution.status)}
+                            </div>
                           </div>
                         </div>
 
@@ -333,7 +355,12 @@ export function ContributionDetail({
                             <Separator />
                             <div>
                               <label className="text-sm font-medium text-muted-foreground mb-2">
-                                {t("contributions.detail.contributorNote", "admin", {}, "Contributor Note")}
+                                {t(
+                                  "contributions.detail.contributorNote",
+                                  "admin",
+                                  {},
+                                  "Contributor Note",
+                                )}
                               </label>
                               <div className="mt-1 p-3 bg-muted rounded-md text-sm">
                                 {contribution.contributorNote}
@@ -347,7 +374,12 @@ export function ContributionDetail({
                             <Separator />
                             <div>
                               <label className="text-sm font-medium text-muted-foreground mb-2">
-                                {t("contributions.detail.adminNotes", "admin", {}, "Admin Notes")}
+                                {t(
+                                  "contributions.detail.adminNotes",
+                                  "admin",
+                                  {},
+                                  "Admin Notes",
+                                )}
                               </label>
                               <div className="mt-1 p-3 bg-muted rounded-md text-sm">
                                 {contribution.adminNotes}
@@ -361,7 +393,12 @@ export function ContributionDetail({
                             <Separator />
                             <div>
                               <label className="text-sm font-medium text-muted-foreground mb-2">
-                                {t("contributions.detail.rejectionReason", "admin", {}, "Rejection Reason")}
+                                {t(
+                                  "contributions.detail.rejectionReason",
+                                  "admin",
+                                  {},
+                                  "Rejection Reason",
+                                )}
                               </label>
                               <div className="mt-1 p-3 bg-red-50 dark:bg-red-950 rounded-md text-sm">
                                 {contribution.rejectionReason}
@@ -416,7 +453,12 @@ export function ContributionDetail({
                   <Card>
                     <CardHeader>
                       <CardTitle>
-                        {t("contributions.detail.dataComparison", "admin", {}, "Data Comparison")}
+                        {t(
+                          "contributions.detail.dataComparison",
+                          "admin",
+                          {},
+                          "Data Comparison",
+                        )}
                       </CardTitle>
                       <CardDescription>
                         {t(
@@ -429,8 +471,12 @@ export function ContributionDetail({
                     </CardHeader>
                     <CardContent>
                       <JsonDiffViewer
-                        oldJson={contribution.originalData as Record<string, unknown>}
-                        newJson={contribution.proposedData as Record<string, unknown>}
+                        oldJson={
+                          contribution.originalData as Record<string, unknown>
+                        }
+                        newJson={
+                          contribution.proposedData as Record<string, unknown>
+                        }
                       />
                     </CardContent>
                   </Card>
@@ -440,7 +486,12 @@ export function ContributionDetail({
                     <Card>
                       <CardHeader>
                         <CardTitle>
-                          {t("contributions.detail.proposedData", "admin", {}, "Proposed Data")}
+                          {t(
+                            "contributions.detail.proposedData",
+                            "admin",
+                            {},
+                            "Proposed Data",
+                          )}
                         </CardTitle>
                         <CardDescription>
                           {t(
@@ -467,7 +518,12 @@ export function ContributionDetail({
         <Card>
           <CardContent className="py-12">
             <div className="text-center text-muted-foreground">
-              {t("contributions.detail.notFound", "admin", {}, "Contribution not found")}
+              {t(
+                "contributions.detail.notFound",
+                "admin",
+                {},
+                "Contribution not found",
+              )}
             </div>
           </CardContent>
         </Card>

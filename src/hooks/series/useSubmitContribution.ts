@@ -2,7 +2,10 @@ import { useRouter } from "next/navigation";
 import { useCreateContribution } from "@/hooks/admin/useContributions";
 import type { CreateContributionDto } from "@/lib/types/contributions";
 import type { CreateSeriesDto } from "@/lib/api/series";
-import { ContributionEntityType, ContributionAction } from "@/lib/types/contributions";
+import {
+  ContributionEntityType,
+  ContributionAction,
+} from "@/lib/types/contributions";
 import { useI18n } from "@/components/providers/i18n-provider";
 
 /**
@@ -27,7 +30,8 @@ function filterExcludedFields(
 ): Partial<CreateSeriesDto> {
   return Object.fromEntries(
     Object.entries(data).filter(
-      ([key]) => !EXCLUDED_FIELDS.includes(key as typeof EXCLUDED_FIELDS[number]),
+      ([key]) =>
+        !EXCLUDED_FIELDS.includes(key as (typeof EXCLUDED_FIELDS)[number]),
     ),
   ) as Partial<CreateSeriesDto>;
 }
@@ -57,12 +61,13 @@ export function useSubmitContribution() {
     };
 
     try {
-      const contribution = await createContribution.mutateAsync(contributionDto);
-      
+      const contribution =
+        await createContribution.mutateAsync(contributionDto);
+
       // Show success message with link to contribution
       // Redirect back to series page
       router.push(`/series/${seriesId}`);
-      
+
       return contribution;
     } catch (error) {
       // Error is already handled by useCreateContribution hook

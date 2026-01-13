@@ -10,7 +10,7 @@ import {
   Heart,
   Share2,
   Star,
-  User
+  User,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,10 +33,7 @@ import { useI18n } from "@/components/providers/i18n-provider";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { Badge } from "@/components/ui/core/badge";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/core/card";
+import { Card, CardContent } from "@/components/ui/core/card";
 import { useContributions } from "@/hooks/admin/useContributions";
 import { useCheckRole } from "@/hooks/permissions";
 import { useSeriesFull } from "@/hooks/series";
@@ -44,7 +41,10 @@ import { usePageMetadata } from "@/hooks/ui";
 import { useMediaQuery } from "@/hooks/ui/useSimpleHooks";
 import { currentUserAtom } from "@/lib/auth";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
-import { ContributionEntityType, ContributionStatus } from "@/lib/types/contributions";
+import {
+  ContributionEntityType,
+  ContributionStatus,
+} from "@/lib/types/contributions";
 import { cn } from "@/lib/utils";
 import { queryKeys } from "@/lib/utils/query-keys";
 import { transformBackendSeries } from "@/lib/utils/series-utils";
@@ -61,9 +61,9 @@ export default function SeriesDetailPage() {
   const { t } = useI18n();
   const seriesId = params.series_id as string;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState<"chapters" | "characters" | "contribute">(
-    "chapters",
-  );
+  const [activeTab, setActiveTab] = useState<
+    "chapters" | "characters" | "contribute"
+  >("chapters");
   const [areLinksExpanded, setAreLinksExpanded] = useState(false);
   const [currentUser] = useAtom(currentUserAtom);
   const queryClient = useQueryClient();
@@ -105,7 +105,11 @@ export default function SeriesDetailPage() {
 
   // Fetch approved contributions for this series - only when contribute tab is active
   const shouldLoadContributions =
-    isSeriesFetched && !isLoading && !error && !!series && activeTab === "contribute";
+    isSeriesFetched &&
+    !isLoading &&
+    !error &&
+    !!series &&
+    activeTab === "contribute";
 
   const { data: contributionsData, isLoading: contributionsLoading } =
     useContributions(
@@ -302,7 +306,12 @@ export default function SeriesDetailPage() {
                             size="default"
                           >
                             <Edit className="h-4 w-4 mr-2" />
-                            {t("contribute.updateButton", "series", {}, "Update")}
+                            {t(
+                              "contribute.updateButton",
+                              "series",
+                              {},
+                              "Update",
+                            )}
                           </Button>
                         </Link>
                       )}
@@ -773,7 +782,9 @@ export default function SeriesDetailPage() {
                         <Tabs
                           value={activeTab}
                           onValueChange={(value) =>
-                            setActiveTab(value as "chapters" | "characters" | "contribute")
+                            setActiveTab(
+                              value as "chapters" | "characters" | "contribute",
+                            )
                           }
                           className="w-full"
                         >
@@ -794,7 +805,12 @@ export default function SeriesDetailPage() {
                             <TabsTrigger value="contribute">
                               <GitMerge className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                               <span>
-                                {t("contribute.tabTitle", "series", {}, "Contributions")}
+                                {t(
+                                  "contribute.tabTitle",
+                                  "series",
+                                  {},
+                                  "Contributions",
+                                )}
                               </span>
                             </TabsTrigger>
                           </TabsList>
@@ -825,22 +841,35 @@ export default function SeriesDetailPage() {
                                   {/* Header */}
                                   <div>
                                     <h3 className="text-xl sm:text-2xl font-bold mb-2">
-                                      {t("contribute.approvedTitle", "series", {}, "Approved Contributions")}
+                                      {t(
+                                        "contribute.approvedTitle",
+                                        "series",
+                                        {},
+                                        "Approved Contributions",
+                                      )}
                                     </h3>
                                     <p className="text-sm text-muted-foreground">
-                                      {t("contribute.approvedDescription", "series", {}, "List of approved contribution requests for this series")}
+                                      {t(
+                                        "contribute.approvedDescription",
+                                        "series",
+                                        {},
+                                        "List of approved contribution requests for this series",
+                                      )}
                                     </p>
                                   </div>
 
                                   {/* Contributions List */}
-                                  {contributionsData?.result && contributionsData.result.length > 0 ? (
+                                  {contributionsData?.result &&
+                                  contributionsData.result.length > 0 ? (
                                     <div className="space-y-4">
-                                      {contributionsData.result.map((contribution) => (
-                                        <ContributionCard
-                                          key={contribution.id}
-                                          contribution={contribution}
-                                        />
-                                      ))}
+                                      {contributionsData.result.map(
+                                        (contribution) => (
+                                          <ContributionCard
+                                            key={contribution.id}
+                                            contribution={contribution}
+                                          />
+                                        ),
+                                      )}
                                     </div>
                                   ) : (
                                     <Card className="border-dashed">
@@ -848,10 +877,20 @@ export default function SeriesDetailPage() {
                                         <div className="text-center space-y-2">
                                           <CheckCircle2 className="h-12 w-12 text-muted-foreground mx-auto opacity-50" />
                                           <p className="text-sm font-medium text-muted-foreground">
-                                            {t("contribute.noApproved", "series", {}, "No approved contributions yet")}
+                                            {t(
+                                              "contribute.noApproved",
+                                              "series",
+                                              {},
+                                              "No approved contributions yet",
+                                            )}
                                           </p>
                                           <p className="text-xs text-muted-foreground">
-                                            {t("contribute.noApprovedHint", "series", {}, "Be the first to contribute to this series!")}
+                                            {t(
+                                              "contribute.noApprovedHint",
+                                              "series",
+                                              {},
+                                              "Be the first to contribute to this series!",
+                                            )}
                                           </p>
                                         </div>
                                       </CardContent>

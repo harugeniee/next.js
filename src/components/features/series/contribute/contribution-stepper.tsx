@@ -90,7 +90,9 @@ export function ContributionStepper({
                   <div
                     className={cn(
                       "absolute top-1/2 left-1/2 h-0.5 z-0",
-                      completedSteps.includes(step) ? "bg-primary" : "bg-border",
+                      completedSteps.includes(step)
+                        ? "bg-primary"
+                        : "bg-border",
                     )}
                     style={{
                       width: "calc(100% - 20px)",

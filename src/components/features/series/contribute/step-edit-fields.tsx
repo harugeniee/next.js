@@ -61,7 +61,12 @@ export function StepEditFields({
       {selectedCategories.length === 0 && (
         <div className="rounded-lg border border-dashed p-8 text-center">
           <p className="text-sm text-muted-foreground">
-            {t("contribute.editFields.noCategories", "series", {}, "Please go back and select at least one category")}
+            {t(
+              "contribute.editFields.noCategories",
+              "series",
+              {},
+              "Please go back and select at least one category",
+            )}
           </p>
         </div>
       )}
@@ -84,11 +89,7 @@ export function StepEditFields({
           <h3 className="text-lg font-semibold">
             {t("contribute.categories.media", "series")}
           </h3>
-          <StepMedia
-            formData={formData}
-            onChange={onChange}
-            errors={errors}
-          />
+          <StepMedia formData={formData} onChange={onChange} errors={errors} />
         </div>
       )}
 
@@ -97,7 +98,11 @@ export function StepEditFields({
           <h3 className="text-lg font-semibold">
             {t("contribute.categories.content", "series")}
           </h3>
-          <StepContent formData={formData} onChange={onChange} errors={errors} />
+          <StepContent
+            formData={formData}
+            onChange={onChange}
+            errors={errors}
+          />
         </div>
       )}
 

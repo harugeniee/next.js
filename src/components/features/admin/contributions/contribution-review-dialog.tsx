@@ -50,9 +50,13 @@ export function ContributionReviewDialog({
   const { t } = useI18n();
 
   const isApprove = mode === "approve";
-  const schema = isApprove ? approveContributionSchema : rejectContributionSchema;
+  const schema = isApprove
+    ? approveContributionSchema
+    : rejectContributionSchema;
 
-  const form = useForm<ApproveContributionFormData | RejectContributionFormData>({
+  const form = useForm<
+    ApproveContributionFormData | RejectContributionFormData
+  >({
     resolver: zodResolver(schema),
     defaultValues: {
       adminNotes: "",
@@ -65,7 +69,12 @@ export function ContributionReviewDialog({
   ) => {
     const reviewData: ReviewContributionDto = {
       adminNotes: data.adminNotes || undefined,
-      ...(isApprove ? {} : { rejectionReason: (data as RejectContributionFormData).rejectionReason }),
+      ...(isApprove
+        ? {}
+        : {
+            rejectionReason: (data as RejectContributionFormData)
+              .rejectionReason,
+          }),
     };
 
     await onSubmit(reviewData);
@@ -99,7 +108,10 @@ export function ContributionReviewDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             {!isApprove && (
               <FormField
                 control={form.control}

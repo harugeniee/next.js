@@ -30,7 +30,11 @@ export default function ContributionDetailPage() {
   const { t } = useI18n();
   const contributionId = params.id as string;
 
-  const { data: contribution, isLoading, error } = useContribution(contributionId);
+  const {
+    data: contribution,
+    isLoading,
+    error,
+  } = useContribution(contributionId);
   const approveContributionMutation = useApproveContribution();
   const rejectContributionMutation = useRejectContribution();
 
@@ -42,7 +46,12 @@ export default function ContributionDetailPage() {
   // Update page metadata
   usePageMetadata({
     title: contributionTitle,
-    description: t("contributions.detail.description", "admin", {}, "View and review contribution details"),
+    description: t(
+      "contributions.detail.description",
+      "admin",
+      {},
+      "View and review contribution details",
+    ),
   });
 
   // Show 404 if contribution not found
@@ -80,7 +89,12 @@ export default function ContributionDetailPage() {
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem className="hidden md:block">
               <BreadcrumbLink href="/admin/contributions">
-                {t("contributions.breadcrumb.contributions", "admin", {}, "Contributions")}
+                {t(
+                  "contributions.breadcrumb.contributions",
+                  "admin",
+                  {},
+                  "Contributions",
+                )}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
@@ -88,7 +102,12 @@ export default function ContributionDetailPage() {
               <BreadcrumbPage>
                 {contribution
                   ? contributionTitle
-                  : t("contributions.detail.title", "admin", {}, "Contribution Detail")}
+                  : t(
+                      "contributions.detail.title",
+                      "admin",
+                      {},
+                      "Contribution Detail",
+                    )}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -102,7 +121,12 @@ export default function ContributionDetailPage() {
             {contributionTitle}
           </h1>
           <p className="text-muted-foreground mt-2">
-            {t("contributions.detail.description", "admin", {}, "View and review contribution details")}
+            {t(
+              "contributions.detail.description",
+              "admin",
+              {},
+              "View and review contribution details",
+            )}
           </p>
         </div>
       </AnimatedSection>
@@ -112,7 +136,13 @@ export default function ContributionDetailPage() {
         <AnimatedSection loading={false} data={true}>
           <div className="rounded-lg border border-destructive bg-destructive/10 p-4">
             <p className="text-sm text-destructive">
-              {t("contributions.detail.error", "admin", {}, "Error loading contribution")}: {error.message}
+              {t(
+                "contributions.detail.error",
+                "admin",
+                {},
+                "Error loading contribution",
+              )}
+              : {error.message}
             </p>
           </div>
         </AnimatedSection>

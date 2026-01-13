@@ -2,7 +2,13 @@
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { Button } from "@/components/ui/core/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/core/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/core/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/core/label";
 import { ContributionCategory } from "@/lib/validators/contribution-series";
@@ -72,8 +78,18 @@ export function StepSelectCategories({
           onClick={allSelected ? onDeselectAll : onSelectAll}
         >
           {allSelected
-            ? t("contribute.selectCategories.deselectAll", "series", {}, "Deselect All")
-            : t("contribute.selectCategories.selectAll", "series", {}, "Select All")}
+            ? t(
+                "contribute.selectCategories.deselectAll",
+                "series",
+                {},
+                "Deselect All",
+              )
+            : t(
+                "contribute.selectCategories.selectAll",
+                "series",
+                {},
+                "Select All",
+              )}
         </Button>
       </div>
 
@@ -102,7 +118,12 @@ export function StepSelectCategories({
                   />
                   <Icon className="h-5 w-5 text-muted-foreground" />
                   <CardTitle className="text-base">
-                    {t(`contribute.categories.${category}`, "series", {}, category)}
+                    {t(
+                      `contribute.categories.${category}`,
+                      "series",
+                      {},
+                      category,
+                    )}
                   </CardTitle>
                 </div>
               </CardHeader>
@@ -123,7 +144,12 @@ export function StepSelectCategories({
       {selectedCategories.length === 0 && (
         <div className="rounded-lg border border-dashed p-4 text-center">
           <p className="text-sm text-muted-foreground">
-            {t("contribute.selectCategories.noSelection", "series", {}, "Please select at least one category to update")}
+            {t(
+              "contribute.selectCategories.noSelection",
+              "series",
+              {},
+              "Please select at least one category to update",
+            )}
           </p>
         </div>
       )}

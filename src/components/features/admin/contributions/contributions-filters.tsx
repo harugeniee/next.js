@@ -88,10 +88,7 @@ export function ContributionsFilters({
   };
 
   const hasActiveFilters =
-    searchValue ||
-    filters.entityType ||
-    filters.action ||
-    filters.status;
+    searchValue || filters.entityType || filters.action || filters.status;
 
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
@@ -113,13 +110,18 @@ export function ContributionsFilters({
             value={filters.entityType || "all"}
             onValueChange={handleEntityTypeChange}
           >
-            <SelectTrigger id="entity-type-filter" className="w-full sm:w-[150px]">
+            <SelectTrigger
+              id="entity-type-filter"
+              className="w-full sm:w-[150px]"
+            >
               <SelectValue
                 placeholder={t("contributions.filters.entityType", "admin")}
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t("contributions.filters.all", "admin")}</SelectItem>
+              <SelectItem value="all">
+                {t("contributions.filters.all", "admin")}
+              </SelectItem>
               {Object.values(ContributionEntityType).map((entityType) => (
                 <SelectItem key={entityType} value={entityType}>
                   {t(`contributions.entityType.${entityType}`, "admin")}
@@ -142,7 +144,9 @@ export function ContributionsFilters({
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t("contributions.filters.all", "admin")}</SelectItem>
+              <SelectItem value="all">
+                {t("contributions.filters.all", "admin")}
+              </SelectItem>
               {Object.values(ContributionAction).map((action) => (
                 <SelectItem key={action} value={action}>
                   {t(`contributions.action.${action}`, "admin")}
@@ -165,7 +169,9 @@ export function ContributionsFilters({
               />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t("contributions.filters.all", "admin")}</SelectItem>
+              <SelectItem value="all">
+                {t("contributions.filters.all", "admin")}
+              </SelectItem>
               {Object.values(ContributionStatus).map((status) => (
                 <SelectItem key={status} value={status}>
                   {t(`contributions.status.${status}`, "admin")}
