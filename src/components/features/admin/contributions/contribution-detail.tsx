@@ -81,6 +81,10 @@ export function ContributionDetail({
     }
   };
 
+  const handleCopyIdClick = () => {
+    handleCopyId();
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case ContributionStatus.PENDING:
@@ -226,7 +230,7 @@ export function ContributionDetail({
                                   variant="ghost"
                                   size="sm"
                                   className="h-6 w-6 p-0"
-                                  onClick={handleCopyId}
+                                  onClick={handleCopyIdClick}
                                   aria-label={t("actions.copy", "common")}
                                 >
                                   <Copy className="h-3 w-3" />
@@ -285,7 +289,7 @@ export function ContributionDetail({
                                   size="sm"
                                   className="h-6 w-6 p-0"
                                   onClick={() =>
-                                    handleCopyId(contribution.entityId)
+                                    handleCopyId(contribution.entityId || undefined)
                                   }
                                   aria-label={t("actions.copy", "common")}
                                 >

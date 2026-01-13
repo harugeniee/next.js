@@ -154,8 +154,10 @@ export default function ContributePage() {
 
       // Extract only the new values from changes
       Object.keys(changes).forEach((key) => {
-        changedData[key as keyof CreateSeriesDto] = changes[key]
-          .new as CreateSeriesDto[keyof CreateSeriesDto];
+        const typedKey = key as keyof CreateSeriesDto;
+        // Type assertion is safe here because we know the key exists in CreateSeriesDto
+        // and the value comes from formData which is typed as Partial<CreateSeriesDto>
+        (changedData as Record<string, unknown>)[typedKey] = changes[key].new;
       });
 
       console.log("Submitting contribution with data:", changedData);
@@ -227,7 +229,7 @@ export default function ContributePage() {
                         ?.map((g) => g.genre?.id)
                         .filter(Boolean) as string[],
                       tagIds: backendSeries.tags
-                        ?.map((t) => t.tag?.id)
+                        ?.map((t) => t.id)
                         .filter(Boolean) as string[],
                       synonyms: backendSeries.synonyms,
                       averageScore: backendSeries.averageScore,

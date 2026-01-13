@@ -52,7 +52,7 @@ function transformSeriesToDto(series: BackendSeries): Partial<CreateSeriesDto> {
     genreIds: series.genres
       ?.map((g) => g.genre?.id)
       .filter(Boolean) as string[],
-    tagIds: series.tags?.map((t) => t.tag?.id).filter(Boolean) as string[],
+    tagIds: series.tags?.map((t) => t.id).filter(Boolean) as string[],
     synonyms: series.synonyms,
     averageScore: series.averageScore,
     // Excluded: meanScore, isLocked, trending, autoCreateForumThread, isRecommendationBlocked, isReviewBlocked, notes
