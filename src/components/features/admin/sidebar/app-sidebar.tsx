@@ -12,7 +12,9 @@ import {
   GalleryVerticalEnd,
   Gauge,
   Key,
+  Layers,
   MessageSquare,
+  Smile,
   Tag,
   UserCircle,
   Users,
@@ -44,15 +46,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // Sample data for teams and navigation (can be replaced with real data later)
   // Translated using i18n keys from admin namespace
   const sampleData = React.useMemo(
-    () => ({
-      teams: [
-        {
-          name: t("teams.acmeInc", "admin"),
-          logo: GalleryVerticalEnd,
-          plan: t("plans.enterprise", "admin"),
-        },
-      ],
-      navMain: [
+    () => {
+      const navMain = [
         {
           title: t("nav.analytics.title", "admin"),
           url: "/admin/analytics",
@@ -107,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: t("stickers.list.title", "admin"),
           url: "/admin/stickers",
-          icon: FileImage,
+          icon: Smile,
         },
         {
           title: t("nav.series.title", "admin"),
@@ -117,7 +112,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: t("nav.genres.title", "admin"),
           url: "/admin/genres",
-          icon: Tag,
+          icon: Layers,
         },
         {
           title: t("nav.tags.title", "admin"),
@@ -139,25 +134,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           url: "/admin/contributions",
           icon: FileText,
         },
-      ],
-      // projects: [
-      //   {
-      //     name: t("projects.designEngineering", "admin"),
-      //     url: "#",
-      //     icon: Frame,
-      //   },
-      //   {
-      //     name: t("projects.salesMarketing", "admin"),
-      //     url: "#",
-      //     icon: PieChart,
-      //   },
-      //   {
-      //     name: t("projects.travel", "admin"),
-      //     url: "#",
-      //     icon: Map,
-      //   },
-      // ],
-    }),
+      ];
+
+      // Sort navigation items alphabetically by title
+      navMain.sort((a, b) => a.title.localeCompare(b.title));
+
+      return {
+        teams: [
+          {
+            name: t("teams.acmeInc", "admin"),
+            logo: GalleryVerticalEnd,
+            plan: t("plans.enterprise", "admin"),
+          },
+        ],
+        navMain,
+        // projects: [
+        //   {
+        //     name: t("projects.designEngineering", "admin"),
+        //     url: "#",
+        //     icon: Frame,
+        //   },
+        //   {
+        //     name: t("projects.salesMarketing", "admin"),
+        //     url: "#",
+        //     icon: PieChart,
+        //   },
+        //   {
+        //     name: t("projects.travel", "admin"),
+        //     url: "#",
+        //     icon: Map,
+        //   },
+        // ],
+      };
+    },
     [t],
   );
 
