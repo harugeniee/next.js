@@ -8,14 +8,14 @@ export function cn(...inputs: ClassValue[]) {
 // Re-export error utilities
 export {
   extractAndTranslateErrorMessage,
-  extractErrorMessage,
+  extractErrorMessage
 } from "./error-extractor";
 
 // Re-export image scrambler utilities
 export {
   base64UrlToUint8Array,
   createRngFromSeed,
-  generatePermutation,
+  generatePermutation
 } from "./image-scrambler";
 
 // Re-export image compression utilities
@@ -25,7 +25,7 @@ export {
   compressImagesWithResults,
   compressImageWithResult,
   type CompressionOptions,
-  type CompressionResult,
+  type CompressionResult
 } from "./image-compression";
 
 // Re-export query utilities
@@ -36,21 +36,24 @@ export {
   createMutationErrorHandler,
   createMutationSuccessHandler,
   createOptimisticUpdate,
-  queryInvalidation,
+  queryInvalidation
 } from "./query-utils";
 
 // Re-export series utilities
 export {
   transformBackendSeries,
   transformBackendSeriesList,
-  transformToPopularSeries,
+  transformToPopularSeries
 } from "./series-utils";
 
 // Re-export permission utilities
 export {
   isPermissionDeniedPage,
-  redirectToPermissionDenied,
+  redirectToPermissionDenied
 } from "./permission-utils";
+
+// Re-export markdown utilities
+export { markdownToHtml } from "./markdown";
 
 /**
  * Get avatar URL from User object

@@ -2,8 +2,8 @@
 
 import { FileText } from "lucide-react";
 import Link from "next/link";
-import { useMemo } from "react";
 import { notFound, useParams } from "next/navigation";
+import { useMemo } from "react";
 
 import { BreadcrumbNav } from "@/components/features/navigation";
 import { useI18n } from "@/components/providers/i18n-provider";
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui";
 import { ContentRenderer } from "@/components/ui/utilities/content-renderer";
 import { useKeyValueByKey } from "@/hooks/admin/useKeyValue";
 import { useBreadcrumb, usePageMetadata } from "@/hooks/ui";
-import { markdownToHtml } from "@/lib/utils/markdown";
+import { markdownToHtml } from "@/lib/utils";
 
 /**
  * Legal page key mapping
@@ -58,17 +58,16 @@ export default function LegalPage() {
   } = useKeyValueByKey(keyValueKey || "");
 
   // Convert markdown value to HTML
+  const value = keyValue?.value;
   const htmlContent = useMemo(() => {
-    if (!keyValue?.value) return "";
+    if (!value) return "";
 
     // Value from API can be string or object, handle both cases
     const markdownContent =
-      typeof keyValue.value === "string"
-        ? keyValue.value
-        : JSON.stringify(keyValue.value);
+      typeof value === "string" ? value : JSON.stringify(value);
 
     return markdownToHtml(markdownContent);
-  }, [keyValue?.value]);
+  }, [value]);
 
   // Page title
   const pageTitle = titleKey ? t(titleKey, "common") : slug;
