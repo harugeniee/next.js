@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/layout/dropdown-menu";
 import { Pagination } from "@/components/ui/pagination";
 import type {
+  CreateKeyValueDto,
   KeyValue,
   UpdateKeyValueDto,
 } from "@/lib/interface/key-value.interface";
@@ -79,6 +80,7 @@ export function KeyValueList({
     formData: CreateKeyValueDto | UpdateKeyValueDto,
   ) => {
     if (editingKeyValue) {
+      // In edit mode, formData is always UpdateKeyValueDto
       await onUpdate(editingKeyValue.id, formData as UpdateKeyValueDto);
       setEditingKeyValue(undefined);
     }
