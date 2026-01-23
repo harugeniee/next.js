@@ -946,5 +946,13 @@
   "create": "Tạo",
   "common": {
     "actions": "Hành động"
+  },
+  "legal": {
+    "privacyPolicy": "Chính sách bảo mật",
+    "communityGuidelines": "Nguyên tắc cộng đồng",
+    "contentPolicyForModerators": "Chính sách nội dung cho người kiểm duyệt",
+    "termsOfService": "Điều khoản dịch vụ",
+    "description": "Tài liệu pháp lý",
+    "error": "Không thể tải nội dung"
   }
 }

@@ -48,11 +48,8 @@ export default function KeyValuePage() {
   const keyValuesLoading = keyValuesQuery.isLoading;
 
   // Mutations
-  const {
-    create: createKeyValue,
-    update: updateKeyValue,
-    remove: removeKeyValue,
-  } = useKeyValues(filters);
+  const { update: updateKeyValue, remove: removeKeyValue } =
+    useKeyValues(filters);
 
   // Filter handlers
   const handleFiltersChange = (newFilters: QueryKeyValueDto) => {
@@ -69,12 +66,6 @@ export default function KeyValuePage() {
   };
 
   // CRUD handlers
-  const handleCreateKeyValue = async (
-    data: Parameters<typeof createKeyValue.mutateAsync>[0],
-  ) => {
-    await createKeyValue.mutateAsync(data);
-  };
-
   const handleUpdateKeyValue = async (
     id: string,
     data: Parameters<typeof updateKeyValue.mutateAsync>[0]["dto"],
@@ -136,10 +127,8 @@ export default function KeyValuePage() {
         page={filters.page}
         limit={filters.limit}
         onPageChange={handlePageChange}
-        onCreate={handleCreateKeyValue}
         onUpdate={handleUpdateKeyValue}
         onDelete={handleDeleteKeyValue}
-        isCreating={createKeyValue.isPending}
         isUpdating={updateKeyValue.isPending || removeKeyValue.isPending}
       />
     </div>

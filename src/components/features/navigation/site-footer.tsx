@@ -94,16 +94,22 @@ export function SiteFooter() {
             </h3>
             <div className="flex flex-col gap-2">
               <Link
-                href="/terms"
+                href="/legal/terms-of-service"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t("termsAndPolicies", "series")}
+                {t("legal.termsOfService", "common")}
               </Link>
               <Link
-                href="/privacy"
+                href="/legal/privacy-policy"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t("privacy", "series")}
+                {t("legal.privacyPolicy", "common")}
+              </Link>
+              <Link
+                href="/legal/community-guidelines"
+                className="text-sm text-muted-foreground hover:text-primary"
+              >
+                {t("legal.communityGuidelines", "common")}
               </Link>
             </div>
           </div>

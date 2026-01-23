@@ -31,7 +31,6 @@ import {
 } from "@/components/ui/layout/dropdown-menu";
 import { Pagination } from "@/components/ui/pagination";
 import type {
-  CreateKeyValueDto,
   KeyValue,
   UpdateKeyValueDto,
 } from "@/lib/interface/key-value.interface";
@@ -51,10 +50,8 @@ interface KeyValueListProps {
   page?: number;
   limit?: number;
   onPageChange?: (page: number) => void;
-  onCreate: (data: CreateKeyValueDto) => Promise<void>;
   onUpdate: (id: string, data: UpdateKeyValueDto) => Promise<void>;
   onDelete: (keyValue: KeyValue) => void;
-  isCreating?: boolean;
   isUpdating?: boolean;
 }
 
@@ -64,25 +61,15 @@ export function KeyValueList({
   page = 1,
   limit: _limit = 20, // eslint-disable-line @typescript-eslint/no-unused-vars
   onPageChange,
-  onCreate,
   onUpdate,
   onDelete,
-  isCreating,
   isUpdating,
 }: KeyValueListProps) {
   const { t } = useI18n();
   const router = useRouter();
-  const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [editingKeyValue, setEditingKeyValue] = useState<
     KeyValue | undefined
   >();
-
-  const handleCreate = async (
-    formData: CreateKeyValueDto | UpdateKeyValueDto,
-  ) => {
-    await onCreate(formData as CreateKeyValueDto);
-    setShowCreateDialog(false);
-  };
 
   const handleEdit = (keyValue: KeyValue) => {
     setEditingKeyValue(keyValue);
@@ -131,7 +118,10 @@ export function KeyValueList({
                 {t("keyValue.list.description", "admin")}
               </CardDescription>
             </div>
-            <Button size="sm" onClick={() => setShowCreateDialog(true)}>
+            <Button
+              size="sm"
+              onClick={() => router.push("/admin/key-value/create")}
+            >
               <Plus className="mr-2 h-4 w-4" />
               {t("keyValue.list.create", "admin")}
             </Button>
@@ -313,14 +303,6 @@ export function KeyValueList({
             )}
         </CardContent>
       </Card>
-
-      {/* Create Dialog */}
-      <KeyValueFormDialog
-        open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
-        onSubmit={handleCreate}
-        isLoading={isCreating}
-      />
 
       {/* Edit Dialog */}
       <KeyValueFormDialog

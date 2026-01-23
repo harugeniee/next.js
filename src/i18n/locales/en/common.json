@@ -946,5 +946,13 @@
   "create": "Create",
   "common": {
     "actions": "Actions"
+  },
+  "legal": {
+    "privacyPolicy": "Privacy Policy",
+    "communityGuidelines": "Community Guidelines",
+    "contentPolicyForModerators": "Content Policy for Moderators",
+    "termsOfService": "Terms of Service",
+    "description": "Legal document",
+    "error": "Failed to load content"
   }
 }
