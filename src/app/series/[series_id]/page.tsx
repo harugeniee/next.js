@@ -722,14 +722,23 @@ export default function SeriesDetailPage() {
                             </p>
                             <div className="flex flex-wrap gap-1 sm:gap-1.5">
                               {[...backendSeries.genres]
-                                .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+                                .sort(
+                                  (a, b) =>
+                                    (a.sortOrder ?? 0) - (b.sortOrder ?? 0),
+                                )
                                 .map((genreItem) => {
                                   const genre = genreItem.genre;
                                   if (!genre) return null;
                                   return (
                                     <Badge
-                                      key={genreItem.id || genre.id || genre.name}
-                                      variant={genreItem.isPrimary ? "default" : "secondary"}
+                                      key={
+                                        genreItem.id || genre.id || genre.name
+                                      }
+                                      variant={
+                                        genreItem.isPrimary
+                                          ? "default"
+                                          : "secondary"
+                                      }
                                       className="text-[10px] sm:text-xs"
                                     >
                                       {genre.name}
