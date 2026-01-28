@@ -581,31 +581,6 @@ export default function SeriesDetailPage() {
                             </div>
                           )}
 
-                        {/* Genres */}
-                        {backendSeries?.genres &&
-                          backendSeries.genres.length > 0 && (
-                            <div className="space-y-1 sm:space-y-1.5">
-                              <h3 className="text-[11px] sm:text-xs md:text-xs font-semibold text-muted-foreground mb-1.5 sm:mb-2 uppercase tracking-wide">
-                                {t("metadata.genres", "series")}
-                              </h3>
-                              <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                                {backendSeries.genres.map((genreItem) => {
-                                  const genre = genreItem.genre;
-                                  if (!genre) return null;
-                                  return (
-                                    <Badge
-                                      key={genre.id || genre.name}
-                                      variant="secondary"
-                                      className="text-[10px] sm:text-xs md:text-xs px-2 py-0.5"
-                                    >
-                                      {genre.name}
-                                    </Badge>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-
                         {/* Tags */}
                         {series.tags && series.tags.length > 0 && (
                           <div className="space-y-1 sm:space-y-1.5">
@@ -737,6 +712,33 @@ export default function SeriesDetailPage() {
                             )}
                         </div>
                       )}
+
+                      {/* Genres - below Synonyms, above Description */}
+                      {backendSeries?.genres &&
+                        backendSeries.genres.length > 0 && (
+                          <div className="mt-3 sm:mt-4">
+                            <p className="text-[10px] sm:text-xs font-medium text-muted-foreground mb-1 sm:mb-1.5">
+                              {t("metadata.genres", "series")}
+                            </p>
+                            <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                              {[...backendSeries.genres]
+                                .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+                                .map((genreItem) => {
+                                  const genre = genreItem.genre;
+                                  if (!genre) return null;
+                                  return (
+                                    <Badge
+                                      key={genreItem.id || genre.id || genre.name}
+                                      variant={genreItem.isPrimary ? "default" : "secondary"}
+                                      className="text-[10px] sm:text-xs"
+                                    >
+                                      {genre.name}
+                                    </Badge>
+                                  );
+                                })}
+                            </div>
+                          </div>
+                        )}
 
                       {/* Description - Expandable */}
                       {series.description && (

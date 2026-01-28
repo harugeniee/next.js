@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'anilist.co',
       },
+      {
+        protocol: 'https',
+        hostname: '*.myanimelist.net',
+      },
     ],
     // Enable image optimization
     unoptimized: false,
