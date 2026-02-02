@@ -1,35 +1,35 @@
 import {
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  useQueryClient,
+    useInfiniteQuery,
+    useMutation,
+    useQuery,
+    useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import {
-  SegmentsAPI,
-  type QuerySegmentCursorDto,
-  type QuerySegmentDto,
+    SegmentsAPI,
+    type QuerySegmentCursorDto,
+    type QuerySegmentDto,
 } from "@/lib/api/segments";
 import { SeriesAPI, type QuerySeriesDto } from "@/lib/api/series";
 import type { SeriesSeason } from "@/lib/constants/series.constants";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import type {
-  BackendSeries,
-  CreateSegmentDto,
-  LatestUpdateItem,
-  PopularSeries,
-  Series,
-  SeriesSegment,
-  UpdateSegmentDto,
+    BackendSeries,
+    CreateSegmentDto,
+    LatestUpdateItem,
+    PopularSeries,
+    Series,
+    SeriesSegment,
+    UpdateSegmentDto,
 } from "@/lib/interface/series.interface";
 import type { AdvancedQueryParams } from "@/lib/types";
 import { queryKeys } from "@/lib/utils/query-keys";
 import {
-  transformBackendSeries,
-  transformBackendSeriesList,
-  transformToPopularSeries,
+    transformBackendSeries,
+    transformBackendSeriesList,
+    transformToPopularSeries,
 } from "@/lib/utils/series-utils";
 
 /**
@@ -306,6 +306,40 @@ export function useSeriesList(params?: QuerySeriesDto) {
     },
     staleTime: 2 * 60 * 1000, // 2 minutes
     placeholderData: (previousData) => previousData,
+  });
+}
+
+const LATEST_SERIES_INFINITE_LIMIT = 24;
+
+/**
+ * Hook for fetching latest series with cursor-based infinite scroll.
+ * Uses GET /series/cursor with sortBy=updatedAt, order=DESC.
+ */
+export function useLatestSeriesInfinite() {
+  return useInfiniteQuery({
+    queryKey: queryKeys.series.listCursor({
+      sortBy: "updatedAt",
+      order: "DESC",
+      limit: LATEST_SERIES_INFINITE_LIMIT,
+    }),
+    queryFn: async ({ pageParam }) => {
+      const response = await SeriesAPI.getSeriesCursor({
+        cursor: pageParam as string | undefined,
+        limit: LATEST_SERIES_INFINITE_LIMIT,
+        sortBy: "updatedAt",
+        order: "DESC",
+      });
+      const backendSeries = response.data.result as unknown as BackendSeries[];
+      return {
+        result: transformBackendSeriesList(backendSeries),
+        metaData: response.data.metaData,
+      };
+    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) =>
+      lastPage.metaData.nextCursor ?? undefined,
+    staleTime: 2 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 }
 

@@ -5,9 +5,9 @@
  * @see https://tkdodo.eu/blog/effective-react-query-keys
  */
 
+import { AdvancedQueryParams } from "../types";
 import type { GetBadgeAssignmentDto, GetBadgeDto } from "../types/badges";
 import type { QueryContributionDto } from "../types/contributions";
-import { AdvancedQueryParams } from "../types";
 
 export const queryKeys = {
   // Auth related queries
@@ -72,6 +72,11 @@ export const queryKeys = {
     all: () => ["series"] as const,
     lists: () => ["series", "list"] as const,
     list: (params?: AdvancedQueryParams) => ["series", "list", params] as const,
+    listCursor: (params?: {
+      sortBy?: string;
+      order?: string;
+      limit?: number;
+    }) => ["series", "list", "cursor", params] as const,
     details: () => ["series", "detail"] as const,
     detail: (id: string) => ["series", "detail", id] as const,
     popular: () => ["series", "popular"] as const,

@@ -4,9 +4,10 @@
  */
 
 import type {
-  BackendSeries,
-  Series,
-  SeriesLanguage,
+    BackendSeries,
+    LatestUpdateItem,
+    Series,
+    SeriesLanguage,
 } from "@/lib/interface/series.interface";
 
 /**
@@ -226,5 +227,29 @@ export function transformToPopularSeries(
       : undefined,
     likes: backendSeries.favoriteCount,
     rating: backendSeries.averageScore,
+  };
+}
+
+/**
+ * Map frontend Series to LatestUpdateItem for latest-updates list/card display.
+ * Uses series timestamp (updatedAt/createdAt) and a placeholder chapter for the full latest page.
+ */
+export function seriesToLatestUpdateItem(series: Series): LatestUpdateItem {
+  return {
+    id: series.id,
+    title: series.title,
+    coverUrl: series.coverUrl,
+    chapter: {
+      number: "-",
+      title: "",
+      language: "en",
+      url: `/series/${series.id}`,
+    },
+    groups: [],
+    timestamp: series.timestamp ?? new Date(),
+    commentCount: 0,
+    isNsfw: series.isNsfw,
+    genres: series.genres,
+    tags: series.tags,
   };
 }

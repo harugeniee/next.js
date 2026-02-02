@@ -55,9 +55,6 @@ const NSFWOverlay = ({ onClick }: { onClick: () => void }) => (
       <p className="text-foreground font-semibold text-xs sm:text-sm mb-1">
         NSFW
       </p>
-      <p className="text-muted-foreground text-[10px] sm:text-xs">
-        Click to reveal
-      </p>
     </div>
   </div>
 );

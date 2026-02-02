@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/core/button";
 import { useI18n } from "@/components/providers/i18n-provider";
+import { Button } from "@/components/ui/core/button";
 import type { Series } from "@/lib/interface/series.interface";
 import { cn } from "@/lib/utils";
 import { SeriesCard } from "./series-card";
@@ -13,12 +13,16 @@ import { SeriesCard } from "./series-card";
  * Recommended grid component
  */
 interface RecommendedGridProps {
-  series: Series[];
-  titleI18nKey: string;
-  viewAllI18nKey: string;
-  viewAllHref?: string;
-  variant?: "default" | "compact";
-  className?: string;
+  readonly series: Series[];
+  readonly titleI18nKey: string;
+  readonly viewAllI18nKey: string;
+  readonly viewAllHref?: string;
+  /** When false, hides the "View all" link and button (e.g. on the full list page). Default true. */
+  readonly showViewAll?: boolean;
+  /** When false, hides the title row (use when page already has its own heading). Default true. */
+  readonly showTitle?: boolean;
+  readonly variant?: "default" | "compact";
+  readonly className?: string;
 }
 
 export function RecommendedGrid({
@@ -26,6 +30,8 @@ export function RecommendedGrid({
   titleI18nKey,
   viewAllI18nKey,
   viewAllHref = "/series",
+  showViewAll = true,
+  showTitle = true,
   variant = "default",
   className,
 }: RecommendedGridProps) {
@@ -34,36 +40,42 @@ export function RecommendedGrid({
 
   return (
     <div className={className}>
+      {showTitle && (
       <div className="mb-3 sm:mb-4 flex flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
             {t(titleI18nKey, "series")}
           </h2>
-          {/* Arrow icon - visible on mobile only, inline with heading */}
-          <Link
-            href={viewAllHref}
-            className="sm:hidden flex items-center justify-center"
-            aria-label={t(viewAllI18nKey, "series")}
-          >
-            <ChevronRight className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-          </Link>
+          {/* Arrow icon - visible on mobile only when showViewAll */}
+          {showViewAll && (
+            <Link
+              href={viewAllHref}
+              className="sm:hidden flex items-center justify-center"
+              aria-label={t(viewAllI18nKey, "series")}
+            >
+              <ChevronRight className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+            </Link>
+          )}
         </div>
-        {/* Button with text - visible on desktop only */}
-        <Button
-          asChild
-          variant="ghost"
-          size="sm"
-          className="text-xs sm:text-sm hidden sm:flex"
-        >
-          <Link
-            href={viewAllHref}
-            className="flex items-center gap-1.5 sm:gap-2"
+        {/* Button with text - visible on desktop only when showViewAll */}
+        {showViewAll && (
+          <Button
+            asChild
+            variant="ghost"
+            size="sm"
+            className="text-xs sm:text-sm hidden sm:flex"
           >
-            <span>{t(viewAllI18nKey, "series")}</span>
-            <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-          </Link>
-        </Button>
+            <Link
+              href={viewAllHref}
+              className="flex items-center gap-1.5 sm:gap-2"
+            >
+              <span>{t(viewAllI18nKey, "series")}</span>
+              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+            </Link>
+          </Button>
+        )}
       </div>
+      )}
 
       <div
         className={cn(

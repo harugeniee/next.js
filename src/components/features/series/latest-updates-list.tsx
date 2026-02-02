@@ -56,12 +56,12 @@ function formatRelativeTime(
  * Latest Update Item Card Component
  * Individual card for each latest update item with NSFW support
  */
-interface LatestUpdateItemCardProps {
-  item: LatestUpdateItem;
-  t: (key: string, ns?: string) => string;
+export interface LatestUpdateItemCardProps {
+  readonly item: LatestUpdateItem;
+  readonly t: (key: string, ns?: string) => string;
 }
 
-function LatestUpdateItemCard({ item, t }: LatestUpdateItemCardProps) {
+export function LatestUpdateItemCard({ item, t }: LatestUpdateItemCardProps) {
   const [isNsfwRevealed, setIsNsfwRevealed] = useState(false);
   const isNsfw = item.isNsfw === true;
 
@@ -96,9 +96,6 @@ function LatestUpdateItemCard({ item, t }: LatestUpdateItemCardProps) {
               <EyeOff className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground mx-auto mb-1" />
               <p className="text-foreground font-semibold text-[10px] sm:text-xs mb-0.5">
                 NSFW
-              </p>
-              <p className="text-muted-foreground text-[9px] sm:text-[10px]">
-                Click to reveal
               </p>
             </div>
           </div>
