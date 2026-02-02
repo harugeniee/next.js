@@ -41,40 +41,40 @@ export function RecommendedGrid({
   return (
     <div className={className}>
       {showTitle && (
-      <div className="mb-3 sm:mb-4 flex flex-row items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
-            {t(titleI18nKey, "series")}
-          </h2>
-          {/* Arrow icon - visible on mobile only when showViewAll */}
+        <div className="mb-3 sm:mb-4 flex flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
+              {t(titleI18nKey, "series")}
+            </h2>
+            {/* Arrow icon - visible on mobile only when showViewAll */}
+            {showViewAll && (
+              <Link
+                href={viewAllHref}
+                className="sm:hidden flex items-center justify-center"
+                aria-label={t(viewAllI18nKey, "series")}
+              >
+                <ChevronRight className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+              </Link>
+            )}
+          </div>
+          {/* Button with text - visible on desktop only when showViewAll */}
           {showViewAll && (
-            <Link
-              href={viewAllHref}
-              className="sm:hidden flex items-center justify-center"
-              aria-label={t(viewAllI18nKey, "series")}
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="text-xs sm:text-sm hidden sm:flex"
             >
-              <ChevronRight className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-            </Link>
+              <Link
+                href={viewAllHref}
+                className="flex items-center gap-1.5 sm:gap-2"
+              >
+                <span>{t(viewAllI18nKey, "series")}</span>
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+              </Link>
+            </Button>
           )}
         </div>
-        {/* Button with text - visible on desktop only when showViewAll */}
-        {showViewAll && (
-          <Button
-            asChild
-            variant="ghost"
-            size="sm"
-            className="text-xs sm:text-sm hidden sm:flex"
-          >
-            <Link
-              href={viewAllHref}
-              className="flex items-center gap-1.5 sm:gap-2"
-            >
-              <span>{t(viewAllI18nKey, "series")}</span>
-              <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-            </Link>
-          </Button>
-        )}
-      </div>
       )}
 
       <div

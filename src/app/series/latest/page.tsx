@@ -33,16 +33,10 @@ export default function SeriesLatestPage() {
       t("viewLastUpdatedTitles", "series"),
   });
 
-  const {
-    data,
-    isLoading,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useLatestSeriesInfinite();
+  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useLatestSeriesInfinite();
 
-  const series: Series[] =
-    data?.pages.flatMap((page) => page.result) ?? [];
+  const series: Series[] = data?.pages.flatMap((page) => page.result) ?? [];
 
   // Intersection Observer for infinite scroll
   useEffect(() => {
@@ -82,7 +76,9 @@ export default function SeriesLatestPage() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>{t("latestUpdatesNav", "series")}</BreadcrumbPage>
+                <BreadcrumbPage>
+                  {t("latestUpdatesNav", "series")}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>

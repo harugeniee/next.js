@@ -4,10 +4,10 @@
  */
 
 import type {
-    BackendSeries,
-    LatestUpdateItem,
-    Series,
-    SeriesLanguage,
+  BackendSeries,
+  LatestUpdateItem,
+  Series,
+  SeriesLanguage,
 } from "@/lib/interface/series.interface";
 
 /**

@@ -1,35 +1,35 @@
 import {
-    useInfiniteQuery,
-    useMutation,
-    useQuery,
-    useQueryClient,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import {
-    SegmentsAPI,
-    type QuerySegmentCursorDto,
-    type QuerySegmentDto,
+  SegmentsAPI,
+  type QuerySegmentCursorDto,
+  type QuerySegmentDto,
 } from "@/lib/api/segments";
 import { SeriesAPI, type QuerySeriesDto } from "@/lib/api/series";
 import type { SeriesSeason } from "@/lib/constants/series.constants";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import type {
-    BackendSeries,
-    CreateSegmentDto,
-    LatestUpdateItem,
-    PopularSeries,
-    Series,
-    SeriesSegment,
-    UpdateSegmentDto,
+  BackendSeries,
+  CreateSegmentDto,
+  LatestUpdateItem,
+  PopularSeries,
+  Series,
+  SeriesSegment,
+  UpdateSegmentDto,
 } from "@/lib/interface/series.interface";
 import type { AdvancedQueryParams } from "@/lib/types";
 import { queryKeys } from "@/lib/utils/query-keys";
 import {
-    transformBackendSeries,
-    transformBackendSeriesList,
-    transformToPopularSeries,
+  transformBackendSeries,
+  transformBackendSeriesList,
+  transformToPopularSeries,
 } from "@/lib/utils/series-utils";
 
 /**
@@ -336,8 +336,7 @@ export function useLatestSeriesInfinite() {
       };
     },
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) =>
-      lastPage.metaData.nextCursor ?? undefined,
+    getNextPageParam: (lastPage) => lastPage.metaData.nextCursor ?? undefined,
     staleTime: 2 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
