@@ -233,4 +233,30 @@ OR
 
 **See `.agent/rules/*.md` for complete rules.**
 
+---
+
+## Available Skills (Slash Commands)
+
+Use these skills by typing `/skill-name arguments` in Claude Code.
+
+| Skill | Purpose | Example |
+|-------|---------|---------|
+| `/admin-module` | Scaffold complete admin CRUD module | `/admin-module Publisher /publishers` |
+| `/api` | Create API wrapper class | `/api Publisher /publishers` |
+| `/hook` | Create TanStack Query hook | `/hook usePublisher publishers` |
+| `/interface` | Create TypeScript interface + DTOs | `/interface Publisher` |
+| `/validator` | Create Zod validation schema | `/validator Publisher` |
+| `/constant` | Create constants file with types | `/constant Publisher` |
+| `/form` | Create React Hook Form component | `/form CreatePublisher Publisher` |
+| `/dialog` | Create Dialog with form | `/dialog Create Publisher` |
+| `/provider` | Create Context Provider | `/provider Notification` |
+| `/list-page` | Create list page with table | `/list-page Publisher admin` |
+| `/detail-page` | Create detail page with tabs | `/detail-page Publisher admin/publishers/[publisher_id]` |
+| `/test` | Create Jest test file | `/test admin/publishers` |
+| `/i18n` | Add i18n translations | `/i18n admin key="value"` |
+| `/feature` | Scaffold new feature | `/feature Article articles/[article_id]` |
+| `/seo-page` | Create SEO-optimized page | `/seo-page articles/[article_id] Article` |
+
+> **Tip**: Use `/admin-module` for maximum productivity - it creates interface, constants, validator, hook, page, components, and i18n keys in one command.
+
 
