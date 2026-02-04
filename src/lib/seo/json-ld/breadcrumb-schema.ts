@@ -39,7 +39,7 @@ export function generateBreadcrumbJsonLd(
 
   const itemListElement = items.map((item, index) => {
     const position = index + 1;
-    
+
     // Determine the full URL for the breadcrumb item
     let itemUrl: string | undefined;
     if (!item.url) {
