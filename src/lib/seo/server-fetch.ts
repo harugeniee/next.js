@@ -9,10 +9,10 @@
  * 3. Next.js fetch has built-in caching and revalidation
  */
 
-import type { BackendSeries } from "@/lib/interface/series.interface";
 import { SEO_CONSTANTS } from "@/lib/constants/seo.constants";
+import type { BackendSeries } from "@/lib/interface/series.interface";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 interface FetchOptions {
   /** Cache revalidation time in seconds. Use `false` for no caching */
