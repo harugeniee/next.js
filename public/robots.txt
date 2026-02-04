@@ -1,10 +1,14 @@
 # robots.txt for MangaSBS
-# Prevent search engines from indexing admin pages
+# Control search engine crawling behavior
 
 User-agent: *
 Allow: /
+
+# Private/authenticated pages
 Disallow: /admin
+Disallow: /auth
+Disallow: /settings
+Disallow: /write
 
-# Sitemap (add your sitemap URL here when available)
-# Sitemap: https://yourdomain.com/sitemap.xml
-
+# Sitemap location
+Sitemap: https://mangasbs.com/sitemap.xml
