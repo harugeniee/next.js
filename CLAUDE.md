@@ -45,10 +45,11 @@ You are a Senior Front-End Developer expert in React 19, Next.js 16, TypeScript 
 
 ### Next.js 16 Specific
 
-- All pages are client components with `"use client"`
-- App is wrapped in `NoSSR` provider (no server-side rendering)
-- Use `useParams()` hook for route parameters
+- Most pages are client components with `"use client"`
+- App is wrapped in `NoSSR` provider (no server-side rendering for content)
+- Use `useParams()` hook for route parameters in client components
 - No Server Actions or API routes (frontend-only)
+- **SEO-critical pages use hybrid pattern** (server component + client content)
 
 ---
 
@@ -134,23 +135,72 @@ import { currentUserAtom, authLoadingAtom } from "@/lib/auth";
 const [user, setUser] = useAtom(currentUserAtom);
 ```
 
+### SEO (Hybrid Pattern)
+
+SEO-critical pages use a **hybrid pattern**: server component for metadata + client component for content.
+
+```typescript
+// page.tsx (Server Component - NO "use client")
+import type { Metadata } from "next";
+import { fetchSeriesForSEO } from "@/lib/seo/server-fetch";
+import { generateSeriesMetadata } from "@/lib/seo/metadata-generators";
+import { generateSeriesJsonLd, generateBreadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { JsonLdScript } from "@/components/seo";
+import { SeriesDetailContent } from "./_components";
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { series_id } = await params;
+  const series = await fetchSeriesForSEO(series_id);
+  return generateSeriesMetadata(series, series_id);
+}
+
+export default async function Page({ params }: Props) {
+  const { series_id } = await params;
+  const series = await fetchSeriesForSEO(series_id);
+
+  return (
+    <>
+      {series && <JsonLdScript data={generateSeriesJsonLd(series, series_id)} />}
+      <SeriesDetailContent seriesId={series_id} />
+    </>
+  );
+}
+```
+
+**SEO utilities location**: `@/lib/seo/`
+- `server-fetch.ts` - Server-side fetch for metadata (uses native fetch, not axios)
+- `metadata-generators.ts` - Generate Next.js Metadata objects
+- `json-ld/` - JSON-LD structured data generators (series, breadcrumbs)
+
+**Components**: `@/components/seo/`
+- `JsonLdScript` - Injects JSON-LD into page
+
 ---
 
 ## Project Structure
 
 ```
 src/
-├── app/                    # App Router pages (all client components)
+├── app/                    # App Router pages
+│   ├── sitemap.ts          # Dynamic sitemap generation
+│   └── series/[series_id]/
+│       ├── page.tsx        # Server component (SEO metadata)
+│       └── _components/    # Client components
 ├── components/
 │   ├── ui/                 # shadcn/ui primitives
 │   ├── features/           # Domain components
 │   ├── providers/          # Context providers
+│   ├── seo/                # SEO components (JsonLdScript)
 │   └── shared/             # Reusable utilities
 ├── hooks/                  # React Query hooks + custom hooks
 ├── lib/
 │   ├── api/                # API wrapper classes
 │   ├── http/               # HTTP client + interceptors
 │   ├── auth/               # Firebase + auth store
+│   ├── seo/                # SEO utilities
+│   │   ├── server-fetch.ts # Server-side fetch for metadata
+│   │   ├── metadata-generators.ts
+│   │   └── json-ld/        # JSON-LD schema generators
 │   ├── interface/          # TypeScript interfaces
 │   ├── types/              # TypeScript types
 │   ├── validators/         # Zod schemas
@@ -173,7 +223,14 @@ src/
 - [ ] Uses query key factory
 - [ ] Loading states implemented
 - [ ] Toast notifications working
+- [ ] SEO metadata for public pages (hybrid pattern)
 
 ---
 
 **See `.cursor/rules/*.mdc` for complete rules.**
+
+OR
+
+**See `.agent/rules/*.md` for complete rules.**
+
+
