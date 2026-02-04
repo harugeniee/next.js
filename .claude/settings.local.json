@@ -3,7 +3,11 @@
     "allow": [
       "Bash(yarn lint:*)",
       "Bash(yarn tsc:*)",
-      "Bash(yarn build:*)"
+      "Bash(yarn build:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn why:*)",
+      "Bash(yarn install:*)",
+      "Bash(yarn npm info:*)"
     ]
   }
 }
