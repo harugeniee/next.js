@@ -17,4 +17,10 @@ export {
 } from "./metadata-generators";
 
 // JSON-LD schema generators
-export { generateSeriesJsonLd } from "./json-ld";
+export {
+  generateSeriesJsonLd,
+  generateBreadcrumbJsonLd,
+  getSeriesBreadcrumbItems,
+  getArticleBreadcrumbItems,
+  type BreadcrumbItem,
+} from "./json-ld";

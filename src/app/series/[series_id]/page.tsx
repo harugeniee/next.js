@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { fetchSeriesForSEO } from "@/lib/seo/server-fetch";
 import { generateSeriesMetadata } from "@/lib/seo/metadata-generators";
-import { generateSeriesJsonLd } from "@/lib/seo/json-ld";
+import {
+  generateSeriesJsonLd,
+  generateBreadcrumbJsonLd,
+  getSeriesBreadcrumbItems,
+} from "@/lib/seo/json-ld";
 import { JsonLdScript } from "@/components/seo";
 import { SeriesDetailContent } from "./_components";
 
@@ -36,11 +40,25 @@ export default async function SeriesDetailPage({ params }: Props) {
   // Fetch series data for JSON-LD (Next.js caches this, so it's efficient)
   const series = await fetchSeriesForSEO(series_id);
 
+  // Get series title for breadcrumb
+  const seriesTitle =
+    series?.title?.userPreferred ||
+    series?.title?.english ||
+    series?.title?.romaji ||
+    "Series";
+
   return (
     <>
       {/* JSON-LD Structured Data - renders in document for SEO */}
       {series && (
-        <JsonLdScript data={generateSeriesJsonLd(series, series_id)} />
+        <>
+          <JsonLdScript data={generateSeriesJsonLd(series, series_id)} />
+          <JsonLdScript
+            data={generateBreadcrumbJsonLd(
+              getSeriesBreadcrumbItems(seriesTitle),
+            )}
+          />
+        </>
       )}
 
       {/* Client Component - handles all interactivity */}
