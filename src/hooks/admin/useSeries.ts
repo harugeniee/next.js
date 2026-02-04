@@ -3,7 +3,10 @@ import { toast } from "sonner";
 
 import { useI18n } from "@/components/providers/i18n-provider";
 import { SeriesAPI } from "@/lib/api/series";
-import type { BackendSeries } from "@/lib/interface/series.interface";
+import type {
+  BackendSeries,
+  SyncSeriesResponse,
+} from "@/lib/interface/series.interface";
 import type { ApiResponseOffset } from "@/lib/types";
 import type {
   CreateSeriesDto,
@@ -110,6 +113,34 @@ export function useDeleteSeries() {
     },
     onError: (error) => {
       toast.error(error.message || t("deleteError", "series"));
+    },
+  });
+}
+
+/**
+ * Hook for syncing a series from external source (Jikan/AniList)
+ */
+export function useSyncSeries() {
+  const queryClient = useQueryClient();
+  const { t } = useI18n();
+
+  return useMutation<
+    SyncSeriesResponse,
+    Error,
+    { id: string; source?: "jikan" | "anilist" }
+  >({
+    mutationFn: ({ id, source }) => SeriesAPI.syncSeries(id, source),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.series.admin.all(),
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.series.admin.detail(variables.id),
+      });
+      toast.success(t("syncSuccess", "series"));
+    },
+    onError: (error) => {
+      toast.error(error.message || t("syncError", "series"));
     },
   });
 }

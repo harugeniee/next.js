@@ -679,6 +679,8 @@
   "updateError": "Không thể cập nhật series",
   "deleteSuccess": "Xóa series thành công",
   "deleteError": "Không thể xóa series",
+  "syncSuccess": "Đã thêm vào hàng đợi đồng bộ thành công",
+  "syncError": "Không thể thêm vào hàng đợi đồng bộ",
   "detail": {
     "title": "Chi tiết Series: {{name}}",
     "description": "Xem và quản lý thông tin series",
@@ -688,7 +690,9 @@
       "edit": "Chỉnh sửa Series",
       "delete": "Xóa Series",
       "cancel": "Hủy",
-      "save": "Lưu thay đổi"
+      "save": "Lưu thay đổi",
+      "sync": "Đồng bộ",
+      "syncing": "Đang đồng bộ..."
     },
     "editDescription": "Chỉnh sửa thông tin series bên dưới",
     "sections": {

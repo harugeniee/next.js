@@ -679,6 +679,8 @@
   "updateError": "Failed to update series",
   "deleteSuccess": "Series deleted successfully",
   "deleteError": "Failed to delete series",
+  "syncSuccess": "Sync job queued successfully",
+  "syncError": "Failed to queue sync job",
   "detail": {
     "title": "Series Detail: {{name}}",
     "description": "View and manage series information",
@@ -688,7 +690,9 @@
       "edit": "Edit Series",
       "delete": "Delete Series",
       "cancel": "Cancel",
-      "save": "Save Changes"
+      "save": "Save Changes",
+      "sync": "Sync External",
+      "syncing": "Syncing..."
     },
     "editDescription": "Edit series information below",
     "sections": {

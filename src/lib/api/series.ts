@@ -7,7 +7,10 @@ import type {
   SeriesType,
 } from "@/lib/constants/series.constants";
 import { http } from "@/lib/http";
-import type { BackendSeries } from "@/lib/interface/series.interface";
+import type {
+  BackendSeries,
+  SyncSeriesResponse,
+} from "@/lib/interface/series.interface";
 import type {
   AdvancedQueryParams,
   ApiResponse,
@@ -269,5 +272,22 @@ export class SeriesAPI {
       ApiResponse<{ jobId: string; type: string }>
     >(`${this.BASE_URL}/anilist/crawl`, { params });
     return response.data;
+  }
+
+  /**
+   * Sync series from external source (Jikan/AniList)
+   * Queues a sync job for the series
+   * @param id Series ID
+   * @param source Optional source (jikan or anilist), auto-detects if not provided
+   */
+  static async syncSeries(
+    id: string,
+    source?: "jikan" | "anilist",
+  ): Promise<SyncSeriesResponse> {
+    const response = await http.post<ApiResponse<SyncSeriesResponse>>(
+      `${this.BASE_URL}/${id}/sync`,
+      source ? { source } : {},
+    );
+    return response.data.data;
   }
 }

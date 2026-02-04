@@ -17,6 +17,7 @@ import {
   useSeriesDetail,
   useDeleteSeries,
   useUpdateSeries,
+  useSyncSeries,
 } from "@/hooks/admin/useSeries";
 import { usePageMetadata } from "@/hooks/ui/use-page-metadata";
 import type { BackendSeries } from "@/lib/interface/series.interface";
@@ -35,6 +36,7 @@ export default function SeriesDetailPage() {
   const { data: series, isLoading, error } = useSeriesDetail(seriesId);
   const updateSeriesMutation = useUpdateSeries();
   const deleteSeriesMutation = useDeleteSeries();
+  const syncSeriesMutation = useSyncSeries();
 
   // Get series title for display
   const seriesTitle =
@@ -63,6 +65,14 @@ export default function SeriesDetailPage() {
     } catch (error) {
       // Error handled by mutation
       throw error;
+    }
+  };
+
+  const handleSync = async (id: string) => {
+    try {
+      await syncSeriesMutation.mutateAsync({ id });
+    } catch {
+      // Error handled by mutation
     }
   };
 
@@ -145,9 +155,11 @@ export default function SeriesDetailPage() {
           isLoading={isLoading}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
+          onSync={handleSync}
           isUpdating={
             updateSeriesMutation.isPending || deleteSeriesMutation.isPending
           }
+          isSyncing={syncSeriesMutation.isPending}
         />
       )}
     </div>

@@ -298,3 +298,14 @@ export interface CreateSegmentDto {
  * Update Segment DTO
  */
 export type UpdateSegmentDto = Partial<Omit<CreateSegmentDto, "seriesId">>;
+
+/**
+ * Sync Series Response
+ * Response from POST /series/:id/sync endpoint
+ */
+export interface SyncSeriesResponse {
+  success: boolean;
+  jobId: string;
+  source: "jikan" | "anilist";
+  message: string;
+}

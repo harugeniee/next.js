@@ -19,6 +19,7 @@ import {
   X,
   List,
   Users,
+  RefreshCw,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -58,7 +59,9 @@ interface SeriesDetailProps {
   isLoading: boolean;
   onUpdate: (id: string, data: UpdateSeriesFormData) => Promise<void>;
   onDelete: (series: BackendSeries) => void;
+  onSync?: (id: string) => Promise<void>;
   isUpdating?: boolean;
+  isSyncing?: boolean;
 }
 
 /**
@@ -70,7 +73,9 @@ export function SeriesDetail({
   isLoading,
   onUpdate,
   onDelete,
+  onSync,
   isUpdating,
+  isSyncing,
 }: SeriesDetailProps) {
   const { t } = useI18n();
   const [isEditMode, setIsEditMode] = useState(false);
@@ -202,6 +207,20 @@ export function SeriesDetail({
               <div className="flex gap-2">
                 {!isEditMode ? (
                   <>
+                    {onSync && (
+                      <Button
+                        variant="outline"
+                        onClick={() => onSync(series!.id)}
+                        disabled={isLoading || isSyncing || !series}
+                      >
+                        <RefreshCw
+                          className={`mr-2 h-4 w-4 ${isSyncing ? "animate-spin" : ""}`}
+                        />
+                        {isSyncing
+                          ? t("detail.actions.syncing", "series")
+                          : t("detail.actions.sync", "series")}
+                      </Button>
+                    )}
                     <Button
                       variant="outline"
                       onClick={() => setIsEditMode(true)}
