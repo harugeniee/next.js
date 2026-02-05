@@ -241,9 +241,7 @@ export function SeriesDetail({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           {series?.aniListId && series?.myAnimeListId && (
-                            <DropdownMenuItem
-                              onClick={() => onSync(series.id)}
-                            >
+                            <DropdownMenuItem onClick={() => onSync(series.id)}>
                               {t("detail.actions.syncAuto", "series")}
                             </DropdownMenuItem>
                           )}
