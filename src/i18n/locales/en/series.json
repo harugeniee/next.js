@@ -692,7 +692,11 @@
       "cancel": "Cancel",
       "save": "Save Changes",
       "sync": "Sync External",
-      "syncing": "Syncing..."
+      "syncing": "Syncing...",
+      "syncAuto": "Auto-detect Source",
+      "syncAniList": "Sync from AniList",
+      "syncMAL": "Sync from MyAnimeList",
+      "syncNoExternalId": "No AniList ID or MyAnimeList ID available"
     },
     "editDescription": "Edit series information below",
     "sections": {

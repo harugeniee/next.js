@@ -8,6 +8,7 @@
 import type { Metadata } from "next";
 import type { BackendSeries } from "@/lib/interface/series.interface";
 import { SEO_CONSTANTS } from "@/lib/constants/seo.constants";
+import { getBestCoverImageUrl } from "@/lib/utils/series-utils";
 
 /**
  * Strip HTML tags from a string
@@ -41,13 +42,10 @@ function getSeriesTitle(series: BackendSeries): string {
 
 /**
  * Get cover image URL from series
+ * Handles both AniList format (large, medium, extraLarge) and MAL format (jpg, webp, jpg_large, etc.)
  */
 function getSeriesCoverUrl(series: BackendSeries): string | undefined {
-  return (
-    series.coverImage?.url ||
-    series.coverImageUrls?.large ||
-    series.coverImageUrls?.medium
-  );
+  return series.coverImage?.url || getBestCoverImageUrl(series.coverImageUrls);
 }
 
 /**

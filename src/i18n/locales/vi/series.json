@@ -692,7 +692,11 @@
       "cancel": "Hủy",
       "save": "Lưu thay đổi",
       "sync": "Đồng bộ",
-      "syncing": "Đang đồng bộ..."
+      "syncing": "Đang đồng bộ...",
+      "syncAuto": "Tự động phát hiện nguồn",
+      "syncAniList": "Đồng bộ từ AniList",
+      "syncMAL": "Đồng bộ từ MyAnimeList",
+      "syncNoExternalId": "Không có AniList ID hoặc MyAnimeList ID"
     },
     "editDescription": "Chỉnh sửa thông tin series bên dưới",
     "sections": {

@@ -68,9 +68,9 @@ export default function SeriesDetailPage() {
     }
   };
 
-  const handleSync = async (id: string) => {
+  const handleSync = async (id: string, source?: "jikan" | "anilist") => {
     try {
-      await syncSeriesMutation.mutateAsync({ id });
+      await syncSeriesMutation.mutateAsync({ id, source });
     } catch {
       // Error handled by mutation
     }

@@ -20,6 +20,7 @@ import {
   List,
   Users,
   RefreshCw,
+  ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -45,8 +46,15 @@ import {
   CardTitle,
 } from "@/components/ui/core/card";
 import { Skeleton } from "@/components/ui/core/skeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/layout/dropdown-menu";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import type { BackendSeries } from "@/lib/interface/series.interface";
+import { getBestCoverImageUrl } from "@/lib/utils/series-utils";
 import type { UpdateSeriesFormData } from "@/lib/validators/series";
 import { useSeriesSegments } from "@/hooks/admin/useSegments";
 import { useSeriesCharacters } from "@/hooks/admin/useCharacters";
@@ -59,7 +67,7 @@ interface SeriesDetailProps {
   isLoading: boolean;
   onUpdate: (id: string, data: UpdateSeriesFormData) => Promise<void>;
   onDelete: (series: BackendSeries) => void;
-  onSync?: (id: string) => Promise<void>;
+  onSync?: (id: string, source?: "jikan" | "anilist") => Promise<void>;
   isUpdating?: boolean;
   isSyncing?: boolean;
 }
@@ -118,12 +126,10 @@ export function SeriesDetail({
     series?.title?.native ||
     "Unknown Series";
 
-  // Get cover image URL
+  // Get cover image URL (handles both AniList and MAL formats)
   const getCoverImageUrl = (): string | null => {
     if (series?.coverImage?.url) return series.coverImage.url;
-    if (series?.coverImageUrls?.large) return series.coverImageUrls.large;
-    if (series?.coverImageUrls?.medium) return series.coverImageUrls.medium;
-    return null;
+    return getBestCoverImageUrl(series?.coverImageUrls) ?? null;
   };
 
   // Get banner image URL
@@ -208,18 +214,55 @@ export function SeriesDetail({
                 {!isEditMode ? (
                   <>
                     {onSync && (
-                      <Button
-                        variant="outline"
-                        onClick={() => onSync(series!.id)}
-                        disabled={isLoading || isSyncing || !series}
-                      >
-                        <RefreshCw
-                          className={`mr-2 h-4 w-4 ${isSyncing ? "animate-spin" : ""}`}
-                        />
-                        {isSyncing
-                          ? t("detail.actions.syncing", "series")
-                          : t("detail.actions.sync", "series")}
-                      </Button>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="outline"
+                            disabled={
+                              isLoading ||
+                              isSyncing ||
+                              !series ||
+                              (!series.aniListId && !series.myAnimeListId)
+                            }
+                            title={
+                              !series?.aniListId && !series?.myAnimeListId
+                                ? t("detail.actions.syncNoExternalId", "series")
+                                : undefined
+                            }
+                          >
+                            <RefreshCw
+                              className={`mr-2 h-4 w-4 ${isSyncing ? "animate-spin" : ""}`}
+                            />
+                            {isSyncing
+                              ? t("detail.actions.syncing", "series")
+                              : t("detail.actions.sync", "series")}
+                            <ChevronDown className="ml-2 h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          {series?.aniListId && series?.myAnimeListId && (
+                            <DropdownMenuItem
+                              onClick={() => onSync(series.id)}
+                            >
+                              {t("detail.actions.syncAuto", "series")}
+                            </DropdownMenuItem>
+                          )}
+                          {series?.aniListId && (
+                            <DropdownMenuItem
+                              onClick={() => onSync(series.id, "anilist")}
+                            >
+                              {t("detail.actions.syncAniList", "series")}
+                            </DropdownMenuItem>
+                          )}
+                          {series?.myAnimeListId && (
+                            <DropdownMenuItem
+                              onClick={() => onSync(series.id, "jikan")}
+                            >
+                              {t("detail.actions.syncMAL", "series")}
+                            </DropdownMenuItem>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     )}
                     <Button
                       variant="outline"

@@ -27,8 +27,43 @@ function extractTitle(backendSeries: BackendSeries): string {
 }
 
 /**
+ * Get the best cover image URL from coverImageUrls object
+ * Handles both AniList format (large, medium, extraLarge) and MAL format (jpg, webp, jpg_large, etc.)
+ *
+ * @param coverImageUrls - The coverImageUrls object from API response
+ * @returns The best available image URL or undefined
+ */
+export function getBestCoverImageUrl(
+  coverImageUrls: Record<string, string> | undefined,
+): string | undefined {
+  if (!coverImageUrls) return undefined;
+
+  // AniList format priority: extraLarge > large > medium
+  if (coverImageUrls.extraLarge) return coverImageUrls.extraLarge;
+  if (coverImageUrls.large) return coverImageUrls.large;
+  if (coverImageUrls.medium) return coverImageUrls.medium;
+
+  // MAL format priority: webp_large > jpg_large > webp > jpg > webp_small > jpg_small
+  if (coverImageUrls.webp_large) return coverImageUrls.webp_large;
+  if (coverImageUrls.jpg_large) return coverImageUrls.jpg_large;
+  if (coverImageUrls.webp) return coverImageUrls.webp;
+  if (coverImageUrls.jpg) return coverImageUrls.jpg;
+  if (coverImageUrls.webp_small) return coverImageUrls.webp_small;
+  if (coverImageUrls.jpg_small) return coverImageUrls.jpg_small;
+
+  // Fallback: get first valid URL (skip non-URL values like 'color')
+  for (const value of Object.values(coverImageUrls)) {
+    if (value && typeof value === "string" && value.startsWith("http")) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
+/**
  * Extract cover URL from backend series
- * Priority: coverImage.url > coverImageUrls.large > coverImageUrls.medium > coverImageUrls.small > default
+ * Priority: coverImage.url > coverImageUrls (best size) > metadata.coverImage > default
  */
 function extractCoverUrl(backendSeries: BackendSeries): string {
   // First priority: coverImage relation (Media entity)
@@ -36,31 +71,21 @@ function extractCoverUrl(backendSeries: BackendSeries): string {
     return backendSeries.coverImage.url;
   }
 
-  // Second priority: coverImageUrls object (from AniList API)
-  if (backendSeries.coverImageUrls) {
-    // Try different sizes in order of preference
-    if (backendSeries.coverImageUrls.large) {
-      return backendSeries.coverImageUrls.large;
-    }
-    if (backendSeries.coverImageUrls.medium) {
-      return backendSeries.coverImageUrls.medium;
-    }
-    if (backendSeries.coverImageUrls.small) {
-      return backendSeries.coverImageUrls.small;
-    }
-    // If there's any URL in the object, use the first one
-    const firstUrl = Object.values(backendSeries.coverImageUrls)[0];
-    if (firstUrl) {
-      return firstUrl;
-    }
+  // Second priority: coverImageUrls object (handles both AniList and MAL formats)
+  const bestCoverUrl = getBestCoverImageUrl(backendSeries.coverImageUrls);
+  if (bestCoverUrl) {
+    return bestCoverUrl;
   }
 
+  // Third priority: metadata.coverImage
   if (backendSeries.metadata) {
     const metadata = backendSeries.metadata as Record<string, unknown>;
     const coverImage = metadata["coverImage"] as Record<string, unknown>;
-    const extraLarge = coverImage["extraLarge"] as string;
-    if (extraLarge) {
-      return extraLarge;
+    if (coverImage) {
+      const extraLarge = coverImage["extraLarge"] as string;
+      if (extraLarge) return extraLarge;
+      const large = coverImage["large"] as string;
+      if (large) return large;
     }
   }
 

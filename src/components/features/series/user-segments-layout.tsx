@@ -34,6 +34,7 @@ import { currentUserAtom } from "@/lib/auth";
 import type { SeriesSegment } from "@/lib/interface/series.interface";
 import type { PaginationCursor } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { getBestCoverImageUrl } from "@/lib/utils/series-utils";
 
 interface UserSegmentsLayoutProps {
   readonly userId: string;
@@ -465,24 +466,11 @@ function SegmentItem({ segment, layout, onSegmentClick, t }: SegmentItemProps) {
     if (backendSeries.coverImage?.url) {
       return backendSeries.coverImage.url;
     }
-    if (backendSeries.coverImageUrls) {
-      // Try different sizes in order of preference
-      if (backendSeries.coverImageUrls.large) {
-        return backendSeries.coverImageUrls.large;
-      }
-      if (backendSeries.coverImageUrls.medium) {
-        return backendSeries.coverImageUrls.medium;
-      }
-      if (backendSeries.coverImageUrls.extraLarge) {
-        return backendSeries.coverImageUrls.extraLarge;
-      }
-      // If there's any URL in the object, use the first one
-      const firstUrl = Object.values(backendSeries.coverImageUrls).find(
-        (url) => typeof url === "string" && url.startsWith("http"),
-      );
-      if (firstUrl) {
-        return firstUrl;
-      }
+
+    // Use centralized utility that handles both AniList and MAL formats
+    const bestCoverUrl = getBestCoverImageUrl(backendSeries.coverImageUrls);
+    if (bestCoverUrl) {
+      return bestCoverUrl;
     }
 
     return "/default-article-cover.svg";

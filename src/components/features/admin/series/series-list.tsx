@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/pagination";
 import { SERIES_CONSTANTS } from "@/lib/constants/series.constants";
 import type { BackendSeries } from "@/lib/interface/series.interface";
+import { getBestCoverImageUrl } from "@/lib/utils/series-utils";
 import type { PaginationOffset } from "@/lib/types";
 import type { UpdateSeriesFormData } from "@/lib/validators/series";
 import { SeriesActions } from "./series-actions";
@@ -83,18 +84,12 @@ export function SeriesList({
     );
   };
 
-  // Get cover image URL
+  // Get cover image URL (handles both AniList and MAL formats)
   const getCoverImageUrl = (series: BackendSeries): string | null => {
     if (series.coverImage?.url) {
       return series.coverImage.url;
     }
-    if (series.coverImageUrls?.large) {
-      return series.coverImageUrls.large;
-    }
-    if (series.coverImageUrls?.medium) {
-      return series.coverImageUrls.medium;
-    }
-    return null;
+    return getBestCoverImageUrl(series.coverImageUrls) ?? null;
   };
 
   // Format date for display
