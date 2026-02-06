@@ -17,5 +17,18 @@
   "contentWeeksAgo": "tuần trước",
   "categoriesTech": "CÔNG NGHỆ",
   "categoriesTutorial": "HƯỚNG DẪN",
-  "categoriesInsights": "HIỂU BIẾT"
+  "categoriesInsights": "HIỂU BIẾT",
+  "tabsActivity": "Hoạt Động",
+  "activityPublished": "Đã xuất bản",
+  "activityUploaded": "Đã tải lên",
+  "activityCommented": "Đã bình luận về",
+  "activityFollowed": "Đã theo dõi",
+  "activityLiked": "Đã thích",
+  "activityToday": "Hôm Nay",
+  "activityYesterday": "Hôm Qua",
+  "activityThisWeek": "Tuần Này",
+  "activityEarlier": "Trước Đó",
+  "noActivity": "Không có hoạt động gần đây",
+  "noActivityDescription": "Hoạt động của người dùng sẽ xuất hiện ở đây",
+  "error.loadingActivity": "Không thể tải hoạt động"
 }

@@ -26,6 +26,11 @@ export interface UserProfile {
   };
   location?: string;
   website?: string;
+  socialLinks?: {
+    github?: string;
+    twitter?: string;
+    linkedin?: string;
+  };
   createdAt: string;
   _count?: {
     articles: number;

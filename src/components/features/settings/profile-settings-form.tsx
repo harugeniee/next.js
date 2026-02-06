@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,43 +26,48 @@ import {
 import { useProfileSettings } from "@/hooks/settings";
 
 /**
- * Profile Settings Form Schema
- * Validates profile information input
+ * Build profile form schema with i18n validation messages
  */
-const profileSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name must be at least 2 characters")
-    .max(255, "Name is too long"),
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters")
-    .max(50, "Username is too long"),
-  bio: z.string().max(500, "Bio is too long").optional(),
-  website: z
-    .string()
-    .url("Please enter a valid URL")
-    .optional()
-    .or(z.literal("")),
-  location: z.string().max(100, "Location is too long").optional(),
-  github: z
-    .string()
-    .url("Please enter a valid GitHub URL")
-    .optional()
-    .or(z.literal("")),
-  twitter: z
-    .string()
-    .url("Please enter a valid Twitter URL")
-    .optional()
-    .or(z.literal("")),
-  linkedin: z
-    .string()
-    .url("Please enter a valid LinkedIn URL")
-    .optional()
-    .or(z.literal("")),
-});
+function buildProfileSchema(t: (key: string, namespace: string) => string) {
+  const ns = "settings";
+  return z.object({
+    name: z
+      .string()
+      .min(2, t("profile.validation.nameMin", ns))
+      .max(255, t("profile.validation.nameMax", ns)),
+    username: z
+      .string()
+      .min(3, t("profile.validation.usernameMin", ns))
+      .max(50, t("profile.validation.usernameMax", ns)),
+    bio: z.string().max(500, t("profile.validation.bioMax", ns)).optional(),
+    website: z
+      .string()
+      .url(t("profile.validation.urlInvalid", ns))
+      .optional()
+      .or(z.literal("")),
+    location: z
+      .string()
+      .max(100, t("profile.validation.locationMax", ns))
+      .optional(),
+    github: z
+      .string()
+      .url(t("profile.validation.githubUrlInvalid", ns))
+      .optional()
+      .or(z.literal("")),
+    twitter: z
+      .string()
+      .url(t("profile.validation.twitterUrlInvalid", ns))
+      .optional()
+      .or(z.literal("")),
+    linkedin: z
+      .string()
+      .url(t("profile.validation.linkedinUrlInvalid", ns))
+      .optional()
+      .or(z.literal("")),
+  });
+}
 
-type ProfileFormData = z.infer<typeof profileSchema>;
+type ProfileFormData = z.infer<ReturnType<typeof buildProfileSchema>>;
 
 /**
  * Profile Settings Form Component
@@ -70,6 +76,7 @@ type ProfileFormData = z.infer<typeof profileSchema>;
 export function ProfileSettingsForm() {
   const { t } = useI18n();
   const { profile, updateProfile, isUpdating } = useProfileSettings();
+  const profileSchema = useMemo(() => buildProfileSchema(t), [t]);
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -105,9 +112,9 @@ export function ProfileSettingsForm() {
           {/* Basic Information */}
           <Card>
             <CardHeader>
-              <CardTitle>{t("profileBasicInfo", "settings")}</CardTitle>
+              <CardTitle>{t("profile.basicInfo", "settings")}</CardTitle>
               <CardDescription>
-                {t("profileBasicInfoDescription", "settings")}
+                {t("profile.basicInfoDescription", "settings")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -118,11 +125,11 @@ export function ProfileSettingsForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("profileName", "settings")}</FormLabel>
+                        <FormLabel>{t("profile.name", "settings")}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t(
-                              "profileNamePlaceholder",
+                              "profile.namePlaceholder",
                               "settings",
                             )}
                             {...field}
@@ -139,12 +146,12 @@ export function ProfileSettingsForm() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          {t("profileUsername", "settings")}
+                          {t("profile.username", "settings")}
                         </FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t(
-                              "profileUsernamePlaceholder",
+                              "profile.usernamePlaceholder",
                               "settings",
                             )}
                             {...field}
@@ -161,11 +168,11 @@ export function ProfileSettingsForm() {
                   name="bio"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("profileBio", "settings")}</FormLabel>
+                      <FormLabel>{t("profile.bio", "settings")}</FormLabel>
                       <FormControl>
                         <textarea
                           className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                          placeholder={t("profileBioPlaceholder", "settings")}
+                          placeholder={t("profile.bioPlaceholder", "settings")}
                           {...field}
                         />
                       </FormControl>
@@ -180,11 +187,13 @@ export function ProfileSettingsForm() {
                     name="website"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t("profileWebsite", "settings")}</FormLabel>
+                        <FormLabel>
+                          {t("profile.website", "settings")}
+                        </FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t(
-                              "profileWebsitePlaceholder",
+                              "profile.websitePlaceholder",
                               "settings",
                             )}
                             {...field}
@@ -201,12 +210,12 @@ export function ProfileSettingsForm() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>
-                          {t("profileLocation", "settings")}
+                          {t("profile.location", "settings")}
                         </FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t(
-                              "profileLocationPlaceholder",
+                              "profile.locationPlaceholder",
                               "settings",
                             )}
                             {...field}
@@ -220,8 +229,8 @@ export function ProfileSettingsForm() {
 
                 <Button type="submit" disabled={isUpdating}>
                   {isUpdating
-                    ? t("profileUpdating", "settings")
-                    : t("profileUpdate", "settings")}
+                    ? t("profile.updating", "settings")
+                    : t("profile.update", "settings")}
                 </Button>
               </div>
             </CardContent>
@@ -230,9 +239,9 @@ export function ProfileSettingsForm() {
           {/* Social Links */}
           <Card>
             <CardHeader>
-              <CardTitle>{t("profileSocialLinks", "settings")}</CardTitle>
+              <CardTitle>{t("profile.socialLinks", "settings")}</CardTitle>
               <CardDescription>
-                {t("profileSocialLinksDescription", "settings")}
+                {t("profile.socialLinksDescription", "settings")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -242,11 +251,11 @@ export function ProfileSettingsForm() {
                   name="github"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("profileGithub", "settings")}</FormLabel>
+                      <FormLabel>{t("profile.github", "settings")}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder={t(
-                            "profileGithubPlaceholder",
+                            "profile.githubPlaceholder",
                             "settings",
                           )}
                           {...field}
@@ -262,11 +271,11 @@ export function ProfileSettingsForm() {
                   name="twitter"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("profileTwitter", "settings")}</FormLabel>
+                      <FormLabel>{t("profile.twitter", "settings")}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder={t(
-                            "profileTwitterPlaceholder",
+                            "profile.twitterPlaceholder",
                             "settings",
                           )}
                           {...field}
@@ -282,11 +291,11 @@ export function ProfileSettingsForm() {
                   name="linkedin"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t("profileLinkedin", "settings")}</FormLabel>
+                      <FormLabel>{t("profile.linkedin", "settings")}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder={t(
-                            "profileLinkedinPlaceholder",
+                            "profile.linkedinPlaceholder",
                             "settings",
                           )}
                           {...field}

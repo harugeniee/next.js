@@ -60,15 +60,15 @@ export default function SettingsPage() {
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
             <CardTitle className="text-xl">
-              {t("settingsLoginRequired", "settings")}
+              {t("loginRequired", "settings")}
             </CardTitle>
             <CardDescription>
-              {t("settingsLoginRequiredDescription", "settings")}
+              {t("loginRequiredDescription", "settings")}
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center">
             <Button onClick={handleLoginRedirect}>
-              {t("settingsGoToLogin", "settings")}
+              {t("goToLogin", "settings")}
             </Button>
           </CardContent>
         </Card>
@@ -79,32 +79,32 @@ export default function SettingsPage() {
   const settingsSections = [
     {
       id: "profile",
-      title: t("settingsProfile", "settings"),
-      description: t("settingsProfileDescription", "settings"),
+      title: t("sections.profile", "settings"),
+      description: t("sections.profileDescription", "settings"),
       icon: User,
     },
     {
       id: "account",
-      title: t("settingsAccount", "settings"),
-      description: t("settingsAccountDescription", "settings"),
+      title: t("sections.account", "settings"),
+      description: t("sections.accountDescription", "settings"),
       icon: Shield,
     },
     {
       id: "appearance",
-      title: t("settingsAppearance", "settings"),
-      description: t("settingsAppearanceDescription", "settings"),
+      title: t("sections.appearance", "settings"),
+      description: t("sections.appearanceDescription", "settings"),
       icon: Palette,
     },
     {
       id: "notifications",
-      title: t("settingsNotifications", "settings"),
-      description: t("settingsNotificationsDescription", "settings"),
+      title: t("sections.notifications", "settings"),
+      description: t("sections.notificationsDescription", "settings"),
       icon: Bell,
     },
     {
       id: "privacy",
-      title: t("settingsPrivacy", "settings"),
-      description: t("settingsPrivacyDescription", "settings"),
+      title: t("sections.privacy", "settings"),
+      description: t("sections.privacyDescription", "settings"),
       icon: Lock,
     },
   ];
@@ -116,12 +116,10 @@ export default function SettingsPage() {
         <div className="flex items-center gap-3 mb-2">
           <SettingsIcon className="h-6 w-6 text-primary" />
           <h1 className="text-2xl md:text-3xl font-bold">
-            {t("settingsTitle", "settings")}
+            {t("title", "settings")}
           </h1>
         </div>
-        <p className="text-muted-foreground">
-          {t("settingsSubtitle", "settings")}
-        </p>
+        <p className="text-muted-foreground">{t("subtitle", "settings")}</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-4">
@@ -130,7 +128,7 @@ export default function SettingsPage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">
-                {t("settingsNavigation", "settings")}
+                {t("navigation", "settings")}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -222,7 +220,7 @@ function SettingsContent({ section }: { section: string }) {
       return (
         <div className="text-center py-8">
           <p className="text-muted-foreground">
-            {t("settingsSectionNotFound", "settings")}
+            {t("sectionNotFound", "settings")}
           </p>
         </div>
       );
@@ -248,7 +246,7 @@ function AccountSettings() {
     <div className="space-y-6">
       <div className="text-center py-8">
         <p className="text-muted-foreground">
-          {t("settingsAccountComingSoon", "settings")}
+          {t("sections.accountComingSoon", "settings")}
         </p>
       </div>
     </div>
@@ -274,7 +272,7 @@ function NotificationSettings() {
     <div className="space-y-6">
       <div className="text-center py-8">
         <p className="text-muted-foreground">
-          {t("settingsNotificationsComingSoon", "settings")}
+          {t("sections.notificationsComingSoon", "settings")}
         </p>
       </div>
     </div>
@@ -292,7 +290,7 @@ function PrivacySettings() {
     <div className="space-y-6">
       <div className="text-center py-8">
         <p className="text-muted-foreground">
-          {t("settingsPrivacyComingSoon", "settings")}
+          {t("sections.privacyComingSoon", "settings")}
         </p>
       </div>
     </div>

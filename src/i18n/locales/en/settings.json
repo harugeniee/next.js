@@ -45,7 +45,19 @@
     "twitter": "Twitter",
     "twitterPlaceholder": "https://twitter.com/username",
     "linkedin": "LinkedIn",
-    "linkedinPlaceholder": "https://linkedin.com/in/username"
+    "linkedinPlaceholder": "https://linkedin.com/in/username",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Name is too long",
+      "usernameMin": "Username must be at least 3 characters",
+      "usernameMax": "Username is too long",
+      "bioMax": "Bio is too long",
+      "urlInvalid": "Please enter a valid URL",
+      "locationMax": "Location is too long",
+      "githubUrlInvalid": "Please enter a valid GitHub URL",
+      "twitterUrlInvalid": "Please enter a valid Twitter URL",
+      "linkedinUrlInvalid": "Please enter a valid LinkedIn URL"
+    }
   },
   "appearance": {
     "theme": "Theme Settings",

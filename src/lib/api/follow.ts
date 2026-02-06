@@ -13,6 +13,8 @@ export interface FollowUser {
   reason?: string;
   isVerified?: boolean;
   mutualCount?: number;
+  /** Whether the current user is following this user (when in list context) */
+  isFollowing?: boolean;
 }
 
 export interface FollowingListDto {

@@ -98,7 +98,7 @@ export class SettingsAPI {
   static async getUserSettings(): Promise<UserSettings> {
     try {
       const response = await http.get<ApiResponse<UserSettings>>(
-        `${this.BASE_URL}`,
+        SettingsAPI.BASE_URL,
       );
 
       if (!response.data.success) {
@@ -122,7 +122,7 @@ export class SettingsAPI {
   ): Promise<UserSettings> {
     try {
       const response = await http.put<ApiResponse<UserSettings>>(
-        `${this.BASE_URL}`,
+        SettingsAPI.BASE_URL,
         updateData,
       );
 
@@ -144,7 +144,7 @@ export class SettingsAPI {
     section: keyof UserSettings,
     data: Partial<UserSettings[keyof UserSettings]>,
   ): Promise<UserSettings> {
-    return this.updateSettings({ section, data });
+    return SettingsAPI.updateSettings({ section, data });
   }
 
   /**
@@ -153,7 +153,7 @@ export class SettingsAPI {
   static async resetSettings(): Promise<UserSettings> {
     try {
       const response = await http.post<ApiResponse<UserSettings>>(
-        `${this.BASE_URL}/reset`,
+        `${SettingsAPI.BASE_URL}/reset`,
       );
 
       if (!response.data.success) {
@@ -172,7 +172,7 @@ export class SettingsAPI {
    */
   static async exportUserData(): Promise<Blob> {
     try {
-      const response = await http.get(`${this.BASE_URL}/export`, {
+      const response = await http.get(`${SettingsAPI.BASE_URL}/export`, {
         responseType: "blob",
       });
 
@@ -189,7 +189,7 @@ export class SettingsAPI {
   static async deleteAccount(): Promise<void> {
     try {
       const response = await http.delete<ApiResponse<void>>(
-        `${this.BASE_URL}/account`,
+        `${SettingsAPI.BASE_URL}/account`,
       );
 
       if (!response.data.success) {

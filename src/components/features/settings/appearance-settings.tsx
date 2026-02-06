@@ -25,9 +25,9 @@ export function AppearanceSettings() {
       {/* Theme Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>{t("appearanceTheme", "settings")}</CardTitle>
+          <CardTitle>{t("appearance.theme", "settings")}</CardTitle>
           <CardDescription>
-            {t("appearanceThemeDescription", "settings")}
+            {t("appearance.themeDescription", "settings")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -35,10 +35,10 @@ export function AppearanceSettings() {
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-medium">
-                {t("appearanceColorScheme", "settings")}
+                {t("appearance.colorScheme", "settings")}
               </h4>
               <p className="text-sm text-muted-foreground">
-                {t("appearanceColorSchemeDescription", "settings")}
+                {t("appearance.colorSchemeDescription", "settings")}
               </p>
             </div>
             <ThemeToggle />
@@ -49,7 +49,7 @@ export function AppearanceSettings() {
           {/* Theme Color Selection */}
           <div>
             <h4 className="font-medium mb-3">
-              {t("appearanceThemeColor", "settings")}
+              {t("appearance.themeColor", "settings")}
             </h4>
             <ThemeSelector />
           </div>
@@ -59,19 +59,19 @@ export function AppearanceSettings() {
       {/* Language Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>{t("appearanceLanguage", "settings")}</CardTitle>
+          <CardTitle>{t("appearance.language", "settings")}</CardTitle>
           <CardDescription>
-            {t("appearanceLanguageDescription", "settings")}
+            {t("appearance.languageDescription", "settings")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-medium">
-                {t("appearanceLanguageSelect", "settings")}
+                {t("appearance.languageSelect", "settings")}
               </h4>
               <p className="text-sm text-muted-foreground">
-                {t("appearanceLanguageSelectDescription", "settings")}
+                {t("appearance.languageSelectDescription", "settings")}
               </p>
             </div>
             <LanguageSwitcher />
@@ -82,15 +82,15 @@ export function AppearanceSettings() {
       {/* Editor Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>{t("appearanceEditor", "settings")}</CardTitle>
+          <CardTitle>{t("appearance.editor", "settings")}</CardTitle>
           <CardDescription>
-            {t("appearanceEditorDescription", "settings")}
+            {t("appearance.editorDescription", "settings")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
             <p className="text-muted-foreground">
-              {t("appearanceEditorComingSoon", "settings")}
+              {t("appearance.editorComingSoon", "settings")}
             </p>
           </div>
         </CardContent>
@@ -99,15 +99,15 @@ export function AppearanceSettings() {
       {/* Display Settings */}
       <Card>
         <CardHeader>
-          <CardTitle>{t("appearanceDisplay", "settings")}</CardTitle>
+          <CardTitle>{t("appearance.display", "settings")}</CardTitle>
           <CardDescription>
-            {t("appearanceDisplayDescription", "settings")}
+            {t("appearance.displayDescription", "settings")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
             <p className="text-muted-foreground">
-              {t("appearanceDisplayComingSoon", "settings")}
+              {t("appearance.displayComingSoon", "settings")}
             </p>
           </div>
         </CardContent>

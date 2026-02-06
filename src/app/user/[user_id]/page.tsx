@@ -4,6 +4,8 @@ import { useAtom } from "jotai";
 import {
   BookOpen,
   Calendar,
+  Clock,
+  Linkedin,
   MapPin,
   MessageSquare,
   PenTool,
@@ -21,7 +23,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/animate-ui/components/radix/tabs";
+import { UserArticlesLayout } from "@/components/features/article/user-articles-layout";
 import { UserSegmentsLayout } from "@/components/features/series/user-segments-layout";
+import {
+  UserActivityFeed,
+  UserCommentsLayout,
+} from "@/components/features/user";
 import { useI18n } from "@/components/providers/i18n-provider";
 import { useIsMounted } from "@/components/providers/no-ssr";
 import { AnimatedSection, Skeletonize } from "@/components/shared";
@@ -54,7 +61,7 @@ export default function ProfilePage() {
 
   const [currentUser] = useAtom(currentUserAtom);
   const [activeTab, setActiveTab] = useState<
-    "segments" | "scraps" | "comments"
+    "segments" | "articles" | "scraps" | "comments" | "activity"
   >("segments");
   const isMounted = useIsMounted();
 
@@ -80,7 +87,7 @@ export default function ProfilePage() {
     if (error instanceof Error) {
       return error.message;
     }
-    return "Failed to fetch user profile";
+    return t("userErrorFetchFailed", "user");
   };
 
   // Show error if API call failed
@@ -119,7 +126,7 @@ export default function ProfilePage() {
     profileData?.name ||
     profileData?.username ||
     profileData?.email?.split("@")[0] ||
-    "User";
+    t("userDefaultName", "user");
   const initials = displayName.slice(0, 2).toUpperCase();
   const hasAvatar = profileData?.avatar?.url;
   const isOwnProfile = currentUser && currentUser.id === userId;
@@ -149,14 +156,14 @@ export default function ProfilePage() {
   // Extract follow button content logic
   const renderFollowButtonContent = (): ReactNode => {
     if (isLoadingFollow) {
-      return "...";
+      return t("userActionsLoading", "user");
     }
 
     if (isFollowing) {
       return (
         <>
           <UserPlus className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-          {t("userActionsUnfollow", "user") || "Unfollow"}
+          {t("userActionsUnfollow", "user")}
         </>
       );
     }
@@ -171,9 +178,8 @@ export default function ProfilePage() {
 
   // Extract action button rendering logic
   const renderActionButton = (): ReactNode | null => {
-    // Edit button is currently disabled (temporarily hidden)
-    // Set to true when edit functionality is ready
-    const showEditButton = false;
+    // Show edit button when viewing own profile
+    const showEditButton = isOwnProfile;
 
     if (showEditButton) {
       return (
@@ -184,7 +190,7 @@ export default function ProfilePage() {
               size="sm"
               className="text-xs sm:text-sm h-8 sm:h-9"
             >
-              {t("buttonEdit", "common")}
+              {t("actions.edit", "common")}
             </Button>
           </Link>
         </div>
@@ -227,7 +233,7 @@ export default function ProfilePage() {
                     {hasAvatar && (
                       <AvatarImage
                         src={profileData?.avatar?.url}
-                        alt={`${displayName}'s avatar`}
+                        alt={t("userAvatarAlt", "user", { name: displayName })}
                         className="object-cover"
                       />
                     )}
@@ -320,7 +326,7 @@ export default function ProfilePage() {
                   </div>
 
                   {/* Social Links */}
-                  {profileData?.website && (
+                  {(profileData?.socialLinks || profileData?.website) && (
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                       {profileData.website && (
                         <a
@@ -333,30 +339,64 @@ export default function ProfilePage() {
                         </a>
                       )}
                       <div className="flex items-center gap-1 sm:gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
-                          aria-label="GitHub"
-                        >
-                          <GitHubIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
-                          aria-label="X (Twitter)"
-                        >
-                          <XIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
-                          aria-label="RSS"
-                        >
-                          <Rss className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
+                        {profileData.socialLinks?.github && (
+                          <a
+                            href={profileData.socialLinks.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={t("socialGithubLabel", "user")}
+                          >
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                              <GitHubIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            </Button>
+                          </a>
+                        )}
+                        {profileData.socialLinks?.twitter && (
+                          <a
+                            href={profileData.socialLinks.twitter}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={t("socialTwitterLabel", "user")}
+                          >
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                              <XIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            </Button>
+                          </a>
+                        )}
+                        {profileData.socialLinks?.linkedin && (
+                          <a
+                            href={profileData.socialLinks.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={t("socialLinkedinLabel", "user")}
+                          >
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
+                            >
+                              <Linkedin className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                            </Button>
+                          </a>
+                        )}
+                        {(profileData?._count?.articles || 0) > 0 && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 w-7 sm:h-8 sm:w-8 p-0 hover:bg-accent hover:text-accent-foreground transition-colors"
+                            aria-label={t("socialRssLabel", "user")}
+                          >
+                            <Rss className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
+                        )}
                       </div>
                     </div>
                   )}
@@ -371,7 +411,14 @@ export default function ProfilePage() {
       <Tabs
         value={activeTab}
         onValueChange={(value) =>
-          setActiveTab(value as "segments" | "scraps" | "comments")
+          setActiveTab(
+            value as
+              | "segments"
+              | "articles"
+              | "scraps"
+              | "comments"
+              | "activity",
+          )
         }
         className="w-full"
       >
@@ -392,6 +439,18 @@ export default function ProfilePage() {
                 )}
               </TabsTrigger>
               <TabsTrigger
+                value="articles"
+                className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
+              >
+                <BookOpen className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{t("tabsArticles", "profile")}</span>
+                {profileData?._count?.articles !== undefined && (
+                  <span className="text-[10px] sm:text-xs bg-muted px-1.5 py-0.5 rounded-full">
+                    {profileData._count.articles}
+                  </span>
+                )}
+              </TabsTrigger>
+              <TabsTrigger
                 value="scraps"
                 className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
               >
@@ -408,6 +467,13 @@ export default function ProfilePage() {
                 <MessageSquare className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>{t("tabsComments", "profile")}</span>
               </TabsTrigger>
+              <TabsTrigger
+                value="activity"
+                className="py-3 sm:py-4 px-2 sm:px-4 border-b-2 border-transparent data-[state=active]:border-primary rounded-none bg-transparent hover:bg-transparent"
+              >
+                <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span>{t("tabsActivity", "profile")}</span>
+              </TabsTrigger>
             </TabsList>
           </div>
         </div>
@@ -418,6 +484,15 @@ export default function ProfilePage() {
             <TabsContent value="segments">
               <AnimatedSection loading={isLoading} data={profileData}>
                 <UserSegmentsLayout
+                  userId={userId}
+                  initialLayout="grid"
+                  className="mt-4 sm:mt-6"
+                />
+              </AnimatedSection>
+            </TabsContent>
+            <TabsContent value="articles">
+              <AnimatedSection loading={isLoading} data={profileData}>
+                <UserArticlesLayout
                   userId={userId}
                   initialLayout="grid"
                   className="mt-4 sm:mt-6"
@@ -441,17 +516,12 @@ export default function ProfilePage() {
             </TabsContent>
             <TabsContent value="comments">
               <AnimatedSection loading={isLoading} data={profileData}>
-                <Skeletonize loading={isLoading}>
-                  <div className="text-center py-8 sm:py-12">
-                    <MessageSquare className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mx-auto mb-3 sm:mb-4" />
-                    <h3 className="text-base sm:text-lg font-medium text-foreground mb-2">
-                      {t("contentNoComments", "profile")}
-                    </h3>
-                    <p className="text-sm sm:text-base text-muted-foreground max-w-md mx-auto">
-                      {t("contentNoCommentsDescription", "profile")}
-                    </p>
-                  </div>
-                </Skeletonize>
+                <UserCommentsLayout userId={userId} />
+              </AnimatedSection>
+            </TabsContent>
+            <TabsContent value="activity">
+              <AnimatedSection loading={isLoading} data={profileData}>
+                <UserActivityFeed userId={userId} />
               </AnimatedSection>
             </TabsContent>
           </TabsContents>

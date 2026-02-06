@@ -45,7 +45,19 @@
     "twitter": "Twitter",
     "twitterPlaceholder": "https://twitter.com/tennguoidung",
     "linkedin": "LinkedIn",
-    "linkedinPlaceholder": "https://linkedin.com/in/tennguoidung"
+    "linkedinPlaceholder": "https://linkedin.com/in/tennguoidung",
+    "validation": {
+      "nameMin": "Tên phải có ít nhất 2 ký tự",
+      "nameMax": "Tên quá dài",
+      "usernameMin": "Tên người dùng phải có ít nhất 3 ký tự",
+      "usernameMax": "Tên người dùng quá dài",
+      "bioMax": "Tiểu sử quá dài",
+      "urlInvalid": "Vui lòng nhập URL hợp lệ",
+      "locationMax": "Địa điểm quá dài",
+      "githubUrlInvalid": "Vui lòng nhập URL GitHub hợp lệ",
+      "twitterUrlInvalid": "Vui lòng nhập URL Twitter hợp lệ",
+      "linkedinUrlInvalid": "Vui lòng nhập URL LinkedIn hợp lệ"
+    }
   },
   "appearance": {
     "theme": "Cài Đặt Chủ Đề",

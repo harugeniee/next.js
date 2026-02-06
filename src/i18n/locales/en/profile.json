@@ -17,5 +17,18 @@
   "contentWeeksAgo": "weeks ago",
   "categoriesTech": "TECH",
   "categoriesTutorial": "TUTORIAL",
-  "categoriesInsights": "INSIGHTS"
+  "categoriesInsights": "INSIGHTS",
+  "tabsActivity": "Activity",
+  "activityPublished": "Published",
+  "activityUploaded": "Uploaded",
+  "activityCommented": "Commented on",
+  "activityFollowed": "Followed",
+  "activityLiked": "Liked",
+  "activityToday": "Today",
+  "activityYesterday": "Yesterday",
+  "activityThisWeek": "This Week",
+  "activityEarlier": "Earlier",
+  "noActivity": "No recent activity",
+  "noActivityDescription": "User activity will appear here",
+  "error.loadingActivity": "Failed to load activity"
 }

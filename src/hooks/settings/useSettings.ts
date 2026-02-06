@@ -33,11 +33,11 @@ export function useSettings() {
     mutationFn: SettingsAPI.updateSettings,
     onSuccess: (updatedSettings) => {
       queryClient.setQueryData(["settings", currentUser?.id], updatedSettings);
-      toast.success(t("settingsUpdateSuccess", "settings"));
+      toast.success(t("messages.updateSuccess", "settings"));
     },
     onError: (error) => {
       console.error("Settings update error:", error);
-      toast.error(t("settingsUpdateError", "settings"));
+      toast.error(t("messages.updateError", "settings"));
     },
   });
 
@@ -46,11 +46,11 @@ export function useSettings() {
     mutationFn: SettingsAPI.resetSettings,
     onSuccess: (resetSettings) => {
       queryClient.setQueryData(["settings", currentUser?.id], resetSettings);
-      toast.success(t("settingsResetSuccess", "settings"));
+      toast.success(t("messages.resetSuccess", "settings"));
     },
     onError: (error) => {
       console.error("Settings reset error:", error);
-      toast.error(t("settingsResetError", "settings"));
+      toast.error(t("messages.resetError", "settings"));
     },
   });
 
@@ -68,11 +68,11 @@ export function useSettings() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      toast.success(t("settingsExportSuccess", "settings"));
+      toast.success(t("messages.exportSuccess", "settings"));
     },
     onError: (error) => {
       console.error("Data export error:", error);
-      toast.error(t("settingsExportError", "settings"));
+      toast.error(t("messages.exportError", "settings"));
     },
   });
 
@@ -80,13 +80,13 @@ export function useSettings() {
   const deleteAccountMutation = useMutation({
     mutationFn: SettingsAPI.deleteAccount,
     onSuccess: () => {
-      toast.success(t("settingsAccountDeleted", "settings"));
+      toast.success(t("messages.accountDeleted", "settings"));
       // Redirect to home page or show logout
       window.location.href = "/";
     },
     onError: (error) => {
       console.error("Account deletion error:", error);
-      toast.error(t("settingsAccountDeleteError", "settings"));
+      toast.error(t("messages.accountDeleteError", "settings"));
     },
   });
 
