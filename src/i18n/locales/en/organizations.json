@@ -40,6 +40,73 @@
     "alreadyHaveOrganization": "Already have an organization?",
     "viewOrganizations": "View my organizations"
   },
+  "create": {
+    "title": "Create Organization",
+    "description": "Create a new organization to manage your content and collaborate with others",
+    "form": {
+      "title": "Organization Information",
+      "name": "Organization Name",
+      "namePlaceholder": "Enter organization name",
+      "slug": "URL Slug",
+      "slugPlaceholder": "auto-generated-from-name",
+      "slugHelper": "URL-friendly identifier. Leave empty to auto-generate from name.",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe your organization (supports basic formatting)...",
+      "descriptionHelper": "You can use bold, italic, headings, and lists. Maximum 500 characters.",
+      "websiteUrl": "Website URL",
+      "websiteUrlPlaceholder": "https://example.com",
+      "websiteUrlHelper": "Optional link to your organization's website",
+      "logo": "Organization Logo",
+      "logoUpload": "Upload Logo",
+      "logoUrl": "Or enter logo URL",
+      "logoUrlPlaceholder": "https://example.com/logo.png",
+      "logoPreview": "Logo Preview",
+      "logoHelper": "Upload an image or provide a URL to your logo",
+      "visibility": "Visibility",
+      "visibilityHelper": "Choose who can view your organization",
+      "visibilityPublic": "Public",
+      "visibilityPublicDescription": "Anyone can view your organization profile",
+      "visibilityPrivate": "Private",
+      "visibilityPrivateDescription": "Only members can view your organization",
+      "submit": "Create Organization",
+      "submitting": "Creating...",
+      "cancel": "Cancel",
+      "logoPreviewAlt": "Logo preview",
+      "toastSelectImage": "Please select an image file",
+      "toastImageMaxSize": "Image must be less than 5MB",
+      "toastLogoUploadError": "Failed to upload logo. Please try again."
+    },
+    "editor": {
+      "characterLimitExceeded": "Character limit exceeded",
+      "formattingHint": "You can use formatting, links, and lists",
+      "charactersCount": "{{count}}/{{limit}} characters",
+      "toolbar": {
+        "bold": "Bold (Ctrl+B)",
+        "italic": "Italic (Ctrl+I)",
+        "underline": "Underline (Ctrl+U)",
+        "heading2": "Heading 2",
+        "heading3": "Heading 3",
+        "bulletList": "Bullet List",
+        "orderedList": "Numbered List",
+        "link": "Add Link (Ctrl+K)"
+      },
+      "linkPrompt": "Enter URL:"
+    },
+    "success": "Organization created successfully! Redirecting...",
+    "error": "Failed to create organization. Please check your input and try again."
+  },
+  "settings": {
+    "title": "Organization Settings",
+    "description": "Manage your organization's information and preferences",
+    "unauthorized": "Access Denied",
+    "backToOrganization": "Back to Organization",
+    "form": {
+      "submit": "Save Changes",
+      "submitting": "Saving..."
+    },
+    "success": "Organization updated successfully!",
+    "error": "Failed to update organization. Please try again."
+  },
   "organizationCreated": "Organization created successfully",
   "organizationCreateError": "Failed to create organization",
   "organizationUpdated": "Organization updated successfully",

@@ -40,6 +40,73 @@
     "alreadyHaveOrganization": "Đã có tổ chức?",
     "viewOrganizations": "Xem tổ chức của tôi"
   },
+  "create": {
+    "title": "Tạo tổ chức",
+    "description": "Tạo tổ chức mới để quản lý nội dung và cộng tác với người khác",
+    "form": {
+      "title": "Thông tin tổ chức",
+      "name": "Tên tổ chức",
+      "namePlaceholder": "Nhập tên tổ chức",
+      "slug": "URL Slug",
+      "slugPlaceholder": "tu-dong-tao-tu-ten",
+      "slugHelper": "Định danh thân thiện với URL. Để trống để tự động tạo từ tên.",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Mô tả tổ chức của bạn (hỗ trợ định dạng cơ bản)...",
+      "descriptionHelper": "Bạn có thể sử dụng in đậm, in nghiêng, tiêu đề và danh sách. Tối đa 500 ký tự.",
+      "websiteUrl": "URL trang web",
+      "websiteUrlPlaceholder": "https://example.com",
+      "websiteUrlHelper": "Liên kết tùy chọn đến trang web của tổ chức",
+      "logo": "Logo tổ chức",
+      "logoUpload": "Tải lên Logo",
+      "logoUrl": "Hoặc nhập URL logo",
+      "logoUrlPlaceholder": "https://example.com/logo.png",
+      "logoPreview": "Xem trước Logo",
+      "logoHelper": "Tải lên hình ảnh hoặc cung cấp URL cho logo của bạn",
+      "visibility": "Quyền riêng tư",
+      "visibilityHelper": "Chọn ai có thể xem tổ chức của bạn",
+      "visibilityPublic": "Công khai",
+      "visibilityPublicDescription": "Mọi người có thể xem hồ sơ tổ chức của bạn",
+      "visibilityPrivate": "Riêng tư",
+      "visibilityPrivateDescription": "Chỉ thành viên có thể xem tổ chức của bạn",
+      "submit": "Tạo tổ chức",
+      "submitting": "Đang tạo...",
+      "cancel": "Hủy",
+      "logoPreviewAlt": "Xem trước logo",
+      "toastSelectImage": "Vui lòng chọn file hình ảnh",
+      "toastImageMaxSize": "Hình ảnh phải nhỏ hơn 5MB",
+      "toastLogoUploadError": "Không thể tải lên logo. Vui lòng thử lại."
+    },
+    "editor": {
+      "characterLimitExceeded": "Vượt quá giới hạn ký tự",
+      "formattingHint": "Bạn có thể dùng in đậm, in nghiêng, liên kết và danh sách",
+      "charactersCount": "{{count}}/{{limit}} ký tự",
+      "toolbar": {
+        "bold": "In đậm (Ctrl+B)",
+        "italic": "In nghiêng (Ctrl+I)",
+        "underline": "Gạch chân (Ctrl+U)",
+        "heading2": "Tiêu đề 2",
+        "heading3": "Tiêu đề 3",
+        "bulletList": "Danh sách dấu đầu dòng",
+        "orderedList": "Danh sách đánh số",
+        "link": "Thêm liên kết (Ctrl+K)"
+      },
+      "linkPrompt": "Nhập URL:"
+    },
+    "success": "Tạo tổ chức thành công! Đang chuyển hướng...",
+    "error": "Không thể tạo tổ chức. Vui lòng kiểm tra thông tin và thử lại."
+  },
+  "settings": {
+    "title": "Cài đặt tổ chức",
+    "description": "Quản lý thông tin và tùy chọn của tổ chức",
+    "unauthorized": "Không có quyền truy cập",
+    "backToOrganization": "Quay lại tổ chức",
+    "form": {
+      "submit": "Lưu thay đổi",
+      "submitting": "Đang lưu..."
+    },
+    "success": "Cập nhật tổ chức thành công!",
+    "error": "Không thể cập nhật tổ chức. Vui lòng thử lại."
+  },
   "organizationCreated": "Tạo tổ chức thành công",
   "organizationCreateError": "Không thể tạo tổ chức",
   "organizationUpdated": "Cập nhật tổ chức thành công",
